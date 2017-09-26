@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-08-24" view-index="0" gantt-divider-location="421" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-08-27" view-index="0" gantt-divider-location="643" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
-    <view zooming-state="default:2" id="gantt-chart">
-        <field id="tpd3" name="Name" width="156" order="0"/>
-        <field id="tpd4" name="Begin date" width="48" order="1"/>
-        <field id="tpd5" name="End date" width="60" order="2"/>
-        <field id="tpc0" name="Group Member" width="77" order="3"/>
-        <field id="tpc1" name="Notes" width="76" order="4"/>
+    <view zooming-state="default:0" id="gantt-chart">
+        <field id="tpd3" name="Name" width="175" order="0"/>
+        <field id="tpd4" name="Begin date" width="80" order="1"/>
+        <field id="tpd5" name="End date" width="76" order="2"/>
+        <field id="tpc0" name="Group Member" width="15" order="3"/>
+        <field id="tpc1" name="Notes" width="293" order="4"/>
+        <option id="color.recent"><![CDATA[#009999 #0000cc]]></option>
     </view>
     <view id="resource-table">
         <field id="0" name="Name" width="210" order="0"/>
@@ -39,18 +40,21 @@
         </taskproperties>
         <task id="0" name="Learn Software Engineering Tools" color="#8cb6ce" meeting="false" start="2017-08-31" duration="19" complete="0" expand="true">
             <customproperty taskproperty-id="tpc0" value="Group"/>
-            <task id="5" name="GIT" color="#8cb6ce" meeting="false" start="2017-08-31" duration="16" complete="0" expand="true">
-                <notes><![CDATA[Jack Cummings - I have spent around 4 hours learning/relearning Git & Github.]]></notes>
+            <task id="5" name="GIT" color="#009999" meeting="false" start="2017-08-31" duration="16" complete="0" priority="2" expand="true">
+                <notes><![CDATA[Jack Cummings - I have spent around 4 hours learning/relearning Git & Github.
+Scott McKay - I've been learning GIT by using it for other classes (besides just Software Science).  I've also revied a list of notes I have explaining a bunch of GIT commands.  Overall I've probably spent 4-5 hours learning GIT. ]]></notes>
                 <customproperty taskproperty-id="tpc0" value="Group"/>
                 <customproperty taskproperty-id="tpc1" value="Jake - I spent around 5 hours learning GIT."/>
             </task>
             <task id="7" name="ATOM" color="#8cb6ce" meeting="false" start="2017-09-07" duration="11" complete="0" expand="true">
-                <notes><![CDATA[Jack Cummings - I have spent around an hour playing with Atom & its features.]]></notes>
+                <notes><![CDATA[Jack Cummings - I have spent around an hour playing with Atom & its features.
+Scott McKay - Watched a video showing some neat fetures Atom has! ]]></notes>
                 <customproperty taskproperty-id="tpc0" value="Group"/>
                 <customproperty taskproperty-id="tpc1" value="Jake - I spent about 4 hours learning ATOM."/>
             </task>
-            <task id="12" name="Gantt Chart" color="#8cb6ce" meeting="false" start="2017-09-21" duration="4" complete="0" expand="true">
-                <notes><![CDATA[Jack Cummings - I spent about 30 minutes downloading software for the Gantt chart & learning it.  This also includes the time I spent typing these notes.]]></notes>
+            <task id="12" name="Gantt Chart" color="#0000cc" shape="1,0,0,0,1,0,0,0,1,0,0,0,1,1,1,1" meeting="false" start="2017-09-21" duration="4" complete="0" expand="true">
+                <notes><![CDATA[Jack Cummings - I spent about 30 minutes downloading software for the Gantt chart & learning it.  This also includes the time I spent typing these notes.
+Scott McKay - Spent roughly 45 minutes learning how to use the Gantt Chart]]></notes>
                 <customproperty taskproperty-id="tpc0" value="Group"/>
                 <customproperty taskproperty-id="tpc1" value="Jake - I spent about an hour learning about Gantt Charts."/>
             </task>
