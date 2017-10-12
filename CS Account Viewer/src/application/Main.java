@@ -32,7 +32,7 @@ public class Main extends Application {
 			Scene scene = new Scene(root, 300,200);
 			
 			Text loginText = new Text("Login");
-			loginText.setX(120);
+			loginText.setX(130);
 			loginText.setY(40);
 			loginText.setFont(new Font(20));
 			
@@ -46,6 +46,7 @@ public class Main extends Application {
 			passText.setY(120);
 			passText.setFont(new Font(14));
 			
+			
 			TextField userField = new TextField();
 			userField.setLayoutX(100);
 			userField.setLayoutY(60);
@@ -54,16 +55,30 @@ public class Main extends Application {
 			passField.setLayoutX(100);
 			passField.setLayoutY(100);
 			
+			Text errorText = new Text("");
+			errorText.setLayoutX(40);
+			errorText.setLayoutY(190);
+			errorText.setFill(Color.RED);
+			
+			
+			
 			Button enterButton = new Button();
 			enterButton.setText("Enter");
-			enterButton.setLayoutX(80);
+			enterButton.setLayoutX(130);
 			enterButton.setLayoutY(140);
 			enterButton.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
 				public void handle(ActionEvent arg0) {
-					Scene scene2 = menu.getScene();
-					primaryStage.setScene(scene2);
+					
+					if((userField.getText().toLowerCase().equals("csadmin")) && (passField.getText().toLowerCase().equals("csadmin"))) {
+						Scene scene2 = new Menu().getScene();
+						primaryStage.setScene(scene2);
+					}
+					else {
+						errorText.setText("Incorrect username and password.");
+						
+					}
 					
 				}
 				
@@ -80,6 +95,7 @@ public class Main extends Application {
 			list.add(userField);
 			list.add(passField);
 			list.add(enterButton);
+			list.add(errorText);
 			
 			
 			scene.setFill(Color.WHITE);
