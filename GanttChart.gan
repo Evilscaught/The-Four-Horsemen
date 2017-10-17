@@ -1,12 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-08-27" view-index="0" gantt-divider-location="643" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-09-24" view-index="0" gantt-divider-location="838" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
-    <view zooming-state="default:2" id="gantt-chart">
-        <field id="tpd3" name="Name" width="175" order="0"/>
-        <field id="tpd4" name="Begin date" width="80" order="1"/>
-        <field id="tpd5" name="End date" width="76" order="2"/>
-        <field id="tpc0" name="Group Member" width="15" order="3"/>
-        <field id="tpc1" name="Notes" width="293" order="4"/>
-        <option id="color.recent"><![CDATA[#009999 #0000cc]]></option>
+    <view zooming-state="default:1" id="gantt-chart">
+        <field id="tpd3" name="Name" width="329" order="0"/>
+        <field id="tpd4" name="Begin date" width="84" order="1"/>
+        <field id="tpd5" name="End date" width="88" order="2"/>
+        <field id="tpc0" name="Group Member" width="155" order="3"/>
+        <field id="tpc1" name="Notes" width="178" order="4"/>
+        <timeline><![CDATA[14]]></timeline>
+        <option id="color.recent"><![CDATA[#00cccc #ff0000 #009999 #0000cc]]></option>
     </view>
     <view id="resource-table">
         <field id="0" name="Name" width="210" order="0"/>
@@ -60,6 +61,16 @@ Scott McKay - Spent roughly 45 minutes learning how to use the Gantt Chart
 Dan Bailey - I used gantt charts before, never this program so i am looking around on how to use this program. prob will spend a good hour on it.]]></notes>
                 <customproperty taskproperty-id="tpc0" value="Group"/>
                 <customproperty taskproperty-id="tpc1" value="Jake - I spent about an hour learning about Gantt Charts."/>
+            </task>
+        </task>
+        <task id="13" name="Push #1" meeting="false" start="2017-10-16" duration="2" complete="0" expand="true">
+            <task id="14" name="Create Input-Output Class" color="#ff0000" shape="0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0" meeting="false" start="2017-10-16" duration="2" complete="0" priority="2" expand="true">
+                <notes><![CDATA[Create an input-output file that fetches and saves data for the program. ]]></notes>
+                <customproperty taskproperty-id="tpc0" value="Scott McKay"/>
+                <customproperty taskproperty-id="tpc1" value="Create an input-output file that fetches and saves data for the program"/>
+            </task>
+            <task id="23" name="Create Account Class and Implement Methods" color="#00cccc" shape="0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0" meeting="false" start="2017-10-16" duration="2" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="Scott McKay"/>
             </task>
         </task>
     </tasks>
