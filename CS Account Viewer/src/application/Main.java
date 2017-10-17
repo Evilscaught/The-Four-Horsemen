@@ -1,5 +1,7 @@
 package application;
 	
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -71,8 +73,19 @@ public class Main extends Application {
 				@Override
 				public void handle(ActionEvent arg0) {
 					
+<<<<<<< HEAD
 					if((userField.getText().toLowerCase().equals("csadmin")) && (passField.getText().toLowerCase().equals("csadmin"))) {
 						Scene scene2 = new Menu().getScene();
+=======
+					if((userField.getText().toLowerCase().equals("csadmin")) && (passField.getText().toLowerCase().equals("csci323"))) {
+						Scene scene2 = null;
+						try {
+							scene2 = new Menu().getScene();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+>>>>>>> parent of f5304ea... Signed-off-by: Jacob Wolfe <jacob.wolfe@mso.umt.edu>
 						primaryStage.setScene(scene2);
 					}
 					else {
