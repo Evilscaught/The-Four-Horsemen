@@ -1,5 +1,7 @@
 package application;
 	
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -71,8 +73,14 @@ public class Main extends Application {
 				@Override
 				public void handle(ActionEvent arg0) {
 					
-					if((userField.getText().toLowerCase().equals("csadmin")) && (passField.getText().toLowerCase().equals("csadmin"))) {
-						Scene scene2 = new Menu().getScene();
+					if((userField.getText().toLowerCase().equals("csadmin")) && (passField.getText().toLowerCase().equals("csci323"))) {
+						Scene scene2 = null;
+						try {
+							scene2 = new Menu().getScene();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						primaryStage.setScene(scene2);
 					}
 					else {
@@ -83,8 +91,20 @@ public class Main extends Application {
 				}
 				
 			});
-
 			
+			Button exitButton = new Button();
+			exitButton.setText(" Exit ");
+			exitButton.setLayoutX(200);
+			exitButton.setLayoutY(140);
+			exitButton.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent arg0) {
+					primaryStage.close();				
+				}	
+			});
+
+
 
 			
 			ObservableList list = root.getChildren();
@@ -96,6 +116,7 @@ public class Main extends Application {
 			list.add(passField);
 			list.add(enterButton);
 			list.add(errorText);
+			list.add(exitButton);
 			
 			
 			scene.setFill(Color.WHITE);

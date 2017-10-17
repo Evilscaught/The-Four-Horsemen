@@ -62,6 +62,12 @@ Dan Bailey - I used gantt charts before, never this program so i am looking arou
                 <customproperty taskproperty-id="tpc1" value="Jake - I spent about an hour learning about Gantt Charts."/>
             </task>
         </task>
+        <task id="13" name="Worked on Sprint 1 - 1" color="#8cb6ce" meeting="false" start="2017-10-16" duration="1" complete="0" expand="true">
+            <notes><![CDATA[About 3 hours - Jake]]></notes>
+        </task>
+        <task id="19" name="Worked on Sprint 1" color="#8cb6ce" meeting="false" start="2017-10-17" duration="1" complete="0" expand="true">
+            <notes><![CDATA[Jake - about 2 hours]]></notes>
+        </task>
     </tasks>
     <resources/>
     <allocations/>
