@@ -1,45 +1,41 @@
 package application;
 
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import java.io.IOException;
+import java.net.URL;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class Menu{
-	
-	
-
-	public Scene getScene() {
-		
-		
-		
-		GridPane grid = new GridPane();
-		grid.setMinSize(400, 400);
-		grid.setPadding(new Insets(10,10,10,10));
-		grid.setVgap(5);
-		grid.setHgap(5);
-		grid.setAlignment(Pos.TOP_LEFT);
-		
-		Button addAcctButton = new Button();
-		addAcctButton.setText("Add an Account");
-		
-		Button viewAcctButton = new Button();
-		viewAcctButton.setText("View Account");
-		
-		grid.add(viewAcctButton, 0, 0);
-		grid.add(addAcctButton, 0, 1);
 
 
-		Scene scene = new Scene(grid);
-		scene.setFill(Color.AQUA);
-		return scene;
-		
-	}
-	
+
+    public Scene getScene() throws IOException {
+        String sceneFile = "test1.fxml";
+        Parent root = null;
+        URL    url  = null;
+        try
+        {
+            url  = getClass().getResource( sceneFile );
+            root = FXMLLoader.load( url );
+            System.out.println( "  fxmlResource = " + sceneFile );
+        }
+        catch ( Exception ex )
+        {
+            System.out.println( "Exception on FXMLLoader.load()" );
+            System.out.println( "  * url: " + url );
+            System.out.println( "  * " + ex );
+            System.out.println( "    ----------------------------------------\n" );
+            throw ex;
+        }
+        
+
+        Scene scene = new Scene(root, 600, 400);
+
+        return scene;
+
+    }
+
 
 }
