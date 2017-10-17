@@ -59,7 +59,7 @@ public class Menu2{
 		
 		grid.add(viewAcctButton, 0, 0);
 		grid.add(addAcctButton, 0, 1);
-		grid.add(logoutButton, 55, 80);
+		grid.add(logoutButton, 58, 80);
 		grid.add(exitButton, 60, 80);
 
 
