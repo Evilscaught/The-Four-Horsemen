@@ -1,5 +1,5 @@
 package application;
-	
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -19,89 +19,89 @@ import javafx.scene.text.Text;
 
 
 public class Main extends Application {
-	
-	
+
+
 	public Menu menu;
-	
-	
+
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			
-			
+
+
 			Group root = new Group();
-			
+
 			Scene scene = new Scene(root, 300,200);
-			
+
 			Text loginText = new Text("Login");
 			loginText.setX(130);
 			loginText.setY(40);
 			loginText.setFont(new Font(20));
-			
+
 			Text userText = new Text("Username:");
 			userText.setX(20);
 			userText.setY(80);
 			userText.setFont(new Font(14));
-			
+
 			Text passText = new Text("Password:");
 			passText.setX(20);
 			passText.setY(120);
 			passText.setFont(new Font(14));
-			
-			
+
+
 			TextField userField = new TextField();
 			userField.setLayoutX(100);
 			userField.setLayoutY(60);
-			
+
 			PasswordField passField = new PasswordField();
 			passField.setLayoutX(100);
 			passField.setLayoutY(100);
-			
+
 			Text errorText = new Text("");
 			errorText.setLayoutX(40);
 			errorText.setLayoutY(190);
 			errorText.setFill(Color.RED);
-			
-			
-			
+
+
+
 			Button enterButton = new Button();
 			enterButton.setText("Enter");
 			enterButton.setLayoutX(130);
 			enterButton.setLayoutY(140);
+
 			enterButton.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
 				public void handle(ActionEvent arg0) {
-					
-<<<<<<< HEAD
-					if((userField.getText().toLowerCase().equals("csadmin")) && (passField.getText().toLowerCase().equals("csadmin"))) {
-						Scene scene2 = new Menu().getScene();
-=======
+
+
 					if((userField.getText().toLowerCase().equals("csadmin")) && (passField.getText().toLowerCase().equals("csci323"))) {
-						Scene scene2 = null;
-						try {
+						Scene scene2 = new Menu().getScene();
+						try
+						{
 							scene2 = new Menu().getScene();
-						} catch (IOException e) {
+						}
+						catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
->>>>>>> parent of f5304ea... Signed-off-by: Jacob Wolfe <jacob.wolfe@mso.umt.edu>
 						primaryStage.setScene(scene2);
 					}
 					else {
 						errorText.setText("Incorrect username and password.");
-						
+
 					}
-					
-				}
-				
+
+
+			}
+
 			});
 
-			
 
-			
+
+
 			ObservableList list = root.getChildren();
-			
+
 			list.add(loginText);
 			list.add(userText);
 			list.add(passText);
@@ -109,24 +109,24 @@ public class Main extends Application {
 			list.add(passField);
 			list.add(enterButton);
 			list.add(errorText);
-			
-			
+
+
 			scene.setFill(Color.WHITE);
-			
+
 			primaryStage.setTitle("CS Account Viewer");
-			
+
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			
+
 			primaryStage.setScene(scene);
-			
+
 			primaryStage.show();
-			
-			
+
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}

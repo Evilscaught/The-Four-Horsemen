@@ -13,36 +13,46 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Menu2{
-	
+
 
 	public Scene getScene(Stage stage) {
-		
-		
+
+
 		GridPane grid = new GridPane();
 		grid.setMinSize(400, 400);
 		grid.setPadding(new Insets(10,10,10,10));
 		grid.setVgap(5);
 		grid.setHgap(5);
 		grid.setAlignment(Pos.TOP_LEFT);
-		
-		
+
+
 		Button addAcctButton = new Button();
 		addAcctButton.setText("Add an Account");
-		
+		addAcctButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				 stage.close();
+
+
+			}// handle
+		});// ActionEvent
+
+
 		Button viewAcctButton = new Button();
 		viewAcctButton.setText("View Account");
-		
-	
+
+
 		Button exitButton = new Button();
 		exitButton.setText(" Exit ");
 		exitButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				stage.close();				
-			}	
+				stage.close();
+			}
 		});
-		
+
 		Button logoutButton = new Button();
 		logoutButton.setText("Logout");
 
@@ -52,11 +62,11 @@ public class Menu2{
 			public void handle(ActionEvent event) {
 				Main main = new Main();
 				main.start(stage);
-				
-			}	
+
+			}
 		});
-		
-		
+
+
 		grid.add(viewAcctButton, 0, 0);
 		grid.add(addAcctButton, 0, 1);
 		grid.add(logoutButton, 55, 80);
@@ -65,8 +75,8 @@ public class Menu2{
 
 		Scene scene = new Scene(grid);
 		return scene;
-		
+
 	}
-	
+
 
 }
