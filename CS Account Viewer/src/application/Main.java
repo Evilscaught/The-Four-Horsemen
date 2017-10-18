@@ -76,10 +76,10 @@ public class Main extends Application {
 
 
 					if((userField.getText().toLowerCase().equals("csadmin")) && (passField.getText().toLowerCase().equals("csci323"))) {
-						Scene scene2 = new Menu().getScene();
+						Scene scene2 = new Menu().getScene(primaryStage);
 						try
 						{
-							scene2 = new Menu().getScene();
+							scene2 = new Menu().getScene(primaryStage);
 						}
 						catch (Exception e) {
 							// TODO Auto-generated catch block
