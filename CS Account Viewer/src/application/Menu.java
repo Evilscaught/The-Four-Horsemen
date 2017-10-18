@@ -27,6 +27,7 @@ public class Menu{
 
         Button addAcctButton = new Button();
         addAcctButton.setText("Add an Account");
+        //add account
 
         Button viewAcctButton = new Button();
         viewAcctButton.setText("View Account");
@@ -37,11 +38,26 @@ public class Menu{
                 Scene scene = new ViewAccount().getScene(stage);
                 stage.setScene(scene);
             }
-        
+
     });
+
+        Button logOutButton = new Button();
+        logOutButton.setText("Log out");
+        logOutButton.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent arg0) {
+                Main main = new Main();
+                main.start(stage);
+
+            }
+
+    });
+
 
         grid.add(viewAcctButton, 0, 0);
         grid.add(addAcctButton, 1, 0);
+        grid.add(logOutButton,2,0);
 
 
         Scene scene = new Scene(grid);
