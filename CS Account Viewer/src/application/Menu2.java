@@ -32,7 +32,8 @@ public class Menu2{
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				 stage.close();
+				 Scene scene3 = new AddAccount().getScene(stage);
+				 stage.setScene(scene3);
 
 
 			}// handle
@@ -41,6 +42,17 @@ public class Menu2{
 
 		Button viewAcctButton = new Button();
 		viewAcctButton.setText("View Account");
+		viewAcctButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				Scene scene2 = new ViewAccount().getScene(stage);
+				stage.setScene(scene2);
+			}
+			
+			
+			
+		});
 
 
 		Button exitButton = new Button();

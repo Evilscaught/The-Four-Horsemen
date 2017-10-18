@@ -53,7 +53,7 @@ public class ViewAccount {
 
             @Override
             public void handle(ActionEvent arg0) {
-                Scene scene = new Menu().getScene(stage);
+                Scene scene = new Menu2().getScene(stage);
                 stage.setScene(scene);      
             }
         
