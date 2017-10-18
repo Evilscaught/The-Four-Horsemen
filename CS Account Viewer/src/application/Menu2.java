@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 public class Menu2{
 
 
-	public Scene getScene(Stage stage) {
+	public Scene getScene(Stage stage, InputOutput inout) {
 
 
 		GridPane grid = new GridPane();
@@ -32,7 +32,7 @@ public class Menu2{
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				 Scene scene3 = new AddAccount().getScene(stage);
+				 Scene scene3 = new AddAccount().getScene(stage, inout);
 				 stage.setScene(scene3);
 
 
@@ -46,7 +46,7 @@ public class Menu2{
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				Scene scene2 = new ViewAccount().getScene(stage);
+				Scene scene2 = new ViewAccount().getScene(stage, inout);
 				stage.setScene(scene2);
 			}
 			

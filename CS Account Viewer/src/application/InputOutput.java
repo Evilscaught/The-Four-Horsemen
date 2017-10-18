@@ -63,9 +63,9 @@ public class InputOutput
 		file.close();
 	}
 	
-	public void createAccount(String firstName, String lastName)
+	public void createAccount(String firstName, String lastName, String username, String email, String password)
 	{
-		accountArr[accountArrPos] = new Account(firstName, lastName);
+		accountArr[accountArrPos] = new Account(firstName, lastName, username, email, password);
 		
 		//Increment accountArrPos to next null position in accountArr
 		accountArrPos++;
@@ -79,7 +79,7 @@ public class InputOutput
 	public void deleteAccount(int index)
 	{
 		accountArr[index] = accountArr[(accountArrPos - 1)];
-		accountArr[accountArrPos] = null;
+		accountArr[accountArrPos - 1] = null;
 		--accountArrPos;
 	}
 
@@ -115,7 +115,7 @@ public class InputOutput
     }
 	
 	//Unit Testing
-	public static void main(String[] args)
+/*	public static void main(String[] args)
 	{
 		System.out.println("Starting");
 		
@@ -151,4 +151,5 @@ public class InputOutput
 
 		System.out.println("Ending");
 	}
+	*/
 }

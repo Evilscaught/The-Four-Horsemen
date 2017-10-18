@@ -12,10 +12,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ViewAccount {
-    public Scene getScene(Stage stage) {
+    public Scene getScene(Stage stage, InputOutput inout) {
         
         
         GridPane grid = new GridPane();
@@ -46,6 +47,18 @@ public class ViewAccount {
         descriptionField.setPrefWidth(370);
         descriptionHB.getChildren().addAll(descriptionLabel, descriptionField);
         descriptionHB.setSpacing(10);
+        
+        Account[] temp = inout.getAccountArr();
+        String str = "";
+        int cntr = 0;
+        
+        for (Account act : temp) {
+        	if (act != null)
+        		str += "" + cntr + act.toString() + "\n";
+        	cntr++;
+        }
+        
+        descriptionField.setText(str);
 
         Button backButton = new Button();
         backButton.setText("Back");
@@ -53,30 +66,82 @@ public class ViewAccount {
 
             @Override
             public void handle(ActionEvent arg0) {
-                Scene scene = new Menu2().getScene(stage);
+                Scene scene = new Menu2().getScene(stage, inout);
                 stage.setScene(scene);      
             }
         
     });
         
+        Text selectText = new Text("Select an account (by #):");
+        
+        TextField selectField = new TextField();
+        
+        Button deleteButton = new Button();
+        deleteButton.setText("Delete");
+        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				if (selectField.getText() != "") {
+
+					inout.deleteAccount(Integer.parseInt(selectField.getText()));
+				}
+			}
+        	
+        	
+        });
+        
         Button applyButton = new Button();
         applyButton.setText(" Apply Changes ");
         
-    
+        applyButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				
+				  Account[] temp = inout.getAccountArr();
+			        String str = "";
+			        int cntr = 0;
+			        
+			        for (Account act : temp) {
+			        	if (act != null)
+			        		str += "" + cntr + act.toString() + "\n";
+			        	cntr++;
+			        }
+			        
+			        descriptionField.setText(str);
+			}
+        	
+        	
+        });
+
+      
         Button exitButton = new Button();
         exitButton.setText(" Exit ");
+		exitButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				stage.close();
+			}
+		});
         
         Button logoutButton = new Button();
         logoutButton.setText("Logout");
 
         
-        grid.add(firstNameHB, 0, 0);
-        grid.add(lastNameHB, 1, 0);
+        //grid.add(firstNameHB, 0, 0);
+        //grid.add(lastNameHB, 1, 0);
         grid.add(descriptionHB, 0, 1, 2, 4);
-        grid.add(applyButton, 0, 5);
+        grid.add(selectText, 0, 5);
+        grid.setHalignment(selectText, HPos.RIGHT);
+        grid.add(selectField, 1, 5);
+        grid.add(deleteButton, 2, 5);
+        grid.add(applyButton, 3, 5);
         grid.setHalignment(applyButton, HPos.RIGHT);
-        grid.add(backButton, 1, 5);
-        grid.setHalignment(backButton, HPos.LEFT);
+        grid.add(backButton, 2, 6);
+        grid.add(exitButton, 3, 6);
         
 //        grid.add(logoutButton, 58, 80);
 //        grid.add(exitButton, 60, 80);

@@ -18,7 +18,7 @@ public class AddAccount {
 	}
 	
 
-	public Scene getScene(Stage stage) {
+	public Scene getScene(Stage stage, InputOutput inout) {
 		
 		
 		GridPane grid = new GridPane();
@@ -66,7 +66,7 @@ public class AddAccount {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				
+				inout.createAccount(firstnameField.getText(), lastnameField.getText(), userField.getText(), emailField.getText(), passField.getText());
 				
 			}
 		});
@@ -77,7 +77,7 @@ public class AddAccount {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				Scene scene2 = new Menu2().getScene(stage);
+				Scene scene2 = new Menu2().getScene(stage, inout);
 				stage.setScene(scene2);
 			}
 		}

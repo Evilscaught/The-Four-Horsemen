@@ -22,12 +22,13 @@ public class Main extends Application {
 
 
 	public Menu menu;
+	public InputOutput inout = new InputOutput();
 
 
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-
+			inout.readAccounts("./src/Accounts.txt");
 
 			Group root = new Group();
 
@@ -61,6 +62,19 @@ public class Main extends Application {
 			errorText.setLayoutX(40);
 			errorText.setLayoutY(190);
 			errorText.setFill(Color.RED);
+			
+
+			Button exitButton = new Button();
+			exitButton.setText(" Exit ");
+			exitButton.setLayoutX(200);
+			exitButton.setLayoutY(140);
+			exitButton.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent arg0) {
+					primaryStage.close();
+				}
+			});
 
 
 
@@ -76,10 +90,10 @@ public class Main extends Application {
 
 
 					if((userField.getText().toLowerCase().equals("csadmin")) && (passField.getText().toLowerCase().equals("csci323"))) {
-						Scene scene2 = new Menu2().getScene(primaryStage);
+						Scene scene2 = new Menu2().getScene(primaryStage, inout);
 						try
 						{
-							scene2 = new Menu2().getScene(primaryStage);
+							scene2 = new Menu2().getScene(primaryStage, inout);
 						}
 						catch (Exception e) {
 							// TODO Auto-generated catch block
@@ -109,6 +123,7 @@ public class Main extends Application {
 			list.add(passField);
 			list.add(enterButton);
 			list.add(errorText);
+			list.add(exitButton);
 
 
 			scene.setFill(Color.WHITE);
