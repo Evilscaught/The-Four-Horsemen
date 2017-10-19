@@ -2,6 +2,7 @@ package application;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -83,6 +84,17 @@ public class AddAccount {
 		}
 				);
 		
+        Button logoutButton = new Button();
+        logoutButton.setText("Logout");
+        logoutButton.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                Main main = new Main();
+                main.start(stage);
+
+            }
+        });
 		
 		
 		
@@ -98,6 +110,8 @@ public class AddAccount {
 		grid.add(passText, 0, 9);
 		grid.add(passField, 2, 9);
 		grid.add(saveButton, 2, 11);
+		grid.add(logoutButton, 2, 11);
+		grid.setHalignment(logoutButton, HPos.RIGHT);
 		grid.add(backButton,3 , 11);
 		grid.add(exitButton,4, 11);
 		
