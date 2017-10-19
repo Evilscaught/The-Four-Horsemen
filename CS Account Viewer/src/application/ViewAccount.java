@@ -129,6 +129,15 @@ public class ViewAccount {
         
         Button logoutButton = new Button();
         logoutButton.setText("Logout");
+        logoutButton.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                Main main = new Main();
+                main.start(stage);
+
+            }
+        });
 
         
         //grid.add(firstNameHB, 0, 0);
@@ -142,8 +151,10 @@ public class ViewAccount {
         grid.setHalignment(applyButton, HPos.RIGHT);
         grid.add(backButton, 2, 6);
         grid.add(exitButton, 3, 6);
+        grid.setHalignment(exitButton, HPos.RIGHT);
         
-//        grid.add(logoutButton, 58, 80);
+        grid.add(logoutButton, 3, 6);
+        grid.setHalignment(logoutButton, HPos.LEFT);
 //        grid.add(exitButton, 60, 80);
 
 
