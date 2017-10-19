@@ -24,6 +24,13 @@ public class Menu2{
 		grid.setHgap(5);
 		grid.setAlignment(Pos.TOP_LEFT);
 
+		/*GridPane titleGrid = new GridPane();
+		titleGrid.setMinSize(400, 400);
+		titleGrid.setPadding(new Insets(10,10,10,10));
+		titleGrid.setVgap(5);
+		titleGrid.setHgap(5);
+		titleGrid.setAlignment(Pos.TOP_LEFT);*/
+
 
 
 
@@ -82,10 +89,15 @@ public class Menu2{
 		Text compName = new Text("Created by The Four Horse Men");
 		compName.setFont(new Font(10));
 
-		grid.add(viewAcctButton, 0, 0);
-		grid.add(addAcctButton, 1, 0);
-		grid.add(logoutButton, 2, 0);
-		grid.add(exitButton,3,0);
+		Text softName = new Text("Welome to Cacheacct");
+		softName.setFont(new Font(30));
+
+		//titleGrid.add(softName,0,0);
+
+		grid.add(viewAcctButton, 0, 1);
+		grid.add(addAcctButton, 1, 1);
+		grid.add(logoutButton, 2, 1);
+		grid.add(exitButton,3,1);
 		grid.add(compName,3,80);
 
 

@@ -1,25 +1,25 @@
 /******************************************************************************
  *  Compilation:  javac AddAccount.java
  *  Execution:    java  AddAccount
- *  Dependencies: 
- *    
- *  @author(s)		Jake Wolfe, Jack Cummings, Scott McKay, Dan Wolfe
+ *  Dependencies:
+ *
+ *  @author(s)		Jake Wolfe, Jack Cummings, Scott McKay, Dan Bailey
  *  @version   		0.0.1
  *  @group			The Four Horsemen
  *  @copyright   	None
  *  @date_created   Monday, October 16th, 2017 @6:49 p.m. MST
- *    
- *  Blueprint for account data-type.
  *
- *     * 
+ *  Blueprint for account data-type.
  *
  *     *
  *
- *     * 
+ *     *
  *
- *  BUG: 
- *    
- *  FEATURE: 
+ *     *
+ *
+ *  BUG:
+ *
+ *  FEATURE:
  *  UN-IMPLEMENTED FEATURES: Account creation is prevented if text fields are
  *  empty, however, using spaces as characters will not halt user.
  *
@@ -42,46 +42,48 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
-public class AddAccount 
+public class AddAccount
 {
 	@SuppressWarnings("static-access")
-	public Scene getScene(Stage stage, InputOutput IO) 
-	{	
+	public Scene getScene(Stage stage, InputOutput IO)
+	{
 		GridPane grid = new GridPane();
 		grid.setMinSize(150, 200);
 		grid.setPadding(new Insets(15,15,15,15));
 		grid.setVgap(5);
 		grid.setHgap(5);
 		grid.setAlignment(Pos.TOP_LEFT);
-		
+
 		Text firstnameText = new Text("First name:"), lastnameText = new Text("Last name:");
 		Text emailText = new Text("Email Address:"),  userText =  new Text("Username:");
 		Text passText = new Text ("Password:");
 		Text confirmation = new Text("Acct Added");
-		
+
 		TextField firstNameField = new TextField(), lastNameField = new TextField();
 		TextField emailField = new TextField(), userField = new TextField();
 		TextField passField = new TextField();
-		
-		
+
+
 		Button exitButton = new Button();
 		exitButton.setText(" Exit ");
-		exitButton.setOnAction(new EventHandler<ActionEvent>() 
+		exitButton.setOnAction(new EventHandler<ActionEvent>()
 		{
 			@Override
-			public void handle(ActionEvent arg0) 
+			public void handle(ActionEvent arg0)
 			{
 				stage.close();
 			}
 		});
-		
+
 		Button saveButton = new Button();
 		saveButton.setText("    Save    ");
-		saveButton.setOnAction(new EventHandler<ActionEvent>() 
+		saveButton.setOnAction(new EventHandler<ActionEvent>()
 		{
 			@Override
-			public void handle(ActionEvent arg0) 
+			public void handle(ActionEvent arg0)
 			{
 				//Make sure no text fields are empty
 				if (firstNameField.getText().isEmpty() || lastNameField.getText().isEmpty() || userField.getText().isEmpty() || emailField.getText().isEmpty() || passField.getText().isEmpty())
@@ -133,8 +135,8 @@ public class AddAccount
 				else
 				{
 					//Create Account
-					IO.createAccount(firstNameField.getText(), lastNameField.getText(), userField.getText(), emailField.getText(), passField.getText());	
-					
+					IO.createAccount(firstNameField.getText(), lastNameField.getText(), userField.getText(), emailField.getText(), passField.getText());
+
 					//Reset all text fields
 					firstNameField.setStyle("-fx-background-color: white;");
 					lastNameField.setStyle("-fx-background-color: white;");
@@ -146,28 +148,28 @@ public class AddAccount
 					userField.setText("");
 					emailField.setText("");
 					passField.setText("");
-					
+
 					//Notify user that account has been created.
 					confirmation.setVisible(true);
 					grid.add(confirmation, 0, 11);
 				}
 			}
 		});
-		
+
 		Button backButton = new Button();
 		backButton.setText("  Back  ");
-		backButton.setOnAction(new EventHandler<ActionEvent>() 
+		backButton.setOnAction(new EventHandler<ActionEvent>()
 		{
 
 			@Override
-			public void handle(ActionEvent arg0) 
+			public void handle(ActionEvent arg0)
 			{
 				Scene scene2 = new Menu2().getScene(stage, IO);
 				stage.setScene(scene2);
 			}
 		}
 				);
-		
+
         Button logoutButton = new Button();
         logoutButton.setText("Logout");
         logoutButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -179,10 +181,10 @@ public class AddAccount
 
             }
         });
-		
-		
-		
-		
+
+
+
+
 		grid.add(firstnameText, 0, 2);
 		grid.add(firstNameField, 2, 2);
 		grid.add(lastnameText, 0, 3);
@@ -198,9 +200,14 @@ public class AddAccount
 		grid.setHalignment(logoutButton, HPos.RIGHT);
 		grid.add(backButton,3 , 11);
 		grid.add(exitButton,4, 11);
-		
+
+		Text compName = new Text("Created By: The Four Horse Men");
+		compName.setFont(new Font(10));
+		grid.add(compName,4,12);
+
+
 
 		Scene scene = new Scene(grid);
-		return scene;	
+		return scene;
 	}
 }

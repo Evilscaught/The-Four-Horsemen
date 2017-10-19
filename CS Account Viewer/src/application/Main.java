@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.layout.GridPane;
 
 
 public class Main extends Application {
@@ -30,7 +31,7 @@ public class Main extends Application {
 
 			Group root = new Group();
 
-			Scene scene = new Scene(root, 300,200);
+			Scene scene = new Scene(root, 300,220);
 
 			Text loginText = new Text("Login");
 			loginText.setX(130);
@@ -61,6 +62,11 @@ public class Main extends Application {
 			errorText.setLayoutY(190);
 			errorText.setFill(Color.RED);
 
+			Text compName = new Text("Created By: The Four Horse Men");
+			compName.setLayoutX(140);
+			compName.setLayoutY(210);
+			compName.setFont(new Font(10));
+
 
 			Button exitButton = new Button();
 			exitButton.setText(" Exit ");
@@ -80,6 +86,8 @@ public class Main extends Application {
 			enterButton.setText("Enter");
 			enterButton.setLayoutX(130);
 			enterButton.setLayoutY(140);
+
+
 
 			enterButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -122,11 +130,15 @@ public class Main extends Application {
 			list.add(enterButton);
 			list.add(errorText);
 			list.add(exitButton);
+			list.add(compName);
+
+
+
 
 
 			scene.setFill(Color.WHITE);
 
-			primaryStage.setTitle("CS Account Viewer");
+			primaryStage.setTitle("Cacheacct");
 
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 

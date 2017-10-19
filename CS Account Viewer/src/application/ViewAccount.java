@@ -14,29 +14,31 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.text.Font;
+
 
 public class ViewAccount {
     @SuppressWarnings("static-access")
 	public Scene getScene(Stage stage, InputOutput inout) {
-        
-        
+
+
         GridPane grid = new GridPane();
         grid.setMinSize(400, 250);
         grid.setPadding(new Insets(10,10,10,10));
         grid.setVgap(5);
         grid.setHgap(5);
         grid.setAlignment(Pos.TOP_LEFT);
-        
-        
+
+
         Label firstNameLabel = new Label("First Name: ");
         Label lastNameLabel = new Label("Last Name:");
         Label descriptionLabel = new Label("Description:");
- 
+
         HBox firstNameHB = new HBox();
         TextField firstNameField = new TextField ();
         firstNameHB.getChildren().addAll(firstNameLabel, firstNameField);
         firstNameHB.setSpacing(10);
-        
+
         HBox lastNameHB = new HBox();
         TextField lastNameField = new TextField ();
         lastNameHB.getChildren().addAll(lastNameLabel, lastNameField);
@@ -48,17 +50,17 @@ public class ViewAccount {
         descriptionField.setPrefWidth(370);
         descriptionHB.getChildren().addAll(descriptionLabel, descriptionField);
         descriptionHB.setSpacing(10);
-        
+
         Account[] temp = inout.getAccountArr();
         String str = "";
         int cntr = 0;
-        
+
         for (Account act : temp) {
         	if (act != null)
         		str += "" + (cntr + 1) + ".] " + act.toString() + "\n"; //Scott: added 1 to center so list doesn't start at zero.
         	cntr++;
         }
-        
+
         descriptionField.setText(str);
 
         Button backButton = new Button();
@@ -68,28 +70,28 @@ public class ViewAccount {
             @Override
             public void handle(ActionEvent arg0) {
                 Scene scene = new Menu2().getScene(stage, inout);
-                stage.setScene(scene);      
+                stage.setScene(scene);
             }
-        
+
     });
-        
+
         Text selectText = new Text("Select an account (by #):");
-        
+
         TextField selectField = new TextField();
-        
+
         Button deleteButton = new Button();
         deleteButton.setText("Delete");
-        deleteButton.setOnAction(new EventHandler<ActionEvent>() 
+        deleteButton.setOnAction(new EventHandler<ActionEvent>()
         {
 			@Override
-			public void handle(ActionEvent arg0) 
+			public void handle(ActionEvent arg0)
 			{
 				//Ensure no empty text field
-				if (selectField.getText() != "") 
+				if (selectField.getText() != "")
 				{
 					//Adjust index to match array position
 					int index = Integer.parseInt(selectField.getText()) - 1;
-					
+
 					//Make sure user isn't entering an index out of bounds
 					if (index < 0 || index >= inout.getAccountArrPos())
 					{
@@ -102,35 +104,35 @@ public class ViewAccount {
 					}
 				}
 			}
-        	
-        	
+
+
         });
-        
+
         Button applyButton = new Button();
         applyButton.setText(" Apply Changes ");
-        
+
         applyButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				
+
 				  Account[] temp = inout.getAccountArr();
 			        String str = "";
 			        int cntr = 0;
-			        
+
 			        for (Account act : temp) {
 			        	if (act != null)
 			        		str += "" + (cntr + 1) + ".] "+ act.toString() + "\n";
 			        	cntr++;
 			        }
-			        
+
 			        descriptionField.setText(str);
 			}
-        	
-        	
+
+
         });
 
-      
+
         Button exitButton = new Button();
         exitButton.setText(" Exit ");
 		exitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -140,7 +142,7 @@ public class ViewAccount {
 				stage.close();
 			}
 		});
-        
+
         Button logoutButton = new Button();
         logoutButton.setText("Logout");
         logoutButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -153,7 +155,7 @@ public class ViewAccount {
             }
         });
 
-        
+
         //grid.add(firstNameHB, 0, 0);
         //grid.add(lastNameHB, 1, 0);
         grid.add(descriptionHB, 0, 1, 2, 4);
@@ -166,15 +168,19 @@ public class ViewAccount {
         grid.add(backButton, 2, 6);
         grid.add(exitButton, 3, 6);
         grid.setHalignment(exitButton, HPos.RIGHT);
-        
+
         grid.add(logoutButton, 3, 6);
         grid.setHalignment(logoutButton, HPos.LEFT);
 //        grid.add(exitButton, 60, 80);
 
+    Text compName = new Text("Created By: The Four Horse Men");
+    compName.setFont(new Font(10));
+    grid.add(compName,4,7);
+
 
         Scene scene = new Scene(grid);
         return scene;
-        
+
     }
 
 }
