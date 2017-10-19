@@ -26,7 +26,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			inout.readAccounts("./src/Accounts.txt");
+			inout.readAccounts("./Accounts.txt");
 
 			Group root = new Group();
 
@@ -60,7 +60,7 @@ public class Main extends Application {
 			errorText.setLayoutX(40);
 			errorText.setLayoutY(190);
 			errorText.setFill(Color.RED);
-			
+
 
 			Button exitButton = new Button();
 			exitButton.setText(" Exit ");

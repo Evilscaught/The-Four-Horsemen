@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class Menu2{
 
@@ -21,6 +23,8 @@ public class Menu2{
 		grid.setVgap(5);
 		grid.setHgap(5);
 		grid.setAlignment(Pos.TOP_LEFT);
+
+
 
 
 		Button addAcctButton = new Button();
@@ -46,9 +50,9 @@ public class Menu2{
 				Scene scene2 = new ViewAccount().getScene(stage, inout);
 				stage.setScene(scene2);
 			}
-			
-			
-			
+
+
+
 		});
 
 
@@ -75,11 +79,14 @@ public class Menu2{
 			}
 		});
 
+		Text compName = new Text("Created by The Four Horse Men");
+		compName.setFont(new Font(10));
 
 		grid.add(viewAcctButton, 0, 0);
-		grid.add(addAcctButton, 0, 1);
-		grid.add(logoutButton, 55, 80);
-		grid.add(exitButton, 60, 80);
+		grid.add(addAcctButton, 1, 0);
+		grid.add(logoutButton, 2, 0);
+		grid.add(exitButton,3,0);
+		grid.add(compName,3,80);
 
 
 		Scene scene = new Scene(grid);
