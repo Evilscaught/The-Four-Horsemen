@@ -1,11 +1,31 @@
-/* Author:			 Scott McKay
- * Co-Authors:
- * Date of Creation: Monday, October 16th, 2017 @6:49 p.m. MST
- * Version:			 0.0.0
- * Group Name:		 The Four Horsemen
- * Copyright:		 None
- * Purpose of Class: Handles all input and output, such as getting and saving data.
- */
+/******************************************************************************
+ *  Compilation:  javac InputOutput.java
+ *  Execution:    java  InputOutput
+ *  Dependencies: 
+ *    
+ *  @author(s)		Scott McKay
+ *  @version   		0.0.1
+ *  @group			The Four Horsemen
+ *  @copyright   	None
+ *  @date_created   Monday, October 16th, 2017 @6:49 p.m. MST
+ *    
+ *  Blueprint for account data-type.
+ *
+ *     * 
+ *
+ *     *
+ *
+ *     * 
+ *
+ *  BUG: 
+ *    
+ *  FEATURE: 
+ *
+ *  NOTE: Handles all input and output, such as getting and saving data.
+ *
+ *  % java Account
+ *
+ ******************************************************************************/
 
 package application;
 
@@ -77,10 +97,17 @@ public class InputOutput
 	}
 	
 	public void deleteAccount(int index)
-	{
-		accountArr[index] = accountArr[(accountArrPos - 1)];
-		accountArr[accountArrPos - 1] = null;
-		--accountArrPos;
+	{	
+		if (accountArrPos <= 0)
+		{
+			//Do Nothing
+		}
+		else
+		{
+			accountArr[index] = accountArr[(accountArrPos - 1)];
+			accountArr[accountArrPos - 1] = null;
+			--accountArrPos;
+		}
 	}
 
 	public void saveAccounts() throws IOException
@@ -98,6 +125,11 @@ public class InputOutput
 	public Account[] getAccountArr()
 	{
 		return accountArr;
+	}
+	
+	public int getAccountArrPos()
+	{
+		return accountArrPos;
 	}
 	
 	//Resizes arrays of type 'Account', would like to make it accept any arrays in the future.

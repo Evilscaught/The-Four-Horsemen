@@ -16,7 +16,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ViewAccount {
-    public Scene getScene(Stage stage, InputOutput inout) {
+    @SuppressWarnings("static-access")
+	public Scene getScene(Stage stage, InputOutput inout) {
         
         
         GridPane grid = new GridPane();
@@ -54,7 +55,7 @@ public class ViewAccount {
         
         for (Account act : temp) {
         	if (act != null)
-        		str += "" + cntr + act.toString() + "\n";
+        		str += "" + (cntr + 1) + ".] " + act.toString() + "\n"; //Scott: added 1 to center so list doesn't start at zero.
         	cntr++;
         }
         
@@ -78,14 +79,27 @@ public class ViewAccount {
         
         Button deleteButton = new Button();
         deleteButton.setText("Delete");
-        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
-
+        deleteButton.setOnAction(new EventHandler<ActionEvent>() 
+        {
 			@Override
-			public void handle(ActionEvent arg0) {
-				
-				if (selectField.getText() != "") {
-
-					inout.deleteAccount(Integer.parseInt(selectField.getText()));
+			public void handle(ActionEvent arg0) 
+			{
+				//Ensure no empty text field
+				if (selectField.getText() != "") 
+				{
+					//Adjust index to match array position
+					int index = Integer.parseInt(selectField.getText()) - 1;
+					
+					//Make sure user isn't entering an index out of bounds
+					if (index < 0 || index >= inout.getAccountArrPos())
+					{
+						selectField.setStyle("-fx-background-color: #f26d6d;");
+					}
+					else
+					{
+						selectField.setStyle("-fx-background-color: white;");
+						inout.deleteAccount(index); //Scott: since center is incremented by one, user entry is decremented by one to match array.
+					}
 				}
 			}
         	
@@ -106,7 +120,7 @@ public class ViewAccount {
 			        
 			        for (Account act : temp) {
 			        	if (act != null)
-			        		str += "" + cntr + act.toString() + "\n";
+			        		str += "" + (cntr + 1) + ".] "+ act.toString() + "\n";
 			        	cntr++;
 			        }
 			        

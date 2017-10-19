@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class Menu{
 	
-	
+	//README: This class doesn't work, error message has been commented out for presentation.
 
 
 
@@ -37,8 +37,8 @@ public class Menu{
 
             @Override
             public void handle(ActionEvent arg0) {
-                Scene scene = new ViewAccount().getScene(stage);
-                stage.setScene(scene);
+                //Scene scene = new ViewAccount().getScene(stage);
+                //stage.setScene(scene);
             }
 
     });
