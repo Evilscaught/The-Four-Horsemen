@@ -83,6 +83,14 @@ Dan Bailey - I used gantt charts before, never this program so i am looking arou
             <task id="37" name="Worked on connecting user controls to database" color="#8cb6ce" meeting="false" start="2017-09-22" duration="1" complete="0" expand="true">
                 <customproperty taskproperty-id="tpc0" value="Jacob Wolfe"/>
             </task>
+                        <task id="40" name="Updated View Account Screen" color="#8cb6ce" meeting="false" start="2017-10-12" duration="6" complete="0" expand="true">
+                <notes><![CDATA[Added Text Boxes, Labels
+Added Buttons for Exiting, Logging Out
+
+Connected to the basic Account API for testing]]></notes>
+                <customproperty taskproperty-id="tpc0" value="Jack Cummings"/>
+                <customproperty taskproperty-id="tpc1" value=""/>
+            </task>
         </task>
     </tasks>
     <resources/>
