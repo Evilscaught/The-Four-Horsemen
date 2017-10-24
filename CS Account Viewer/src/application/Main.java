@@ -27,7 +27,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			inout.readAccounts("./Accounts.txt");
+			inout.readAccounts("Accounts2.txt");
 
 			Group root = new Group();
 
