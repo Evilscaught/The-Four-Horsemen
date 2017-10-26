@@ -63,7 +63,11 @@ Dan Bailey - I used gantt charts before, never this program so i am looking arou
                 <customproperty taskproperty-id="tpc1" value="Jake - I spent about an hour learning about Gantt Charts."/>
             </task>
         </task>
+<<<<<<< HEAD
         <task id="13" name="Sprint1" color="#000000" meeting="false" start="2017-09-25" duration="17" complete="0" expand="true">
+=======
+        <task id="13" name="Push #1" color="#000000" meeting="false" start="2017-09-13" duration="25" complete="0" expand="true">
+>>>>>>> refs/remotes/origin/master
             <notes><![CDATA[Last couple days, fixed bugs, added company and software names]]></notes>
             <task id="14" name="Create Input-Output Class" color="#ff0000" shape="0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0" meeting="false" start="2017-10-16" duration="2" complete="0" priority="2" expand="true">
                 <notes><![CDATA[Create an input-output file that fetches and saves data for the program. ]]></notes>
@@ -75,6 +79,21 @@ Dan Bailey - I used gantt charts before, never this program so i am looking arou
             </task>
             <task id="31" name="Fixed Bugs, changed view. added company and software names" meeting="false" start="2017-09-25" duration="1" complete="0" expand="true">
                 <customproperty taskproperty-id="tpc0" value="Dan Bailey"/>
+            </task>
+            <task id="33" name="Created login and main screen" color="#8cb6ce" meeting="false" start="2017-09-13" duration="1" complete="0" expand="true">
+                <notes><![CDATA[Created and added functionality to login screen and main menu]]></notes>
+                <customproperty taskproperty-id="tpc0" value="Jacob Wolfe"/>
+            </task>
+            <task id="37" name="Worked on connecting user controls to database" color="#8cb6ce" meeting="false" start="2017-09-22" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="Jacob Wolfe"/>
+            </task>
+                        <task id="40" name="Updated View Account Screen" color="#8cb6ce" meeting="false" start="2017-10-12" duration="6" complete="0" expand="true">
+                <notes><![CDATA[Added Text Boxes, Labels
+Added Buttons for Exiting, Logging Out
+
+Connected to the basic Account API for testing]]></notes>
+                <customproperty taskproperty-id="tpc0" value="Jack Cummings"/>
+                <customproperty taskproperty-id="tpc1" value=""/>
             </task>
         </task>
     </tasks>
