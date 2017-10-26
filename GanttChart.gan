@@ -63,7 +63,7 @@ Dan Bailey - I used gantt charts before, never this program so i am looking arou
                 <customproperty taskproperty-id="tpc1" value="Jake - I spent about an hour learning about Gantt Charts."/>
             </task>
         </task>
-        <task id="13" name="Push #1" color="#000000" meeting="false" start="2017-09-25" duration="17" complete="0" expand="true">
+        <task id="13" name="Sprint1" color="#000000" meeting="false" start="2017-09-25" duration="17" complete="0" expand="true">
             <notes><![CDATA[Last couple days, fixed bugs, added company and software names]]></notes>
             <task id="14" name="Create Input-Output Class" color="#ff0000" shape="0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0" meeting="false" start="2017-10-16" duration="2" complete="0" priority="2" expand="true">
                 <notes><![CDATA[Create an input-output file that fetches and saves data for the program. ]]></notes>
