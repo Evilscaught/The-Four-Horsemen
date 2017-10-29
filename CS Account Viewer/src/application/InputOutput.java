@@ -34,20 +34,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Scanner;
 
 
 public class InputOutput
 {
-	private short accountArrPos;
+	private int accountArrPos;
 
 	private File accountsPath;
 	private Account[] accountArr;
 
-	//Constructor not required.
-
 	//Get accounts from database and read into Account array.
-	public void readAccounts(String path) throws FileNotFoundException
+	public void readAccounts(String path) throws FileNotFoundException 
 	{
 		this.accountsPath = new File(path);
 
@@ -61,22 +60,13 @@ public class InputOutput
 			//Copy each line of file into token, then scan token.
 			String token = file.nextLine();
 			Scanner input = new Scanner(token);
-
 			input.useDelimiter(",");
-
-			//Resize accountArr if index surpasses capacity.
-			if (accountArrPos >= accountArr.length)
-			{
-				accountArr = resizeArr(accountArr, (accountArr.length * 2));
-			}
 
 			//Read in string and create account objects.
 			while(input.hasNext())
 			{
-				accountArr[accountArrPos] = new Account(input.next(), input.next(), input.next(), input.next(), input.next());
-				accountArrPos++;
+				createAccount(input.next(), input.next(), input.next(), input.next(), input.next());
 			}
-
 			input.close();
 		}
 
@@ -92,7 +82,7 @@ public class InputOutput
 
 		if (accountArrPos >= accountArr.length)
 		{
-			accountArr = resizeArr(accountArr, (accountArr.length * 2));
+			accountArr = (Account[]) resizeArray(accountArr, (accountArr.length * 2));
 		}
 	}
 
@@ -100,13 +90,22 @@ public class InputOutput
 	{
 		if (accountArrPos <= 0)
 		{
-			//Do Nothing
+			return; //Do Nothing
 		}
 		else
 		{
+			//Swap last entry in array with entry that is pending deletion
 			accountArr[index] = accountArr[(accountArrPos - 1)];
+			//Set last entry in array to null (Garbage Collection)
 			accountArr[accountArrPos - 1] = null;
+			//Decrement Size of AccountArr
 			--accountArrPos;
+		}
+		
+		//Reduce length of the array if less than 1/4 the capacity is being used.
+		if ((accountArrPos < (accountArr.length * (1/4))) && (accountArrPos > 5))
+		{
+			accountArr = (Account[]) resizeArray(accountArr, (accountArr.length * 1/2));
 		}
 	}
 
@@ -132,37 +131,41 @@ public class InputOutput
 		return accountArrPos;
 	}
 
-	//Resizes arrays of type 'Account', would like to make it accept any arrays in the future.
-	private Account[] resizeArr(Account[] itemArr, int capacity)
-    {
-        Account tempItemArr[] = new Account[capacity];
-
-        //Copy all items to temporary array with larger capacity.
-        for (int index = 0; index < itemArr.length; index++)
-        {
-            tempItemArr[index] = itemArr[index];
-        }
-
-        return tempItemArr;
-    }
-
-	//Unit Testing
-/*	public static void main(String[] args)
+	//http://www.source-code.biz/snippets/java/3.htm
+	@SuppressWarnings("rawtypes")
+	private static Object resizeArray (Object oldArray, int newSize) 
 	{
-		System.out.println("Starting");
-
+		   int oldSize = java.lang.reflect.Array.getLength(oldArray);
+		   Class elementType = oldArray.getClass().getComponentType();
+		   Object newArray = java.lang.reflect.Array.newInstance(elementType, newSize);
+		   int preserveLength = Math.min(oldSize, newSize);
+		   if (preserveLength > 0)
+		   {
+		      System.arraycopy(oldArray, 0, newArray, 0, preserveLength);
+		   }
+		   
+		   return newArray; 
+	}
+	
+	//Unit Testing
+	///*
+	public static void main(String[] args)
+	{
 		InputOutput IO = new InputOutput();
-		Account[] accountArr = new Account[10];
+		Account[] accountArr;
 
 		try
 		{
-			IO.readAccounts("./Accounts.txt");
+			IO.readAccounts("Accounts2.txt");
 		}
 		catch (FileNotFoundException event)
 		{
 			event.printStackTrace();
 		}
+		
 		//Get the account array.
+		accountArr = IO.getAccountArr();
+
 		accountArr = IO.getAccountArr();
 
 		short index = 0;
@@ -171,8 +174,7 @@ public class InputOutput
 			System.out.println(accountArr[index].toString());
 			index++;
 		}
-
-
+		
 		try
 		{
 			IO.saveAccounts();
@@ -181,8 +183,6 @@ public class InputOutput
 		{
 			event.printStackTrace();
 		}
-
-		System.out.println("Ending");
-	}*/
-
+	}
+	//*/
 }
