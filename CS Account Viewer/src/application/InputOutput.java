@@ -34,16 +34,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Scanner;
 
 
 public class InputOutput
 {
 	private int accountArrPos;
+	private int transArrPos;
 
 	private File accountsPath;
+	private File transactionsPath;
 	private Account[] accountArr;
+	private Transaction[] transactionArr;
 
 	//Get accounts from database and read into Account array.
 	public void readAccounts(String path) throws FileNotFoundException 
@@ -69,8 +71,91 @@ public class InputOutput
 			}
 			input.close();
 		}
-
 		file.close();
+	}
+	
+	public void readTransactions(String path) throws FileNotFoundException
+	{
+		transactionsPath = new File(path);
+		
+		//Create file scanner
+		transArrPos = 0;
+		Scanner file = new Scanner(transactionsPath);
+		transactionArr = new Transaction[10];
+		
+		while(file.hasNext())
+		{
+			//Copy each line of the file into token, then scan token
+			String token = file.nextLine();
+			Scanner input = new Scanner(token);
+			input.useDelimiter(",");
+			
+			//Read in String and Create Transaction Objects
+			while (input.hasNext())
+			{
+				createTransaction(input.next(), input.next(), input.nextDouble(), input.next());
+			}
+			input.close();
+		}
+		file.close();
+	}
+	
+	public void createTransaction(String customer, String date, double amount, String description)
+	{
+		transactionArr[transArrPos] = new Transaction(customer, date, amount, description);
+		
+		//Increment transArrPos to next null position in transactionArr
+		transArrPos++;
+		
+		if (transArrPos >= accountArr.length)
+		{
+			transactionArr = (Transaction[]) resizeArray(transArrPos, (transactionArr.length * 2));
+		}	
+	}
+	
+	public void deleteTransaction(int index)
+	{
+		//If array is already empty or index is out of range:
+		if (transArrPos <= 0 || index >= transArrPos || index < 0)
+		{
+			return;
+		}
+		else
+		{
+			//Swap last entry in array with entry that is pending deletion
+			transactionArr[index] = transactionArr[(transArrPos - 1)];
+			//Set last entry in array to null (Garbage Collection)
+			transactionArr[transArrPos - 1] = null;
+			//Decrement Size of TransactionArr
+			--transArrPos;
+		}
+		
+		if ((transArrPos < (transactionArr.length * (1/4))) && (transArrPos > 5))
+		{
+			transactionArr = (Transaction[]) resizeArray(transactionArr, (transactionArr.length * 1/2));
+		}
+	}
+	
+	public void saveTransactions() throws IOException
+	{
+		BufferedWriter out = new BufferedWriter(new FileWriter(transactionsPath));
+		
+		for(int index = 0; index < transArrPos; index++)
+		{
+			out.write(transactionArr[index].toString());
+			out.newLine();
+		}
+		out.close();
+	}
+	
+	public int getTransactionArrPos()
+	{
+		return transArrPos;
+	}
+	
+	public Transaction[] getTransactionArr()
+	{
+		return transactionArr;
 	}
 
 	public void createAccount(String firstName, String lastName, String username, String email, String password)
@@ -153,25 +238,39 @@ public class InputOutput
 	{
 		InputOutput IO = new InputOutput();
 		Account[] accountArr;
-
+		Transaction[] transactionArr;
+		
+		
 		try
 		{
 			IO.readAccounts("Accounts2.txt");
+			IO.readTransactions("Transactions.txt");
 		}
 		catch (FileNotFoundException event)
 		{
 			event.printStackTrace();
 		}
 		
+		
+		
 		//Get the account array.
 		accountArr = IO.getAccountArr();
+		transactionArr = IO.getTransactionArr();
 
-		accountArr = IO.getAccountArr();
 
 		short index = 0;
 		while(accountArr[index] != null)
 		{
 			System.out.println(accountArr[index].toString());
+			index++;
+		}
+		index = 0;
+		
+		
+		System.out.println("\n\n\n");
+		while(transactionArr[index] != null)
+		{
+			System.out.println(transactionArr[index].toString());
 			index++;
 		}
 		
