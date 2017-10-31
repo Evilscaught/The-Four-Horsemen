@@ -30,10 +30,10 @@
 package application;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Scanner;
 
 
@@ -42,15 +42,15 @@ public class InputOutput
     private int accountArrPos;
     private int transArrPos;
 
-    private File accountsPath;
-    private File transactionsPath;
+    private InputStream accountsPath;
+    private InputStream transactionsPath;
     private Account[] accountArr;
     private Transaction[] transactionArr;
 
     //Get accounts from database and read into Account array.
     public void readAccounts(String path) throws FileNotFoundException 
-    {
-        this.accountsPath = new File(path);
+    {   
+        accountsPath = this.getClass().getResourceAsStream(path);
 
         //Create file scanner
         accountArrPos = 0;
@@ -76,7 +76,7 @@ public class InputOutput
     
     public void readTransactions(String path) throws FileNotFoundException
     {
-        transactionsPath = new File(path);
+        transactionsPath = this.getClass().getResourceAsStream(path);
         
         //Create file scanner
         transArrPos = 0;
@@ -138,7 +138,7 @@ public class InputOutput
     
     public void saveTransactions() throws IOException
     {
-        BufferedWriter out = new BufferedWriter(new FileWriter(transactionsPath));
+        BufferedWriter out = new BufferedWriter(new FileWriter(transactionsPath.toString()));
         
         for(int index = 0; index < transArrPos; index++)
         {
@@ -196,7 +196,7 @@ public class InputOutput
 
     public void saveAccounts() throws IOException
     {
-        BufferedWriter out = new BufferedWriter(new FileWriter(accountsPath));
+        BufferedWriter out = new BufferedWriter(new FileWriter(accountsPath.toString()));
 
         for(short index = 0; index < accountArrPos; index++)
         {
@@ -243,8 +243,8 @@ public class InputOutput
         
         try
         {
-            IO.readAccounts("Accounts2.txt");
-            IO.readTransactions("Transactions.txt");
+            IO.readAccounts("src/Accounts.txt");
+            IO.readTransactions("src/Transactions.txt");
         }
         catch (FileNotFoundException event)
         {
