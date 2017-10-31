@@ -31,129 +31,128 @@ package application;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Scanner;
 
 
 public class InputOutput
 {
-	private short accountArrPos;
-	
-	private File accountsPath;
-	private Account[] accountArr;
-	
-	//Constructor not required. 
-	
-	//Get accounts from database and read into Account array.
-	public void readAccounts(String path) throws FileNotFoundException
-	{
-		this.accountsPath = new File(path);
+    private short accountArrPos;
 
-		//Create file scanner
-		accountArrPos = 0;
-		Scanner file = new Scanner(accountsPath);
-		accountArr = new Account[10];
-		
-		while(file.hasNext())
-		{
-			//Copy each line of file into token, then scan token. 
-			String token = file.nextLine();
-			Scanner input = new Scanner(token);
+    private File accountsPath;
+    private Account[] accountArr;
 
-			input.useDelimiter(",");
-			
-			//Resize accountArr if index surpasses capacity.
-			if (accountArrPos >= accountArr.length)
-			{
-				accountArr = resizeArr(accountArr, (accountArr.length * 2));
-			}
-			
-			//Read in string and create account objects.
-			while(input.hasNext())
-			{
-				accountArr[accountArrPos] = new Account(input.next(), input.next(), input.next(), input.next(), input.next());
-				accountArrPos++;
-			}
-			
-			input.close();
-		}
-		
-		file.close();
-	}
-	
-	public void createAccount(String firstName, String lastName, String username, String email, String password)
-	{
-		accountArr[accountArrPos] = new Account(firstName, lastName, username, email, password);
-		
-		//Increment accountArrPos to next null position in accountArr
-		accountArrPos++;
-		
-		if (accountArrPos >= accountArr.length)
-		{
-			accountArr = resizeArr(accountArr, (accountArr.length * 2));
-		}
-	}
-	
-	public void deleteAccount(int index)
-	{	
-		if (accountArrPos <= 0)
-		{
-			//Do Nothing
-		}
-		else
-		{
-			accountArr[index] = accountArr[(accountArrPos - 1)];
-			accountArr[accountArrPos - 1] = null;
-			--accountArrPos;
-		}
-	}
+    //Constructor not required. 
+    //Get accounts from database and read into Account array.
+    public void readAccounts(String path) //throws FileNotFoundException
+    {
+        //        this.accountsPath = new File(this.getClass().getResource(path).getFile());
+        //Create file scanner
+        InputStream fileStream = this.getClass().getResourceAsStream(path);
+        accountArrPos = 0;
+        Scanner file = new Scanner(fileStream);
+        accountArr = new Account[10];
 
-	public void saveAccounts() throws IOException
-	{
-		BufferedWriter out = new BufferedWriter(new FileWriter(accountsPath));
-		
-		for(short index = 0; index < accountArrPos; index++)
-		{
-			out.write(accountArr[index].toString());
-			out.newLine();
-		}
-		out.close();
-	}
-	
-	public Account[] getAccountArr()
-	{
-		return accountArr;
-	}
-	
-	public int getAccountArrPos()
-	{
-		return accountArrPos;
-	}
-	
-	//Resizes arrays of type 'Account', would like to make it accept any arrays in the future.
-	private Account[] resizeArr(Account[] itemArr, int capacity)
+        while(file.hasNext())
+        {
+            //Copy each line of file into token, then scan token. 
+            String token = file.nextLine();
+            Scanner input = new Scanner(token);
+
+            input.useDelimiter(",");
+
+            //Resize accountArr if index surpasses capacity.
+            if (accountArrPos >= accountArr.length)
+            {
+                accountArr = resizeArr(accountArr, (accountArr.length * 2));
+            }
+
+            //Read in string and create account objects.
+            while(input.hasNext())
+            {
+                accountArr[accountArrPos] = new Account(input.next(), input.next(), input.next(), input.next(), input.next());
+                accountArrPos++;
+            }
+
+            input.close();
+        }
+
+        file.close();
+    }
+
+    public void createAccount(String firstName, String lastName, String username, String email, String password)
+    {
+        accountArr[accountArrPos] = new Account(firstName, lastName, username, email, password);
+
+        //Increment accountArrPos to next null position in accountArr
+        accountArrPos++;
+
+        if (accountArrPos >= accountArr.length)
+        {
+            accountArr = resizeArr(accountArr, (accountArr.length * 2));
+        }
+    }
+
+    public void deleteAccount(int index)
+    {	
+        if (accountArrPos <= 0)
+        {
+            //Do Nothing
+        }
+        else
+        {
+            accountArr[index] = accountArr[(accountArrPos - 1)];
+            accountArr[accountArrPos - 1] = null;
+            --accountArrPos;
+        }
+    }
+
+    public void saveAccounts() throws IOException
+    {
+        BufferedWriter out = new BufferedWriter(new FileWriter(accountsPath));
+
+        for(short index = 0; index < accountArrPos; index++)
+        {
+            out.write(accountArr[index].toString());
+            out.newLine();
+        }
+        out.close();
+    }
+
+    public Account[] getAccountArr()
+    {
+        return accountArr;
+    }
+
+    public int getAccountArrPos()
+    {
+        return accountArrPos;
+    }
+
+    //Resizes arrays of type 'Account', would like to make it accept any arrays in the future.
+    private Account[] resizeArr(Account[] itemArr, int capacity)
     {   
         Account tempItemArr[] = new Account[capacity];
-        
+
         //Copy all items to temporary array with larger capacity.
         for (int index = 0; index < itemArr.length; index++)
         {
             tempItemArr[index] = itemArr[index];
         }
-        
+
         return tempItemArr;
     }
-	
-	//Unit Testing
-/*	public static void main(String[] args)
+
+    //Unit Testing
+    /*	public static void main(String[] args)
 	{
 		System.out.println("Starting");
-		
+
 		InputOutput IO = new InputOutput();
 		Account[] accountArr = new Account[10];
-		
+
 		try 
 		{
 			IO.readAccounts("./src/Accounts.txt");
@@ -164,14 +163,14 @@ public class InputOutput
 		}
 		//Get the account array.
 		accountArr = IO.getAccountArr();
-		
+
 		short index = 0;
 		while(accountArr[index] != null)
 		{
 			System.out.println(accountArr[index].toString());
 			index++;
 		}
-		
+
 		try 
 		{
 			IO.saveAccounts();
@@ -183,5 +182,5 @@ public class InputOutput
 
 		System.out.println("Ending");
 	}
-	*/
+     */
 }

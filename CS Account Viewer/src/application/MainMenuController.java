@@ -2,6 +2,9 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -10,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -30,6 +34,18 @@ public class MainMenuController {
     @FXML private URL location;
     @FXML private Button createAccountButton;
 
+    public String[] getUserListFirstLast() {
+        Account[] temp = db.getAccountArr();
+        String [] userListStr = new String [temp.length];
+        
+        for (int i = 0; i < temp.length; i++) {
+            if (temp[i] != null)
+                userListStr[i] = temp[i].getFirstName() + " " + temp[i].getLastName();
+        }        
+        
+        return userListStr;
+    }
+    
     public void refreshUserList() {
         Account[] temp = db.getAccountArr();
 
@@ -68,8 +84,9 @@ public class MainMenuController {
                         Account[] temp = db.getAccountArr();
 
                         // TODO: Implement a GetAccount in the Accounts class
-                        for (Account act : temp) {
-                            if (act != null && act.getFirstName().equals(newValue.split(" ")[0])) {
+                        for (Account act : temp) { 
+                            // TODO: add an equals method in the Accounts
+                            if (act != null && act.getName().equals(newValue)) {
                                 firstNameField.setText(act.getFirstName());
                                 lastNameField.setText(act.getLastName());
                                 emailField.setText(act.getEmail());
@@ -91,6 +108,34 @@ public class MainMenuController {
 
         return new Scene(rootLayout);
     }
+    
+    public String deleteDialog () {
+        List<String> choices = new ArrayList<>();
+        
+        for(String tmp : getUserListFirstLast()) {
+            if (tmp != null)
+                choices.add(tmp);
+        }
+ 
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("", choices);
+        dialog.setTitle("Delete Account");
+        dialog.setHeaderText("Account Deletion");
+        dialog.setContentText("Choose account to delete:");
+
+        // Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            String choice = result.get();
+            System.out.println("Your choice: " + choice);
+            
+            return choice;
+            
+        }
+        
+        return "";
+        // The Java 8 way to get the response value (with lambda expression).
+        // result.ifPresent(letter -> System.out.println("Your choice: " + letter));
+    }
  
     /***********************************************************
      * GUI Listener Handlers
@@ -109,6 +154,19 @@ public class MainMenuController {
         adminPane.getChildren().addAll(new CreateAccountController().getPane());
     }
 
+    @FXML
+    void deleteAccountClick(MouseEvent event) {
+        String selection = deleteDialog();
+        
+        Account[] temp = db.getAccountArr();
+
+        for (int i = 0; i < temp.length; i++) {
+            if (temp[i] != null && (temp[i].getFirstName() + " " + temp[i].getLastName()).equals(selection))
+                db.deleteAccount(i);
+        }        
+
+        this.refreshUserList();
+   }
    
     /***********************************************************
      * Getters/Setters 

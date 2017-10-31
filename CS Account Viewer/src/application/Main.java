@@ -1,5 +1,7 @@
 package application;
 
+import java.io.InputStream;
+
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,8 +29,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            inout.readAccounts("Accounts2.txt");
-
+            
+//           System.out.println(path);
+            inout.readAccounts("src/accounts2.txt");
+//            inout.readAccounts(path);
             Group root = new Group();
 
             Scene scene = new Scene(root, 300,220);

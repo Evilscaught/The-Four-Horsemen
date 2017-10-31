@@ -7,3 +7,11 @@
 	-fx-background-position: 50% 10%;	
 	-fx-background-size: 50px;
 }
+
+#deleteAccountButton {
+	-fx-label-padding: 6px; 
+	-fx-background-image: url('view/images/delete-user.png');
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: 50% 10%;	
+	-fx-background-size: 50px;
+}
