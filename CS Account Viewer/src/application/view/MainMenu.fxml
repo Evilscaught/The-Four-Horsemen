@@ -66,12 +66,7 @@
         </Tab>
         <Tab text="Transactions">
           <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-              <children>
-                <Button alignment="BOTTOM_RIGHT" contentDisplay="CENTER" defaultButton="true" layoutX="43.0" layoutY="65.0" minHeight="19.000091552734375" mnemonicParsing="false" prefHeight="82.0" prefWidth="132.00006103515625" style="-fx-label-padding:6px;&#10;" text="Add Transaction" />
-                <Button alignment="BOTTOM_RIGHT" contentDisplay="CENTER" defaultButton="true" layoutX="43.0" layoutY="172.0" minHeight="19.000091552734375" mnemonicParsing="false" prefHeight="82.0" prefWidth="132.00006103515625" style="-fx-label-padding:6px;&#10;" text="Edit Transaction" />
-              </children>
-            </AnchorPane>
+            <AnchorPane id="Content" fx:id="transactionPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
           </content>
         </Tab>
         <Tab text="------">

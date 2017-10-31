@@ -17,6 +17,7 @@ public class CreateAccountController {
     @FXML PasswordField passField, passVerifyField;
     @FXML private TextArea descriptionField;
 
+    
     @FXML
     void LogoutClick(MouseEvent event) {
         Main main = new Main();

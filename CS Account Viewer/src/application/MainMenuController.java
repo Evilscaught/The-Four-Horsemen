@@ -27,6 +27,7 @@ public class MainMenuController {
     InputOutput db;
 
     @FXML private AnchorPane adminPane;
+    @FXML private AnchorPane transactionPane;
     @FXML private ListView<String> userList;
     @FXML private TextField firstNameField, lastNameField, emailField, userNameField;
     @FXML private TextArea descriptionField;
@@ -100,6 +101,7 @@ public class MainMenuController {
             });
 
             this.setAdminPane();
+            this.setTransactionPane();
 
             return scene;
         } catch (IOException e) {
@@ -155,6 +157,12 @@ public class MainMenuController {
     }
 
     @FXML
+    void addTransactionButtonClick(MouseEvent event) {
+        transactionPane.getChildren().clear();
+        transactionPane.getChildren().addAll(new CreateTransactionController().getPane());
+    }
+
+    @FXML
     void deleteAccountClick(MouseEvent event) {
         String selection = deleteDialog();
         
@@ -195,6 +203,31 @@ public class MainMenuController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } 
+        //        this.adminPane = adminPane;
+    }
+
+    public void setTransactionPane() {
+
+        // Load root layout from fxml file.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("view/Transactions.fxml"));
+        loader.setController(this);
+
+//        try {
+//            transactionPane.getChildren().clear();
+//            transactionPane.getChildren().add(new CreateTransactionController().getPane());
+      transactionPane.getChildren().clear();
+      
+      try {
+        transactionPane.getChildren().add(loader.load());
+    } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+ //       } catch (IOException e) {
+            // TODO Auto-generated catch block
+ //           e.printStackTrace();
+ //       } 
         //        this.adminPane = adminPane;
     }
 
