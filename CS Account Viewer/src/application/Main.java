@@ -31,7 +31,9 @@ public class Main extends Application {
         try {
             
 //           System.out.println(path);
-            inout.readAccounts("/src/accounts2.txt");
+        	inout.readAccounts("/src/accounts2.txt");
+        	inout.readTransactions("/src/Transactions.txt");
+
 //            inout.readAccounts(path);
             Group root = new Group();
 

@@ -113,6 +113,45 @@ public class InputOutput
         }   
     }
     
+    public void createCCTransaction(String customer, String date, double amount, String description)
+    {
+        transactionArr[transArrPos] = new CCTransaction(customer, date, amount, description);
+        
+        //Increment transArrPos to next null position in transactionArr
+        transArrPos++;
+        
+        if (transArrPos >= accountArr.length)
+        {
+            transactionArr = (Transaction[]) resizeArray(transArrPos, (transactionArr.length * 2));
+        }   
+    }
+    
+    public void createCheckTransaction(String customer, String date, double amount, String description)
+    {
+        transactionArr[transArrPos] = new CheckTransaction(customer, date, amount, description);
+        
+        //Increment transArrPos to next null position in transactionArr
+        transArrPos++;
+        
+        if (transArrPos >= accountArr.length)
+        {
+            transactionArr = (Transaction[]) resizeArray(transArrPos, (transactionArr.length * 2));
+        }   
+    }
+    
+    public void createExpense(String customer, String date, double amount, String description)
+    {
+        transactionArr[transArrPos] = new Expense(customer, date, amount, description);
+        
+        //Increment transArrPos to next null position in transactionArr
+        transArrPos++;
+        
+        if (transArrPos >= accountArr.length)
+        {
+            transactionArr = (Transaction[]) resizeArray(transArrPos, (transactionArr.length * 2));
+        }   
+    }
+    
     public void deleteTransaction(int index)
     {
         //If array is already empty or index is out of range:

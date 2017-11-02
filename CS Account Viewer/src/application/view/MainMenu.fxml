@@ -8,7 +8,7 @@
 <?import javafx.scene.text.*?>
 <?scenebuilder-stylesheet ../../../../../../workspace/_javafx_test1/bootstrap3.css?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0000999999975" prefWidth="600.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0000999999975" prefWidth="605.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
     <AnchorPane layoutX="0.0" layoutY="26.0" minWidth="0.0" prefHeight="374.0" prefWidth="125.0">
       <children>
@@ -36,6 +36,11 @@
     </MenuBar>
     <TabPane fx:id="mainTabPane" layoutX="125.0" layoutY="26.0" prefHeight="374.0001220703125" prefWidth="475.0001220703125" tabClosingPolicy="UNAVAILABLE">
       <tabs>
+        <Tab text="Transactions">
+          <content>
+            <AnchorPane id="Content" fx:id="transactionPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
         <Tab text="Admin">
           <content>
             <AnchorPane id="Content" fx:id="adminPane" minHeight="0.0" minWidth="0.0" prefHeight="344.0" prefWidth="476.0000999999975" />
@@ -62,16 +67,6 @@
                 </Button>
               </children>
             </AnchorPane>
-          </content>
-        </Tab>
-        <Tab text="Transactions">
-          <content>
-            <AnchorPane id="Content" fx:id="transactionPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-          </content>
-        </Tab>
-        <Tab text="------">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
           </content>
         </Tab>
       </tabs>

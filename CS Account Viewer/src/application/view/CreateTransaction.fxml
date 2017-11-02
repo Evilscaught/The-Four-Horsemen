@@ -10,11 +10,11 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="476.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
-    <TextField id="firstName" fx:id="customerNameField" layoutX="15.0" layoutY="28.0" prefWidth="200.0" promptText="Please enter Customer Name" />
+    <TextField id="customerNameField" fx:id="customerNameField" layoutX="15.0" layoutY="28.0" prefWidth="200.0" promptText="Please enter Customer Name" />
     <Label layoutX="19.0" layoutY="13.0" text="Customer:" />
-    <TextField id="firstName" fx:id="dateField" layoutX="15.0" layoutY="91.0" prefWidth="200.0" promptText="" />
+    <TextField id="dateField" fx:id="dateField" layoutX="15.0" layoutY="91.0" prefWidth="200.0" promptText="" />
     <Label layoutX="19.0" layoutY="76.0" text="Date:" />
-    <TextField id="firstName" fx:id="amountField" layoutX="15.0" layoutY="150.0" prefWidth="200.0" promptText="Please enter Amount" />
+    <TextField id="amountField" fx:id="amountField" layoutX="15.0" layoutY="150.0" prefWidth="200.0" promptText="Please enter Amount" />
     <Label layoutX="19.0" layoutY="135.0" text="Amount:" />
     <TextArea fx:id="descriptionField" layoutX="15.0" layoutY="202.0" prefHeight="88.0" prefWidth="447.0" wrapText="true" />
     <Label layoutX="14.0" layoutY="186.0" text="Description:" />

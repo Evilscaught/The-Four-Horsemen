@@ -1,5 +1,6 @@
 package application;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,6 +35,8 @@ public class MainMenuController {
     @FXML private ResourceBundle resources;
     @FXML private URL location;
     @FXML private Button createAccountButton;
+    @FXML private TextArea transactionText;
+    
 
     public String[] getUserListFirstLast() {
         Account[] temp = db.getAccountArr();
@@ -229,6 +232,22 @@ public class MainMenuController {
  //           e.printStackTrace();
  //       } 
         //        this.adminPane = adminPane;
+      
+      String output = "";
+      
+      Transaction[] array = db.getTransactionArr();
+      
+      
+      if (array.length != 0) {
+    	  for (int i=0; i < array.length; i++){
+        	  if (array[i] != null) {
+        		  output += "" + i + ") " + array[i].viewInfo() + "\n";
+        	  }
+          }  
+      }
+      
+      transactionText.setText(output);
+      
     }
 
     public InputOutput getDb() {
@@ -237,4 +256,5 @@ public class MainMenuController {
 
 
 }
+
 
