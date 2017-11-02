@@ -54,20 +54,20 @@ Scott McKay - Spent roughly 45 minutes learning how to use the Gantt Chart
 Dan Bailey - I used gantt charts before, never this program so i am looking around on how to use this program. prob will spend a good hour on it.]]></notes>
             </task>
         </task>
-        <task id="13" name="Sprint 2" color="#8cb6ce" meeting="false" start="2017-09-25" duration="1" complete="56" expand="true">
-            <task id="21" name="Create Transaction Classes" color="#8cb6ce" meeting="false" start="2017-09-25" duration="1" complete="75" expand="true">
+        <task id="13" name="Sprint 2" color="#8cb6ce" meeting="false" start="2017-10-19" duration="1" complete="56" expand="true">
+            <task id="21" name="Create Transaction Classes" color="#8cb6ce" meeting="false" start="2017-10-19" duration="1" complete="75" expand="true">
                 <notes><![CDATA[Jake - Created Classes and implented them into gui
 Dan edit and format information a little better within classes
 ]]></notes>
             </task>
-            <task id="24" name="Create file for transactions" color="#8cb6ce" meeting="false" start="2017-09-25" duration="1" complete="100" expand="true">
+            <task id="24" name="Create file for transactions" color="#8cb6ce" meeting="false" start="2017-10-19" duration="1" complete="100" expand="true">
                 <notes><![CDATA[Scott created file for all the transactions to be saved to and also tobe read in]]></notes>
             </task>
-            <task id="26" name="User Log in" color="#8cb6ce" meeting="false" start="2017-09-25" duration="1" complete="0" expand="true">
+            <task id="26" name="User Log in" color="#8cb6ce" meeting="false" start="2017-10-19" duration="1" complete="0" expand="true">
                 <notes><![CDATA[Dan log in as one user and only display the  information within their account. 
 Admin account can see everything.]]></notes>
             </task>
-            <task id="28" name="User interface" color="#8cb6ce" meeting="false" start="2017-09-25" duration="1" complete="50" expand="true">
+            <task id="28" name="User interface" color="#8cb6ce" meeting="false" start="2017-10-19" duration="1" complete="50" expand="true">
                 <notes><![CDATA[Jack made the user interface
 Dan scott and jake made changes as needed
 
