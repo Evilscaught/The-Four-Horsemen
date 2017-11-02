@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-09-24" view-index="0" gantt-divider-location="838" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-09-24" view-index="0" gantt-divider-location="401" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
     <view zooming-state="default:1" id="gantt-chart">
-        <field id="tpd3" name="Name" width="329" order="0"/>
-        <field id="tpd4" name="Begin date" width="84" order="1"/>
-        <field id="tpd5" name="End date" width="88" order="2"/>
-        <field id="tpc0" name="Group Member" width="155" order="3"/>
-        <field id="tpc1" name="Notes" width="178" order="4"/>
-        <timeline><![CDATA[14]]></timeline>
+        <field id="tpd3" name="Name" width="216" order="0"/>
+        <field id="tpd4" name="Begin date" width="91" order="1"/>
+        <field id="tpd5" name="End date" width="90" order="2"/>
+        <timeline><![CDATA[13]]></timeline>
         <option id="color.recent"><![CDATA[#00cccc #ff0000 #009999 #0000cc]]></option>
     </view>
     <view id="resource-table">
@@ -39,61 +37,41 @@
             <taskproperty id="tpc0" name="Group Member" type="custom" valuetype="text"/>
             <taskproperty id="tpc1" name="Notes" type="custom" valuetype="text"/>
         </taskproperties>
-        <task id="0" name="Learn Software Engineering Tools" color="#8cb6ce" meeting="false" start="2017-08-31" duration="19" complete="0" expand="true">
-            <customproperty taskproperty-id="tpc0" value="Group"/>
+        <task id="0" name="Learn Software Engineering Tools" color="#8cb6ce" meeting="false" start="2017-08-31" duration="19" complete="0" expand="false">
             <task id="5" name="GIT" color="#009999" meeting="false" start="2017-08-31" duration="16" complete="0" priority="2" expand="true">
                 <notes><![CDATA[Jack Cummings - I have spent around 4 hours learning/relearning Git & Github.
 Scott McKay - I've been learning GIT by using it for other classes (besides just Software Science).  I've also revied a list of notes I have explaining a bunch of GIT commands.  Overall I've probably spent 4-5 hours learning GIT. 
 Dan Bailey - I spent probably 2-3 hours learning GIT, between in class, videos and reading the commands.]]></notes>
-                <customproperty taskproperty-id="tpc0" value="Group"/>
-                <customproperty taskproperty-id="tpc1" value="Jake - I spent around 5 hours learning GIT."/>
             </task>
             <task id="7" name="ATOM" color="#8cb6ce" meeting="false" start="2017-09-07" duration="11" complete="0" expand="true">
                 <notes><![CDATA[Jack Cummings - I have spent around an hour playing with Atom & its features.
 Scott McKay - Watched a video showing some neat fetures Atom has! 
 Dan Bailey - I used atom alot last semester so I knew already a bit on how to used it. I still look often for new packages to use and other features that make using it easier]]></notes>
-                <customproperty taskproperty-id="tpc0" value="Group"/>
-                <customproperty taskproperty-id="tpc1" value="Jake - I spent about 4 hours learning ATOM."/>
             </task>
             <task id="12" name="Gantt Chart" color="#0000cc" shape="1,0,0,0,1,0,0,0,1,0,0,0,1,1,1,1" meeting="false" start="2017-09-21" duration="4" complete="0" expand="true">
                 <notes><![CDATA[Jack Cummings - I spent about 30 minutes downloading software for the Gantt chart & learning it.  This also includes the time I spent typing these notes.
 Scott McKay - Spent roughly 45 minutes learning how to use the Gantt Chart
 Dan Bailey - I used gantt charts before, never this program so i am looking around on how to use this program. prob will spend a good hour on it.]]></notes>
-                <customproperty taskproperty-id="tpc0" value="Group"/>
-                <customproperty taskproperty-id="tpc1" value="Jake - I spent about an hour learning about Gantt Charts."/>
             </task>
         </task>
-<<<<<<< HEAD
-        <task id="13" name="Sprint1" color="#000000" meeting="false" start="2017-09-25" duration="17" complete="0" expand="true">
-=======
-        <task id="13" name="Push #1" color="#000000" meeting="false" start="2017-09-13" duration="25" complete="0" expand="true">
->>>>>>> refs/remotes/origin/master
-            <notes><![CDATA[Last couple days, fixed bugs, added company and software names]]></notes>
-            <task id="14" name="Create Input-Output Class" color="#ff0000" shape="0,1,1,0,0,1,1,0,0,1,1,0,0,1,1,0" meeting="false" start="2017-10-16" duration="2" complete="0" priority="2" expand="true">
-                <notes><![CDATA[Create an input-output file that fetches and saves data for the program. ]]></notes>
-                <customproperty taskproperty-id="tpc0" value="Scott McKay"/>
-                <customproperty taskproperty-id="tpc1" value="Create an input-output file that fetches and saves data for the program"/>
+        <task id="13" name="Sprint 2" color="#8cb6ce" meeting="false" start="2017-09-25" duration="1" complete="56" expand="true">
+            <task id="21" name="Create Transaction Classes" color="#8cb6ce" meeting="false" start="2017-09-25" duration="1" complete="75" expand="true">
+                <notes><![CDATA[Jake - Created Classes and implented them into gui
+Dan edit and format information a little better within classes
+]]></notes>
             </task>
-            <task id="23" name="Create Account Class and Implement Methods" color="#00cccc" shape="0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0" meeting="false" start="2017-10-16" duration="2" complete="0" expand="true">
-                <customproperty taskproperty-id="tpc0" value="Scott McKay"/>
+            <task id="24" name="Create file for transactions" color="#8cb6ce" meeting="false" start="2017-09-25" duration="1" complete="100" expand="true">
+                <notes><![CDATA[Scott created file for all the transactions to be saved to and also tobe read in]]></notes>
             </task>
-            <task id="31" name="Fixed Bugs, changed view. added company and software names" meeting="false" start="2017-09-25" duration="1" complete="0" expand="true">
-                <customproperty taskproperty-id="tpc0" value="Dan Bailey"/>
+            <task id="26" name="User Log in" color="#8cb6ce" meeting="false" start="2017-09-25" duration="1" complete="0" expand="true">
+                <notes><![CDATA[Dan log in as one user and only display the  information within their account. 
+Admin account can see everything.]]></notes>
             </task>
-            <task id="33" name="Created login and main screen" color="#8cb6ce" meeting="false" start="2017-09-13" duration="1" complete="0" expand="true">
-                <notes><![CDATA[Created and added functionality to login screen and main menu]]></notes>
-                <customproperty taskproperty-id="tpc0" value="Jacob Wolfe"/>
-            </task>
-            <task id="37" name="Worked on connecting user controls to database" color="#8cb6ce" meeting="false" start="2017-09-22" duration="1" complete="0" expand="true">
-                <customproperty taskproperty-id="tpc0" value="Jacob Wolfe"/>
-            </task>
-                        <task id="40" name="Updated View Account Screen" color="#8cb6ce" meeting="false" start="2017-10-12" duration="6" complete="0" expand="true">
-                <notes><![CDATA[Added Text Boxes, Labels
-Added Buttons for Exiting, Logging Out
+            <task id="28" name="User interface" color="#8cb6ce" meeting="false" start="2017-09-25" duration="1" complete="50" expand="true">
+                <notes><![CDATA[Jack made the user interface
+Dan scott and jake made changes as needed
 
-Connected to the basic Account API for testing]]></notes>
-                <customproperty taskproperty-id="tpc0" value="Jack Cummings"/>
-                <customproperty taskproperty-id="tpc1" value=""/>
+need to update the display for information, and format it to look nice.]]></notes>
             </task>
         </task>
     </tasks>
