@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="476.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <Button fx:id="createAccountButton" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" defaultButton="true" graphicTextGap="4.0" layoutX="31.0" layoutY="26.0" minHeight="19.000091552734375" mnemonicParsing="false" onMouseClicked="#createAccountClick" prefHeight="82.0" prefWidth="142.0" style="" text="Create Account">
+      <font>
+        <Font name="System Bold" size="14.0" fx:id="x1" />
+      </font>
+      <stylesheets>
+        <URL value="@../application.css" />
+      </stylesheets>
+    </Button>
+    <Button id="deleteAccountButton" fx:id="DeleteAccountButton" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" defaultButton="true" font="$x1" graphicTextGap="4.0" layoutX="31.0" layoutY="123.0" minHeight="19.000091552734375" mnemonicParsing="false" onMouseClicked="#deleteAccountClick" prefHeight="82.0" prefWidth="142.0" style="" text="Delete Account">
+      <stylesheets>
+        <URL value="@../application.css" />
+      </stylesheets>
+    </Button>
+  </children>
+</AnchorPane>

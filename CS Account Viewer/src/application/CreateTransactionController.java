@@ -12,33 +12,33 @@ import javafx.scene.layout.Pane;
 
 public class CreateTransactionController {
     private Pane currentPane;
-    
+
     @FXML private TextField customerNameField;
     @FXML private TextArea descriptionField;
     @FXML private TextField dateField;
     @FXML private TextField amountField;
     @FXML private ChoiceBox<String> transactionType;
-    
+
     @FXML
     void saveButtonClicked(MouseEvent event) {
-    	
+
     	double amount = Double.parseDouble(amountField.getText());
-    	
+
         if (transactionType.getValue() == "Credit Card Deposit") {
         	Main.getMainController().getDb().createCCTransaction(customerNameField.getText(), dateField.getText(), amount, descriptionField.getText());
         }
-        
+
         else if (transactionType.getValue() == "Check Deposit") {
         	Main.getMainController().getDb().createCheckTransaction(customerNameField.getText(), dateField.getText(), amount, descriptionField.getText());
         }
-        
+
         else if (transactionType.getValue() == "Expense") {
         	amount = amount * -1;
         	Main.getMainController().getDb().createExpense(customerNameField.getText(), dateField.getText(), amount, descriptionField.getText());
         }
-        	
+
     }
-    
+
     @FXML
     void backButtonClicked(MouseEvent event) {
         Main.getMainController().setTransactionPane();
@@ -46,7 +46,7 @@ public class CreateTransactionController {
 
     @FXML
     private void initialize () {
-        
+
     }
 
     public CreateTransactionController() {
@@ -61,16 +61,16 @@ public class CreateTransactionController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         transactionType.getItems().clear();
         transactionType.getItems().add("Credit Card Deposit");
         transactionType.getItems().add("Check Deposit");
         transactionType.getItems().add("Expense");
         transactionType.getSelectionModel().selectFirst();
-   
+
     }
 
-    
+
     public Pane getPane() {
         return currentPane;
     }

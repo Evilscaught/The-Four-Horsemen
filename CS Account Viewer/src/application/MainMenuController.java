@@ -4,10 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -22,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.omg.CORBA.DynAnyPackage.TypeMismatch;
 
 public class MainMenuController {
     Stage primaryStage;
@@ -36,20 +37,20 @@ public class MainMenuController {
     @FXML private URL location;
     @FXML private Button createAccountButton;
     @FXML private TextArea transactionText;
-    
+
 
     public String[] getUserListFirstLast() {
         Account[] temp = db.getAccountArr();
         String [] userListStr = new String [temp.length];
-        
+
         for (int i = 0; i < temp.length; i++) {
             if (temp[i] != null)
                 userListStr[i] = temp[i].getFirstName() + " " + temp[i].getLastName();
-        }        
-        
+        }
+
         return userListStr;
     }
-    
+
     public void refreshUserList() {
         Account[] temp = db.getAccountArr();
 
@@ -58,7 +59,7 @@ public class MainMenuController {
         for (Account act : temp) {
             if (act != null)
                 userList.getItems().add(act.getFirstName() + " " + act.getLastName());
-        }        
+        }
     }
 
     @FXML
@@ -88,7 +89,7 @@ public class MainMenuController {
                         Account[] temp = db.getAccountArr();
 
                         // TODO: Implement a GetAccount in the Accounts class
-                        for (Account act : temp) { 
+                        for (Account act : temp) {
                             // TODO: add an equals method in the Accounts
                             if (act != null && act.getName().equals(newValue)) {
                                 firstNameField.setText(act.getFirstName());
@@ -113,15 +114,15 @@ public class MainMenuController {
 
         return new Scene(rootLayout);
     }
-    
+
     public String deleteDialog () {
         List<String> choices = new ArrayList<>();
-        
+
         for(String tmp : getUserListFirstLast()) {
             if (tmp != null)
                 choices.add(tmp);
         }
- 
+
         ChoiceDialog<String> dialog = new ChoiceDialog<>("", choices);
         dialog.setTitle("Delete Account");
         dialog.setHeaderText("Account Deletion");
@@ -132,21 +133,21 @@ public class MainMenuController {
         if (result.isPresent()){
             String choice = result.get();
             System.out.println("Your choice: " + choice);
-            
+
             return choice;
-            
+
         }
-        
+
         return "";
         // The Java 8 way to get the response value (with lambda expression).
         // result.ifPresent(letter -> System.out.println("Your choice: " + letter));
     }
- 
+
     /***********************************************************
      * GUI Listener Handlers
      *
      **********************************************************/
-    
+
     @FXML
     void LogoutClick(MouseEvent event) {
         Main main = new Main();
@@ -168,19 +169,19 @@ public class MainMenuController {
     @FXML
     void deleteAccountClick(MouseEvent event) {
         String selection = deleteDialog();
-        
+
         Account[] temp = db.getAccountArr();
 
         for (int i = 0; i < temp.length; i++) {
             if (temp[i] != null && (temp[i].getFirstName() + " " + temp[i].getLastName()).equals(selection))
                 db.deleteAccount(i);
-        }        
+        }
 
         this.refreshUserList();
    }
-   
+
     /***********************************************************
-     * Getters/Setters 
+     * Getters/Setters
      *
      **********************************************************/
 
@@ -205,7 +206,7 @@ public class MainMenuController {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } 
+        }
         //        this.adminPane = adminPane;
     }
 
@@ -220,7 +221,7 @@ public class MainMenuController {
 //            transactionPane.getChildren().clear();
 //            transactionPane.getChildren().add(new CreateTransactionController().getPane());
       transactionPane.getChildren().clear();
-      
+
       try {
         transactionPane.getChildren().add(loader.load());
     } catch (IOException e) {
@@ -230,24 +231,24 @@ public class MainMenuController {
  //       } catch (IOException e) {
             // TODO Auto-generated catch block
  //           e.printStackTrace();
- //       } 
+ //       }
         //        this.adminPane = adminPane;
-      
+
       String output = "";
-      
+
       Transaction[] array = db.getTransactionArr();
-      
-      
+
+
       if (array.length != 0) {
     	  for (int i=0; i < array.length; i++){
         	  if (array[i] != null) {
         		  output += "" + i + ") " + array[i].viewInfo() + "\n";
         	  }
-          }  
+          }
       }
-      
+
       transactionText.setText(output);
-      
+
     }
 
     public InputOutput getDb() {
@@ -256,5 +257,3 @@ public class MainMenuController {
 
 
 }
-
-

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="476.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <Button fx:id="addTransactionButton" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" defaultButton="true" layoutX="164.0" layoutY="278.0" minHeight="19.000091552734375" mnemonicParsing="false" onMouseClicked="#addTransactionButtonClick" prefHeight="47.0" prefWidth="133.0" style="-fx-label-padding:6px;&#10;" text="Add Transaction" />
+    <Button alignment="BOTTOM_RIGHT" contentDisplay="CENTER" defaultButton="true" layoutX="313.0" layoutY="278.0" minHeight="19.000091552734375" mnemonicParsing="false" prefHeight="47.0" prefWidth="132.99990000000253" style="-fx-label-padding:6px;&#10;" text="Edit Transaction" />
+    <TextArea layoutX="14.0" layoutY="19.0" prefHeight="246.0" prefWidth="448.0" wrapText="true" />
+  </children>
+</AnchorPane>
