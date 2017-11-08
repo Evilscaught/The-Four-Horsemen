@@ -30,117 +30,115 @@
 package application;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class IOAccounts 
 {
-    private int accountArrPos;
-
     private InputStream accountsPath;
-    private Account[] accountArr;
+    private ArrayList<Account> accountArr;
+    
+    public IOAccounts(String path)
+    {
+        accountsPath = this.getClass().getResourceAsStream(path);
+    }
 	
     //Get accounts from database and read into Account array.
-    public void readAccounts(String path) throws FileNotFoundException 
-    {   
-        accountsPath = this.getClass().getResourceAsStream(path);
-
+    public void readAccounts() throws FileNotFoundException 
+    {    
         //Create file scanner
-        accountArrPos = 0;
         Scanner file = new Scanner(accountsPath);
-        accountArr = new Account[10];
+        accountArr = new ArrayList<Account>(20);
 
         while(file.hasNext())
         {
             //Copy each line of file into token, then scan token.
-            String token = file.nextLine();
-            Scanner input = new Scanner(token);
-            input.useDelimiter(",");
+            String currentLine = file.nextLine();
+            Scanner token = new Scanner(currentLine);
+            token.useDelimiter(",");
 
             //Read in string and create account objects.
-            while(input.hasNext())
+            while(token.hasNext())
             {
-                createAccount(input.next(), input.next(), input.next(), input.next(), input.next());
+                createAccount(token.next(), token.next(), token.next(), token.next(), token.next());
             }
-            input.close();
+            token.close();
         }
         file.close();
     }
     
     public void createAccount(String firstName, String lastName, String username, String email, String password)
     {
-        accountArr[accountArrPos] = new Account(firstName, lastName, username, email, password);
-
-        //Increment accountArrPos to next null position in accountArr
-        accountArrPos++;
-
-        if (accountArrPos >= accountArr.length)
-        {
-            accountArr = (Account[]) resizeArray(accountArr, (accountArr.length * 2));
-        }
+        Account account = new Account(firstName, lastName, username, email, password); 
+        accountArr.add(account);
     }
     
     public void deleteAccount(int index)
     {
-        if (accountArrPos <= 0)
-        {
-            return; //Do Nothing
-        }
-        else
-        {
-            //Swap last entry in array with entry that is pending deletion
-            accountArr[index] = accountArr[(accountArrPos - 1)];
-            //Set last entry in array to null (Garbage Collection)
-            accountArr[accountArrPos - 1] = null;
-            //Decrement Size of AccountArr
-            --accountArrPos;
-        }
-        
-        //Reduce length of the array if less than 1/4 the capacity is being used.
-        if ((accountArrPos < (accountArr.length * (1/4))) && (accountArrPos > 5))
-        {
-            accountArr = (Account[]) resizeArray(accountArr, (accountArr.length * 1/2));
-        }
+    	accountArr.remove(index);
+    }
+    
+    public ArrayList<Account> getAccounts()
+    {
+    	return accountArr;
     }
     
     public void saveAccounts() throws IOException
     {
         BufferedWriter out = new BufferedWriter(new FileWriter(accountsPath.toString()));
 
-        for(short index = 0; index < accountArrPos; index++)
+        for(Account account : getAccounts())
         {
-            out.write(accountArr[index].toString());
-            out.newLine();
+        	out.write(account.toString());
+        	out.newLine();
         }
         out.close();
     }
-    
-    public Account[] getAccountArr()
-    {
-        return accountArr;
-    }
 
-    public int getAccountArrPos()
+	public static void main(String[] args) throws IOException
     {
-        return accountArrPos;
-    }
+		IOAccounts IOAcct = new IOAccounts("src/Accounts.txt");
+		
+		IOAcct.readAccounts();
+		IOAcct.createAccount("Testing", "Testing", "Testing", "Testing", "Testing");
+		IOAcct.saveAccounts();
+		for (Account account : IOAcct.getAccounts())
+		{
+			System.out.println(account.toString());
+		}
 
-    //http://www.source-code.biz/snippets/java/3.htm
-    @SuppressWarnings("rawtypes")
-    private static Object resizeArray (Object oldArray, int newSize) 
-    {
-           int oldSize = java.lang.reflect.Array.getLength(oldArray);
-           Class elementType = oldArray.getClass().getComponentType();
-           Object newArray = java.lang.reflect.Array.newInstance(elementType, newSize);
-           int preserveLength = Math.min(oldSize, newSize);
-           if (preserveLength > 0)
-           {
-              System.arraycopy(oldArray, 0, newArray, 0, preserveLength);
-           }
-           
-           return newArray; 
+		
+		File file = new File("src/something.txt");
+		//BufferedWriter out = new BufferedWriter(new FileWriter(file));
+		//out.write("asdfasd");
+		//out.close();
+		
+		@SuppressWarnings("resource")
+		Scanner fileScanner = new Scanner(file);
+		//I continue to get "asdfasd" in the console,
+		//Even when the above BufferedWriter has been commented out
+		//And the file 'something.txt' is empty...
+		System.out.println(fileScanner.nextLine());
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

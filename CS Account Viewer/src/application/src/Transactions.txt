@@ -1,4 +1,4 @@
-Robyn,10/30/2017,800.23,Testing
-Michael,10/30/2017,800.23,Testing
-John,10/30/2017,800.23,Testing
-Subject X,2020,999.0,Bleh
+Credit Card,Robyn,10/30/2017,800.23,Testing
+Credit Card,Michael,10/30/2017,800.23,Testing
+Check,John,10/30/2017,800.23,Testing
+Expense,Subject X,2020,999.0,Bleh

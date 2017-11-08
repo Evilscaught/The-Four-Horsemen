@@ -35,23 +35,24 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class IOTransactions 
 {
-    private int transArrPos;
-
     private InputStream transactionsPath;
-    private Transaction[] transactionArr;
+    private ArrayList<Transaction> transactionArr;
 	
-    public void readTransactions(String path) throws FileNotFoundException
+    public IOTransactions(String path)
     {
-        transactionsPath = this.getClass().getResourceAsStream(path);
-        
+    	transactionsPath = this.getClass().getResourceAsStream(path);
+    }
+    
+    public void readTransactions() throws FileNotFoundException
+    {
         //Create file scanner
-        transArrPos = 0;
         Scanner file = new Scanner(transactionsPath);
-        transactionArr = new Transaction[10];
+        transactionArr = new ArrayList<Transaction>(10);
         
         while(file.hasNext())
         {
@@ -62,123 +63,67 @@ public class IOTransactions
             
             //Read in String and Create Transaction Objects
             while (input.hasNext())
-            {
-                createTransaction(input.next(), input.next(), input.nextDouble(), input.next());
+            {	
+                createTransaction(input.next(), input.next(), input.next(), input.nextDouble(), input.next());
             }
             input.close();
         }
         file.close();
     }
 	
-    public void createTransaction(String customer, String date, double amount, String description)
+    public void createTransaction(String type, String customer, String date, double amount, String description)
     {
-        transactionArr[transArrPos] = new Transaction(customer, date, amount, description);
-        
-        //Increment transArrPos to next null position in transactionArr
-        transArrPos++;
-        
-        if (transArrPos >= transactionArr.length)
-        {
-            transactionArr = (Transaction[]) resizeArray(transArrPos, (transactionArr.length * 2));
-        }   
-    }
-    
-    public void createCCTransaction(String customer, String date, double amount, String description)
-    {
-        transactionArr[transArrPos] = new CCTransaction(customer, date, amount, description);
-        
-        //Increment transArrPos to next null position in transactionArr
-        transArrPos++;
-        
-        if (transArrPos >= transactionArr.length)
-        {
-            transactionArr = (Transaction[]) resizeArray(transArrPos, (transactionArr.length * 2));
-        }   
-    }
-    
-    public void createCheckTransaction(String customer, String date, double amount, String description)
-    {
-        transactionArr[transArrPos] = new CheckTransaction(customer, date, amount, description);
-        
-        //Increment transArrPos to next null position in transactionArr
-        transArrPos++;
-        
-        if (transArrPos >= transactionArr.length)
-        {
-            transactionArr = (Transaction[]) resizeArray(transArrPos, (transactionArr.length * 2));
-        }   
-    }
-    
-    public void createExpense(String customer, String date, double amount, String description)
-    {
-        transactionArr[transArrPos] = new Expense(customer, date, amount, description);
-        
-        //Increment transArrPos to next null position in transactionArr
-        transArrPos++;
-        
-        if (transArrPos >= transactionArr.length)
-        {
-            transactionArr = (Transaction[]) resizeArray(transArrPos, (transactionArr.length * 2));
-        }   
+    	if      (type.equals("Credit Card"))
+    	{
+    		transactionArr.add(new CCTransaction(customer, date, amount, description));
+    	}
+    	else if (type.equals("Check"))
+    	{
+    		transactionArr.add(new CheckTransaction(customer, date, amount, description));
+    	}
+    	else if (type.equals("Expense"))
+    	{
+    		transactionArr.add(new Expense(customer, date, amount, description));
+    	}
+    	else
+    	{
+            transactionArr.add(new Transaction(customer, date, amount, description));
+    	}
     }
     
     public void deleteTransaction(int index)
     {
-        //If array is already empty or index is out of range:
-        if (transArrPos <= 0 || index >= transArrPos || index < 0)
-        {
-            return;
-        }
-        else
-        {
-            //Swap last entry in array with entry that is pending deletion
-            transactionArr[index] = transactionArr[(transArrPos - 1)];
-            //Set last entry in array to null (Garbage Collection)
-            transactionArr[transArrPos - 1] = null;
-            //Decrement Size of TransactionArr
-            --transArrPos;
-        }
-        
-        if ((transArrPos < (transactionArr.length * (1/4))) && (transArrPos > 5))
-        {
-            transactionArr = (Transaction[]) resizeArray(transactionArr, (transactionArr.length * 1/2));
-        }
+    	transactionArr.remove(index);
     }
     
     public void saveTransactions() throws IOException
     {
         BufferedWriter out = new BufferedWriter(new FileWriter(transactionsPath.toString()));
         
-        for(int index = 0; index < transArrPos; index++)
+        for (Transaction transaction : getTransactionArr())
         {
-            out.write(transactionArr[index].toString());
-            out.newLine();
+        	out.write(transaction.toString());
+        	out.newLine();
         }
         out.close();
     }
     
-    public int getTransactionArrPos()
-    {
-        return transArrPos;
-    }
-    
-    public Transaction[] getTransactionArr()
+    public ArrayList<Transaction> getTransactionArr()
     {
         return transactionArr;
     }
-    
-    @SuppressWarnings("rawtypes")
-    private static Object resizeArray (Object oldArray, int newSize) 
+
+    public static void main(String[] args) throws FileNotFoundException
     {
-           int oldSize = java.lang.reflect.Array.getLength(oldArray);
-           Class elementType = oldArray.getClass().getComponentType();
-           Object newArray = java.lang.reflect.Array.newInstance(elementType, newSize);
-           int preserveLength = Math.min(oldSize, newSize);
-           if (preserveLength > 0)
-           {
-              System.arraycopy(oldArray, 0, newArray, 0, preserveLength);
-           }
-           
-           return newArray; 
+    	System.out.println("Debugging IOTransaction");
+    	IOTransactions IOTrans = new IOTransactions("src/Transactions.txt");
+    	IOTrans.readTransactions();
+    	
+    	for (Transaction transaction : IOTrans.getTransactionArr())
+    	{
+    		System.out.println(transaction.toString());
+    		System.out.println(transaction.getClass());
+    		System.out.println("\n");
+    	}	
     }
 }

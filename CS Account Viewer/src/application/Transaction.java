@@ -29,8 +29,13 @@ public class Transaction {
 	}
 
 	public String toString() {
-		String output = "" + customer + "," + date + "," + amount + "," + description;
+		String output = type + "," + customer + "," + date + "," + amount + "," + description;
 		return output;
+	}
+	
+	public String getType()
+	{
+		return type;
 	}
 
 	public void editCustomer(String customer) {

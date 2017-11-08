@@ -3,6 +3,3 @@ Trish, Duce,N/A,N/A,csadmin
 Michael, Cassens,N/A,N/A,csadmin
 Travis, Wheeler,N/A,N/A,csadmin
 Adam,McManigal,N/A,N/A,csadmin
-Jack,C,jackc@jackc.com,thejack,password
-Jack,C2,jack,jack@j,pass
-Jack,C3,testagain,myname,pass

@@ -277,13 +277,11 @@ public class InputOutput
     {
         InputOutput IO = new InputOutput();
         Account[] accountArr;
-        Transaction[] transactionArr;
         
         
         try
         {
             IO.readAccounts("src/Accounts.txt");
-            IO.readTransactions("src/Transactions.txt");
         }
         catch (FileNotFoundException event)
         {
@@ -293,8 +291,9 @@ public class InputOutput
         
         
         //Get the account array.
+        IO.createAccount("Jack", "Metcaf", "N/A", "N/A", "csci323");
         accountArr = IO.getAccountArr();
-        transactionArr = IO.getTransactionArr();
+
 
 
         short index = 0;
@@ -304,14 +303,6 @@ public class InputOutput
             index++;
         }
         index = 0;
-        
-        
-        System.out.println("\n\n\n");
-        while(transactionArr[index] != null)
-        {
-            System.out.println(transactionArr[index].toString());
-            index++;
-        }
         
         try
         {
