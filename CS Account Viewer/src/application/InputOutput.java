@@ -93,6 +93,7 @@ public class InputOutput
             //Read in String and Create Transaction Objects
             while (input.hasNext())
             {
+            	input.next();
                 createTransaction(input.next(), input.next(), input.nextDouble(), input.next());
             }
             input.close();
