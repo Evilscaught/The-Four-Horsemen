@@ -93,7 +93,6 @@ public class InputOutput
             //Read in String and Create Transaction Objects
             while (input.hasNext())
             {
-            	input.next();
                 createTransaction(input.next(), input.next(), input.nextDouble(), input.next());
             }
             input.close();
@@ -103,7 +102,10 @@ public class InputOutput
     
     public void createTransaction(String customer, String date, double amount, String description)
     {
-        transactionArr[transArrPos] = new Transaction(customer, date, amount, description);
+    	String account = "Robyn Berg";
+    	//Change this Scott when you modify this
+    	
+        transactionArr[transArrPos] = new Transaction(account, customer, date, amount, description);
         
         //Increment transArrPos to next null position in transactionArr
         transArrPos++;
@@ -114,9 +116,9 @@ public class InputOutput
         }   
     }
     
-    public void createCCTransaction(String customer, String date, double amount, String description)
+    public void createCCTransaction(String account, String customer, String date, double amount, String description)
     {
-        transactionArr[transArrPos] = new CCTransaction(customer, date, amount, description);
+        transactionArr[transArrPos] = new CCTransaction(account, customer, date, amount, description);
         
         //Increment transArrPos to next null position in transactionArr
         transArrPos++;
@@ -127,9 +129,9 @@ public class InputOutput
         }   
     }
     
-    public void createCheckTransaction(String customer, String date, double amount, String description)
+    public void createCheckTransaction(String account, String customer, String date, double amount, String description)
     {
-        transactionArr[transArrPos] = new CheckTransaction(customer, date, amount, description);
+        transactionArr[transArrPos] = new CheckTransaction(account, customer, date, amount, description);
         
         //Increment transArrPos to next null position in transactionArr
         transArrPos++;
@@ -140,9 +142,9 @@ public class InputOutput
         }   
     }
     
-    public void createExpense(String customer, String date, double amount, String description)
+    public void createExpense(String account, String customer, String date, double amount, String description)
     {
-        transactionArr[transArrPos] = new Expense(customer, date, amount, description);
+        transactionArr[transArrPos] = new Expense(account, customer, date, amount, description);
         
         //Increment transArrPos to next null position in transactionArr
         transArrPos++;
@@ -186,6 +188,10 @@ public class InputOutput
             out.newLine();
         }
         out.close();
+    }
+    
+    public Transaction getTransaction(int index) {
+    	return transactionArr[index];
     }
     
     public int getTransactionArrPos()
@@ -278,11 +284,13 @@ public class InputOutput
     {
         InputOutput IO = new InputOutput();
         Account[] accountArr;
+        Transaction[] transactionArr;
         
         
         try
         {
             IO.readAccounts("src/Accounts.txt");
+            IO.readTransactions("src/Transactions.txt");
         }
         catch (FileNotFoundException event)
         {
@@ -292,9 +300,8 @@ public class InputOutput
         
         
         //Get the account array.
-        IO.createAccount("Jack", "Metcaf", "N/A", "N/A", "csci323");
         accountArr = IO.getAccountArr();
-
+        transactionArr = IO.getTransactionArr();
 
 
         short index = 0;
@@ -304,6 +311,14 @@ public class InputOutput
             index++;
         }
         index = 0;
+        
+        
+        System.out.println("\n\n\n");
+        while(transactionArr[index] != null)
+        {
+            System.out.println(transactionArr[index].toString());
+            index++;
+        }
         
         try
         {

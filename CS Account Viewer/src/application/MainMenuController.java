@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Scanner;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -114,6 +116,39 @@ public class MainMenuController {
 
         return new Scene(rootLayout);
     }
+    
+    
+    public int transDialog() {
+    	int choice = 0;
+    	
+    	List<String> choices = new ArrayList<>();
+    	
+    	Transaction[] array = db.getTransactionArr();
+    	
+    	int counter = 0;
+    	
+    	for(Transaction tmp : array) {
+    		if (tmp != null) {
+    			String out = "" + counter + " "  + tmp.viewInfo();
+    			choices.add(out);
+    			counter++;
+    		}
+    	}
+    	
+    	ChoiceDialog<String> dialog = new ChoiceDialog<>("", choices);
+        dialog.setTitle("Edit Transaction");
+        dialog.setHeaderText("Edit Transaction");
+        dialog.setContentText("Choose transaction to edit:");
+        
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            String value = result.get();
+            Scanner scan = new Scanner(value).useDelimiter(" ");
+            choice = scan.nextInt();
+        }
+  
+    	return choice;
+    }
 
     public String deleteDialog () {
         List<String> choices = new ArrayList<>();
@@ -179,6 +214,13 @@ public class MainMenuController {
 
         this.refreshUserList();
    }
+    
+    @FXML
+    void editTransClicked(MouseEvent event) {
+    	int arraynum = transDialog();
+    	transactionPane.getChildren().clear();
+    	transactionPane.getChildren().addAll(new EditTransactionController(arraynum).getPane());
+    }
 
     /***********************************************************
      * Getters/Setters
@@ -242,7 +284,7 @@ public class MainMenuController {
       if (array.length != 0) {
     	  for (int i=0; i < array.length; i++){
         	  if (array[i] != null) {
-        		  output += "" + i + ") " + array[i].viewInfo() + "\n";
+        		  output += "" + array[i].viewInfo() + "\n";
         	  }
           }
       }

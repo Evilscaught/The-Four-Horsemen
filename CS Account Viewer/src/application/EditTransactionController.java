@@ -1,8 +1,8 @@
 package application;
 
 import java.io.IOException;
-import java.util.Scanner;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ChoiceBox;
@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
-public class CreateTransactionController {
+public class EditTransactionController {
     private Pane currentPane;
 
     @FXML private TextField customerNameField;
@@ -20,9 +20,12 @@ public class CreateTransactionController {
     @FXML private TextField amountField;
     @FXML private ChoiceBox<String> transactionType;
     @FXML private ChoiceBox<String> accountBox;
+    private int arraynum;
 
     @FXML
     void saveButtonClicked(MouseEvent event) {
+    	
+    	Main.getMainController().getDb().deleteTransaction(arraynum);
 
     	double amount = Double.parseDouble(amountField.getText());
     	
@@ -40,10 +43,17 @@ public class CreateTransactionController {
         	amount = amount * -1;
         	Main.getMainController().getDb().createExpense(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText());
         }
+        
+        Main.getMainController().setTransactionPane();
 
+    }
+    
+    @FXML
+    void deleteTransClicked(MouseEvent event) {
+    	Main.getMainController().getDb().deleteTransaction(arraynum);
         Main.getMainController().setTransactionPane();
     }
-
+    
     @FXML
     void backButtonClicked(MouseEvent event) {
         Main.getMainController().setTransactionPane();
@@ -54,10 +64,10 @@ public class CreateTransactionController {
 
     }
 
-    public CreateTransactionController() {
+    public EditTransactionController(int arraynum) {
         // Load root layout from fxml file.
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("view/CreateTransaction.fxml"));
+        loader.setLocation(Main.class.getResource("view/EditTransaction.fxml"));
         loader.setController(this);
 
         try {
@@ -71,7 +81,6 @@ public class CreateTransactionController {
         transactionType.getItems().add("Credit Card Deposit");
         transactionType.getItems().add("Check Deposit");
         transactionType.getItems().add("Expense");
-        transactionType.getSelectionModel().selectFirst();
         
         String[] accounts = Main.getMainController().getUserListFirstLast();
         
@@ -81,10 +90,51 @@ public class CreateTransactionController {
         	if (item != null) {
         		accountBox.getItems().add(item);
         	}
+        }	
+        
+        this.arraynum = arraynum;
+        
+        Transaction current = Main.getMainController().getDb().getTransaction(arraynum);
+        customerNameField.setText(current.customer);
+        descriptionField.setText(current.description);
+        dateField.setText(current.date);
+        
+        double amountvalue;
+        
+        if (current.amount < 0) {
+        	amountvalue = current.amount * -1;
+        }
+        else {
+        	amountvalue = current.amount;
+        }
+        amountField.setText("" + amountvalue);
+        
+        if (current.getType() == "Credit Card") {
+        	transactionType.getSelectionModel().select(0);
+        }
+        else if (current.getType() == "Check") {
+        	transactionType.getSelectionModel().select(1);
+        }
+        else if (current.getType() ==  "Expense") {
+        	transactionType.getSelectionModel().select(2);
+        }
+        else {
+        	transactionType.getSelectionModel().selectFirst();
         }
         
-        accountBox.getSelectionModel().selectFirst();
-        	
+        ObservableList<String> array = accountBox.getItems();
+        
+        int counter = 0;
+        int index = 0;
+        
+        for (String item : array) {
+        	if (current.account == item) {
+        		index = counter;
+        	}
+        	counter++;
+        }
+        
+        accountBox.getSelectionModel().select(index);
 
     }
 
