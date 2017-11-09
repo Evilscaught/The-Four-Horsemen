@@ -10,11 +10,61 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0000999999975" prefWidth="600.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
-    <AnchorPane layoutX="0.0" layoutY="26.0" minWidth="0.0" prefHeight="374.0" prefWidth="125.0">
-      <children>
-        <ListView fx:id="userList" layoutX="0.0" layoutY="0.0" prefHeight="374.0" prefWidth="125.0" />
-      </children>
-    </AnchorPane>
+    <SplitPane fx:id="splitMain" dividerPositions="0.1655518117806342" focusTraversable="true" prefHeight="373.999977929685" prefWidth="600.0000999999975" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
+      <items>
+        <AnchorPane fx:id="sidePane" minHeight="0.0" minWidth="0.0" prefHeight="373.0" prefWidth="148.0">
+          <children>
+            <ListView fx:id="userList" disable="false" opacity="1.0" prefHeight="373.0" prefWidth="96.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+          </children>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <children>
+            <TabPane fx:id="mainTabPane" layoutX="0.0" layoutY="0.0" prefHeight="373.0" prefWidth="497.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab style="-fx-background-color: #EE6666;&#10;&#10;" text="Admin">
+                  <content>
+                    <AnchorPane id="Content" fx:id="adminPane" minHeight="0.0" minWidth="0.0" prefHeight="344.0" prefWidth="476.0000999999975" />
+                  </content>
+                </Tab>
+                <Tab text="Account Overview">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="342.0000999999975" prefWidth="497.0">
+                      <children>
+                        <TextArea fx:id="descriptionField" layoutX="14.0" layoutY="160.0" prefHeight="169.0" prefWidth="447.0" wrapText="true" />
+                        <Label layoutX="14.0" layoutY="144.0" text="Description:" />
+                        <TextField id="firstName" fx:id="firstNameField" layoutX="14.0" layoutY="21.0" prefWidth="200.0" />
+                        <Label layoutX="18.0" layoutY="6.0" text="First name:" />
+                        <TextField id="lastName" fx:id="lastNameField" layoutX="238.0" layoutY="21.0" prefWidth="200.0" />
+                        <Label layoutX="242.0" layoutY="6.0" text="Last name:" />
+                        <TextField id="Email" fx:id="emailField" layoutX="14.0" layoutY="68.0" prefWidth="200.0" />
+                        <Label layoutX="18.0" layoutY="53.0" text="E-Mail:" />
+                        <TextField id="userName" fx:id="userNameField" layoutX="14.0" layoutY="115.0" prefWidth="200.0" />
+                        <Label layoutX="18.0" layoutY="100.0" text="Username:" />
+                        <Button id="changePassword" fx:id="changePasswordButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" layoutX="290.0" layoutY="100.0" minHeight="19.000091552734375" mnemonicParsing="false" prefHeight="37.0" prefWidth="148.0" style="-fx-label-padding:6px;&#10;" text="Change Password">
+                          <font>
+                            <Font size="14.0" />
+                          </font>
+                        </Button>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Transactions">
+                  <content>
+                    <AnchorPane id="Content" fx:id="transactionPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                <Tab text="------">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+          </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
     <MenuBar layoutX="0.0" layoutY="2.0" prefWidth="600.0" visible="true">
       <menus>
         <Menu mnemonicParsing="false" text="File">
@@ -34,52 +84,11 @@
         </Menu>
       </menus>
     </MenuBar>
-    <TabPane fx:id="mainTabPane" layoutX="125.0" layoutY="26.0" prefHeight="374.0001220703125" prefWidth="475.0001220703125" tabClosingPolicy="UNAVAILABLE">
-      <tabs>
-        <Tab text="Admin">
-          <content>
-            <AnchorPane id="Content" fx:id="adminPane" minHeight="0.0" minWidth="0.0" prefHeight="344.0" prefWidth="476.0000999999975" />
-          </content>
-        </Tab>
-        <Tab text="Account Overview">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-              <children>
-                <TextArea fx:id="descriptionField" layoutX="14.0" layoutY="160.0" prefHeight="169.0" prefWidth="447.0" wrapText="true" />
-                <Label layoutX="14.0" layoutY="144.0" text="Description:" />
-                <TextField id="firstName" fx:id="firstNameField" layoutX="14.0" layoutY="21.0" prefWidth="200.0" />
-                <Label layoutX="18.0" layoutY="6.0" text="First name:" />
-                <TextField id="lastName" fx:id="lastNameField" layoutX="238.0" layoutY="21.0" prefWidth="200.0" />
-                <Label layoutX="242.0" layoutY="6.0" text="Last name:" />
-                <TextField id="Email" fx:id="emailField" layoutX="14.0" layoutY="68.0" prefWidth="200.0" />
-                <Label layoutX="18.0" layoutY="53.0" text="E-Mail:" />
-                <TextField id="userName" fx:id="userNameField" layoutX="14.0" layoutY="115.0" prefWidth="200.0" />
-                <Label layoutX="18.0" layoutY="100.0" text="Username:" />
-                <Button id="changePassword" fx:id="changePasswordButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" layoutX="290.0" layoutY="100.0" minHeight="19.000091552734375" mnemonicParsing="false" prefHeight="37.0" prefWidth="148.0" style="-fx-label-padding:6px;&#10;" text="Change Password">
-                  <font>
-                    <Font size="14.0" />
-                  </font>
-                </Button>
-              </children>
-            </AnchorPane>
-          </content>
-        </Tab>
-        <Tab text="Transactions">
-          <content>
-            <AnchorPane id="Content" fx:id="transactionPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-          </content>
-        </Tab>
-        <Tab text="------">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-          </content>
-        </Tab>
-      </tabs>
-    </TabPane>
-    <Label layoutX="543.0" layoutY="31.0" onMouseClicked="#LogoutClick" text="Logout" textFill="#0029ff" underline="true">
+    <Label layoutX="546.0" layoutY="31.0" onMouseClicked="#LogoutClick" text="Logout" textFill="#0029ff" underline="true">
       <font>
         <Font name="System Bold" size="14.0" />
       </font>
     </Label>
+    <Button fx:id="hideUserListButton" cancelButton="false" layoutX="74.0" layoutY="32.0" minHeight="19.0" minWidth="18.0" mnemonicParsing="false" onMouseClicked="#hideUserList" prefHeight="19.0" prefWidth="18.0" text="-" textOverrun="CLIP" />
   </children>
 </AnchorPane>

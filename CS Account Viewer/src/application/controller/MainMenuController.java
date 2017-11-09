@@ -1,4 +1,4 @@
-package application;
+package application.controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -7,14 +7,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import application.Account;
+import application.InputOutput;
+import application.Main;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -25,7 +32,10 @@ import javafx.stage.Stage;
 public class MainMenuController {
     Stage primaryStage;
     InputOutput db;
-
+    
+    @FXML private SplitPane splitMain;
+    @FXML private AnchorPane sidePane;
+    @FXML private TabPane mainTabPane;
     @FXML private AnchorPane adminPane;
     @FXML private AnchorPane transactionPane;
     @FXML private ListView<String> userList;
@@ -34,19 +44,20 @@ public class MainMenuController {
     @FXML private ResourceBundle resources;
     @FXML private URL location;
     @FXML private Button createAccountButton;
+    @FXML private Button hideUserListButton;
 
     public String[] getUserListFirstLast() {
         Account[] temp = db.getAccountArr();
         String [] userListStr = new String [temp.length];
-        
+
         for (int i = 0; i < temp.length; i++) {
             if (temp[i] != null)
                 userListStr[i] = temp[i].getFirstName() + " " + temp[i].getLastName();
         }        
-        
+
         return userListStr;
     }
-    
+
     public void refreshUserList() {
         Account[] temp = db.getAccountArr();
 
@@ -61,6 +72,7 @@ public class MainMenuController {
     @FXML
     void initialize() {
         this.refreshUserList();
+        
     }
 
     public Scene loadScene(Stage stage, InputOutput db) {
@@ -103,6 +115,9 @@ public class MainMenuController {
             this.setAdminPane();
             this.setTransactionPane();
 
+            hideUserListButton.setPadding(Insets.EMPTY);
+            hideUserListButton.setText("<-");
+
             return scene;
         } catch (IOException e) {
             e.printStackTrace();
@@ -110,15 +125,15 @@ public class MainMenuController {
 
         return new Scene(rootLayout);
     }
-    
+
     public String deleteDialog () {
         List<String> choices = new ArrayList<>();
-        
+
         for(String tmp : getUserListFirstLast()) {
             if (tmp != null)
                 choices.add(tmp);
         }
- 
+
         ChoiceDialog<String> dialog = new ChoiceDialog<>("", choices);
         dialog.setTitle("Delete Account");
         dialog.setHeaderText("Account Deletion");
@@ -129,21 +144,40 @@ public class MainMenuController {
         if (result.isPresent()){
             String choice = result.get();
             System.out.println("Your choice: " + choice);
-            
+
             return choice;
-            
+
         }
-        
+
         return "";
         // The Java 8 way to get the response value (with lambda expression).
         // result.ifPresent(letter -> System.out.println("Your choice: " + letter));
     }
- 
+
     /***********************************************************
      * GUI Listener Handlers
      *
      **********************************************************/
-    
+
+    @FXML
+    void hideUserList(MouseEvent event) {
+        int menuIndex = splitMain.getItems().indexOf(sidePane);
+        if(menuIndex != -1) {
+            Node temp = splitMain.getItems().get(menuIndex);
+            splitMain.getItems().remove(temp);
+            mainTabPane.setPrefWidth(primaryStage.getWidth());
+            hideUserListButton.setLayoutX(-8);
+            hideUserListButton.setText("->");
+            
+        }
+        else {
+            splitMain.getItems().add(0, sidePane);
+            splitMain.setDividerPosition(0, 0.17);
+            hideUserListButton.setLayoutX(80); 
+            hideUserListButton.setText("<-");
+        }
+    }
+
     @FXML
     void LogoutClick(MouseEvent event) {
         Main main = new Main();
@@ -165,7 +199,7 @@ public class MainMenuController {
     @FXML
     void deleteAccountClick(MouseEvent event) {
         String selection = deleteDialog();
-        
+
         Account[] temp = db.getAccountArr();
 
         for (int i = 0; i < temp.length; i++) {
@@ -174,8 +208,8 @@ public class MainMenuController {
         }        
 
         this.refreshUserList();
-   }
-   
+    }
+
     /***********************************************************
      * Getters/Setters 
      *
@@ -213,21 +247,21 @@ public class MainMenuController {
         loader.setLocation(Main.class.getResource("view/Transactions.fxml"));
         loader.setController(this);
 
-//        try {
-//            transactionPane.getChildren().clear();
-//            transactionPane.getChildren().add(new CreateTransactionController().getPane());
-      transactionPane.getChildren().clear();
-      
-      try {
-        transactionPane.getChildren().add(loader.load());
-    } catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    }
- //       } catch (IOException e) {
+        //        try {
+        //            transactionPane.getChildren().clear();
+        //            transactionPane.getChildren().add(new CreateTransactionController().getPane());
+        transactionPane.getChildren().clear();
+
+        try {
+            transactionPane.getChildren().add(loader.load());
+        } catch (IOException e) {
             // TODO Auto-generated catch block
- //           e.printStackTrace();
- //       } 
+            e.printStackTrace();
+        }
+        //       } catch (IOException e) {
+        // TODO Auto-generated catch block
+        //           e.printStackTrace();
+        //       } 
         //        this.adminPane = adminPane;
     }
 
