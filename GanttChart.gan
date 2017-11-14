@@ -74,6 +74,21 @@ Dan scott and jake made changes as needed
 need to update the display for information, and format it to look nice.]]></notes>
             </task>
         </task>
+        <task id="29" name="Sprint 3" meeting="false" start="2017-11-13" duration="1" complete="0" expand="true">
+            <task id="31" name="Edited and refined database" color="#8cb6ce" meeting="false" start="2017-11-13" duration="1" complete="0" expand="true">
+                <notes><![CDATA[Scott - Split database into accounts and transactions and worked out bugs
+]]></notes>
+            </task>
+            <task id="45" name="Modified GUI" color="#8cb6ce" meeting="false" start="2017-11-13" duration="1" complete="0" expand="true">
+                <notes><![CDATA[Jack - Made GUI nicer looking and worked out bugs]]></notes>
+            </task>
+            <task id="49" name="Edited transaction functionality" color="#8cb6ce" meeting="false" start="2017-11-13" duration="1" complete="0" expand="true">
+                <notes><![CDATA[Jake - Added functionality to edit transaction button, added account parameter to transaction class]]></notes>
+            </task>
+            <task id="51" name="Edited main menu for accounts" color="#8cb6ce" meeting="false" start="2017-11-13" duration="1" complete="0" expand="true">
+                <notes><![CDATA[Dan - Modified main menu to allow separation of transactions by account]]></notes>
+            </task>
+        </task>
     </tasks>
     <resources/>
     <allocations/>
