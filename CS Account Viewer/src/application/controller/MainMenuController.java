@@ -32,6 +32,7 @@ import javafx.stage.Stage;
 public class MainMenuController {
     Stage primaryStage;
     InputOutput db;
+    String curUser;
     
     @FXML private SplitPane splitMain;
     @FXML private AnchorPane sidePane;
@@ -58,6 +59,25 @@ public class MainMenuController {
         return userListStr;
     }
 
+    public void hideUserList() {
+        int menuIndex = splitMain.getItems().indexOf(sidePane);
+        Node temp = splitMain.getItems().get(menuIndex);
+
+        splitMain.getItems().remove(temp);
+        mainTabPane.setPrefWidth(primaryStage.getWidth());
+        hideUserListButton.setLayoutX(-8);
+        hideUserListButton.setText("->");
+    
+    
+    }
+    
+    public void addUserList() {        
+        splitMain.getItems().add(0, sidePane);
+        splitMain.setDividerPosition(0, 0.17);
+        hideUserListButton.setLayoutX(80); 
+        hideUserListButton.setText("<-");
+    }
+
     public void refreshUserList() {
         Account[] temp = db.getAccountArr();
 
@@ -75,7 +95,7 @@ public class MainMenuController {
         
     }
 
-    public Scene loadScene(Stage stage, InputOutput db) {
+    public Scene loadScene(Stage stage, InputOutput db, String user) {
         BorderPane rootLayout = new BorderPane();
 
         this.db = db;
@@ -163,18 +183,10 @@ public class MainMenuController {
     void hideUserList(MouseEvent event) {
         int menuIndex = splitMain.getItems().indexOf(sidePane);
         if(menuIndex != -1) {
-            Node temp = splitMain.getItems().get(menuIndex);
-            splitMain.getItems().remove(temp);
-            mainTabPane.setPrefWidth(primaryStage.getWidth());
-            hideUserListButton.setLayoutX(-8);
-            hideUserListButton.setText("->");
-            
+            this.hideUserList();
         }
         else {
-            splitMain.getItems().add(0, sidePane);
-            splitMain.setDividerPosition(0, 0.17);
-            hideUserListButton.setLayoutX(80); 
-            hideUserListButton.setText("<-");
+            this.addUserList();
         }
     }
 

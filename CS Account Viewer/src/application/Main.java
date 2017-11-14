@@ -93,10 +93,11 @@ public class Main extends Application {
                 public void handle(ActionEvent arg0) {
                     if((userField.getText().toLowerCase().equals("csadmin")) && (passField.getText().toLowerCase().equals("csci323"))) {
                         mainController = new MainMenuController();
-                        primaryStage.setScene(mainController.loadScene(primaryStage, inout));
+                        primaryStage.setScene(mainController.loadScene(primaryStage, inout, "admin");
                     }
                     else {
                         errorText.setText("Incorrect username and password.");
+                        primaryStage.setScene(mainController.loadScene(primaryStage, inout, userField.getText()));
 
                     }
                 }
