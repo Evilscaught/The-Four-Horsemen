@@ -42,7 +42,7 @@ public class CreateTransactionController {
 
     @FXML
     void backButtonClicked(MouseEvent event) {
-        Main.getMainController()..setTransactionPane();
+        Main.getMainController().setTransactionPane();
     }
 
     @FXML
