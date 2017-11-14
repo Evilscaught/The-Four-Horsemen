@@ -102,7 +102,10 @@ public class InputOutput
     
     public void createTransaction(String customer, String date, double amount, String description)
     {
-        transactionArr[transArrPos] = new Transaction(customer, date, amount, description);
+    	String account = "Robyn Berg";
+    	//Change this Scott when you modify this
+    	
+        transactionArr[transArrPos] = new Transaction(account, customer, date, amount, description);
         
         //Increment transArrPos to next null position in transactionArr
         transArrPos++;
@@ -113,9 +116,9 @@ public class InputOutput
         }   
     }
     
-    public void createCCTransaction(String customer, String date, double amount, String description)
+    public void createCCTransaction(String account, String customer, String date, double amount, String description)
     {
-        transactionArr[transArrPos] = new CCTransaction(customer, date, amount, description);
+        transactionArr[transArrPos] = new CCTransaction(account, customer, date, amount, description);
         
         //Increment transArrPos to next null position in transactionArr
         transArrPos++;
@@ -126,9 +129,9 @@ public class InputOutput
         }   
     }
     
-    public void createCheckTransaction(String customer, String date, double amount, String description)
+    public void createCheckTransaction(String account, String customer, String date, double amount, String description)
     {
-        transactionArr[transArrPos] = new CheckTransaction(customer, date, amount, description);
+        transactionArr[transArrPos] = new CheckTransaction(account, customer, date, amount, description);
         
         //Increment transArrPos to next null position in transactionArr
         transArrPos++;
@@ -139,9 +142,9 @@ public class InputOutput
         }   
     }
     
-    public void createExpense(String customer, String date, double amount, String description)
+    public void createExpense(String account, String customer, String date, double amount, String description)
     {
-        transactionArr[transArrPos] = new Expense(customer, date, amount, description);
+        transactionArr[transArrPos] = new Expense(account, customer, date, amount, description);
         
         //Increment transArrPos to next null position in transactionArr
         transArrPos++;
@@ -185,6 +188,10 @@ public class InputOutput
             out.newLine();
         }
         out.close();
+    }
+    
+    public Transaction getTransaction(int index) {
+    	return transactionArr[index];
     }
     
     public int getTransactionArrPos()

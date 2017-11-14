@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 public class Transaction {
 
+	protected String account;
 	protected String customer;
 	protected String date;
 	protected double amount;
@@ -12,8 +13,9 @@ public class Transaction {
 	protected String type;
 	protected DecimalFormat df1 = new DecimalFormat(".##");
 
-	public Transaction(String customer, String date, double amount, String description){
+	public Transaction(String account, String customer, String date, double amount, String description){
 
+		this.account = account;
 		this.customer = customer;
 		this.date = date;
 		this.amount = amount;
@@ -24,7 +26,35 @@ public class Transaction {
 	}
 
 	public String viewInfo() {
-		String output = customer + "  " + type + "  " + description + "  " + "Gross: " + "$ "+ df1.format(amount) + "  " + "$ " + df1.format(adjustedamount);
+		String output;
+		String type2 = "";
+		
+		if (type == "Credit Card") {
+			type2 = "CC";
+		}
+		else if (type == "Check") {
+			type2 = "Check";
+		}
+		else if (type == "Expense") {
+			type2 = "Exp.";
+		}
+		else {
+			type2 = "None";
+		}
+		
+		if (customer.length() > 7 && account.length() <= 10) {
+			output = account + "\t\t| " + customer + "\t|  " + type2 + "\t|  "  + "$ " + df1.format(adjustedamount);
+		}
+		else if (customer.length() <= 7 && account.length() <= 10) {
+			output = account + "\t\t| " + customer + "\t\t|  " + type2 + "\t|  "  + "$ " + df1.format(adjustedamount);
+		}
+		else if (customer.length() > 7 && account.length() > 10) {
+			output = account + "\t| " + customer + "\t|  " + type2 + "\t|  " + "$ " + df1.format(adjustedamount);
+		}
+		else {
+			output = account + "\t| " + customer + "\t\t|  " + type2 + "\t|  " +  "$ " + df1.format(adjustedamount);
+		}
+		
 		return output;
 	}
 
@@ -51,6 +81,10 @@ public class Transaction {
 
 	public double getAmount() {
 		return adjustedamount;
+	}
+	
+	public String getType() {
+		return type;
 	}
 
 

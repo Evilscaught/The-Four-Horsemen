@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="476.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <TextField fx:id="customerNameField" layoutX="15.0" layoutY="28.0" prefWidth="187.0" promptText="Please enter Customer Name" />
+    <Label layoutX="19.0" layoutY="13.0" text="Customer:" />
+    <TextField fx:id="dateField" layoutX="15.0" layoutY="91.0" prefWidth="187.0" promptText="" />
+    <Label layoutX="19.0" layoutY="76.0" text="Date:" />
+    <TextField fx:id="amountField" layoutX="15.0" layoutY="150.0" prefWidth="187.0" promptText="Please enter Amount" />
+    <Label layoutX="19.0" layoutY="135.0" text="Amount:" />
+    <TextArea fx:id="descriptionField" layoutX="15.0" layoutY="202.0" prefHeight="88.0" prefWidth="447.0" wrapText="true" />
+    <Label layoutX="14.0" layoutY="186.0" text="Description:" />
+    <ChoiceBox fx:id="transactionType" layoutX="277.0" layoutY="90.0" prefWidth="183.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ChoiceBox>
+    <Button fx:id="saveButtonClick" layoutX="237.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#saveButtonClicked" prefHeight="32.0" prefWidth="93.0" text="Save">
+      <font>
+        <Font name="System Bold" size="16.0" fx:id="x1" />
+      </font>
+    </Button>
+    <Button id="saveButtonClick" fx:id="backButton" font="$x1" layoutX="360.0" layoutY="299.0" mnemonicParsing="false" onMouseClicked="#backButtonClicked" prefHeight="32.0" prefWidth="93.0" text="Cancel" />
+    <Button fx:id="deleteTransaction" font="$x1" layoutX="19.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#deleteTransClicked" prefHeight="32.0" prefWidth="182.00009999999747" text="Delete Transaction" />
+    <ChoiceBox fx:id="accountBox" layoutX="277.0" layoutY="28.0" prefWidth="183.0">
+      <items>
+        <FXCollections fx:factory="observableArrayList">
+          <String fx:value="Item 1" />
+          <String fx:value="Item 2" />
+          <String fx:value="Item 3" />
+        </FXCollections>
+      </items>
+    </ChoiceBox>
+    <Label layoutX="215.0" layoutY="28.0" prefWidth="68.0" text="Account:" />
+    <Label layoutX="215.0" layoutY="85.0" prefWidth="46.0" text="Type:" />
+  </children>
+</AnchorPane>

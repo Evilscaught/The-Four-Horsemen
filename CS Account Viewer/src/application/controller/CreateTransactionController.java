@@ -1,6 +1,7 @@
 package application.controller;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 import application.Main;
 import javafx.fxml.FXML;
@@ -19,25 +20,29 @@ public class CreateTransactionController {
     @FXML private TextField dateField;
     @FXML private TextField amountField;
     @FXML private ChoiceBox<String> transactionType;
+    @FXML private ChoiceBox<String> accountBox;
 
     @FXML
     void saveButtonClicked(MouseEvent event) {
 
     	double amount = Double.parseDouble(amountField.getText());
+    	
+    	String account = accountBox.getValue();
 
         if (transactionType.getValue() == "Credit Card Deposit") {
-        	Main.getMainController().getDb().createCCTransaction(customerNameField.getText(), dateField.getText(), amount, descriptionField.getText());
+        	Main.getMainController().getDb().createCCTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText());
         }
 
         else if (transactionType.getValue() == "Check Deposit") {
-        	Main.getMainController().getDb().createCheckTransaction(customerNameField.getText(), dateField.getText(), amount, descriptionField.getText());
+        	Main.getMainController().getDb().createCheckTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText());
         }
 
         else if (transactionType.getValue() == "Expense") {
         	amount = amount * -1;
-        	Main.getMainController().getDb().createExpense(customerNameField.getText(), dateField.getText(), amount, descriptionField.getText());
+        	Main.getMainController().getDb().createExpense(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText());
         }
 
+        Main.getMainController().setTransactionPane();
     }
 
     @FXML
@@ -68,6 +73,19 @@ public class CreateTransactionController {
         transactionType.getItems().add("Check Deposit");
         transactionType.getItems().add("Expense");
         transactionType.getSelectionModel().selectFirst();
+        
+        String[] accounts = Main.getMainController().getUserListFirstLast();
+        
+        accountBox.getItems().clear();
+        
+        for (String item : accounts) {
+        	if (item != null) {
+        		accountBox.getItems().add(item);
+        	}
+        }
+        
+        accountBox.getSelectionModel().selectFirst();
+        	
 
     }
 
