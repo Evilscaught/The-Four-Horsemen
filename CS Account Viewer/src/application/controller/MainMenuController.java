@@ -1,4 +1,4 @@
-package application;
+package application.controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,14 +8,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import application.Account;
+import application.InputOutput;
+import application.Main;
+import application.Transaction;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -27,7 +35,11 @@ import org.omg.CORBA.DynAnyPackage.TypeMismatch;
 public class MainMenuController {
     Stage primaryStage;
     InputOutput db;
-
+    String curUser;
+    
+    @FXML private SplitPane splitMain;
+    @FXML private AnchorPane sidePane;
+    @FXML private TabPane mainTabPane;
     @FXML private AnchorPane adminPane;
     @FXML private AnchorPane transactionPane;
     @FXML private ListView<String> userList;
@@ -37,7 +49,7 @@ public class MainMenuController {
     @FXML private URL location;
     @FXML private Button createAccountButton;
     @FXML private TextArea transactionText;
-
+    @FXML private Button hideUserListButton;
 
     public String[] getUserListFirstLast() {
         Account[] temp = db.getAccountArr();
@@ -46,9 +58,28 @@ public class MainMenuController {
         for (int i = 0; i < temp.length; i++) {
             if (temp[i] != null)
                 userListStr[i] = temp[i].getFirstName() + " " + temp[i].getLastName();
-        }
+        }        
 
         return userListStr;
+    }
+
+    public void hideUserList() {
+        int menuIndex = splitMain.getItems().indexOf(sidePane);
+        Node temp = splitMain.getItems().get(menuIndex);
+
+        splitMain.getItems().remove(temp);
+        mainTabPane.setPrefWidth(primaryStage.getWidth());
+        hideUserListButton.setLayoutX(-8);
+        hideUserListButton.setText("->");
+    
+    
+    }
+    
+    public void addUserList() {        
+        splitMain.getItems().add(0, sidePane);
+        splitMain.setDividerPosition(0, 0.17);
+        hideUserListButton.setLayoutX(80); 
+        hideUserListButton.setText("<-");
     }
 
     public void refreshUserList() {
@@ -65,6 +96,7 @@ public class MainMenuController {
     @FXML
     void initialize() {
         this.refreshUserList();
+        
     }
 
     public Scene loadScene(Stage stage, InputOutput db) {
@@ -107,6 +139,9 @@ public class MainMenuController {
             this.setAdminPane();
             this.setTransactionPane();
 
+            hideUserListButton.setPadding(Insets.EMPTY);
+            hideUserListButton.setText("<-");
+
             return scene;
         } catch (IOException e) {
             e.printStackTrace();
@@ -147,6 +182,17 @@ public class MainMenuController {
      * GUI Listener Handlers
      *
      **********************************************************/
+
+    @FXML
+    void hideUserList(MouseEvent event) {
+        int menuIndex = splitMain.getItems().indexOf(sidePane);
+        if(menuIndex != -1) {
+            this.hideUserList();
+        }
+        else {
+            this.addUserList();
+        }
+    }
 
     @FXML
     void LogoutClick(MouseEvent event) {

@@ -1,7 +1,8 @@
-package application;
+package application.controller;
 
 import java.io.IOException;
 
+import application.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ChoiceBox;
@@ -41,7 +42,7 @@ public class CreateTransactionController {
 
     @FXML
     void backButtonClicked(MouseEvent event) {
-        Main.getMainController().setTransactionPane();
+        Main.getMainController()..setTransactionPane();
     }
 
     @FXML
