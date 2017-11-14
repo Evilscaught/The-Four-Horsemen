@@ -93,66 +93,32 @@ public class InputOutput
             //Read in String and Create Transaction Objects
             while (input.hasNext())
             {
-                createTransaction(input.next(), input.next(), input.nextDouble(), input.next());
+                createTransaction(input.next(), input.next(), input.next(), input.nextDouble(), input.next(), input.next());
             }
             input.close();
         }
         file.close();
     }
     
-    public void createTransaction(String customer, String date, double amount, String description)
+    public void createTransaction(String recipientAcct, String customer, String date, double amount, String description, String type)
     {
-    	String account = "Robyn Berg";
-    	//Change this Scott when you modify this
-    	
-        transactionArr[transArrPos] = new Transaction(account, customer, date, amount, description);
-        
-        //Increment transArrPos to next null position in transactionArr
-        transArrPos++;
-        
-        if (transArrPos >= accountArr.length)
-        {
-            transactionArr = (Transaction[]) resizeArray(transArrPos, (transactionArr.length * 2));
-        }   
-    }
-    
-    public void createCCTransaction(String account, String customer, String date, double amount, String description)
-    {
-        transactionArr[transArrPos] = new CCTransaction(account, customer, date, amount, description);
-        
-        //Increment transArrPos to next null position in transactionArr
-        transArrPos++;
-        
-        if (transArrPos >= accountArr.length)
-        {
-            transactionArr = (Transaction[]) resizeArray(transArrPos, (transactionArr.length * 2));
-        }   
-    }
-    
-    public void createCheckTransaction(String account, String customer, String date, double amount, String description)
-    {
-        transactionArr[transArrPos] = new CheckTransaction(account, customer, date, amount, description);
-        
-        //Increment transArrPos to next null position in transactionArr
-        transArrPos++;
-        
-        if (transArrPos >= accountArr.length)
-        {
-            transactionArr = (Transaction[]) resizeArray(transArrPos, (transactionArr.length * 2));
-        }   
-    }
-    
-    public void createExpense(String account, String customer, String date, double amount, String description)
-    {
-        transactionArr[transArrPos] = new Expense(account, customer, date, amount, description);
-        
-        //Increment transArrPos to next null position in transactionArr
-        transArrPos++;
-        
-        if (transArrPos >= accountArr.length)
-        {
-            transactionArr = (Transaction[]) resizeArray(transArrPos, (transactionArr.length * 2));
-        }   
+    	if      (type.equals("Credit Card"))
+    	{
+    		transactionArr[transArrPos] = (new CCTransaction(recipientAcct, customer, date, amount, description));
+    	}
+    	else if (type.equals("Check"))
+    	{
+    		transactionArr[transArrPos] = (new CheckTransaction(recipientAcct, customer, date, amount, description));
+    	}
+    	else if (type.equals("Expense"))
+    	{
+    		transactionArr[transArrPos] = (new Expense(recipientAcct, customer, date, amount, description));
+    	}
+    	else
+    	{
+            transactionArr[transArrPos] = (new Transaction(recipientAcct, customer, date, amount, description));
+    	}
+    	transArrPos++;
     }
     
     public void deleteTransaction(int index)

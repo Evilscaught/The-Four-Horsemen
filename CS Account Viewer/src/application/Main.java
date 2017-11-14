@@ -1,7 +1,5 @@
 package application;
 
-import java.io.InputStream;
-
 import application.controller.MainMenuController;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -32,8 +30,8 @@ public class Main extends Application {
         try {
             
 //           System.out.println(path);
-        	inout.readAccounts("/src/Accounts.txt");
-        	inout.readTransactions("/src/Transactions.txt");
+        	inout.readAccounts("src/Accounts.txt");
+        	inout.readTransactions("src/Transactions.txt");
 
 //            inout.readAccounts(path);
             Group root = new Group();

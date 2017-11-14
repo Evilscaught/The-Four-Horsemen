@@ -32,16 +32,16 @@ public class EditTransactionController {
     	String account = accountBox.getValue();
 
         if (transactionType.getValue() == "Credit Card Deposit") {
-        	Main.getMainController().getDb().createCCTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText());
+        	Main.getMainController().getDb().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Credit Card");
         }
 
         else if (transactionType.getValue() == "Check Deposit") {
-        	Main.getMainController().getDb().createCheckTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText());
+        	Main.getMainController().getDb().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Check");
         }
 
         else if (transactionType.getValue() == "Expense") {
         	amount = amount * -1;
-        	Main.getMainController().getDb().createExpense(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText());
+        	Main.getMainController().getDb().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Expense");
         }
         
         Main.getMainController().setTransactionPane();
@@ -128,7 +128,7 @@ public class EditTransactionController {
         int index = 0;
         
         for (String item : array) {
-        	if (current.account == item) {
+        	if (current.recipientAcct == item) {
         		index = counter;
         	}
         	counter++;
