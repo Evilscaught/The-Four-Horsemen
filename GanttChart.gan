@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-09-24" view-index="0" gantt-divider-location="401" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-09-27" view-index="0" gantt-divider-location="401" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
     <view zooming-state="default:1" id="gantt-chart">
         <field id="tpd3" name="Name" width="216" order="0"/>
@@ -86,7 +86,11 @@ need to update the display for information, and format it to look nice.]]></note
                 <notes><![CDATA[Jake - Added functionality to edit transaction button, added account parameter to transaction class]]></notes>
             </task>
             <task id="51" name="Edited main menu for accounts" color="#8cb6ce" meeting="false" start="2017-11-13" duration="1" complete="0" expand="true">
-                <notes><![CDATA[Dan - Modified main menu to allow separation of transactions by account]]></notes>
+                <notes><![CDATA[Dan - Modified main menu to allow separation of transactions by account
+
+Spent about three hours total, i made changes to the input out put, also creating a check method for users, relized, we are going to need another controller that only allows the view of specific accounts. 
+
+Also, spent about an hour fixing a bug with the login when it checked for a user. ]]></notes>
             </task>
         </task>
     </tasks>
