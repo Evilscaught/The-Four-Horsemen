@@ -16,9 +16,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
-public class Main extends Application {
-
-    private static InputOutput inout = new InputOutput();
+public class Main extends Application 
+{
+    private static IOTransactions ioTransactions = new IOTransactions("src/Transactions.txt");
+    private static IOAccounts ioAccounts =  new IOAccounts("src/Accounts.txt");
 
     private static MainMenuController mainController;
 
@@ -26,14 +27,13 @@ public class Main extends Application {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public void start(Stage primaryStage) {
-        try {
-            
-//           System.out.println(path);
-        	inout.readAccounts("src/Accounts.txt");
-        	inout.readTransactions("src/Transactions.txt");
+    public void start(Stage primaryStage) 
+    {
+        try 
+        {     
+        	ioAccounts.readAccounts();
+        	ioTransactions.readTransactions();
 
-//            inout.readAccounts(path);
             Group root = new Group();
 
             Scene scene = new Scene(root, 300,220);
@@ -66,7 +66,7 @@ public class Main extends Application {
             errorText.setLayoutY(190);
             errorText.setFill(Color.RED);
 
-            Text compName = new Text("Created By: The Four Horse Men");
+            Text compName = new Text("Created By: The Four Horsemen");
             compName.setLayoutX(140);
             compName.setLayoutY(210);
             compName.setFont(new Font(10));
@@ -75,10 +75,12 @@ public class Main extends Application {
             exitButton.setText(" Exit ");
             exitButton.setLayoutX(200);
             exitButton.setLayoutY(140);
-            exitButton.setOnAction(new EventHandler<ActionEvent>() {
-
+            
+            exitButton.setOnAction(new EventHandler<ActionEvent>() 
+            {
                 @Override
-                public void handle(ActionEvent arg0) {
+                public void handle(ActionEvent arg0) 
+                {
                     primaryStage.close();
                 }
             });
@@ -88,20 +90,22 @@ public class Main extends Application {
             enterButton.setLayoutX(130);
             enterButton.setLayoutY(140);
 
-            enterButton.setOnAction(new EventHandler<ActionEvent>() {
+            enterButton.setOnAction(new EventHandler<ActionEvent>() 
+            {
                 @Override
-                public void handle(ActionEvent arg0) {
-                    if((userField.getText().toLowerCase().equals("csadmin")) && (passField.getText().toLowerCase().equals("csci323"))) {
+                public void handle(ActionEvent arg0) 
+                {
+                    if((userField.getText().toLowerCase().equals("csadmin")) && (passField.getText().toLowerCase().equals("csci323"))) 
+                    {
                         mainController = new MainMenuController();
-                        primaryStage.setScene(mainController.loadScene(primaryStage, inout));
+                        primaryStage.setScene(mainController.loadScene(primaryStage, ioAccounts, ioTransactions));
                     }
-                    else {
+                    else 
+                    {
                         errorText.setText("Incorrect username and password.");
-                        primaryStage.setScene(mainController.loadScene(primaryStage, inout));
-
+                        primaryStage.setScene(mainController.loadScene(primaryStage, ioAccounts, ioTransactions));
                     }
                 }
-
             });
 
             ObservableList list = root.getChildren();
@@ -127,7 +131,9 @@ public class Main extends Application {
             primaryStage.show();
 
 
-        } catch(Exception e) {
+        } 
+        catch(Exception e) 
+        {
             e.printStackTrace();
         }
     }
@@ -136,15 +142,18 @@ public class Main extends Application {
      * Getters/Setters 
      *
      **********************************************************/
-    public static MainMenuController getMainController() {
+    public static MainMenuController getMainController() 
+    {
         return mainController;
     }
 
-    public String getCurUser() {
+    public String getCurUser() 
+    {
         return curUser;
     }
 
-    public void setCurUser(String curUser) {
+    public void setCurUser(String curUser) 
+    {
         this.curUser = curUser;
     }
 
@@ -153,9 +162,8 @@ public class Main extends Application {
      * Main function
      * @param args - No argument support provided at the moment
      **********************************************************/
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         launch(args);
     }
-
-
 }

@@ -38,7 +38,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class IOTransactions 
+public class IOTransactions
 {
     private InputStream transactionsPath;
     private ArrayList<Transaction> transactionArr;
@@ -100,7 +100,7 @@ public class IOTransactions
     {
         BufferedWriter out = new BufferedWriter(new FileWriter(transactionsPath.toString()));
         
-        for (Transaction transaction : getTransactionArr())
+        for (Transaction transaction : getTransactions())
         {
         	out.write(transaction.toString());
         	out.newLine();
@@ -108,7 +108,7 @@ public class IOTransactions
         out.close();
     }
     
-    public ArrayList<Transaction> getTransactionArr()
+    public ArrayList<Transaction> getTransactions()
     {
         return transactionArr;
     }
@@ -119,7 +119,7 @@ public class IOTransactions
     	IOTransactions IOTrans = new IOTransactions("src/Transactions.txt");
     	IOTrans.readTransactions();
     	
-    	for (Transaction transaction : IOTrans.getTransactionArr())
+    	for (Transaction transaction : IOTrans.getTransactions())
     	{
     		System.out.println(transaction.toString());
     		System.out.println(transaction.getClass());

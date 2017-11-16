@@ -1,7 +1,6 @@
 package application.controller;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import application.Main;
 import javafx.fxml.FXML;
@@ -12,7 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
-public class CreateTransactionController {
+public class CreateTransactionController 
+{
     private Pane currentPane;
 
     @FXML private TextField customerNameField;
@@ -23,47 +23,57 @@ public class CreateTransactionController {
     @FXML private ChoiceBox<String> accountBox;
 
     @FXML
-    void saveButtonClicked(MouseEvent event) {
+    void saveButtonClicked(MouseEvent event) 
+    {
 
     	double amount = Double.parseDouble(amountField.getText());
     	
     	String account = accountBox.getValue();
 
-        if (transactionType.getValue() == "Credit Card Deposit") {
-        	Main.getMainController().getDb().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Credit Card");
+        if (transactionType.getValue() == "Credit Card Deposit") 
+        {
+        	Main.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Credit Card");
         }
 
-        else if (transactionType.getValue() == "Check Deposit") {
-        	Main.getMainController().getDb().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Check");
+        else if (transactionType.getValue() == "Check Deposit") 
+        {
+        	Main.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Check");
         }
 
-        else if (transactionType.getValue() == "Expense") {
+        else if (transactionType.getValue() == "Expense") 
+        {
         	amount = amount * -1;
-        	Main.getMainController().getDb().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Expense");
+        	Main.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Expense");
         }
 
         Main.getMainController().setTransactionPane();
     }
 
     @FXML
-    void backButtonClicked(MouseEvent event) {
+    void backButtonClicked(MouseEvent event) 
+    {
         Main.getMainController().setTransactionPane();
     }
 
     @FXML
-    private void initialize () {
+    private void initialize () 
+    {
 
     }
 
-    public CreateTransactionController() {
-        // Load root layout from fxml file.
+    public CreateTransactionController() 
+    {
+        // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/CreateTransaction.fxml"));
         loader.setController(this);
 
-        try {
+        try 
+        {
             currentPane = loader.load();
-        } catch (IOException e) {
+        } 
+        catch (IOException e) 
+        {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -78,8 +88,10 @@ public class CreateTransactionController {
         
         accountBox.getItems().clear();
         
-        for (String item : accounts) {
-        	if (item != null) {
+        for (String item : accounts) 
+        {
+        	if (item != null) 
+        	{
         		accountBox.getItems().add(item);
         	}
         }
@@ -89,14 +101,13 @@ public class CreateTransactionController {
 
     }
 
-
-    public Pane getPane() {
+    public Pane getPane() 
+    {
         return currentPane;
     }
 
-    public void setPane(Pane currentPane) {
+    public void setPane(Pane currentPane) 
+    {
         this.currentPane = currentPane;
     }
-
-
 }

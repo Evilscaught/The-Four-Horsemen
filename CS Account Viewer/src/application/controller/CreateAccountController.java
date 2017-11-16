@@ -91,10 +91,10 @@ public class CreateAccountController {
         else
         {
             //Create Account
-            Main.getMainController().getDb().createAccount(firstNameField.getText(), lastNameField.getText(), userNameField.getText(), emailField.getText(), passField.getText());
+            Main.getMainController().getAccountDB().createAccount(firstNameField.getText(), lastNameField.getText(), userNameField.getText(), emailField.getText(), passField.getText());
 
             try {
-                Main.getMainController().getDb().saveAccounts();
+                Main.getMainController().getAccountDB().saveAccounts();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
