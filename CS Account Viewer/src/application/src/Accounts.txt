@@ -1,4 +1,4 @@
-Robyn,Berg,N/A,N/A,csadmin
+Robyn,Berg,email,RB,RBpass
 Trish,Duce,N/A,N/A,csadmin
 Michael,Cassens,N/A,N/A,csadmin
 Travis,Wheeler,N/A,N/A,csadmin
