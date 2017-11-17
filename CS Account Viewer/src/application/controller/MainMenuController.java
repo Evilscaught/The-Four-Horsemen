@@ -258,7 +258,7 @@ public class MainMenuController {
     }
 
     @FXML
-    void LogoutClick(MouseEvent event) 
+    void LogoutClick(MouseEvent event) throws Exception 
     {
         Main main = new Main();
         main.start(primaryStage);

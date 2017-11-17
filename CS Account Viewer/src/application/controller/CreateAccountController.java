@@ -20,7 +20,7 @@ public class CreateAccountController {
 
     
     @FXML
-    void LogoutClick(MouseEvent event) {
+    void LogoutClick(MouseEvent event) throws Exception {
         Main main = new Main();
         main.start(Main.getMainController().getPrimaryStage());
 

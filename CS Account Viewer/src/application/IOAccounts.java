@@ -29,30 +29,32 @@
 
 package application;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class IOAccounts 
 {
-    private InputStream accountsPath;
+    private String accountsPath;
     private ArrayList<Account> accountArr;
     
     public IOAccounts(String path)
     {
-        accountsPath = this.getClass().getResourceAsStream(path);
+        accountsPath = path;
     }
 	
     //Get accounts from database and read into Account array.
     public void readAccounts() throws FileNotFoundException 
     {    
         //Create file scanner
-        Scanner file = new Scanner(accountsPath);
+    	InputStream accountsFile = this.getClass().getResourceAsStream(accountsPath);
+        Scanner file = new Scanner(accountsFile);
         accountArr = new ArrayList<Account>(20);
 
         while(file.hasNext())
@@ -90,14 +92,25 @@ public class IOAccounts
     
     public void saveAccounts() throws IOException
     {
-        BufferedWriter out = new BufferedWriter(new FileWriter(accountsPath.toString()));
-
-        for(Account account : getAccounts())
+        URL url = this.getClass().getResource(accountsPath);
+        File file;
+        
+        try 
         {
-        	out.write(account.toString());
-        	out.newLine();
+            file = new File(url.toURI().getPath());
+
+            FileWriter out = new FileWriter(file);
+            for(Account account : getAccounts())
+            {
+                out.write(account.toString());
+                out.write('\n');
+            }
+            out.close();
+        } 
+        catch (URISyntaxException event) 
+        {
+            event.printStackTrace();
         }
-        out.close();
     }
 
 	public static void main(String[] args) throws IOException
@@ -111,34 +124,5 @@ public class IOAccounts
 		{
 			System.out.println(account.toString());
 		}
-
-		
-		File file = new File("src/something.txt");
-		//BufferedWriter out = new BufferedWriter(new FileWriter(file));
-		//out.write("asdfasd");
-		//out.close();
-		
-		@SuppressWarnings("resource")
-		Scanner fileScanner = new Scanner(file);
-		//I continue to get "asdfasd" in the console,
-		//Even when the above BufferedWriter has been commented out
-		//And the file 'something.txt' is empty...
-		System.out.println(fileScanner.nextLine());
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

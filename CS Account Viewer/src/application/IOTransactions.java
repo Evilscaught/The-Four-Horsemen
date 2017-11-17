@@ -30,28 +30,31 @@
 
 package application;
 
-import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class IOTransactions
 {
-    private InputStream transactionsPath;
+    private String transactionsPath;
     private ArrayList<Transaction> transactionArr;
 	
     public IOTransactions(String path)
     {
-    	transactionsPath = this.getClass().getResourceAsStream(path);
+    	transactionsPath = path;
     }
     
     public void readTransactions() throws FileNotFoundException
     {
         //Create file scanner
-        Scanner file = new Scanner(transactionsPath);
+    	InputStream transactionsFile = this.getClass().getResourceAsStream(transactionsPath);
+        Scanner file = new Scanner(transactionsFile);
         transactionArr = new ArrayList<Transaction>(10);
         
         while(file.hasNext())
@@ -98,14 +101,25 @@ public class IOTransactions
     
     public void saveTransactions() throws IOException
     {
-        BufferedWriter out = new BufferedWriter(new FileWriter(transactionsPath.toString()));
+        URL url = this.getClass().getResource(transactionsPath);
+        File file;
         
-        for (Transaction transaction : getTransactions())
+        try 
         {
-        	out.write(transaction.toString());
-        	out.newLine();
+            file = new File(url.toURI().getPath());
+
+            FileWriter out = new FileWriter(file);
+            for(Transaction transaction : getTransactions())
+            {
+                out.write(transaction.toString());
+                out.write('\n');
+            }
+            out.close();
+        } 
+        catch (URISyntaxException event) 
+        {
+            event.printStackTrace();
         }
-        out.close();
     }
     
     public ArrayList<Transaction> getTransactions()
