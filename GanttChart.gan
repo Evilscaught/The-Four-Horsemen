@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-09-27" view-index="0" gantt-divider-location="401" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-10-31" view-index="0" gantt-divider-location="401" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
-    <view zooming-state="default:1" id="gantt-chart">
+    <view zooming-state="default:0" id="gantt-chart">
         <field id="tpd3" name="Name" width="216" order="0"/>
         <field id="tpd4" name="Begin date" width="91" order="1"/>
         <field id="tpd5" name="End date" width="90" order="2"/>
-        <timeline><![CDATA[13]]></timeline>
+        <timeline><![CDATA[13,53]]></timeline>
         <option id="color.recent"><![CDATA[#00cccc #ff0000 #009999 #0000cc]]></option>
     </view>
     <view id="resource-table">
@@ -91,6 +91,11 @@ need to update the display for information, and format it to look nice.]]></note
 Spent about three hours total, i made changes to the input out put, also creating a check method for users, relized, we are going to need another controller that only allows the view of specific accounts. 
 
 Also, spent about an hour fixing a bug with the login when it checked for a user. ]]></notes>
+            </task>
+        </task>
+        <task id="52" name="Sprint 4" meeting="false" start="2017-11-16" duration="1" complete="100" expand="true">
+            <task id="53" name="Dan - Created verification for user accounts" color="#8cb6ce" meeting="false" start="2017-11-16" duration="1" complete="100" expand="true">
+                <notes><![CDATA[Spent 2 hours getting the user accounts to login. need to implement the user controller next. ]]></notes>
             </task>
         </task>
     </tasks>

@@ -114,7 +114,7 @@ public class Main extends Application
                         {
                             // add user controller
                             System.out.println("works");
-                            System.out.println()
+                            
                         }
                         else
                         {
