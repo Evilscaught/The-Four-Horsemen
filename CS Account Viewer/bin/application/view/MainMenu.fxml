@@ -7,7 +7,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?scenebuilder-stylesheet ../../../../../../workspace/_javafx_test1/bootstrap3.css?>
-
+<!-- Added controller class...  fx:controller="application.controller.MainMenuController"  -->
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0000999999975" prefWidth="605.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
     <SplitPane fx:id="splitMain" dividerPositions="0.16583745176825082" focusTraversable="true" prefHeight="373.999977929685" prefWidth="600.0000999999975" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">

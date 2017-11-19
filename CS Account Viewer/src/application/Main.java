@@ -1,3 +1,32 @@
+/******************************************************************************
+ *  Compilation:  javac Main.java
+ *  Execution:    java  Main
+ *  Dependencies:
+ *
+ *  @author(s)      Jack Cummings, Dan Bailey, Jake Wolfe, Scott McKay
+ *  @version        0.0.0
+ *  @group          The Four Horsemen
+ *  @copyright      None
+ *  @date_created   Sunday, November 19th, 2017 @9:31 a.m. MST
+ *
+ *  
+ *
+ *     *
+ *
+ *     *
+ *
+ *     *
+ *
+ *  BUG:
+ *
+ *  FEATURE:
+ *
+ *  NOTE: Use this class to start program. 
+ *
+ *  % java Main
+ *
+ ******************************************************************************/
+
 package application;
 
 import application.controller.MainMenuController;
@@ -20,11 +49,15 @@ import javafx.stage.StageStyle;
 
 import java.util.Scanner;
 import java.util.ArrayList;
-
+import javafx.scene.input.MouseEvent;
+import javafx.event.EventHandler;
 
 
 public class Main extends Application
 {
+	private double xOffset = 0.0;
+	private double yOffset = 0.0;
+	
     private static IOTransactions ioTransactions = new IOTransactions("src/Transactions.txt");
     private static IOAccounts ioAccounts =  new IOAccounts("src/Accounts.txt");
 
@@ -39,12 +72,36 @@ public class Main extends Application
         Parent root = FXMLLoader.load(getClass().getResource("view/LoginScreen.fxml"));
         stage.initStyle(StageStyle.UNDECORATED);
         
-        Scene scene = new Scene(root);
+        //Get the x and y coordinates of the login-screen if clicked on.
+        root.setOnMousePressed(new EventHandler<MouseEvent>() 
+        {
+            @Override
+            public void handle(MouseEvent event) 
+            {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            }
+        });
         
+        //Update the x and y coordinates if dragged.
+        root.setOnMouseDragged(new EventHandler<MouseEvent>() 
+        {
+            @Override
+            public void handle(MouseEvent event) 
+            {
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
+            }
+        });
+        
+        
+        Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.show();
+        stage.show();       
     }
     */
+    
+    
     ///*
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
