@@ -11,24 +11,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
-public class CreateAccountController {
-    private Pane currentPane;
+public class CreateAccountController 
+{
+    	  private Pane 			currentPane;
     
-    @FXML private TextField firstNameField, lastNameField, emailField, userNameField;
-    @FXML PasswordField passField, passVerifyField;
-    @FXML private TextArea descriptionField;
-
-    
-    @FXML
-    void LogoutClick(MouseEvent event) throws Exception {
-        Main main = new Main();
-        main.start(Main.getMainController().getPrimaryStage());
-
-    }
+    @FXML private TextField 	firstNameField, lastNameField, emailField, userNameField;
+    @FXML private PasswordField passField, passVerifyField;
+    @FXML private TextArea 		descriptionField;
 
     @FXML
-    void back(MouseEvent event) {
-        Main.getMainController().setAdminPane();
+    void back(MouseEvent event) 
+    {
+        LoginScreenController.getMainController().setAdminPane();
     }
 
     @FXML
@@ -91,13 +85,15 @@ public class CreateAccountController {
         else
         {
             //Create Account
-            Main.getMainController().getAccountDB().createAccount(firstNameField.getText(), lastNameField.getText(), userNameField.getText(), emailField.getText(), passField.getText());
+            LoginScreenController.getMainController().getAccountDB().createAccount(firstNameField.getText(), lastNameField.getText(), userNameField.getText(), emailField.getText(), passField.getText());
 
-            try {
-                Main.getMainController().getAccountDB().saveAccounts();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            try 
+            {
+            	LoginScreenController.getMainController().getAccountDB().saveAccounts();
+            } 
+            catch (IOException event1) 
+            {
+                event1.printStackTrace();
             }
             //Reset all text fields
             firstNameField.setStyle("-fx-background-color: white;");
@@ -113,32 +109,37 @@ public class CreateAccountController {
             passField.setText("");
             passVerifyField.setText("");
 
-            Main.getMainController().refreshUserList();
+            LoginScreenController.getMainController().refreshUserList();
             // TODO: Dialog Confirmation
         }
 
     }
 
-    public CreateAccountController() {
-        // Load root layout from fxml file.
+    public CreateAccountController() 
+    {
+        // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/CreateAccount.fxml"));
         loader.setController(this);
 
-        try {
+        try 
+        {
             currentPane = loader.load();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } 
+        catch (IOException event) 
+        {
+            event.printStackTrace();
         }
     }
 
     
-    public Pane getPane() {
+    public Pane getPane() 
+    {
         return currentPane;
     }
 
-    public void setPane(Pane currentPane) {
+    public void setPane(Pane currentPane) 
+    {
         this.currentPane = currentPane;
     }
 

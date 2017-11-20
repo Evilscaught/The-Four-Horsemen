@@ -2,9 +2,11 @@ package application;
 
 import java.io.IOException;
 
+import application.controller.LoginScreenController;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -16,7 +18,7 @@ public class EditTransactionController
     private Pane currentPane;
 
     @FXML private TextField customerNameField;
-    @FXML private TextArea descriptionField;
+    @FXML private TextArea  descriptionField;
     @FXML private TextField dateField;
     @FXML private TextField amountField;
     @FXML private ChoiceBox<String> transactionType;
@@ -27,7 +29,7 @@ public class EditTransactionController
     void saveButtonClicked(MouseEvent event) 
     {
     	
-    	Main.getMainController().getTransactionDB().deleteTransaction(arraynum);
+    	LoginScreenController.getMainController().getTransactionDB().deleteTransaction(arraynum);
 
     	double amount = Double.parseDouble(amountField.getText());
     	
@@ -35,35 +37,35 @@ public class EditTransactionController
 
         if (transactionType.getValue() == "Credit Card Deposit") 
         {
-        	Main.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Credit Card");
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Credit Card");
         }
 
         else if (transactionType.getValue() == "Check Deposit") 
         {
-        	Main.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Check");
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Check");
         }
 
         else if (transactionType.getValue() == "Expense") 
         {
         	amount = amount * -1;
-        	Main.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Expense");
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Expense");
         }
         
-        Main.getMainController().setTransactionPane();
+        LoginScreenController.getMainController().setTransactionPane();
 
     }
     
     @FXML
     void deleteTransClicked(MouseEvent event) 
     {
-    	Main.getMainController().getTransactionDB().deleteTransaction(arraynum);
-        Main.getMainController().setTransactionPane();
+    	LoginScreenController.getMainController().getTransactionDB().deleteTransaction(arraynum);
+    	LoginScreenController.getMainController().setTransactionPane();
     }
     
     @FXML
     void backButtonClicked(MouseEvent event) 
     {
-        Main.getMainController().setTransactionPane();
+    	LoginScreenController.getMainController().setTransactionPane();
     }
 
     @FXML
@@ -97,7 +99,7 @@ public class EditTransactionController
         
         accountBox.getItems().clear();
         
-        for (String item : Main.getMainController().getUserListFirstLast()) 
+        for (String item : LoginScreenController.getMainController().getUserListFirstLast()) 
         {
         	if (item != null) 
         	{
@@ -105,7 +107,7 @@ public class EditTransactionController
         	}
         }	
         
-        Transaction current = Main.getMainController().getTransactionDB().getTransactions().get(this.arraynum);
+        Transaction current = LoginScreenController.getMainController().getTransactionDB().getTransactions().get(this.arraynum);
         customerNameField.setText(current.customer);
         descriptionField.setText(current.description);
         dateField.setText(current.date);

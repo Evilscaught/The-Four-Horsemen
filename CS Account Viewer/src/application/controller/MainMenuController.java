@@ -260,8 +260,13 @@ public class MainMenuController {
     @FXML
     void LogoutClick(MouseEvent event) throws Exception 
     {
-        Main main = new Main();
-        main.start(primaryStage);
+    	//Close the current window.
+		( (Node)event.getSource() ).getScene().getWindow().hide();
+    	
+    	Stage stage = new Stage();
+    	Main  main  = new Main();
+    	
+    	main.start(stage);
     }
 
     @FXML
@@ -326,7 +331,6 @@ public class MainMenuController {
 
     public void setAdminPane() 
     {
-
         // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/Admin.fxml"));

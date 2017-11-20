@@ -40,7 +40,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -48,15 +47,15 @@ import javafx.stage.Stage;
 
 public class LoginScreenController implements Initializable 
 {
-	@FXML private Button loginButton;
-    @FXML private TextField username;
-    @FXML private PasswordField password;
-    @FXML private Hyperlink createAccount;
+   static private MainMenuController mainMenuController;
 	
-    @FXML private Label label;
+	      private IOTransactions	 ioTransactions;
+		  private IOAccounts 		 ioAccounts;
     
-    	  private IOTransactions ioTransactions = new IOTransactions("src/Transactions.txt");
-    	  private IOAccounts ioAccounts =  new IOAccounts("src/Accounts.txt");
+	@FXML private Button 			 loginButton;
+    @FXML private TextField 		 username;
+    @FXML private PasswordField 	 password;
+    @FXML private Hyperlink 		 createAccount;
     
     @FXML
     private void handleClose(MouseEvent event) 
@@ -68,6 +67,10 @@ public class LoginScreenController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
+    	ioTransactions = new IOTransactions("src/Transactions.txt");
+    	ioAccounts =  new IOAccounts("src/Accounts.txt");
+    	
+    	//Load file contents (transactions.txt) into ADT ioTransactions.
     	try 
     	{
 			ioTransactions.readTransactions();
@@ -77,6 +80,7 @@ public class LoginScreenController implements Initializable
 			event.printStackTrace();
 		}
     	
+    	//Load file contents (accounts.txt) into ADT ioAccounts.
     	try 
     	{
 			ioAccounts.readAccounts();
@@ -90,16 +94,34 @@ public class LoginScreenController implements Initializable
     @FXML
     private void handleLogin(MouseEvent event) throws IOException
     {
-    	//TODO: Check login credentials
-    	
-    	MainMenuController mainController = new MainMenuController();
-	    Stage  stage;
+    	//If entered credentials (user-name & password) are valid:
+    	if (checkCredentials())
+    	{
+    		mainMenuController = new MainMenuController();
+    		Stage stage;
 	    
-		stage = new Stage();
-		stage.setScene(mainController.loadScene(stage, ioAccounts, ioTransactions));
-		stage.show();
+    		stage = new Stage();
+    		stage.setScene(mainMenuController.loadScene(stage, ioAccounts, ioTransactions));
+    		stage.show();
 		
-		//This will hide the login screen.
-		( (Node)event.getSource() ).getScene().getWindow().hide();
+    		//This will hide the login screen.
+    		( (Node)event.getSource() ).getScene().getWindow().hide();
+    	}
+    	//Else, incorrect user-name or password.
+    	else
+    	{
+    		return;
+    	}
+    }
+    
+	private boolean checkCredentials()
+    {
+		//TODO: Implement code to check if user-name and password is correct.
+    	return true;
+    }
+    
+    public static MainMenuController getMainController()
+    {
+        return mainMenuController;
     }
 }

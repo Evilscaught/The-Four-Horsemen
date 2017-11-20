@@ -32,33 +32,33 @@ public class CreateTransactionController
 
         if (transactionType.getValue() == "Credit Card Deposit") 
         {
-        	Main.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Credit Card");
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Credit Card");
         }
 
         else if (transactionType.getValue() == "Check Deposit") 
         {
-        	Main.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Check");
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Check");
         }
 
         else if (transactionType.getValue() == "Expense") 
         {
         	amount = amount * -1;
-        	Main.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Expense");
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Expense");
         }
 
-        Main.getMainController().setTransactionPane();
+        LoginScreenController.getMainController().setTransactionPane();
     }
 
     @FXML
-    void backButtonClicked(MouseEvent event) 
+    void handleCancel(MouseEvent event) 
     {
-        Main.getMainController().setTransactionPane();
+    	LoginScreenController.getMainController().setAdminPane();
     }
 
     @FXML
     private void initialize () 
     {
-
+    	return;
     }
 
     public CreateTransactionController() 
@@ -72,10 +72,9 @@ public class CreateTransactionController
         {
             currentPane = loader.load();
         } 
-        catch (IOException e) 
+        catch (IOException event) 
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            event.printStackTrace();
         }
 
         transactionType.getItems().clear();
@@ -84,7 +83,7 @@ public class CreateTransactionController
         transactionType.getItems().add("Expense");
         transactionType.getSelectionModel().selectFirst();
         
-        String[] accounts = Main.getMainController().getUserListFirstLast();
+        String[] accounts = LoginScreenController.getMainController().getUserListFirstLast();
         
         accountBox.getItems().clear();
         
@@ -97,8 +96,6 @@ public class CreateTransactionController
         }
         
         accountBox.getSelectionModel().selectFirst();
-        	
-
     }
 
     public Pane getPane() 
