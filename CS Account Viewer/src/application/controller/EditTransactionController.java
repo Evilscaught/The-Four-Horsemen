@@ -1,12 +1,12 @@
-package application;
+package application.controller;
 
 import java.io.IOException;
 
-import application.controller.LoginScreenController;
+import application.Main;
+import application.Transaction;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -108,19 +108,19 @@ public class EditTransactionController
         }	
         
         Transaction current = LoginScreenController.getMainController().getTransactionDB().getTransactions().get(this.arraynum);
-        customerNameField.setText(current.customer);
-        descriptionField.setText(current.description);
-        dateField.setText(current.date);
+        customerNameField.setText(current.getCustomer());
+        descriptionField.setText(current.getDescription());
+        dateField.setText(current.getDate());
         
         double amountvalue;
         
-        if (current.amount < 0) 
+        if (current.getAmount() < 0) 
         {
-        	amountvalue = current.amount * -1;
+        	amountvalue = current.getAmount() * -1;
         }
         else 
         {
-        	amountvalue = current.amount;
+        	amountvalue = current.getAmount();
         }
         amountField.setText("" + amountvalue);
         
@@ -148,7 +148,7 @@ public class EditTransactionController
         
         for (String item : array) 
         {
-        	if (current.recipientAcct == item) 
+        	if (current.getRecipientAcct() == item) 
         	{
         		index = counter;
         	}

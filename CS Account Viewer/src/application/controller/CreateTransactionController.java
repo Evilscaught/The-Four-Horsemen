@@ -52,7 +52,7 @@ public class CreateTransactionController
     @FXML
     void handleCancel(MouseEvent event) 
     {
-    	LoginScreenController.getMainController().setAdminPane();
+    	LoginScreenController.getMainController().setTransactionPane();
     }
 
     @FXML

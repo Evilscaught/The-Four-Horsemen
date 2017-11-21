@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Account;
-import application.EditTransactionController;
 import application.IOAccounts;
 import application.IOTransactions;
 import application.Main;
