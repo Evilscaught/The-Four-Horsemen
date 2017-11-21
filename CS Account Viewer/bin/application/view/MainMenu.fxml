@@ -20,6 +20,11 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
           <children>
             <TabPane fx:id="mainTabPane" layoutX="0.0" layoutY="0.0" prefHeight="373.0" prefWidth="497.0" tabClosingPolicy="UNAVAILABLE">
+                <Tab text="Transactions">
+                  <content>
+                    <AnchorPane id="Content" fx:id="transactionPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
               <tabs>
                 <Tab style="-fx-background-color: #EE6666;&#10;&#10;" text="Admin">
                   <content>
@@ -47,11 +52,6 @@
                         </Button>
                       </children>
                     </AnchorPane>
-                  </content>
-                </Tab>
-                <Tab text="Transactions">
-                  <content>
-                    <AnchorPane id="Content" fx:id="transactionPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>
                 </Tab>
                 <Tab text="------">
