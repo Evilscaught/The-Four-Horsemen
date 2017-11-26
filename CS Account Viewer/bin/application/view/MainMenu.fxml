@@ -26,11 +26,6 @@
                   </content>
                 </Tab>
               <tabs>
-                <Tab style="-fx-background-color: #EE6666;&#10;&#10;" text="Admin">
-                  <content>
-                    <AnchorPane id="Content" fx:id="adminPane" minHeight="0.0" minWidth="0.0" prefHeight="344.0" prefWidth="476.0000999999975" />
-                  </content>
-                </Tab>
                 <Tab text="Account Overview">
                   <content>
                     <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="342.0000999999975" prefWidth="497.0">
@@ -52,6 +47,11 @@
                         </Button>
                       </children>
                     </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab style="-fx-background-color: #EE6666;&#10;&#10;" text="Admin">
+                  <content>
+                    <AnchorPane id="Content" fx:id="adminPane" minHeight="0.0" minWidth="0.0" prefHeight="344.0" prefWidth="476.0000999999975" />
                   </content>
                 </Tab>
                 <Tab text="------">
