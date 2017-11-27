@@ -78,7 +78,7 @@ public class Main extends Application
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Isengard");
-        stage.getIcons().add(new Image("application/view/images/program-icon.png"));
+        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("view/images/program-icon.png")));
         stage.show();       
     }
     

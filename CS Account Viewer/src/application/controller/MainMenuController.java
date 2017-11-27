@@ -3,20 +3,22 @@ package application.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 import application.Account;
 import application.IOAccounts;
 import application.IOTransactions;
 import application.Main;
 import application.Transaction;
-
-import java.util.Scanner;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -27,8 +29,11 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -40,7 +45,7 @@ public class MainMenuController {
     IOTransactions ioTransactions;
     IOAccounts ioAccounts;
     String curUser;
-    
+
     @FXML private SplitPane splitMain;
     @FXML private AnchorPane sidePane;
     @FXML private TabPane mainTabPane;
@@ -52,18 +57,20 @@ public class MainMenuController {
     @FXML private ResourceBundle resources;
     @FXML private URL location;
     @FXML private Button createAccountButton;
-    @FXML private TextArea transactionText;
     @FXML private Button hideUserListButton;
+
+    @FXML private TableView transactionText;
+    @FXML private TableColumn <Map, String> accountCol, customerCol, typeCol, amountCol;
 
     //Note to Self: This method has been successfully converted
     public String[] getUserListFirstLast() 
     {	
         String [] userListStr = new String [ioAccounts.getAccounts().size()];
-        
+
         //For every account in ioAccounts, get the first and last names, and add it to userListStr[index]
         for (int index = 0; index < ioAccounts.getAccounts().size(); index++)
         {
-        	userListStr[index] = ioAccounts.getAccounts().get(index).getFirstName() + " " + ioAccounts.getAccounts().get(index).getLastName();
+            userListStr[index] = ioAccounts.getAccounts().get(index).getFirstName() + " " + ioAccounts.getAccounts().get(index).getLastName();
         }
         return userListStr;
     }
@@ -77,7 +84,7 @@ public class MainMenuController {
         hideUserListButton.setLayoutX(-8);
         hideUserListButton.setText("»");
     }
-    
+
     public void addUserList() 
     {        
         splitMain.getItems().add(0, sidePane);
@@ -85,31 +92,31 @@ public class MainMenuController {
         hideUserListButton.setLayoutX(80); 
         hideUserListButton.setText("«");
     }
-    
+
 
     //Note to Self: This method has been successfully converted @Scott McKay
     public void refreshUserList() 
     {
         userList.getItems().clear();
-        
+
         for (int index = 0; index < ioAccounts.getAccounts().size(); index++)
         {
-        	userList.getItems().add(ioAccounts.getAccounts().get(index).getFirstName() + " " + ioAccounts.getAccounts().get(index).getLastName());
+            userList.getItems().add(ioAccounts.getAccounts().get(index).getFirstName() + " " + ioAccounts.getAccounts().get(index).getLastName());
         }     
     }
-    
+
 
     @FXML
     void initialize() 
     {
         this.refreshUserList();    
     }
-    
+
 
     public Scene loadScene(Stage stage, IOAccounts ioAccounts, IOTransactions ioTransactions) 
     {
         BorderPane rootLayout = new BorderPane();
-        
+
         this.ioAccounts     = ioAccounts;
         this.ioTransactions = ioTransactions;
         primaryStage = stage;
@@ -128,7 +135,7 @@ public class MainMenuController {
 
             userList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() 			
             {
-            	//NOTICE: Few modifications occurred here, only removed the while statement that checks for null Accounts. @Scott McKay
+                //NOTICE: Few modifications occurred here, only removed the while statement that checks for null Accounts. @Scott McKay
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) 
                 {
@@ -156,7 +163,7 @@ public class MainMenuController {
 
             hideUserListButton.setPadding(Insets.EMPTY);
             hideUserListButton.setText("«");
-
+       //     mainTabPane.setMaxWidth(
             return scene;
         } 
         catch (IOException event) 
@@ -166,40 +173,40 @@ public class MainMenuController {
 
         return new Scene(rootLayout);
     }
-    
+
     //Choose a Transaction to Edit Dialog
     @SuppressWarnings({ "resource", "static-access" })
-	public int delTransactionDialog() 
+    public int delTransactionDialog() 
     {
-    	List<String> choices = new ArrayList<>();
-    	
-    	int counter = 1;
-    	
-    	//Show list of transactions to edit.
-    	for(Transaction transaction : ioTransactions.getTransactions()) 
-    	{
-    		choices.add(counter + ".] "  + transaction.viewInfo());
-    		counter++;
-    	}
-    	
-    	ChoiceDialog<String> dialog = new ChoiceDialog<>("", choices);
+        List<String> choices = new ArrayList<>();
+
+        int counter = 1;
+
+        //Show list of transactions to edit.
+        for(Transaction transaction : ioTransactions.getTransactions()) 
+        {
+            choices.add(counter + ".] "  + transaction.viewInfo());
+            counter++;
+        }
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("", choices);
         dialog.setTitle("Edit Transaction");
         dialog.setHeaderText("Edit Transaction");
         dialog.setContentText("Choose Transaction to Edit:");
-        
+
         Optional<String> result = dialog.showAndWait();
-        
+
         //If user presses 'ok' without choosing a transaction:
         if (result.empty() != null)
         {
-        	return -1;
+            return -1;
         }
         //If user selects a transaction to edit:
         else if (result.isPresent())
         {
             String value = result.get();
             Scanner scan = new Scanner(value).useDelimiter(" ");
-            
+
             //Return the counter of the selected transaction.
             return scan.nextInt();
         }
@@ -262,13 +269,13 @@ public class MainMenuController {
     @FXML
     void LogoutClick(MouseEvent event) throws Exception 
     {
-    	//Close the current window.
-		( (Node)event.getSource() ).getScene().getWindow().hide();
-    	
-    	Stage stage = new Stage();
-    	Main  main  = new Main();
-    	
-    	main.start(stage);
+        //Close the current window.
+        ( (Node)event.getSource() ).getScene().getWindow().hide();
+
+        Stage stage = new Stage();
+        Main  main  = new Main();
+
+        main.start(stage);
     }
 
     @FXML
@@ -284,7 +291,7 @@ public class MainMenuController {
         transactionPane.getChildren().clear();
         transactionPane.getChildren().addAll(new CreateTransactionController().getPane());
     }
-    
+
     //Note to Self: This method has been successfully converted @Scott McKay
     @FXML
     void deleteAccountClick(MouseEvent event) 
@@ -299,21 +306,21 @@ public class MainMenuController {
             }
         }
         this.refreshUserList();
-   }
-    
+    }
+
     @FXML
     void editTransClicked(MouseEvent event) 
     {
-    	int arrayNum = delTransactionDialog();
-    	
-    	//If user did not make a choice, or cancelled.
-    	if (arrayNum == -1)
-    	{
-    		return;
-    	}
-    	
-    	transactionPane.getChildren().clear();
-    	transactionPane.getChildren().addAll(new EditTransactionController(arrayNum).getPane());
+        int arrayNum = delTransactionDialog();
+
+        //If user did not make a choice, or cancelled.
+        if (arrayNum == -1)
+        {
+            return;
+        }
+
+        transactionPane.getChildren().clear();
+        transactionPane.getChildren().addAll(new EditTransactionController(arrayNum).getPane());
     }
 
     /***********************************************************
@@ -358,48 +365,67 @@ public class MainMenuController {
         loader.setLocation(Main.class.getResource("view/Transactions.fxml"));
         loader.setController(this);
 
-//        try {
-//            transactionPane.getChildren().clear();
-//            transactionPane.getChildren().add(new CreateTransactionController().getPane());
-      transactionPane.getChildren().clear();
+        //        try {
+        //            transactionPane.getChildren().clear();
+        //            transactionPane.getChildren().add(new CreateTransactionController().getPane());
+        transactionPane.getChildren().clear();
 
-      try 
-      {
-        transactionPane.getChildren().add(loader.load());
-      } 
-      catch (IOException event) 
-      {
-        event.printStackTrace();
-      }
- //       } catch (IOException e) {
-            // TODO Auto-generated catch block
- //           e.printStackTrace();
- //       }
+        try 
+        {
+            transactionPane.getChildren().add(loader.load());
+        } 
+        catch (IOException event) 
+        {
+            event.printStackTrace();
+        }
+        //       } catch (IOException e) {
+        // TODO Auto-generated catch block
+        //           e.printStackTrace();
+        //       }
         //        this.adminPane = adminPane;
 
-      String output = "";
 
-      //Get transactions and display them on main menu screen in transactions section.
-      if (ioTransactions.getTransactions().size() != 0) 
-      {
-    	  for (int i=0; i < ioTransactions.getTransactions().size(); i++)
-    	  {
-        	  if (ioTransactions.getTransactions().get(i) != null) 
-        	  {
-        		  output += "" + ioTransactions.getTransactions().get(i).viewInfo() + "\n";
-        	  }
-          }
-      }
-      transactionText.setText(output);
+        //Get transactions and display them on main menu screen in transactions section.
+        accountCol.setCellValueFactory(new MapValueFactory("account"));
+        //accountCol.setMinWidth(130);
+        customerCol.setCellValueFactory(new MapValueFactory("customer"));
+        //customerCol.setMinWidth(130);
+        typeCol.setCellValueFactory(new MapValueFactory("type"));
+        amountCol.setCellValueFactory(new MapValueFactory("amount"));
+
+
+        ObservableList<Map> allData = FXCollections.observableArrayList();
+
+        if (ioTransactions.getTransactions().size() != 0) 
+        {
+            for (int i=0; i < ioTransactions.getTransactions().size(); i++)
+            {
+                if (ioTransactions.getTransactions().get(i) != null) 
+                {
+                    Map<String, String> dataRow = new HashMap<>();
+                    Transaction temp = ioTransactions.getTransactions().get(i);
+                    
+                    dataRow.put("account", temp.getRecipientAcct());
+                    dataRow.put("customer", temp.getCustomer());
+                    dataRow.put("type", temp.getType());
+                    dataRow.put("amount", Double.toString(temp.getAmount()));
+                    
+                    allData.add(dataRow);
+
+                }
+            }
+            transactionText.setItems(allData);
+        }
+        //      transactionText.setText(output);
     }
-   
+
     public IOTransactions getTransactionDB()
     {
-    	return ioTransactions;
+        return ioTransactions;
     }
-    
+
     public IOAccounts getAccountDB()
     {
-    	return ioAccounts;
+        return ioAccounts;
     }
 }

@@ -63,7 +63,7 @@ public class LoginScreenController implements Initializable
     @FXML private Hyperlink 		 createAccount;
     @FXML private ImageView			 visibilityTrue;  //Image view icon of eye (toggle password visibility)
     @FXML private ImageView			 visibilityFalse;
-    
+        
     @FXML
     private void handleClose(MouseEvent event) 
     {
