@@ -29,6 +29,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -112,6 +113,8 @@ public class MainMenuController {
         this.ioAccounts     = ioAccounts;
         this.ioTransactions = ioTransactions;
         primaryStage = stage;
+        stage.setTitle("Isengard");
+        stage.getIcons().add(new Image("application/view/images/program-icon.png"));
 
         try 
         {

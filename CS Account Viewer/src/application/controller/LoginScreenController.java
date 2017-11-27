@@ -133,7 +133,7 @@ public class LoginScreenController implements Initializable
     {
     	//If entered credentials (user-name & password) are valid:
     	if (checkCredentials())
-    	{	System.out.println("bewbs");
+    	{	
     		mainMenuController = new MainMenuController();
     		Stage stage;
 	    
