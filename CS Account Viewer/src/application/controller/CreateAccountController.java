@@ -1,3 +1,32 @@
+/******************************************************************************
+ *  Compilation:  javac CreateAccountController.java
+ *  Execution:    java  CreateAccountController
+ *  Dependencies:
+ *
+ *  @author(s)      Jake Wolfe, Dan Bailey, Scott McKay
+ *  @version        0.0.0
+ *  @group          The Four Horsemen
+ *  @copyright      None
+ *  @date_created   N/A
+ *
+ * 
+ *
+ *     *
+ *
+ *     *
+ *
+ *     *
+ *
+ *  BUG:
+ *
+ *  FEATURE:
+ *
+ *  NOTE: 
+ *
+ *  % java CreateAccountController
+ *
+ ******************************************************************************/
+
 package application.controller;
 
 import java.io.IOException;
@@ -5,6 +34,7 @@ import java.io.IOException;
 import application.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -18,12 +48,43 @@ public class CreateAccountController
     @FXML private TextField 	firstNameField, lastNameField, emailField, userNameField;
     @FXML private PasswordField passField, passVerifyField;
     @FXML private TextArea 		descriptionField;
-
+    @FXML private Button		backButton, createButton;
+    
     @FXML
     void back(MouseEvent event) 
     {
         LoginScreenController.getMainController().setAdminPane();
     }
+    
+    
+    @FXML
+    public void backButtonIsClicked()
+    {
+    	//Set button color to navy blue when clicked on
+    	backButton.setStyle("-fx-background-color: #273e51;");
+    }
+    
+    @FXML
+    public void backButtonIsReleased()
+    {
+    	//Set button back to original color (Red) when click is released
+    	backButton.setStyle("-fx-background-color: #e53030;");
+    }
+    
+    @FXML
+    public void createButtonIsClicked()
+    {
+    	//Set button color to navy blue when clicked on
+    	createButton.setStyle("-fx-background-color: #273e51;");
+    }
+    
+    @FXML
+    public void createButtonIsReleased()
+    {
+    	//Set button back to original color (Red) when click is released
+    	createButton.setStyle("-fx-background-color: #e53030;");
+    }
+    
 
     @FXML
     void createAccount(MouseEvent event) {
@@ -39,6 +100,7 @@ public class CreateAccountController
             else
             {
                 firstNameField.setStyle("-fx-background-color: white;");
+                firstNameField.setStyle("-fx-border-color: #000000");
             }
             if (lastNameField.getText().isEmpty())
             {
@@ -47,6 +109,7 @@ public class CreateAccountController
             else
             {
                 lastNameField.setStyle("-fx-background-color: white;");
+                lastNameField.setStyle("-fx-border-color: #000000");
             }
             if (userNameField.getText().isEmpty())
             {
@@ -55,6 +118,7 @@ public class CreateAccountController
             else
             {
                 userNameField.setStyle("-fx-background-color: white;");
+                userNameField.setStyle("-fx-border-color: #000000");
             }
             if (emailField.getText().isEmpty())
             {
@@ -63,6 +127,7 @@ public class CreateAccountController
             else
             {
                 emailField.setStyle("-fx-background-color: white;");
+                emailField.setStyle("-fx-border-color: #000000");
             }
             if (passField.getText().isEmpty())
             {
@@ -71,6 +136,7 @@ public class CreateAccountController
             else
             {
                 passField.setStyle("-fx-background-color: white;");
+                passField.setStyle("-fx-border-color: #000000");
             }
             if (passVerifyField.getText().isEmpty() || !passVerifyField.getText().equals(passField.getText()))
             {
@@ -79,6 +145,7 @@ public class CreateAccountController
             else
             {
                 passVerifyField.setStyle("-fx-background-color: white;");
+                passVerifyField.setStyle("-fx-border-color: #000000");
             }
         }
         //Create account if no text fields are empty
@@ -97,11 +164,23 @@ public class CreateAccountController
             }
             //Reset all text fields
             firstNameField.setStyle("-fx-background-color: white;");
+            firstNameField.setStyle("-fx-border-color: #000000");
+            
             lastNameField.setStyle("-fx-background-color: white;");
+            lastNameField.setStyle("-fx-border-color: #000000");
+            
             userNameField.setStyle("-fx-background-color: white;");
+            userNameField.setStyle("-fx-border-color: #000000");
+            
             emailField.setStyle("-fx-background-color: white;");
+            emailField.setStyle("-fx-border-color: #000000");
+            
             passField.setStyle("-fx-background-color: white;");
+            passField.setStyle("-fx-border-color: #000000");
+            
             passVerifyField.setStyle("-fx-background-color: white;");
+            passVerifyField.setStyle("-fx-border-color: #000000");
+            
             firstNameField.setText("");
             lastNameField.setText("");
             userNameField.setText("");

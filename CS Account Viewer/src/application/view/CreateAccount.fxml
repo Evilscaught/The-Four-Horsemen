@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="476.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="476.0" style="-fx-background-color: #595959;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <TextArea fx:id="descriptionField" layoutX="14.0" layoutY="176.0" prefHeight="88.0" prefWidth="447.0" wrapText="true" />
-    <Label layoutX="14.0" layoutY="160.0" text="Description:" />
-    <TextField id="firstName" fx:id="firstNameField" layoutX="14.0" layoutY="37.0" prefWidth="200.0" promptText="Please enter First Name" />
-    <Label layoutX="18.0" layoutY="22.0" text="First name:" />
-    <TextField id="lastName" fx:id="lastNameField" layoutX="242.0" layoutY="37.0" prefWidth="219.0" promptText="Please enter Last Name" />
-    <Label layoutX="248.0" layoutY="22.0" text="Last name:" />
-    <TextField id="Email" fx:id="emailField" layoutX="14.0" layoutY="84.0" prefWidth="200.0" promptText="Please enter E-Mail Address" />
-    <Label layoutX="18.0" layoutY="69.0" text="E-Mail:" />
-    <TextField id="userName" fx:id="userNameField" layoutX="14.0" layoutY="131.0" prefWidth="200.0" promptText="Enter a unique Username" />
-    <Label layoutX="18.0" layoutY="116.0" text="Username:" />
-    <Button id="changePassword" fx:id="createButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" layoutX="328.0" layoutY="283.0" minHeight="19.000091552734375" mnemonicParsing="false" onMouseClicked="#createAccount" prefHeight="37.0" prefWidth="133.0" style="-fx-label-padding:6px;&#10;" text="Create Account">
-      <font>
-        <Font size="14.0" fx:id="x1" />
-      </font>
-    </Button>
-    <Button id="changePassword" fx:id="backButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" font="$x1" layoutX="242.0" layoutY="283.0" minHeight="19.000091552734375" mnemonicParsing="false" onMouseClicked="#back" prefHeight="37.0" prefWidth="70.0" style="-fx-label-padding:6px;&#10;" text="Back" />
-    <Label layoutX="248.0" layoutY="69.0" text="Password:" />
-    <Label layoutX="249.0" layoutY="116.0" text="Retype Password:" />
-    <PasswordField fx:id="passField" layoutX="242.0" layoutY="84.0" prefWidth="218.0" promptText="At least 5 characters!" />
-    <PasswordField fx:id="passVerifyField" layoutX="242.0" layoutY="131.0" prefWidth="218.0" promptText="" />
+    <TextArea fx:id="descriptionField" layoutX="14.0" layoutY="176.0" prefHeight="88.0" prefWidth="447.0" promptText="Optional" style="-fx-border-color: #000000;" wrapText="true" />
+    <Label layoutX="14.0" layoutY="160.0" text="Description:" textFill="WHITE" />
+    <TextField id="firstName" fx:id="firstNameField" layoutX="14.0" layoutY="37.0" prefWidth="200.0" promptText="Enter first name" style="-fx-border-color: #000000;" />
+    <Label layoutX="18.0" layoutY="22.0" text="First name:" textFill="WHITE" />
+    <TextField id="lastName" fx:id="lastNameField" layoutX="242.0" layoutY="37.0" prefWidth="219.0" promptText="Enter last name" style="-fx-border-color: #000000;" />
+    <Label layoutX="248.0" layoutY="22.0" text="Last name:" textFill="WHITE" />
+    <TextField id="Email" fx:id="emailField" layoutX="14.0" layoutY="84.0" prefWidth="200.0" promptText="Enter email address" style="-fx-border-color: #000000;" />
+    <Label layoutX="18.0" layoutY="69.0" text="E-Mail:" textFill="WHITE" />
+    <TextField id="userName" fx:id="userNameField" layoutX="14.0" layoutY="131.0" prefWidth="200.0" promptText="Enter a unique username" style="-fx-border-color: #000000;" />
+    <Label layoutX="17.0" layoutY="116.0" text="Username:" textFill="WHITE" />
+    <Button id="changePassword" fx:id="createButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" layoutX="359.0" layoutY="288.0" minHeight="19.000091552734375" mnemonicParsing="false" onMouseClicked="#createAccount" onMousePressed="#createButtonIsClicked" onMouseReleased="#createButtonIsReleased" prefHeight="27.0" prefWidth="103.0" style="-fx-background-color: e53030;" text="Create Account" textFill="#fceeee" />
+    <Label layoutX="248.0" layoutY="69.0" text="Password:" textFill="WHITE" />
+    <Label layoutX="249.0" layoutY="116.0" text="Re-type Password:" textFill="WHITE" />
+    <PasswordField fx:id="passField" layoutX="242.0" layoutY="84.0" prefWidth="218.0" promptText="Must be at least five characters" style="-fx-border-color: #000000;" />
+    <PasswordField fx:id="passVerifyField" layoutX="242.0" layoutY="131.0" prefWidth="218.0" promptText="" style="-fx-border-color: #000000;" />
+      <Button fx:id="backButton" layoutX="242.0" layoutY="288.0" mnemonicParsing="false" onMouseClicked="#back" onMousePressed="#backButtonIsClicked" onMouseReleased="#backButtonIsReleased" prefHeight="27.0" prefWidth="103.0" style="-fx-background-color: e53030;" text="Cancel" textFill="#fceeee" />
   </children>
 </AnchorPane>

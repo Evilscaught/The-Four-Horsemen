@@ -35,6 +35,7 @@ import java.util.ResourceBundle;
 
 import application.IOAccounts;
 import application.IOTransactions;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -43,6 +44,8 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -126,11 +129,11 @@ public class LoginScreenController implements Initializable
     }   
     
     @FXML
-    private void handleLogin(MouseEvent event) throws IOException
+    private void handleLogin(Event event) throws IOException
     {
     	//If entered credentials (user-name & password) are valid:
     	if (checkCredentials())
-    	{
+    	{	System.out.println("bewbs");
     		mainMenuController = new MainMenuController();
     		Stage stage;
 	    
@@ -146,6 +149,38 @@ public class LoginScreenController implements Initializable
     	{
     		return;
     	}
+    }
+    
+    @FXML
+    public void loginButtonClicked()
+    {
+    	//Set button color to navy blue when clicked on
+    	loginButton.setStyle("-fx-background-color: #273e51;");
+    }
+    
+    @FXML
+    public void loginButtonReleased()
+    {
+    	//Set button back to original color (Red) when click is released
+    	loginButton.setStyle("-fx-background-color: #e53030;");
+    }
+    
+    //This allows user to press the enter key to login.
+    @FXML
+    public void enterKeyPressed(KeyEvent event) throws IOException
+    {
+    	if (event.getCode().equals(KeyCode.ENTER))
+    	{
+    		loginButtonClicked();
+    		handleLogin(event);
+    	}
+    }
+    
+    //Sets login button back to default color when enter key is released.
+    @FXML
+    public void enterKeyReleased(KeyEvent event)
+    {
+    	loginButtonReleased();
     }
     
 	private boolean checkCredentials()
