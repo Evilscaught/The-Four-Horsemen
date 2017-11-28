@@ -44,6 +44,18 @@ public class Transaction
 	protected String type;
 	protected DecimalFormat df1 = new DecimalFormat(".##");
 
+	//Create transaction with a description and code
+	public Transaction(String recipientAcct, String customer, String date, double amount, String description, String code)
+	{
+		this.recipientAcct = recipientAcct;
+		this.customer = customer;
+		this.date = date;
+		this.amount = amount;
+		this.description = description;
+		this.type = "None";
+		adjustedamount = amount;
+	}
+	
 	//Create transaction with a description
 	public Transaction(String recipientAcct, String customer, String date, double amount, String description)
 	{

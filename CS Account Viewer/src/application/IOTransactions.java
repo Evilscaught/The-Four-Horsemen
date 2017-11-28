@@ -67,30 +67,30 @@ public class IOTransactions
             //Read in String and Create Transaction Objects
             while (input.hasNext())
             {	
-                createTransaction(input.next(), input.next(), input.next(), input.nextDouble(), input.next(), input.next());
+                createTransaction(input.next(), input.next(), input.next(), input.nextDouble(), input.next(), input.next(), input.next());
             }
             input.close();
         }
         file.close();
     }
 	
-    public void createTransaction(String recipientAcct, String customer, String date, double amount, String description, String type)
+    public void createTransaction(String recipientAcct, String customer, String date, double amount, String description, String type, String code)
     {
     	if      (type.equals("Credit Card"))
     	{
-    		transactionArr.add(new CCTransaction(recipientAcct, customer, date, amount, description));
+    		transactionArr.add(new CCTransaction(recipientAcct, customer, date, amount, description, code));
     	}
     	else if (type.equals("Check"))
     	{
-    		transactionArr.add(new CheckTransaction(recipientAcct, customer, date, amount, description));
+    		transactionArr.add(new CheckTransaction(recipientAcct, customer, date, amount, description, code));
     	}
     	else if (type.equals("Expense"))
     	{
-    		transactionArr.add(new Expense(recipientAcct, customer, date, amount, description));
+    		transactionArr.add(new Expense(recipientAcct, customer, date, amount, description, code));
     	}
     	else
     	{
-            transactionArr.add(new Transaction(recipientAcct, customer, date, amount, description));
+            transactionArr.add(new Transaction(recipientAcct, customer, date, amount, description, code));
     	}
     }
     

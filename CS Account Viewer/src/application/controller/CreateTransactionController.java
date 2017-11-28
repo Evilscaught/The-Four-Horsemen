@@ -30,6 +30,7 @@
 package application.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import application.Main;
@@ -39,6 +40,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -52,6 +54,7 @@ public class CreateTransactionController
     @FXML private DatePicker 		dateField;
     @FXML private TextField 		dollarsField;
     @FXML private TextField 		centsField;
+    @FXML private ImageView			editCodesButton;
     @FXML private ChoiceBox<String> transactionType;
     @FXML private ChoiceBox<String> accountBox;
     @FXML private ChoiceBox<String> transactionCodes;
@@ -73,7 +76,7 @@ public class CreateTransactionController
     	
     	String str = dollarsField.getText() + "." + centsField.getText().substring(0, 2);
     	double amount = Double.parseDouble(str);
-    	System.out.println(amount);
+        String code = transactionCodes.getValue();
     	
     	//Get date from DatePicker
     	String date    = ( (TextField)dateField.getEditor() ).getText();
@@ -81,16 +84,16 @@ public class CreateTransactionController
 
         if (transactionType.getValue() == "Credit Card Deposit") 
         {
-        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Credit Card");
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Credit Card", code);
         }
         else if (transactionType.getValue() == "Check Deposit") 
         {
-        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Check");
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Check", code);
         }
         else if (transactionType.getValue() == "Expense") 
         {
         	amount = amount * -1;
-        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Expense");
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Expense", code);
         }
 
         LoginScreenController.getMainController().setTransactionPane();
@@ -135,6 +138,12 @@ public class CreateTransactionController
     	{
     		//Set border to Red
     		accountBox.setStyle("-fx-border-color: #f26d6d");
+    		pass = false;
+    	}
+    	
+    	if (transactionCodes.getValue().equals("Select Transaction Code"))
+    	{
+    		transactionCodes.setStyle("-fx-border-color: #f26d6d");
     		pass = false;
     	}
     	
@@ -202,7 +211,23 @@ public class CreateTransactionController
     {
     	transactionCodes.getItems().clear();
     	transactionCodes.getItems().add("Select Transaction Code");
+    	transactionCodes.getItems().add("None");
     	transactionCodes.getSelectionModel().selectFirst();
+    	
+    	ArrayList<String> codes = LoginScreenController.getMainController().getCodesDB().getCodes();
+    	
+    	for (String code : codes)
+    	{
+    		transactionCodes.getItems().add(code);
+    	}
+    	
+    }
+    
+    @FXML
+    void editCodesClicked(MouseEvent event) 
+    {
+        currentPane.getChildren().clear();
+        currentPane.getChildren().addAll(new EditExpenseCodeController().getPane());
     }
     
     //Add accounts in drop down choice box.

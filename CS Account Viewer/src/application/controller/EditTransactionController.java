@@ -54,6 +54,7 @@ public class EditTransactionController
     @FXML private ChoiceBox<String> accountBox;
     private int arraynum;
 
+    //TODO: FIXME: Add codes!
     @FXML
     void saveButtonClicked(MouseEvent event) 
     {
@@ -66,18 +67,18 @@ public class EditTransactionController
 
         if (transactionType.getValue() == "Credit Card Deposit") 
         {
-        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Credit Card");
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Credit Card", "");
         }
 
         else if (transactionType.getValue() == "Check Deposit") 
         {
-        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Check");
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Check", "");
         }
 
         else if (transactionType.getValue() == "Expense") 
         {
         	amount = amount * -1;
-        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Expense");
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), dateField.getText(), amount, descriptionField.getText(), "Expense", "");
         }
         
         LoginScreenController.getMainController().setTransactionPane();

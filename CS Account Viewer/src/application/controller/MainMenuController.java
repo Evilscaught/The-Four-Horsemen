@@ -42,6 +42,7 @@ import java.util.Scanner;
 
 import application.Account;
 import application.IOAccounts;
+import application.IOCodes;
 import application.IOTransactions;
 import application.Main;
 import application.Transaction;
@@ -78,6 +79,7 @@ public class MainMenuController
     	  private Stage 			primaryStage;
     	  private IOTransactions 	ioTransactions;
     	  private IOAccounts 		ioAccounts;
+    	  private IOCodes			ioCodes;
     	  private String 			curUser;
 
     @FXML private SplitPane 		splitMain;
@@ -148,10 +150,11 @@ public class MainMenuController
     }
 
 
-    public Scene loadScene(Stage stage, IOAccounts ioAccounts, IOTransactions ioTransactions, UserController userController) 
+    public Scene loadScene(Stage stage, IOAccounts ioAccounts, IOTransactions ioTransactions, IOCodes ioCodes, UserController userController) 
     {
         BorderPane rootLayout = new BorderPane();
 
+        this.ioCodes   	    = ioCodes;
         this.ioAccounts     = ioAccounts;
         this.ioTransactions = ioTransactions;
         primaryStage = stage;
@@ -485,5 +488,10 @@ public class MainMenuController
     public IOAccounts getAccountDB()
     {
         return ioAccounts;
+    }
+    
+    public IOCodes getCodesDB()
+    {
+    	return ioCodes;
     }
 }

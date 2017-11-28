@@ -34,6 +34,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.IOAccounts;
+import application.IOCodes;
 import application.IOTransactions;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -55,6 +56,7 @@ public class LoginScreenController implements Initializable
 	      private UserController     userController;
 	      private IOTransactions	 ioTransactions;
 		  private IOAccounts 		 ioAccounts;
+		  private IOCodes			 ioCodes;
     
 	@FXML private Button 			 loginButton;
     @FXML private TextField 		 username;
@@ -105,7 +107,8 @@ public class LoginScreenController implements Initializable
     	visibilityFalse.setVisible(false);
     	
     	ioTransactions = new IOTransactions("src/Transactions.txt");
-    	ioAccounts =  new IOAccounts("src/Accounts.txt");
+    	ioAccounts 	   = new IOAccounts("src/Accounts.txt");
+    	ioCodes        = new IOCodes();
     	
     	//Load file contents (transactions.txt) into ADT ioTransactions.
     	try 
@@ -141,7 +144,7 @@ public class LoginScreenController implements Initializable
     		Stage stage;
 	    
     		stage = new Stage();
-    		stage.setScene(mainMenuController.loadScene(stage, ioAccounts, ioTransactions, userController));
+    		stage.setScene(mainMenuController.loadScene(stage, ioAccounts, ioTransactions, ioCodes, userController));
     		stage.show();
 		
     		//This will hide the login screen.
