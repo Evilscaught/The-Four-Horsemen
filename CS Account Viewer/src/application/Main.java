@@ -29,6 +29,7 @@
 
 package application;
 
+import application.controller.LoginScreenController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -49,9 +50,11 @@ public class Main extends Application
     @Override
     public void start(Stage stage) throws Exception 
     {
-        Parent root = FXMLLoader.load(getClass().getResource("view/LoginScreen.fxml"));
+        FXMLLoader loader = new FXMLLoader (getClass().getResource("view/LoginScreen.fxml"));
+        loader.setController(new LoginScreenController());
+        Parent root = loader.load();
         stage.initStyle(StageStyle.UNDECORATED);
-        
+
         //Get the x and y coordinates of the login-screen if clicked on.
         root.setOnMousePressed(new EventHandler<MouseEvent>() 
         {
