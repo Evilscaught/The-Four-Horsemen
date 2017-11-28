@@ -20,7 +20,13 @@
         <URL value="@../application.css" />
       </stylesheets>
     </Button>
-      <Button layoutX="307.0" layoutY="225.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="142.0" text="Disable Account" />
-      <Button layoutX="31.0" layoutY="225.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="142.0" text="Permissions" />
+      <Button layoutX="307.0" layoutY="225.0" mnemonicParsing="false" opacity="0.2" prefHeight="82.0" prefWidth="142.0" text="Disable Account">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Button layoutX="31.0" layoutY="225.0" mnemonicParsing="false" opacity="0.2" prefHeight="82.0" prefWidth="142.0" text="Permissions">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
   </children>
 </AnchorPane>
