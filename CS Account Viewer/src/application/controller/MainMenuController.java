@@ -60,6 +60,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -93,6 +94,7 @@ public class MainMenuController
     @FXML private Button 			hideUserListButton;
     @FXML private Label 			logoutMainButton;
     @FXML private MenuBar 			menuPane;
+    @FXML private Tab               adminPaneTab;
 
     @FXML private TableView 		transactionText;
     @FXML private TableColumn <Map, String> accountCol, customerCol, typeCol, amountCol;
@@ -209,6 +211,7 @@ public class MainMenuController
             if (!this.curUser.equals("csadmin")) {
                 this.hideUserList();
                 this.hideUserListButton.setVisible(false);
+                this.adminPaneTab.setDisable(true);
             }
             return scene;
         } 
@@ -441,6 +444,14 @@ public class MainMenuController
 
 
         ObservableList<Map> allData = FXCollections.observableArrayList();
+        
+        String recipAct = "";
+
+        for (Account tmp : ioAccounts.getAccounts()) {
+            if (tmp.getUsername().equals(this.curUser)) {
+                recipAct = tmp.getName();
+            }
+        }
 
         if (ioTransactions.getTransactions().size() != 0) 
         {
@@ -451,11 +462,12 @@ public class MainMenuController
                     Map<String, String> dataRow = new HashMap<>();
                     Transaction temp = ioTransactions.getTransactions().get(i);
                     
-                    dataRow.put("account", temp.getRecipientAcct());
-                    dataRow.put("customer", temp.getCustomer());
-                    dataRow.put("type", temp.getType());
-                    dataRow.put("amount", "$" + new DecimalFormat("0.00").format((temp.getAmount())));
-                    
+                    if (temp.getRecipientAcct().equals(recipAct) || this.curUser.equals("csadmin")) {
+                        dataRow.put("account", temp.getRecipientAcct());
+                        dataRow.put("customer", temp.getCustomer());
+                        dataRow.put("type", temp.getType());
+                        dataRow.put("amount", "$" + new DecimalFormat("0.00").format((temp.getAmount())));
+                    }
                     allData.add(dataRow);
 
                 }
