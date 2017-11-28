@@ -39,7 +39,7 @@
                   <Image url="@images/login-screen-user.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="visibilityTrue" fitHeight="25.0" fitWidth="25.0" layoutX="242.0" layoutY="140.0" onMouseClicked="#setPasswordVisible" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="visibilityTrue" fitHeight="25.0" fitWidth="25.0" layoutX="242.0" layoutY="140.0" onMouseClicked="#showPassword" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/login-screen-visibility-true.png" />
                </image>

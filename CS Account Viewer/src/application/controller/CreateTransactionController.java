@@ -1,3 +1,32 @@
+/******************************************************************************
+ *  Compilation:  javac CreateTransactionController.java
+ *  Execution:    java  CreateTransactionController
+ *  Dependencies:
+ *
+ *  @author(s)      Dan Bailey, Jake Wolfe, Jack Cummings, Scott McKay
+ *  @version        0.0.0
+ *  @group          The Four Horsemen
+ *  @copyright      None
+ *  @date_created   Sometime between October and November
+ *
+ * 
+ *
+ *     *
+ *
+ *     *
+ *
+ *     *
+ *
+ *  BUG:
+ *
+ *  FEATURE:
+ *
+ *  NOTE: 
+ *
+ *  % java CreateTransactionController
+ *
+ ******************************************************************************/
+
 package application.controller;
 
 import java.io.IOException;
@@ -16,13 +45,13 @@ import javafx.scene.layout.Pane;
 
 public class CreateTransactionController 
 {
-    	  private Pane currentPane;
+    	  private Pane 				currentPane;
 
-    @FXML private TextField customerNameField;
-    @FXML private TextArea descriptionField;
-    @FXML private DatePicker dateField;
-    @FXML private TextField dollarsField;
-    @FXML private TextField centsField;
+    @FXML private TextField 		customerNameField;
+    @FXML private TextArea 			descriptionField;
+    @FXML private DatePicker 		dateField;
+    @FXML private TextField 		dollarsField;
+    @FXML private TextField 		centsField;
     @FXML private ChoiceBox<String> transactionType;
     @FXML private ChoiceBox<String> accountBox;
     @FXML private ChoiceBox<String> transactionCodes;

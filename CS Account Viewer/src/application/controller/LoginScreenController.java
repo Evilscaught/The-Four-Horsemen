@@ -72,7 +72,7 @@ public class LoginScreenController implements Initializable
     }
     
     @FXML
-    private void setPasswordVisible()
+    private void showPassword()
     {
     	//Copy text from PasswordField to TextField.
     	viewablePassword.setText(password.getText());

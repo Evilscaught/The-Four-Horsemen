@@ -1,3 +1,32 @@
+/******************************************************************************
+ *  Compilation:  javac EditTransactionController.java
+ *  Execution:    java  EditTransactionController
+ *  Dependencies:
+ *
+ *  @author(s)      Dan Bailey, Jack Cummings, Jake Wolfe, Scott McKay
+ *  @version        0.0.0
+ *  @group          The Four Horsemen
+ *  @copyright      None
+ *  @date_created   Unknown
+ *
+ * 
+ *
+ *     *
+ *
+ *     *
+ *
+ *     *
+ *
+ *  BUG:
+ *
+ *  FEATURE:
+ *
+ *  NOTE: 
+ *
+ *  % java EditTransactionController
+ *
+ ******************************************************************************/
+
 package application.controller;
 
 import java.io.IOException;

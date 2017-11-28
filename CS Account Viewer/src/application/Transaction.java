@@ -1,3 +1,33 @@
+/******************************************************************************
+ *  Compilation:  javac Transaction.java
+ *  Execution:    java  Transaction
+ *  Dependencies:
+ *
+ *  @author(s)		Jake Wolfe
+ *  @version   		0.0.0
+ *  @group			The Four Horsemen
+ *  @copyright   	None
+ *  @date_created   Sometime between October and November
+ *
+ *  
+ *
+ *     *
+ *
+ *     *
+ *
+ *     *
+ *
+ *  BUG:
+ *
+ *  FEATURE:
+ *
+ *  NOTE:
+ *
+ *  % java Transaction
+ *
+ ******************************************************************************/
+
+
 package application;
 
 import java.text.DecimalFormat;

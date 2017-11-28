@@ -1,3 +1,32 @@
+/******************************************************************************
+ *  Compilation:  javac MainMenuController.java
+ *  Execution:    java  MainMenuController
+ *  Dependencies:
+ *
+ *  @author(s)      Jack Cummings, Dan Bailey, Jake Wolfe, Scott McKay
+ *  @version        0.0.0
+ *  @group          The Four Horsemen
+ *  @copyright      None
+ *  @date_created   Sometime between October and November 2017
+ *
+ * 
+ *
+ *     *
+ *
+ *     *
+ *
+ *     *
+ *
+ *  BUG:
+ *
+ *  FEATURE:
+ *
+ *  NOTE: 
+ *
+ *  % java MainMenuController
+ *
+ ******************************************************************************/
+
 package application.controller;
 
 import java.io.IOException;
@@ -43,31 +72,31 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class MainMenuController {
-    Stage primaryStage;
-    IOTransactions ioTransactions;
-    IOAccounts ioAccounts;
-    String curUser;
+public class MainMenuController 
+{
+    	  private Stage 			primaryStage;
+    	  private IOTransactions 	ioTransactions;
+    	  private IOAccounts 		ioAccounts;
+    	  private String 			curUser;
 
-    @FXML private SplitPane splitMain;
-    @FXML private AnchorPane sidePane;
-    @FXML private TabPane mainTabPane;
-    @FXML private AnchorPane adminPane;
-    @FXML private AnchorPane transactionPane;
-    @FXML private ListView<String> userList;
-    @FXML private TextField firstNameField, lastNameField, emailField, userNameField;
-    @FXML private TextArea descriptionField;
-    @FXML private ResourceBundle resources;
-    @FXML private URL location;
-    @FXML private Button createAccountButton;
-    @FXML private Button hideUserListButton;
-    @FXML private Label logoutMainButton;
-    @FXML private MenuBar menuPane;
+    @FXML private SplitPane 		splitMain;
+    @FXML private AnchorPane 		sidePane;
+    @FXML private TabPane 			mainTabPane;
+    @FXML private AnchorPane 		adminPane;
+    @FXML private AnchorPane 		transactionPane;
+    @FXML private ListView<String> 	userList;
+    @FXML private TextField 		firstNameField, lastNameField, emailField, userNameField;
+    @FXML private TextArea 			descriptionField;
+    @FXML private ResourceBundle 	resources;
+    @FXML private URL 				location;
+    @FXML private Button 			createAccountButton;
+    @FXML private Button 			hideUserListButton;
+    @FXML private Label 			logoutMainButton;
+    @FXML private MenuBar 			menuPane;
 
-    @FXML private TableView transactionText;
+    @FXML private TableView 		transactionText;
     @FXML private TableColumn <Map, String> accountCol, customerCol, typeCol, amountCol;
 
-    //Note to Self: This method has been successfully converted
     public String[] getUserListFirstLast() 
     {	
         String [] userListStr = new String [ioAccounts.getAccounts().size()];
@@ -80,7 +109,8 @@ public class MainMenuController {
         return userListStr;
     }
 
-    public void hideUserList() {
+    public void hideUserList() 
+    {
         int menuIndex = splitMain.getItems().indexOf(sidePane);
         Node temp = splitMain.getItems().get(menuIndex);
 
@@ -98,8 +128,6 @@ public class MainMenuController {
         hideUserListButton.setText("«");
     }
 
-
-    //Note to Self: This method has been successfully converted @Scott McKay
     public void refreshUserList() 
     {
         userList.getItems().clear();
