@@ -115,7 +115,7 @@ public class MainMenuController
         Node temp = splitMain.getItems().get(menuIndex);
 
         splitMain.getItems().remove(temp);
-        mainTabPane.setPrefWidth(primaryStage.getWidth());
+//        mainTabPane.setPrefWidth(primaryStage.getWidth());
         hideUserListButton.setLayoutX(-8);
         hideUserListButton.setText("»");
     }
@@ -155,7 +155,7 @@ public class MainMenuController
         primaryStage = stage;
         stage.setTitle("Isengard");
         stage.getIcons().add(new Image("application/view/images/program-icon.png"));
-
+        this.curUser = userController.getCurUser();
         try 
         {
             // Load root layout from FXML file.
@@ -206,6 +206,10 @@ public class MainMenuController
                 }
             });
             
+            if (!this.curUser.equals("csadmin")) {
+                this.hideUserList();
+                this.hideUserListButton.setVisible(false);
+            }
             return scene;
         } 
         catch (IOException event) 
