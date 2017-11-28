@@ -8,6 +8,7 @@
 <?import javafx.scene.text.*?>
 <?scenebuilder-stylesheet ../../../../../../workspace/_javafx_test1/bootstrap3.css?>
 <!-- Added controller class...  fx:controller="application.controller.MainMenuController"  -->
+
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0000999999975" prefWidth="605.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
     <SplitPane fx:id="splitMain" dividerPositions="0.16583745176825082" focusTraversable="true" prefHeight="373.999977929685" prefWidth="600.0000999999975" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
@@ -20,12 +21,13 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
           <children>
             <TabPane fx:id="mainTabPane" layoutX="0.0" layoutY="0.0" prefHeight="373.0" prefWidth="497.0" tabClosingPolicy="UNAVAILABLE">
-                <Tab text="Transactions">
+              <tabs>
+                              <Tab text="Transactions">
                   <content>
-                    <AnchorPane id="Content" fx:id="transactionPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    <AnchorPane id="Content" fx:id="transactionPane" minHeight="0.0" minWidth="0.0" prefHeight="344.0" prefWidth="476.0000999999975" />
                   </content>
                 </Tab>
-              <tabs>
+              
                 <Tab text="Account Overview">
                   <content>
                     <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="342.0000999999975" prefWidth="497.0">
@@ -65,7 +67,7 @@
         </AnchorPane>
       </items>
     </SplitPane>
-    <MenuBar layoutX="0.0" layoutY="2.0" prefWidth="600.0" visible="true">
+    <MenuBar fx:id="menuPane" layoutX="0.0" layoutY="2.0" prefWidth="600.0" visible="true">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
@@ -84,7 +86,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <Label layoutX="546.0" layoutY="31.0" onMouseClicked="#LogoutClick" text="Logout" textFill="#0029ff" underline="true">
+    <Label fx:id="logoutMainButton" layoutX="546.0" layoutY="31.0" onMouseClicked="#LogoutClick" text="Logout" textFill="#0029ff" underline="true">
       <font>
         <Font name="System Bold" size="14.0" />
       </font>

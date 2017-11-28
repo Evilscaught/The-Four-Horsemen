@@ -6,7 +6,8 @@ import application.Account;
 
 public class UserController {
     private ArrayList<Account> accountArr;
-
+    private String curUser = "";
+    
     public UserController(ArrayList<Account> acts) {
         this.accountArr = acts;
     }
@@ -19,5 +20,14 @@ public class UserController {
         }
         return false;
     }
+    
+    public String getCurUser() {
+        return curUser;
+    }
+
+    public void setCurUser(String curUser) {
+        this.curUser = curUser;
+    }
+
 
 }

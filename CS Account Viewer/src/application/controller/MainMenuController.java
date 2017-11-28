@@ -2,6 +2,7 @@ package application.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,9 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -58,6 +61,8 @@ public class MainMenuController {
     @FXML private URL location;
     @FXML private Button createAccountButton;
     @FXML private Button hideUserListButton;
+    @FXML private Label logoutMainButton;
+    @FXML private MenuBar menuPane;
 
     @FXML private TableView transactionText;
     @FXML private TableColumn <Map, String> accountCol, customerCol, typeCol, amountCol;
@@ -113,7 +118,7 @@ public class MainMenuController {
     }
 
 
-    public Scene loadScene(Stage stage, IOAccounts ioAccounts, IOTransactions ioTransactions) 
+    public Scene loadScene(Stage stage, IOAccounts ioAccounts, IOTransactions ioTransactions, UserController userController) 
     {
         BorderPane rootLayout = new BorderPane();
 
@@ -163,7 +168,16 @@ public class MainMenuController {
 
             hideUserListButton.setPadding(Insets.EMPTY);
             hideUserListButton.setText("«");
-       //     mainTabPane.setMaxWidth(
+            mainTabPane.prefWidthProperty().bind(primaryStage.widthProperty());
+            menuPane.prefWidthProperty().bind(primaryStage.widthProperty());
+//            logoutMainButton.layoutXProperty().bind(primaryStage.widthProperty());
+            
+            scene.widthProperty().addListener(new ChangeListener<Number>() {
+                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+                    logoutMainButton.setLayoutX(newSceneWidth.doubleValue() - 75);
+                }
+            });
+            
             return scene;
         } 
         catch (IOException event) 
@@ -408,7 +422,7 @@ public class MainMenuController {
                     dataRow.put("account", temp.getRecipientAcct());
                     dataRow.put("customer", temp.getCustomer());
                     dataRow.put("type", temp.getType());
-                    dataRow.put("amount", Double.toString(temp.getAmount()));
+                    dataRow.put("amount", "$" + new DecimalFormat("0.00").format((temp.getAmount())));
                     
                     allData.add(dataRow);
 

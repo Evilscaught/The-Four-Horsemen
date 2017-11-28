@@ -52,7 +52,7 @@ import javafx.stage.Stage;
 public class LoginScreenController implements Initializable 
 {
    static private MainMenuController mainMenuController;
-	
+	      private UserController     userController;
 	      private IOTransactions	 ioTransactions;
 		  private IOAccounts 		 ioAccounts;
     
@@ -121,6 +121,7 @@ public class LoginScreenController implements Initializable
     	try 
     	{
 			ioAccounts.readAccounts();
+			userController = new UserController(ioAccounts.getAccounts());
 		} 
     	catch (FileNotFoundException event) 
     	{
@@ -134,11 +135,13 @@ public class LoginScreenController implements Initializable
     	//If entered credentials (user-name & password) are valid:
     	if (checkCredentials())
     	{	
+    	    userController.setCurUser(username.getText());
+    	    
     		mainMenuController = new MainMenuController();
     		Stage stage;
 	    
     		stage = new Stage();
-    		stage.setScene(mainMenuController.loadScene(stage, ioAccounts, ioTransactions));
+    		stage.setScene(mainMenuController.loadScene(stage, ioAccounts, ioTransactions, userController));
     		stage.show();
 		
     		//This will hide the login screen.
@@ -185,8 +188,9 @@ public class LoginScreenController implements Initializable
     
 	private boolean checkCredentials()
     {
-		//TODO: Implement code to check if user-name and password is correct.
-    	return true;
+	    return (userController.verifyUser(username.getText(), password.getText())) ||
+	                  (username.getText().toLowerCase().equals("csadmin") && 
+	                   password.getText().toLowerCase().equals("csci323"));
     }
     
     public static MainMenuController getMainController()
