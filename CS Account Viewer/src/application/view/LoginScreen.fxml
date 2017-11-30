@@ -20,7 +20,7 @@
       </ImageView>
       <AnchorPane layoutX="350.0" layoutY="41.0" prefHeight="318.0" prefWidth="305.0" style="-fx-background-color: #9C2827;">
          <children>
-            <Button fx:id="loginButton" layoutX="31.0" layoutY="198.0" mnemonicParsing="false" onMouseClicked="#handleLogin" onMousePressed="#loginButtonClicked" onMouseReleased="#loginButtonReleased" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: e53030;" text="Login" textFill="#fceeee" />
+            <Button fx:id="loginButton" layoutX="31.0" layoutY="198.0" mnemonicParsing="false" onMouseClicked="#handleLogin" onMouseEntered="#loginButtonClicked" onMouseExited="#loginButtonReleased" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: e53030;" text="Login" textFill="#fceeee" />
             <Label layoutX="124.0" layoutY="32.0" text="Sign In" textFill="#ffaeae">
                <font>
                   <Font size="18.0" />
@@ -31,7 +31,7 @@
             <PasswordField fx:id="password" layoutX="58.0" layoutY="140.0" prefHeight="25.0" prefWidth="217.0" promptText="password" style="-fx-background-color: e53030;" />
             <ImageView fitHeight="25.0" fitWidth="38.0" layoutX="31.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/lock.png" />
+                  <Image url="@images/login-screen-lock.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="32.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">

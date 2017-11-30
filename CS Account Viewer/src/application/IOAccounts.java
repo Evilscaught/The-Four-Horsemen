@@ -84,7 +84,7 @@ public class IOAccounts
     {
     	accountArr.remove(index);
     }
-    
+
     public ArrayList<Account> getAccounts()
     {
     	return accountArr;
@@ -120,6 +120,7 @@ public class IOAccounts
 		IOAcct.readAccounts();
 		IOAcct.createAccount("Testing", "Testing", "Testing", "Testing", "Testing");
 		IOAcct.saveAccounts();
+		
 		for (Account account : IOAcct.getAccounts())
 		{
 			System.out.println(account.toString());

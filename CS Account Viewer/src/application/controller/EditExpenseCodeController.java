@@ -122,7 +122,7 @@ public class EditExpenseCodeController
     @FXML
     void cancelButtonClicked(MouseEvent event) 
     {
-    	LoginScreenController.getMainController().addTransactionButtonClick(event);
+    	LoginScreenController.getMainController().handleAddTransaction(event);
     }
 	
     public Pane getPane() 
