@@ -37,6 +37,10 @@ public class Account implements Comparable<Account>
 	private String email;
 	private String username;
 	private String password;
+	private String description;
+	private String secQuestion1;
+	private String secQuestion2;
+	private String secQuestion3;
 
 	//Constructors:
 
@@ -177,6 +181,41 @@ public class Account implements Comparable<Account>
 	{
 		return password;
 	}
+	
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
+	
+	public String getDescription()
+	{
+		return description;
+	}
+	
+	public void setSecurityQuestion1(String secQuestion1)
+	{
+		this.secQuestion1 = secQuestion1;
+	}
+	
+	public String getSecurityQuestion1()
+	{
+		return secQuestion1;
+	}
+	
+	public void setSecurityQuestion2(String secQuestion2)
+	{
+		this.secQuestion2 = secQuestion2;
+	}
+	
+	public String getSecurityQuestion3()
+	{
+		return secQuestion3;
+	}
+	
+	public void setSecurityQuestion3(String secQuestion3)
+	{
+		this.secQuestion3 = secQuestion3;
+	}
 
 	//--------------------------------------------//
 	//             		Other		              //
@@ -184,7 +223,7 @@ public class Account implements Comparable<Account>
 
 	public String toString()
 	{
-		return firstName + "," + lastName + "," + email + "," + username + "," + password;
+		return firstName + "," + lastName + "," + email + "," + username + "," + password + "," + description + "," + secQuestion1 + "," + secQuestion2 + "," + secQuestion3;
 	}
 
 	//Unit Testing

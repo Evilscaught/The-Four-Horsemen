@@ -67,17 +67,28 @@ public class IOAccounts
             //Read in string and create account objects.
             while(token.hasNext())
             {
-                createAccount(token.next(), token.next(), token.next(), token.next(), token.next());
+            	//            First Name    Last Name     Email         User-name     Password      Description   Sec-Q1        Sec-Q2        Sec-Q3
+                createAccount(token.next(), token.next(), token.next(), token.next(), token.next(), token.next(), token.next(), token.next(), token.next());
             }
             token.close();
         }
         file.close();
     }
     
-    public void createAccount(String firstName, String lastName, String username, String email, String password)
+    public void createAccount(String firstName, String lastName, String username, String email, String password, String description, String secQuestion1, String secQuestion2, String secQuestion3)
     {
         Account account = new Account(firstName, lastName, username, email, password); 
+        account.setDescription(description);
+        account.setSecurityQuestion1(secQuestion1);
+        account.setSecurityQuestion2(secQuestion2);
+        account.setSecurityQuestion3(secQuestion3);
+        
         accountArr.add(account);
+    }
+    
+    public void createAccount(Account account)
+    {
+    	accountArr.add(account);
     }
     
     public void deleteAccount(int index)
@@ -118,7 +129,7 @@ public class IOAccounts
 		IOAccounts IOAcct = new IOAccounts("src/Accounts.txt");
 		
 		IOAcct.readAccounts();
-		IOAcct.createAccount("Testing", "Testing", "Testing", "Testing", "Testing");
+		IOAcct.createAccount("Testing FN", "Testing LN", "Testing UN", "Testing Email", "Testing Password", "Testing Description", "Test SecQ1", "Test SecQ2", "Test SecQ3");
 		IOAcct.saveAccounts();
 		
 		for (Account account : IOAcct.getAccounts())

@@ -181,6 +181,7 @@ public class AccountOverviewController
                             lastNameField.setText(acct.getLastName());
                             emailField.setText(acct.getEmail());
                             usernameField.setText(acct.getUsername()); // TODO Fix Getter String Argument
+                            descriptionField.setText(acct.getDescription());
                             break;
                         }
                     }

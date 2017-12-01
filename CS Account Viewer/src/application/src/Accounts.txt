@@ -1,5 +1,5 @@
-Robyn,Berg,email,RB,RBpass
-Trish,Duce,N/A,N/A,csadmin
-Michael,Cassens,N/A,N/A,csadmin
-Travis,Wheeler,N/A,N/A,csadmin
-Adam,McManigal,N/A,N/A,csadmin
+Robyn,Berg,robyn.berg@umontana.edu,Robby,csadmin,Testing description,none,none,none
+Travis,Wheeler,travis.wheeler@umontana.edu,Trav,12345,My classes are super easy!,none,none,none
+Michael,Cassens,michael.cassens@umontana.edu,Michy,12345,,none,none,none
+Adam,McManigal,adam.mcmanigal@umontana.edu,Adam,12345,My secret identity is Batman!,none,none,none
+Doug,Raiford,doug.raiford@umontana.edu,Douglas,12345,I'm no longer at the CS Department,none,none,none
