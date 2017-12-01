@@ -130,8 +130,11 @@ public class LoginScreenController implements Initializable
     	{
 			event.printStackTrace();
 		}
+    	
+    	noUsers();
     }   
     
+    //This function is called when login button is clicked on (or enter key pressed)
     @FXML
     private void handleLogin(Event event) throws IOException
     {
@@ -157,6 +160,7 @@ public class LoginScreenController implements Initializable
     	}
     }
     
+    //This function updates the login button if mouse is hovered over it
     @FXML
     public void loginButtonClicked()
     {
@@ -164,6 +168,7 @@ public class LoginScreenController implements Initializable
     	loginButton.setStyle("-fx-background-color: #273e51;");
     }
     
+    //This function updates the login button if mouse is hovered over it
     @FXML
     public void loginButtonReleased()
     {
@@ -189,12 +194,31 @@ public class LoginScreenController implements Initializable
     	loginButtonReleased();
     }
     
+    //Checks user-name and password
 	private boolean checkCredentials()
     {
-	    return (userController.verifyUser(username.getText(), password.getText())) ||
-	                  (username.getText().toLowerCase().equals("csadmin") && 
-	                   password.getText().toLowerCase().equals("csci323"));
+		//If viewable password is currently being used, get password text from that TextField and check credentials:
+		if (viewablePassword.isVisible())
+		{
+			return (userController.verifyUser(username.getText(), viewablePassword.getText())) || (username.getText().toLowerCase().equals("csadmin") && viewablePassword.getText().toLowerCase().equals("csci323"));
+		}
+		//Otherwise... get password text from regular PasswordField, password.
+		else
+		{
+			return (userController.verifyUser(username.getText(), password.getText())) || (username.getText().toLowerCase().equals("csadmin") && password.getText().toLowerCase().equals("csci323"));
+		}  
     }
+	
+	//Returns true if there are no accounts.
+	private boolean noUsers()
+	{
+		if (ioAccounts.getAccounts().isEmpty())
+		{
+			return true;
+		}
+		
+		return false;
+	}
     
     public static MainMenuController getMainController()
     {
