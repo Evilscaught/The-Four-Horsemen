@@ -18,7 +18,7 @@
             <Image url="@images/login-screen-background.jpg" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="350.0" layoutY="41.0" prefHeight="318.0" prefWidth="305.0" style="-fx-background-color: #9C2827;">
+      <AnchorPane fx:id="loginPane" layoutX="350.0" layoutY="41.0" prefHeight="318.0" prefWidth="305.0" style="-fx-background-color: #9C2827;">
          <children>
             <Button fx:id="loginButton" layoutX="31.0" layoutY="198.0" mnemonicParsing="false" onMouseClicked="#handleLogin" onMouseEntered="#loginButtonClicked" onMouseExited="#loginButtonReleased" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: e53030;" text="Login" textFill="#fceeee" />
             <Label layoutX="124.0" layoutY="32.0" text="Sign In" textFill="#ffaeae">
@@ -26,7 +26,6 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Hyperlink fx:id="createAccount" layoutX="106.0" layoutY="253.0" text="Create Account" textFill="#ffaeae" underline="true" />
             <TextField fx:id="username" layoutX="58.0" layoutY="88.0" prefHeight="25.0" prefWidth="217.0" promptText="username" style="-fx-background-color: e53030;" />
             <PasswordField fx:id="password" layoutX="58.0" layoutY="140.0" prefHeight="25.0" prefWidth="217.0" promptText="password" style="-fx-background-color: e53030;" />
             <ImageView fitHeight="25.0" fitWidth="38.0" layoutX="31.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
@@ -50,6 +49,7 @@
                   <Image url="@images/login-screen-visibility-false.png" />
                </image>
             </ImageView>
+            <Hyperlink fx:id="forgotPassword" layoutX="99.0" layoutY="256.0" onMouseClicked="#handleForgotPassword" onMouseEntered="#forgetPasswordClicked" onMouseExited="#forgetPasswordReleased" text="Forgot Password?" textFill="#ffaeae" />
          </children>
       </AnchorPane>
       <Label layoutX="46.0" layoutY="66.0" prefHeight="57.0" prefWidth="286.0" text="Welcome to Isengard" textFill="#ffaeae">
@@ -64,5 +64,52 @@
             <Font size="33.0" />
          </font>
       </Text>
+      <AnchorPane fx:id="messagesPane" layoutX="350.0" layoutY="75.0" prefHeight="250.0" prefWidth="200.0" style="-fx-background-color: #8e1a0b; -fx-border-color: #020202;" visible="false">
+         <children>
+            <Text fill="#ffaeae" layoutX="63.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WARNING:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="msgUsernameNotFound" fill="#ffaeae" layoutX="42.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username not found!" />
+            <Text fx:id="msgIncorrectAnswer1" fill="#ffaeae" layoutX="20.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="One of the security questions" />
+            <Text fx:id="msgIncorrectAnswer2" fill="#ffaeae" layoutX="27.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="was not answerd correctly!" />
+            <Text fx:id="msgPasswordNoMatch" fill="#ffaeae" layoutX="31.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passwords do not match!" />
+            <Text fx:id="msgPasswordTooShort" fill="#ffaeae" layoutX="40.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password is too short!" />
+            <Text fx:id="msgPasswordEmpty" fill="#ffaeae" layoutX="25.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password cannot be empty!" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="recoveryPane" layoutX="46.0" layoutY="41.0" prefHeight="318.0" prefWidth="305.0" style="-fx-background-color: #9C2827;" visible="false">
+         <children>
+            <TextField fx:id="usernameRec" layoutX="58.0" layoutY="50.0" prefHeight="25.0" prefWidth="217.0" promptText="username" style="-fx-background-color: e53030;" />
+            <Label layoutX="71.0" layoutY="14.0" text="Password Recovery" textFill="#ffaeae">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="userIcon" fitHeight="25.0" fitWidth="44.0" layoutX="31.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/login-screen-user.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="secQ1Field" layoutX="58.0" layoutY="100.0" prefHeight="25.0" prefWidth="217.0" promptText="Answer is case-sensitive" style="-fx-background-color: e53030;" />
+            <TextField fx:id="secQ2Field" layoutX="58.0" layoutY="150.0" prefHeight="25.0" prefWidth="217.0" promptText="Answer is case-sensitive" style="-fx-background-color: e53030;" />
+            <Text fx:id="secQ2" fill="#ffaeae" layoutX="58.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What's your favorite car brand?" />
+            <TextField fx:id="secQ3Field" layoutX="58.0" layoutY="200.0" prefHeight="25.0" prefWidth="217.0" promptText="Answer is case-sensitive" style="-fx-background-color: e53030;" />
+            <Text fx:id="secQ3" fill="#ffaeae" layoutX="58.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of city you were born in?" />
+            <Button fx:id="nextButton" layoutX="31.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#handleNext" onMouseEntered="#nextClicked" onMouseExited="#nextReleased" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: e53030;" text="Next" textFill="#fceeee" />
+            <Text fx:id="secQ1" fill="#ffaeae" layoutX="58.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What's your favorite genre of music?" />
+            <Button fx:id="cancelButton" layoutX="31.0" layoutY="270.0" mnemonicParsing="false" onMouseClicked="#handleCancel" onMouseEntered="#cancelButtonClicked" onMouseExited="#cancelButtonReleased" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: e53030;" text="Cancel" textFill="#fceeee" />
+            <Button fx:id="changePasswordButton" layoutX="31.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#handleChangePassword" onMouseEntered="#changePasswordClicked" onMouseExited="#changePasswordReleased" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: e53030;" text="Change Password &amp; Login" textFill="#fceeee" visible="false" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="passwordPane" layoutX="46.0" layoutY="89.0" prefHeight="178.0" prefWidth="305.0" style="-fx-background-color: #9C2827;" visible="false">
+         <children>
+            <PasswordField fx:id="newPassword1" layoutX="47.0" layoutY="50.0" prefHeight="25.0" prefWidth="217.0" promptText="Must be at least five characters" style="-fx-background-color: e53030;" />
+            <PasswordField fx:id="newPassword2" layoutX="47.0" layoutY="97.0" prefHeight="25.0" prefWidth="217.0" style="-fx-background-color: e53030;" />
+            <Text fill="#ffaeae" layoutX="47.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Password:" />
+            <Text fill="#ffaeae" layoutX="47.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Re-type Password:" />
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>

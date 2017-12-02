@@ -207,14 +207,19 @@ public class Account implements Comparable<Account>
 		this.secQuestion2 = secQuestion2;
 	}
 	
-	public String getSecurityQuestion3()
+	public String getSecurityQuestion2()
 	{
-		return secQuestion3;
+		return secQuestion2;
 	}
 	
 	public void setSecurityQuestion3(String secQuestion3)
 	{
 		this.secQuestion3 = secQuestion3;
+	}
+	
+	public String getSecurityQuestion3()
+	{
+		return secQuestion3;
 	}
 
 	//--------------------------------------------//

@@ -205,12 +205,6 @@ public class CreateAccountController
             {
                 passVerifyField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
             }
-            //If passwords do not match
-            if (!passField.getText().equals(passVerifyField.getText()))
-            {
-            	passVerifyField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
-            	passField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
-            }
         }
         else
         {
@@ -220,6 +214,13 @@ public class CreateAccountController
             emailField.setStyle("-fx-background-color: white; -fx-border-color: #000000");        
             passField.setStyle("-fx-background-color: white; -fx-border-color: #000000");            
             passVerifyField.setStyle("-fx-background-color: white; -fx-border-color: #000000");
+        }
+        //If passwords do not match
+        if (passField.getText().equals(passVerifyField.getText()) == false)
+        {
+        	passVerifyField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+        	passField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+        	pass = false;
         }
         
     	return pass;

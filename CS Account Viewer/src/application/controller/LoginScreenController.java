@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.Account;
 import application.IOAccounts;
 import application.IOCodes;
 import application.IOTransactions;
@@ -48,6 +49,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class LoginScreenController implements Initializable 
@@ -57,14 +61,44 @@ public class LoginScreenController implements Initializable
 	      private IOTransactions	 ioTransactions;
 		  private IOAccounts 		 ioAccounts;
 		  private IOCodes			 ioCodes;
+	      private Account 			 requestedAccount;
     
+    @FXML private AnchorPane		 loginPane;  //All clustered attributes below are part of this pane:
 	@FXML private Button 			 loginButton;
     @FXML private TextField 		 username;
     @FXML private PasswordField 	 password;
     @FXML private TextField			 viewablePassword;
-    @FXML private Hyperlink 		 createAccount;
     @FXML private ImageView			 visibilityTrue;  //Image view icon of eye (toggle password visibility)
     @FXML private ImageView			 visibilityFalse;
+    @FXML private Hyperlink			 forgotPassword;
+    
+    //Password Recovery P1:				
+    @FXML private AnchorPane		 recoveryPane;  //All clustered attributes below are part of this pane:
+    @FXML private TextField			 usernameRec;
+    @FXML private ImageView		     userIcon;
+    @FXML private TextField			 secQ1Field;
+    @FXML private TextField			 secQ2Field;
+    @FXML private TextField			 secQ3Field;
+    @FXML private Text				 secQ1;
+    @FXML private Text				 secQ2;
+    @FXML private Text				 secQ3;
+    @FXML private Button			 nextButton;
+    @FXML private Button			 cancelButton;
+    @FXML private Button			 changePasswordButton;
+    
+    //Password Recovery P2
+    @FXML private AnchorPane		 passwordPane;  //All clustered attributes below are part of this pane:
+    @FXML private TextField			 newPassword1;
+    @FXML private TextField			 newPassword2;
+    
+    //Messages Pane
+    @FXML private AnchorPane		 messagesPane;  //All clustered attributes below are part of this pane:
+    @FXML private Text				 msgUsernameNotFound;
+    @FXML private Text				 msgIncorrectAnswer1;
+    @FXML private Text				 msgIncorrectAnswer2;
+    @FXML private Text			     msgPasswordNoMatch;
+    @FXML private Text				 msgPasswordTooShort;
+    @FXML private Text				 msgPasswordEmpty;
         
     @FXML
     private void handleClose(MouseEvent event) 
@@ -101,8 +135,7 @@ public class LoginScreenController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle rb) 
-    {
-    	createAccount.setVisible(false);
+    {		
     	viewablePassword.setVisible(false);
     	visibilityFalse.setVisible(false);
     	
@@ -160,9 +193,26 @@ public class LoginScreenController implements Initializable
     	}
     }
     
+    //This alternative function can only be called if password has been reset.
+    private void handleLogin(Event event, Account account) throws IOException
+    {
+    	//If entered credentials (user-name & password) are valid:
+    	userController.setCurUser(account.getUsername());
+    	    
+        mainMenuController = new MainMenuController();
+        Stage stage;
+	    
+        stage = new Stage();
+        stage.setScene(mainMenuController.loadScene(stage, ioAccounts, ioTransactions, ioCodes, userController));
+    	stage.show();
+	
+    	//This will hide the login screen.
+    	( (Node)event.getSource() ).getScene().getWindow().hide();
+    }
+    
     //This function updates the login button if mouse is hovered over it
     @FXML
-    public void loginButtonClicked()
+    private void loginButtonClicked()
     {
     	//Set button color to navy blue when clicked on
     	loginButton.setStyle("-fx-background-color: #273e51;");
@@ -170,7 +220,7 @@ public class LoginScreenController implements Initializable
     
     //This function updates the login button if mouse is hovered over it
     @FXML
-    public void loginButtonReleased()
+    private void loginButtonReleased()
     {
     	//Set button back to original color (Red) when click is released
     	loginButton.setStyle("-fx-background-color: #e53030;");
@@ -178,7 +228,7 @@ public class LoginScreenController implements Initializable
     
     //This allows user to press the enter key to login.
     @FXML
-    public void enterKeyPressed(KeyEvent event) throws IOException
+    private void enterKeyPressed(KeyEvent event) throws IOException
     {
     	if (event.getCode().equals(KeyCode.ENTER))
     	{
@@ -189,7 +239,7 @@ public class LoginScreenController implements Initializable
     
     //Sets login button back to default color when enter key is released.
     @FXML
-    public void enterKeyReleased(KeyEvent event)
+    private void enterKeyReleased(KeyEvent event)
     {
     	loginButtonReleased();
     }
@@ -219,6 +269,239 @@ public class LoginScreenController implements Initializable
 		
 		return false;
 	}
+	
+	//------------------------------------------------------------------------------------//
+	//                               Password Recovery                                    //
+	//------------------------------------------------------------------------------------//
+	
+    @FXML
+    private void forgetPasswordClicked()
+    {
+    	//Set hyper-link color to navy Blue when clicked on
+    	forgotPassword.setTextFill(Paint.valueOf("#273e51"));
+    }
+    
+    @FXML
+    private void forgetPasswordReleased()
+    {
+    	//Set hyper-link color back to original color when click is released
+    	forgotPassword.setTextFill(Paint.valueOf("#ffaeae"));
+    }
+    
+    @FXML
+    private void handleForgotPassword()
+    {
+    	loginPane.setVisible(false);
+    	recoveryPane.setVisible(true);
+    	
+    	toggleP1andP2(true);
+    }
+    
+    @FXML
+    private void nextClicked()
+    {
+    	//Set button color to navy blue when clicked on
+    	nextButton.setStyle("-fx-background-color: #273e51;");
+    }
+    
+    @FXML
+    private void nextReleased()
+    {
+    	//Set button back to original color (Red) when click is released
+    	nextButton.setStyle("-fx-background-color: #e53030;");
+    }
+    
+    @FXML
+    private void handleNext()
+    {
+    	if (checkQuestions())
+    	{
+    		toggleP1andP2(false);
+    		passwordPane.setVisible(true);
+    	}
+    	else
+    	{
+    		return;
+    	}
+    }
+    
+    @FXML
+    private void cancelButtonClicked()
+    {
+    	//Set button color to navy blue when clicked on
+    	cancelButton.setStyle("-fx-background-color: #273e51;");
+    }
+    
+    @FXML
+    private void cancelButtonReleased()
+    {
+    	//Set button back to original color (Red) when click is released
+    	cancelButton.setStyle("-fx-background-color: #e53030;");
+    }
+    
+    @FXML
+    private void handleCancel()
+    {
+    	loginPane.setVisible(true);
+    	messagesPane.setVisible(false);
+		passwordPane.setVisible(false);
+    	recoveryPane.setVisible(false);
+    }
+    
+    private boolean checkQuestions()
+    {	
+    	//Find the user account:
+    	for (Account account : ioAccounts.getAccounts())
+    	{
+    		if (account.getUsername().toLowerCase().equals(usernameRec.getText().toLowerCase()))
+    		{
+    			requestedAccount = account;
+    		}
+    	}
+    	
+    	if (requestedAccount == null)
+    	{
+    		hideAllMessages();
+    		msgUsernameNotFound.setVisible(true);
+    		messagesPane.setVisible(true);
+    		return false;
+    	}
+    	
+    	//If user account has not been found:
+    	if (requestedAccount.getUsername().toLowerCase().equals(usernameRec.getText().toLowerCase()) == false)
+    	{
+    		hideAllMessages();
+    		msgUsernameNotFound.setVisible(true);
+    		messagesPane.setVisible(true);
+    		return false;
+    	}
+    	
+    	//Prepare messages pane should any of the answered security questions be wrong.
+    	hideAllMessages();
+		msgIncorrectAnswer1.setVisible(true);
+		msgIncorrectAnswer2.setVisible(true);
+
+    	//Check if answered security questions are correct
+    	if (secQ1Field.getText().equals(requestedAccount.getSecurityQuestion1()) == false)
+    	{
+    		messagesPane.setVisible(true);
+    		return false;
+    	}
+    	if (secQ2Field.getText().equals(requestedAccount.getSecurityQuestion2()) == false)
+    	{
+    		messagesPane.setVisible(true);
+    		return false;
+    	}
+    	if (secQ3Field.getText().equals(requestedAccount.getSecurityQuestion3()) == false)
+    	{
+    		messagesPane.setVisible(true);
+    		return false;
+    	}
+    	
+    	messagesPane.setVisible(false);
+    	return true;
+    }
+    
+    //True enables part 1, False enables part 2.
+    private void toggleP1andP2(boolean value)
+    {
+    	//Toggle visibility
+		usernameRec.setVisible(value);
+		secQ1.setVisible(value);
+		secQ2.setVisible(value);
+		secQ3.setVisible(value);
+		secQ1Field.setVisible(value);
+		secQ2Field.setVisible(value);
+		secQ3Field.setVisible(value);
+		userIcon.setVisible(value);
+		nextButton.setVisible(value);
+		changePasswordButton.setVisible(!value);
+
+		
+		//Reset text fields
+		usernameRec.setText("");
+		secQ1Field.setText("");
+		secQ2Field.setText("");
+		secQ3Field.setText("");
+    }
+    
+	//------------------------------------------------------------------------------------//
+	//                               Password Recovery Part 2                             //
+	//------------------------------------------------------------------------------------//
+    
+    @FXML
+    private void changePasswordClicked()
+    {
+    	//Set button color to navy blue when clicked on
+    	changePasswordButton.setStyle("-fx-background-color: #273e51;");
+    }
+    
+    @FXML
+    private void changePasswordReleased()
+    {
+    	//Set button back to original color (Red) when click is released
+    	changePasswordButton.setStyle("-fx-background-color: #e53030;");
+    }
+    
+    @FXML
+    private void handleChangePassword(MouseEvent event) throws IOException
+    {
+    	if (checkPassword() == true)
+    	{
+    		Account oldAccount = requestedAccount;
+    		requestedAccount.setPassword(newPassword1.getText());
+    		
+    		ioAccounts.updateAccount(requestedAccount, oldAccount);
+    		handleLogin(event, requestedAccount);	
+    	}
+    	else
+    	{
+    		return;
+    	}
+    }
+    
+    private boolean checkPassword()
+    {
+    	hideAllMessages();
+    	
+    	if (newPassword1.getText().isEmpty())
+    	{
+    		msgPasswordEmpty.setVisible(true);
+    		messagesPane.setVisible(true);
+    		return false;
+    	}
+    	if (newPassword1.getText().equals(newPassword2.getText()) == false)
+    	{
+    		msgPasswordNoMatch.setVisible(true);
+    		messagesPane.setVisible(true);
+    		return false;
+    	}
+    	if (newPassword1.getText().length() < 5)
+    	{
+    		msgPasswordTooShort.setVisible(true);
+    		messagesPane.setVisible(true);
+    		return false;
+    	}
+    	
+    	messagesPane.setVisible(false);
+    	hideAllMessages();
+    	return true;
+    }
+    
+    private void hideAllMessages()
+    {
+    	msgPasswordEmpty.setVisible(false);
+    	msgPasswordTooShort.setVisible(false);
+    	msgPasswordNoMatch.setVisible(false);
+    	msgUsernameNotFound.setVisible(false);
+		msgIncorrectAnswer1.setVisible(false);
+		msgIncorrectAnswer2.setVisible(false);
+    }
+    
+    
+	//------------------------------------------------------------------------------------//
+	//                                 Getters & Setters                                  //
+	//------------------------------------------------------------------------------------//
     
     public static MainMenuController getMainController()
     {
