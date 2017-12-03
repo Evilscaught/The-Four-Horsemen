@@ -223,6 +223,24 @@ public class CreateAccountController
         	pass = false;
         }
         
+        //If password is too short
+        if (passField.getText().length() < 5)
+        {
+        	passVerifyField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+        	passField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+        	pass = false;
+        }
+
+        //If user-name is already taken:
+    	for (String username : LoginScreenController.getMainController().getAccountDB().getUsernames())
+    	{
+    		if (userNameField.getText().toLowerCase().equals(username.toLowerCase()))
+			{
+    			userNameField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    			pass = false;
+			}
+    	}
+        
     	return pass;
     }
     

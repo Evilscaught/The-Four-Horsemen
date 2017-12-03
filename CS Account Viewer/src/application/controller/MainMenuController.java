@@ -169,7 +169,7 @@ public class MainMenuController
         primaryStage.setTitle("Isengard");
         primaryStage.getIcons().add(new Image("application/view/images/program-icon.png"));
 
-        try 
+        try  
         {
             // Load root layout from FXML file.
             FXMLLoader loader = new FXMLLoader();
@@ -178,9 +178,7 @@ public class MainMenuController
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(loader.load());
-
-            //Account Overview goes here::::::
-
+            
             //Loads the (tabs) panes into the program
             this.setAdminPane();
             this.setTransactionPane();

@@ -72,7 +72,7 @@ public class LoginScreenController implements Initializable
     @FXML private ImageView			 visibilityFalse;
     @FXML private Hyperlink			 forgotPassword;
     
-    //Password Recovery P1:				
+    //Password Recovery P1:		
     @FXML private AnchorPane		 recoveryPane;  //All clustered attributes below are part of this pane:
     @FXML private TextField			 usernameRec;
     @FXML private ImageView		     userIcon;
@@ -86,7 +86,7 @@ public class LoginScreenController implements Initializable
     @FXML private Button			 cancelButton;
     @FXML private Button			 changePasswordButton;
     
-    //Password Recovery P2
+    //Password Recovery P2:
     @FXML private AnchorPane		 passwordPane;  //All clustered attributes below are part of this pane:
     @FXML private TextField			 newPassword1;
     @FXML private TextField			 newPassword2;
@@ -94,6 +94,7 @@ public class LoginScreenController implements Initializable
     //Messages Pane
     @FXML private AnchorPane		 messagesPane;  //All clustered attributes below are part of this pane:
     @FXML private Text				 msgUsernameNotFound;
+    @FXML private Text			     msgNoUsernameEntered;
     @FXML private Text				 msgIncorrectAnswer1;
     @FXML private Text				 msgIncorrectAnswer2;
     @FXML private Text			     msgPasswordNoMatch;
@@ -350,6 +351,15 @@ public class LoginScreenController implements Initializable
     
     private boolean checkQuestions()
     {	
+    	//Throw an error message if user hasn't typed user-name.
+    	if (usernameRec.getText().isEmpty())
+    	{
+    		hideAllMessages();
+    		msgNoUsernameEntered.setVisible(true);
+    		messagesPane.setVisible(true);
+    		return false;
+    	}
+    	
     	//Find the user account:
     	for (Account account : ioAccounts.getAccounts())
     	{
@@ -359,6 +369,7 @@ public class LoginScreenController implements Initializable
     		}
     	}
     	
+    	//Throw an error message if requested user-name hasn't been found and requested account is still null.
     	if (requestedAccount == null)
     	{
     		hideAllMessages();
@@ -367,7 +378,7 @@ public class LoginScreenController implements Initializable
     		return false;
     	}
     	
-    	//If user account has not been found:
+    	//Throw an error message if requested user-name hasn't been found.
     	if (requestedAccount.getUsername().toLowerCase().equals(usernameRec.getText().toLowerCase()) == false)
     	{
     		hideAllMessages();
@@ -448,10 +459,9 @@ public class LoginScreenController implements Initializable
     {
     	if (checkPassword() == true)
     	{
-    		Account oldAccount = requestedAccount;
     		requestedAccount.setPassword(newPassword1.getText());
+    		ioAccounts.saveAccounts();
     		
-    		ioAccounts.updateAccount(requestedAccount, oldAccount);
     		handleLogin(event, requestedAccount);	
     	}
     	else
@@ -490,6 +500,7 @@ public class LoginScreenController implements Initializable
     
     private void hideAllMessages()
     {
+    	msgNoUsernameEntered.setVisible(false);
     	msgPasswordEmpty.setVisible(false);
     	msgPasswordTooShort.setVisible(false);
     	msgPasswordNoMatch.setVisible(false);

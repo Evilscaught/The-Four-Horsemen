@@ -43,6 +43,7 @@ public class IOAccounts
 {
     private String accountsPath;
     private ArrayList<Account> accountArr;
+    private ArrayList<String>  usernames;
     
     public IOAccounts(String path)
     {
@@ -56,6 +57,7 @@ public class IOAccounts
     	InputStream accountsFile = this.getClass().getResourceAsStream(accountsPath);
         Scanner file = new Scanner(accountsFile);
         accountArr = new ArrayList<Account>(20);
+        usernames  = new ArrayList<String>(20);
 
         while(file.hasNext())
         {
@@ -93,7 +95,21 @@ public class IOAccounts
     
     public void updateAccount(Account updatedAccount, Account oldAccount)
     {
-    	//TODO: FIXME
+    	System.out.println("Calliing updateAccount()");
+    	int index = 0;
+    	
+    	for (Account account : getAccounts())
+    	{
+    		System.out.println("Index is: " + index);
+    		if (account.getFirstName().equals(oldAccount.getFirstName()) && account.getLastName().equals(oldAccount.getLastName()))
+    		{
+    			System.out.println("Deleting old account: " + accountArr.get(index).toString());
+    			deleteAccount(index);
+    			createAccount(updatedAccount);
+    			break;
+    		}
+    		index++;
+    	}
     }
     
     public void deleteAccount(int index)
@@ -104,6 +120,15 @@ public class IOAccounts
     public ArrayList<Account> getAccounts()
     {
     	return accountArr;
+    }
+    
+    public ArrayList<String> getUsernames()
+    {	
+    	for (Account acct : getAccounts())
+    	{
+    		usernames.add(acct.getUsername());
+    	}
+    	return usernames;
     }
     
     public void saveAccounts() throws IOException

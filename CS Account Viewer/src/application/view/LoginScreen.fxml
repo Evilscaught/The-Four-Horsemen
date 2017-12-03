@@ -76,7 +76,8 @@
             <Text fx:id="msgIncorrectAnswer2" fill="#ffaeae" layoutX="27.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="was not answerd correctly!" />
             <Text fx:id="msgPasswordNoMatch" fill="#ffaeae" layoutX="31.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passwords do not match!" />
             <Text fx:id="msgPasswordTooShort" fill="#ffaeae" layoutX="40.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password is too short!" />
-            <Text fx:id="msgPasswordEmpty" fill="#ffaeae" layoutX="25.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password cannot be empty!" />
+            <Text fx:id="msgPasswordEmpty" fill="#ffaeae" layoutX="25.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password cannot be empty!" />
+            <Text fx:id="msgNoUsernameEntered" fill="#ffaeae" layoutX="29.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter a username!" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="recoveryPane" layoutX="46.0" layoutY="41.0" prefHeight="318.0" prefWidth="305.0" style="-fx-background-color: #9C2827;" visible="false">
