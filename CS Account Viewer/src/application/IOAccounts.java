@@ -93,25 +93,6 @@ public class IOAccounts
     	accountArr.add(account);
     }
     
-    public void updateAccount(Account updatedAccount, Account oldAccount)
-    {
-    	System.out.println("Calliing updateAccount()");
-    	int index = 0;
-    	
-    	for (Account account : getAccounts())
-    	{
-    		System.out.println("Index is: " + index);
-    		if (account.getFirstName().equals(oldAccount.getFirstName()) && account.getLastName().equals(oldAccount.getLastName()))
-    		{
-    			System.out.println("Deleting old account: " + accountArr.get(index).toString());
-    			deleteAccount(index);
-    			createAccount(updatedAccount);
-    			break;
-    		}
-    		index++;
-    	}
-    }
-    
     public void deleteAccount(int index)
     {
     	accountArr.remove(index);
