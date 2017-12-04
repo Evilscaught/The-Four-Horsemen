@@ -5,18 +5,20 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="476.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="491.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <Button fx:id="editTransactionButton" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" defaultButton="true" layoutX="357.0" layoutY="315.0" minHeight="19.000091552734375" mnemonicParsing="false" onMouseClicked="#handleEditTransaction" onMouseEntered="#editTransactionClicked" onMouseExited="#editTransactionReleased" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: e53030;" text="Edit Transaction" textFill="#fceeee" />
-    <TableView fx:id="transactionText" layoutX="4.0" layoutY="3.0" prefHeight="309.0" prefWidth="470.0">
+    <Button fx:id="editTransactionButton" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" defaultButton="true" layoutX="256.0" layoutY="306.0" minHeight="19.000091552734375" mnemonicParsing="false" onMouseClicked="#handleEditTransaction" onMouseEntered="#editTransactionClicked" onMouseExited="#editTransactionReleased" prefHeight="26.0" prefWidth="118.0" style="-fx-background-color: e53030;" text="Edit Transaction" textFill="#fceeee" />
+    <TableView fx:id="transactionText" layoutY="2.0" prefHeight="303.0" prefWidth="491.0">
       <columns>
-        <TableColumn fx:id="accountCol" maxWidth="5000.0" minWidth="10.0" prefWidth="107.0" text="Account" />
-        <TableColumn fx:id="customerCol" maxWidth="5000.0" minWidth="10.0" prefWidth="128.0" text="Customer" />
-        <TableColumn fx:id="typeCol" prefWidth="75.0" text="Type" />
-        <TableColumn fx:id="amountCol" maxWidth="5000.0" minWidth="10.0" prefWidth="80.0" text="Amount" />
+        <TableColumn fx:id="accountCol" maxWidth="5000.0" minWidth="10.0" prefWidth="124.79999387264252" text="Account" />
+        <TableColumn fx:id="customerCol" maxWidth="5000.0" minWidth="10.0" prefWidth="124.79999542236328" text="Customer" />
+            <TableColumn fx:id="dateCol" prefWidth="83.20001220703125" text="Date" />
+        <TableColumn fx:id="typeCol" prefWidth="69.60003662109375" text="Type" />
+        <TableColumn fx:id="amountCol" maxWidth="5000.0" minWidth="10.0" prefWidth="87.199951171875" text="Amount" />
       </columns>
     </TableView>
-      <Button fx:id="addTransactionButton" layoutX="227.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#handleAddTransaction" onMouseEntered="#addTransactionClicked" onMouseExited="#addTransactionReleased" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: e53030;" text="Add Transaction" textFill="#fceeee" />
-      <Button fx:id="printButton" layoutX="4.0" layoutY="315.0" mnemonicParsing="false" onMouseEntered="#printButtonClicked" onMouseExited="#printButtonReleased" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: e53030;" text="Print" textFill="#fceeee" />
+      <Button fx:id="addTransactionButton" layoutX="128.0" layoutY="306.0" mnemonicParsing="false" onMouseClicked="#handleAddTransaction" onMouseEntered="#addTransactionClicked" onMouseExited="#addTransactionReleased" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: e53030;" text="Add Transaction" textFill="#fceeee" />
+      <Button fx:id="printButton" layoutX="383.0" layoutY="306.0" mnemonicParsing="false" onMouseEntered="#printButtonClicked" onMouseExited="#printButtonReleased" prefHeight="26.0" prefWidth="107.0" style="-fx-background-color: e53030;" text="Print" textFill="#fceeee" />
+      <Button fx:id="viewTransactionButton" layoutY="306.0" mnemonicParsing="false" onMouseClicked="#handleViewTransaction" onMouseEntered="#viewTransactionClicked" onMouseExited="#viewTransactionReleased" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: e53030;" text="View Transaction" textFill="#fceeee" />
   </children>
 </AnchorPane>

@@ -31,13 +31,13 @@ package application.controller;
 
 import java.io.IOException;
 import java.util.Scanner;
-
 import application.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -72,7 +72,16 @@ public class EditExpenseCodeController
 	@FXML private Text	     msgDesc;
 	@FXML private Text 		 closeMessagesPane;
 	
-	
+
+	@FXML private Button 	saveButton;
+
+	@FXML private Pane		createdNotification;
+	@FXML private Text		successMessage;
+	@FXML private ChoiceBox<String> codeBox;
+	@FXML private TextField codeField2;
+	@FXML private TextField descriptionField2;
+	@FXML private Button saveButton2;
+
 	public EditExpenseCodeController() 
 	{
         // Load root layout from FXML file.
@@ -87,6 +96,7 @@ public class EditExpenseCodeController
         catch (IOException event) 
         {
             event.printStackTrace();
+
         }	
 	}
 	
@@ -125,6 +135,8 @@ public class EditExpenseCodeController
   			descriptionField.setText("");
   			codeField.setText("");
   		}
+  		
+        LoginScreenController.getMainController().handleAddTransaction(event);;
     }
     
     
