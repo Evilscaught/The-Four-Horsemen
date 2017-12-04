@@ -32,6 +32,8 @@ package application.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import application.Main;
 import javafx.fxml.FXML;
@@ -190,6 +192,19 @@ public class CreateTransactionController
             event.printStackTrace();
         }
 
+      Map <String, String> prevData = LoginScreenController.getMainController().getPrevData();
+        
+        if (prevData != null && prevData.get("scene").equals("createTransaction")) {
+            this.accountBox.setValue(prevData.get("account"));
+            this.customerNameField.setText(prevData.get("customer"));
+            this.dateField.getEditor().setText(prevData.get("date"));
+            this.dollarsField.setText(prevData.get("dollars"));
+            this.centsField.setText(prevData.get("cents"));
+            this.transactionType.setValue(prevData.get("type"));
+            this.descriptionField.setText(prevData.get("description"));
+            this.transactionCodes.setValue(prevData.get("code"));
+        }
+  
         createTypeBox();
         createAcctBox();
         createCodeBox();
@@ -226,6 +241,7 @@ public class CreateTransactionController
     @FXML
     void editCodesClicked(MouseEvent event) 
     {
+        LoginScreenController.getMainController().setPrevData(this.getData());
         currentPane.getChildren().clear();
         currentPane.getChildren().addAll(new EditExpenseCodeController().getPane());
     }
@@ -259,4 +275,24 @@ public class CreateTransactionController
     {
         this.currentPane = currentPane;
     }
+    
+    public Map<String, String> getData() {
+        Map <String, String> temp = new HashMap<String, String>();
+        
+        temp.put("scene", "createTransaction");
+        
+        temp.put("dollars", dollarsField.getText());
+        temp.put("cents", centsField.getText());
+        temp.put("code", transactionCodes.getValue());
+        temp.put("type", transactionType.getValue());
+        //Get date from DatePicker
+        temp.put("date", ( (TextField)dateField.getEditor() ).getText());
+        
+        temp.put("account", accountBox.getValue());
+        temp.put("customer", customerNameField.getText());
+        temp.put("description", descriptionField.getText());
+        
+        return temp;
+    }
+
 }

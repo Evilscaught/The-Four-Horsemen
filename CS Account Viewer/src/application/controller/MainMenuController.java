@@ -82,6 +82,8 @@ public class MainMenuController
     	  private IOAccounts 		ioAccounts;
     	  private IOCodes			ioCodes;
 
+     	  private Map <String, String> prevData;
+
     @FXML private AnchorPane 		sidePane;
     @FXML private AnchorPane 		adminPane;
     @FXML private AnchorPane 		transactionPane;
@@ -199,6 +201,35 @@ public class MainMenuController
                 }
             });
             
+            scene.widthProperty().addListener(new ChangeListener<Number>() {
+                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+                    logoutMainButton.setLayoutX(newSceneWidth.doubleValue() - 30);
+                }
+            });
+
+            scene.heightProperty().addListener(new ChangeListener<Number>() {
+                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+                    mainTabPane.setPrefHeight(newSceneHeight.doubleValue());
+                }
+            });
+
+            this.getPrimaryStage().widthProperty().addListener(new ChangeListener<Number>() {
+                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+                    transactionText.setPrefWidth(primaryStage.getWidth() - transactionText.getLayoutX() - 130);
+                }
+            });
+
+            this.getPrimaryStage().heightProperty().addListener(new ChangeListener<Number>() {
+                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+                    transactionText.setPrefHeight(newSceneHeight.doubleValue() - transactionText.getLayoutY() - 155);
+                    editTransactionButton.setLayoutY(newSceneHeight.doubleValue() - 135);
+                    addTransactionButton.setLayoutY(newSceneHeight.doubleValue() - 135);
+                    viewTransactionButton.setLayoutY(newSceneHeight.doubleValue() - 135);
+                    printButton.setLayoutY(newSceneHeight.doubleValue() - 135);
+                    transactionPane.setPrefHeight(newSceneHeight.doubleValue());
+                }
+            });
+
             //Checks if the user is csadmin, otherwise hide Administrator pane and user-list side panel TODO: Remove hard-coded methods
             if (!this.curUser.equals("csadmin")) 
             {
@@ -583,7 +614,32 @@ public class MainMenuController
     	viewTransactionButton.setStyle("-fx-background-color: #e53030;");
     }
     
-    
+    public void loadUserData(String user) {
+        ObservableList<Map> allData = FXCollections.observableArrayList();
+        
+        if (this.getTransactionDB().getTransactions().size() != 0) 
+        {
+            for (int i=0; i < this.getTransactionDB().getTransactions().size(); i++)
+            {
+                if (this.getTransactionDB().getTransactions().get(i) != null) 
+                {
+                    Map<String, String> dataRow = new HashMap<>();
+                    Transaction temp = this.getTransactionDB().getTransactions().get(i);
+                    
+                    if (temp.getRecipientAcct().equals(user)) {
+                        dataRow.put("account", temp.getRecipientAcct());
+                        dataRow.put("customer", temp.getCustomer());
+                        dataRow.put("type", temp.getType());
+                        dataRow.put("amount", "$" + new DecimalFormat("0.00").format((temp.getAmount())));
+                        dataRow.put("date", temp.getDate());
+                        allData.add(dataRow);
+                    }
+                }
+            }
+            transactionText.setItems(allData);
+        }        
+    }
+
     //---------------------------------------------------------------------------------//
     //                                    Data Bases                                   //
     //---------------------------------------------------------------------------------//
@@ -602,4 +658,13 @@ public class MainMenuController
     {
     	return ioCodes;
     }
+    
+    public Map<String, String> getPrevData() {
+        return prevData;
+    }
+
+    public void setPrevData(Map <String, String> prevData) {
+        this.prevData = prevData;
+    }
+
 }
