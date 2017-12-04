@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -41,7 +42,7 @@
             <Text fill="WHITE" layoutX="14.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Key:" />
             <TextField fx:id="newDescriptionField" layoutX="10.0" layoutY="87.0" promptText="Can be Anything" style="-fx-border-color: #000000;" />
             <TextField fx:id="newCodeField" layoutX="10.0" layoutY="145.0" promptText="Numbers Only" style="-fx-border-color: #000000;" />
-            <Text fx:id="oldTransactionCode" fill="WHITE" layoutX="14.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Hyperlink fx:id="oldTransactionCode" layoutX="11.0" layoutY="23.0" onMouseClicked="#populateParam" textFill="WHITE" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="msgPane" layoutX="151.0" layoutY="60.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #8e1a0b; -fx-border-color: #020202;" visible="false">

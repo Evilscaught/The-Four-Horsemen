@@ -36,6 +36,7 @@ import application.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -64,7 +65,7 @@ public class EditExpenseCodeController
 	@FXML private Button     saveChangesButton;
 	@FXML private TextField  newDescriptionField;
 	@FXML private TextField  newCodeField;
-	@FXML private Text		 oldTransactionCode;
+	@FXML private Hyperlink	 oldTransactionCode;
 	
 	@FXML private AnchorPane msgPane;
 	@FXML private Text		 msgHead;
@@ -103,6 +104,10 @@ public class EditExpenseCodeController
     @FXML
     private void handleCreateCode(MouseEvent event) 
     {
+    	//Set button as unavailable until another code is selected
+		deleteButton.setOpacity(MIN_OPACITY);
+		editButton.setOpacity(MIN_OPACITY);
+    	
   		if (!checkParam())
   		{
   			return;
@@ -285,6 +290,8 @@ public class EditExpenseCodeController
     @FXML
     private void handleCancel()
     {
+    	newDescriptionField.setText("");
+    	newCodeField.setText("");
     	editCodePane.setVisible(false);
     }
     
@@ -300,6 +307,19 @@ public class EditExpenseCodeController
     {
     	//Set button back to original color (Red) when click is released
     	cancelButton.setStyle("-fx-background-color: #e53030;");
+    }
+    
+    @FXML 
+    private void populateParam()
+    {
+		//Get the current key of the code that user wants to edit
+		Scanner getKey = new Scanner(oldTransactionCode.getText());
+		getKey.useDelimiter(":");
+
+		newDescriptionField.setText(getKey.next());
+		newCodeField.setText(getKey.next());
+		newCodeField.setText(newCodeField.getText().replaceAll(" ", ""));
+		getKey.close();
     }
     
     
