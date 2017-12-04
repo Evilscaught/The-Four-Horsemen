@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Evilscaught/Documents/Eclipse_Workspace/Java/Software Science/The-Four-Horsemen/CS Account Viewer/Libraries/algs4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Evilscaught/Documents/Eclipse_Workspace/Java/Software Science/The-Four-Horsemen/CS Account Viewer/Libraries/stdlib.jar"/>
+	<classpathentry kind="lib" path="Libraries/algs4.jar"/>
+	<classpathentry kind="lib" path="Libraries/stdlib.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -256,6 +256,11 @@ public class EditExpenseCodeController
     @FXML
     private void handleSaveChanges() throws Exception
     {
+    	//Set button as unavailable until another code is selected
+		deleteButton.setOpacity(MIN_OPACITY);
+		editButton.setOpacity(MIN_OPACITY);
+    	
+    	
     	if (checkEditedParam())
     	{	
     		descriptionField.setText(descriptionField.getText().replaceAll(":", ""));
