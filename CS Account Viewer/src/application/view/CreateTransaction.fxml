@@ -44,7 +44,7 @@
     </ChoiceBox>
       <DatePicker fx:id="dateField" layoutX="15.0" layoutY="90.0" prefHeight="25.0" prefWidth="218.0" promptText="MM/DD/YYYY" />
       <ChoiceBox fx:id="transactionCodes" layoutX="258.0" layoutY="152.0" prefHeight="25.0" prefWidth="171.0" />
-      <TextField fx:id="centsField" layoutX="203.0" layoutY="152.0" onKeyTyped="#centTyped" prefHeight="25.0" prefWidth="30.0" promptText="00" />
+      <TextField fx:id="centsField" layoutX="203.0" layoutY="152.0" onKeyTyped="#centTyped" prefHeight="26.0" prefWidth="36.0" promptText="00" />
       <Text layoutX="16.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" />
       <Text layoutX="197.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="." wrappingWidth="6.861325263977051">
          <font>

@@ -1,11 +1,13 @@
 package application.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import application.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -13,7 +15,7 @@ import javafx.scene.text.Text;
 
 public class EditExpenseCodeController 
 {	
-	 	  private Pane 		currentPane;
+	private Pane 		currentPane;
 	
 	@FXML private TextField codeField;
 	@FXML private TextField descriptionField;
@@ -21,6 +23,10 @@ public class EditExpenseCodeController
 	@FXML private Button 	cancelButton;
 	@FXML private Pane		createdNotification;
 	@FXML private Text		successMessage;
+	@FXML private ChoiceBox<String> codeBox;
+	@FXML private TextField codeField2;
+	@FXML private TextField descriptionField2;
+	@FXML private Button saveButton2;
 	
     @FXML
     private void initialize() 
@@ -44,6 +50,16 @@ public class EditExpenseCodeController
             event.printStackTrace();
         }
 		
+        /*codeBox.getItems().clear();
+        
+    	ArrayList<String> codes = LoginScreenController.getMainController().getCodesDB().getCodes();
+    	
+    	for (String code : codes)
+    	{
+    		codeBox.getItems().add(code);
+    	}*/
+    	
+        
 	}
 	
     @FXML
@@ -61,6 +77,8 @@ public class EditExpenseCodeController
   			descriptionField.setText("");
   			codeField.setText("");
   		}
+  		
+        LoginScreenController.getMainController().handleAddTransaction(event);;
     }
     
     private boolean checkParam()

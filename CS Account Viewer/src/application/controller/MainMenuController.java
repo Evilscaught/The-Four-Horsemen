@@ -88,6 +88,7 @@ public class MainMenuController
     @FXML private AnchorPane		accountOverviewPane;
     @FXML private AnchorPane		feesPane;
     @FXML private Button			printButton;
+    @FXML private Button            viewTransactionButton;
     @FXML private Button			addTransactionButton;
     @FXML private Button			editTransactionButton;
     @FXML private Button 			createAccountButton;
@@ -101,7 +102,7 @@ public class MainMenuController
     @FXML private Tab               adminPaneTab;
     @FXML private Tab				feesPaneTab;
 	@FXML private TableView 		transactionText;
-	@FXML private TableColumn <Map, String> accountCol, customerCol, typeCol, amountCol;
+	@FXML private TableColumn <Map, String> accountCol, customerCol, dateCol, typeCol, amountCol;
     @FXML private TextArea 			descriptionField;
     @FXML private SplitPane 		splitMain;
     @FXML private URL 				location;
@@ -222,29 +223,29 @@ public class MainMenuController
     {
         List<String> choices = new ArrayList<>();
 
-        int counter = 1;
+        int counter = 0;
 
         //Show list of transactions to edit.
         for(Transaction transaction : ioTransactions.getTransactions()) 
         {
-            choices.add(counter + ".] "  + transaction.viewInfo());
+            choices.add(counter + " "  + transaction.viewInfo());
             counter++;
         }
 
         ChoiceDialog<String> dialog = new ChoiceDialog<>("", choices);
-        dialog.setTitle("Edit Transaction");
-        dialog.setHeaderText("Edit Transaction");
-        dialog.setContentText("Choose Transaction to Edit:");
+        dialog.setTitle("Choose Transaction");
+        dialog.setHeaderText("Choose Transaction");
+        dialog.setContentText("Choose a Transaction:");
 
         Optional<String> result = dialog.showAndWait();
 
-        //If user presses 'ok' without choosing a transaction:
-        if (result.empty() != null)
+        //If user presses 'ok' without choosing a transaction:  THIS DOESN'T WORK
+        /*if (result.empty() != null)
         {
             return -1;
-        }
+        }*/
         //If user selects a transaction to edit:
-        else if (result.isPresent())
+        if (result.isPresent())
         {
             String value = result.get();
             Scanner scan = new Scanner(value).useDelimiter(" ");
@@ -287,6 +288,14 @@ public class MainMenuController
         return "";
         // The Java 8 way to get the response value (with lambda expression).
         // result.ifPresent(letter -> System.out.println("Your choice: " + letter));
+    }
+    
+    @FXML
+    void handleViewTransaction(MouseEvent event) {
+    	int arraynum = delTransactionDialog();
+    	transactionPane.getChildren().clear();
+    	transactionPane.getChildren().addAll(new ViewTransactionController(arraynum).getPane());
+    	
     }
     
     //---------------------------------------------------------------------------------//
@@ -420,10 +429,10 @@ public class MainMenuController
         int arrayNum = delTransactionDialog();
 
         //If user did not make a choice, or cancelled.
-        if (arrayNum == -1)
+        /*if (arrayNum == -1)
         {
             return;
-        }
+        }*/
 
         transactionPane.getChildren().clear();
         transactionPane.getChildren().addAll(new EditTransactionController(arrayNum).getPane());
@@ -469,6 +478,7 @@ public class MainMenuController
         accountCol.setCellValueFactory(new MapValueFactory("account"));
         //accountCol.setMinWidth(130);
         customerCol.setCellValueFactory(new MapValueFactory("customer"));
+        dateCol.setCellValueFactory(new MapValueFactory("date"));
         //customerCol.setMinWidth(130);
         typeCol.setCellValueFactory(new MapValueFactory("type"));
         amountCol.setCellValueFactory(new MapValueFactory("amount"));
@@ -499,6 +509,7 @@ public class MainMenuController
                     if (temp.getRecipientAcct().equals(recipAct) || this.curUser.equals("csadmin")) {
                         dataRow.put("account", temp.getRecipientAcct());
                         dataRow.put("customer", temp.getCustomer());
+                        dataRow.put("date", temp.getDate());
                         dataRow.put("type", temp.getType());
                         dataRow.put("amount", "$" + new DecimalFormat("0.00").format((temp.getAmount())));
                     }
@@ -557,6 +568,21 @@ public class MainMenuController
     	//Set button back to original color (Red) when click is released
     	editTransactionButton.setStyle("-fx-background-color: #e53030;");
     }
+    
+    @FXML
+    public void viewTransactionClicked()
+    {
+    	//Set button color to navy blue when clicked on
+    	viewTransactionButton.setStyle("-fx-background-color: #273e51;");
+    }
+    
+    @FXML
+    public void viewTransactionReleased()
+    {
+    	//Set button back to original color (Red) when click is released
+    	viewTransactionButton.setStyle("-fx-background-color: #e53030;");
+    }
+    
     
     //---------------------------------------------------------------------------------//
     //                                    Data Bases                                   //
