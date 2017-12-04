@@ -278,7 +278,7 @@ public class AccountOverviewController
     	
     	for (String username : LoginScreenController.getMainController().getAccountDB().getUsernames())
     	{
-    		if (usernameField.getText().toLowerCase().equals(username.toLowerCase()))
+    		if (usernameField.getText().toLowerCase().equals(username.toLowerCase()) && !selectedAccount.getUsername().equals(usernameField.getText()))
 			{
     			usernameField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
     			

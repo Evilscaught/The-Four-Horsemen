@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-10-31" view-index="0" gantt-divider-location="401" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-11-23" view-index="0" gantt-divider-location="401" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
     <view zooming-state="default:0" id="gantt-chart">
-        <field id="tpd3" name="Name" width="216" order="0"/>
+        <field id="tpd3" name="Name" width="254" order="0"/>
         <field id="tpd4" name="Begin date" width="91" order="1"/>
-        <field id="tpd5" name="End date" width="90" order="2"/>
-        <timeline><![CDATA[53,13]]></timeline>
-        <option id="color.recent"><![CDATA[#00cccc #ff0000 #009999 #0000cc]]></option>
+        <field id="tpd5" name="End date" width="52" order="2"/>
+        <timeline><![CDATA[13,53]]></timeline>
+        <option id="color.recent"><![CDATA[#ff0033 #00cccc #ff0000 #009999 #0000cc]]></option>
     </view>
     <view id="resource-table">
         <field id="0" name="Name" width="210" order="0"/>
@@ -98,7 +98,7 @@ Also, spent about an hour fixing a bug with the login when it checked for a user
                 <notes><![CDATA[Spent 2 hours getting the user accounts to login. need to implement the user controller next. ]]></notes>
             </task>
         </task>
-        <task id="54" name="Sprint 5" meeting="false" start="2017-11-23" duration="5" complete="82" expand="true">
+        <task id="54" name="Sprint 4" meeting="false" start="2017-11-23" duration="5" complete="82" expand="true">
             <task id="55" name="account login" color="#8cb6ce" meeting="false" start="2017-11-23" duration="4" complete="100" expand="true">
                 <notes><![CDATA[Dan made login verification method to check the validation of the user and set up implementation for different user control.
 
@@ -117,6 +117,25 @@ Jack also helped with the gui, made the windows resizable and small changes.]]><
             </task>
             <task id="60" name="Date Picker" color="#8cb6ce" meeting="false" start="2017-11-27" duration="1" complete="100" expand="true">
                 <notes><![CDATA[Scott implemented the calendar in order to pick the date ]]></notes>
+            </task>
+        </task>
+        <task id="63" name="Sprint 5" color="#ff0033" meeting="false" start="2017-11-30" duration="3" complete="80" priority="2" expand="true">
+            <notes><![CDATA[Sprint #5
+]]></notes>
+            <task id="70" name="+Account Overview Saves Changes" color="#8cb6ce" meeting="false" start="2017-11-30" duration="1" complete="100" expand="true">
+                <notes><![CDATA[Implemented by: Scott McKay (Github: @Evilscaught)]]></notes>
+            </task>
+            <task id="66" name="+Added Security Questions" color="#8cb6ce" meeting="false" start="2017-12-01" duration="1" complete="100" expand="true">
+                <notes><![CDATA[Implemented by: Scott McKay]]></notes>
+            </task>
+            <task id="77" name="+Password Recovery" color="#8cb6ce" meeting="false" start="2017-12-01" duration="1" complete="100" priority="2" expand="true">
+                <notes><![CDATA[Implemented by: Scott McKay (Github: @Evilscaught)]]></notes>
+            </task>
+            <task id="81" name="+Edit passwords in Account Overview" color="#8cb6ce" meeting="false" start="2017-12-04" duration="1" complete="100" expand="true">
+                <notes><![CDATA[Implemented by: Scott McKay (Github: @Evilscaught)]]></notes>
+            </task>
+            <task id="84" name="+Edit / Delete Existing Transaction Codes" color="#8cb6ce" meeting="false" start="2017-12-04" duration="1" complete="0" expand="true">
+                <notes><![CDATA[Implemented by: Scott McKay (Github: @Evilscaught)]]></notes>
             </task>
         </task>
     </tasks>

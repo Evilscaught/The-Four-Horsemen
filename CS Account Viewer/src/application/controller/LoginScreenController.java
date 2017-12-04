@@ -142,16 +142,16 @@ public class LoginScreenController implements Initializable
     	
     	ioTransactions = new IOTransactions("src/Transactions.txt");
     	ioAccounts 	   = new IOAccounts("src/Accounts.txt");
-    	ioCodes        = new IOCodes();
+    	ioCodes        = new IOCodes("src/Codes.txt");
     	
     	//Load file contents (transactions.txt) into ADT ioTransactions.
     	try 
     	{
 			ioTransactions.readTransactions();
 		} 
-    	catch (FileNotFoundException event) 
+    	catch (FileNotFoundException exception) 
     	{
-			event.printStackTrace();
+    		exception.printStackTrace();
 		}
     	
     	//Load file contents (accounts.txt) into ADT ioAccounts.
@@ -160,10 +160,11 @@ public class LoginScreenController implements Initializable
 			ioAccounts.readAccounts();
 			userController = new UserController(ioAccounts.getAccounts());
 		} 
-    	catch (FileNotFoundException event) 
+    	catch (FileNotFoundException exception) 
     	{
-			event.printStackTrace();
+    		exception.printStackTrace();
 		}
+    	ioCodes.readCodes();
     	
     	noUsers();
     }   

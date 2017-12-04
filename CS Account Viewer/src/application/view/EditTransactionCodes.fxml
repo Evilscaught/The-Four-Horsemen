@@ -1,37 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="502.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="502.0" style="-fx-background-color: #595959;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="codeField" layoutX="14.0" layoutY="97.0" />
-      <TextField fx:id="descriptionField" layoutX="14.0" layoutY="152.0" />
-      <Text layoutX="16.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter New Expense Code:" />
-      <Text layoutX="16.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Description:" />
-      <Button id="saveButtonClick" fx:id="cancelButton" layoutX="20.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#cancelButtonClicked" prefHeight="25.0" prefWidth="93.0" text="Cancel" />
-      <Button fx:id="saveButton" layoutX="137.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#saveButtonClicked" prefHeight="25.0" prefWidth="93.0" text="Save" />
+      <TextField fx:id="codeField" layoutX="14.0" layoutY="191.0" promptText="Numbers Only" style="-fx-border-color: #000000;" />
+      <TextField fx:id="descriptionField" layoutX="14.0" layoutY="133.0" promptText="Can be Anything" style="-fx-border-color: #000000;" />
+      <Text fill="WHITE" layoutX="17.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter New Expense Code:" />
+      <Text fill="WHITE" layoutX="16.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Description:" />
+      <Button id="saveButtonClick" fx:id="backButton" layoutX="20.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#handleBack" onMouseEntered="#backButtonClicked" onMouseExited="#backButtonReleased" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: e53030;" text="Back" textFill="WHITE" />
+      <Button fx:id="createCodeButton" layoutX="137.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#handleCreateCode" onMouseEntered="#createCodeClicked" onMouseExited="#createCodeReleased" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: e53030;" text="Create Code" textFill="WHITE" />
       <Separator layoutX="-107.0" layoutY="42.0" prefHeight="0.0" prefWidth="710.0" />
       <Separator layoutX="245.0" layoutY="-170.0" orientation="VERTICAL" prefHeight="679.0" prefWidth="15.0" />
-      <Text layoutX="16.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create New Transaction Code" wrappingWidth="178.78515625">
+      <Text fill="WHITE" layoutX="16.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create New Transaction Code" wrappingWidth="178.78515625">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Text layoutX="271.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit an Existing Transaction Code" wrappingWidth="216.78515625">
+      <Text fill="WHITE" layoutX="271.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit an Existing Transaction Code" wrappingWidth="216.78515625">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Text>
-      <Pane fx:id="createdNotification" layoutY="42.0" prefHeight="38.0" prefWidth="251.0">
+      <ListView fx:id="codesList" layoutX="271.0" layoutY="52.0" onMouseClicked="#codesClicked" prefHeight="244.0" prefWidth="217.0" style="-fx-border-color: #000000;" AnchorPane.bottomAnchor="57.0" AnchorPane.leftAnchor="271.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="52.0" />
+      <Button fx:id="editButton" layoutX="271.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#handleEdit" onMouseEntered="#editButtonClicked" onMouseExited="#editButtonReleased" opacity="0.2" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: e53030;" text="Edit" textFill="WHITE" />
+      <Button fx:id="deleteButton" layoutX="395.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#handleDelete" onMouseEntered="#deleteButtonClicked" onMouseExited="#deleteButtonReleased" opacity="0.2" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: e53030;" text="Delete" textFill="WHITE" />
+      <Text fill="WHITE" layoutX="16.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Key:" />
+      <AnchorPane id="EditCodePane" fx:id="editCodePane" layoutX="256.0" layoutY="46.0" prefHeight="307.0" prefWidth="244.0" style="-fx-background-color: #595959;" visible="false">
          <children>
-            <Text fx:id="successMessage" layoutX="14.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Button fx:id="saveChangesButton" layoutX="136.0" layoutY="262.0" mnemonicParsing="false" onMouseClicked="#handleSaveChanges" onMouseEntered="#saveButtonClicked" onMouseExited="#saveButtonReleased" style="-fx-background-color: e53030;" text="Save Changes" textFill="WHITE" />
+            <Button fx:id="cancelButton" layoutX="14.0" layoutY="262.0" mnemonicParsing="false" onMouseClicked="#handleCancel" onMouseEntered="#cancelButtonClicked" onMouseExited="#cancelButtonReleased" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: e53030;" text="Cancel" textFill="WHITE" />
+            <Text fill="WHITE" layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expense code as is:" />
+            <Text fill="WHITE" layoutX="10.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Description:" />
+            <Text fill="WHITE" layoutX="14.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Key:" />
+            <TextField fx:id="newDescriptionField" layoutX="10.0" layoutY="87.0" promptText="Can be Anything" style="-fx-border-color: #000000;" />
+            <TextField fx:id="newCodeField" layoutX="10.0" layoutY="145.0" promptText="Numbers Only" style="-fx-border-color: #000000;" />
+            <Text fx:id="oldTransactionCode" fill="WHITE" layoutX="14.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" />
          </children>
-      </Pane>
+      </AnchorPane>
+      <AnchorPane fx:id="msgPane" layoutX="151.0" layoutY="60.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #8e1a0b; -fx-border-color: #020202;" visible="false">
+         <children>
+            <Text fx:id="closeMessagesPane" fill="WHITE" layoutX="175.0" layoutY="26.0" onMouseClicked="#closeMessagesPane" strokeType="OUTSIDE" strokeWidth="0.0" text="×" wrappingWidth="22.86865234375">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Text>
+            <Text fx:id="msgHead" fill="#ff8a00" layoutX="63.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WARNING!">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="msgDesc" fill="#ff8a00" layoutX="34.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fields cannot be empty!" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
