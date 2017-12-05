@@ -29,23 +29,23 @@
 
 package application.controller;
 
-import java.util.ArrayList;
-
 import application.Account;
+import application.IOAccounts;
 
 public class UserController 
 {
-    private ArrayList<Account> accountArr;
+    private IOAccounts ioAcct;
     private String curUser = "";
+    private Boolean curAdmin = false;
     
-    public UserController(ArrayList<Account> acts) 
+    public UserController(IOAccounts acts) 
     {
-        this.accountArr = acts;
+        this.ioAcct = acts;
     }
 
     public boolean verifyUser(String username, String password) 
     {
-        for (Account act : accountArr) 
+        for (Account act : ioAcct.getAccounts()) 
         {
             if (act.getUsername().equals(username) &&
                 act.getPassword().equals(password))
@@ -62,5 +62,10 @@ public class UserController
     public void setCurUser(String curUser) 
     {
         this.curUser = curUser;
+        this.curAdmin = this.curUser.equals("csadmin") || this.ioAcct.getAccount(curUser).getAdmin();
+    }
+    
+    public Boolean isAdmin() {
+        return (this.curAdmin || this.curUser.equals("csadmin"));
     }
 }

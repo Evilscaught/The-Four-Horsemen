@@ -58,7 +58,7 @@ public class LoginScreenController implements Initializable
 {
    static private MainMenuController mainMenuController;
 	      private UserController     userController;
-	      private IOTransactions	 ioTransactions;
+          private IOTransactions	 ioTransactions;
 		  private IOAccounts 		 ioAccounts;
 		  private IOCodes			 ioCodes;
 	      private Account 			 requestedAccount;
@@ -158,7 +158,7 @@ public class LoginScreenController implements Initializable
     	try 
     	{
 			ioAccounts.readAccounts();
-			userController = new UserController(ioAccounts.getAccounts());
+			userController = new UserController(ioAccounts);
 		} 
     	catch (FileNotFoundException exception) 
     	{
@@ -519,4 +519,11 @@ public class LoginScreenController implements Initializable
     {
         return mainMenuController;
     }
+
+public UserController getUserController() {
+        return userController;
+    }
+
+
+
 }

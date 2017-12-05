@@ -1,5 +1,5 @@
-Robyn,Berg,robyn.berg@umontana.edu,Robby,csadmin,Testing description,none,none,none
-Travis,Wheeler,travis.wheeler@umontana.edu,Trav,12345,My classes are super easy!,none,none,none
-Michael,Cassens,michael.cassens@umontana.edu,Michy,12345,,none,none,none
-Adam,McManigal,adam.mcmanigal@umontana.edu,Adam,12345,My secret identity is Batman!,none,none,none
-Doug,Raiford,doug.raiford@umontana.edu,Douglas,12345,I'm no longer at the CS Department,none,none,none
+Robyn,Berg,robyn.berg@umontana.edu,Robby,csadmin,Testing description,none,none,none,true
+Travis,Wheeler,travis.wheeler@umontana.edu,Trav,12345,My classes are super easy!,none,none,none,false
+Michael,Cassens,michael.cassens@umontana.edu,Michy,12345,,none,none,none,false
+Adam,McManigal,adam.mcmanigal@umontana.edu,Adam,12345,My secret identity is Batman!,none,none,none,false
+Doug,Raiford,doug.raiford@umontana.edu,Douglas,12345,I'm no longer at the CS Department,none,none,none,false

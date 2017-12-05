@@ -76,13 +76,14 @@ import javafx.stage.Stage;
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class MainMenuController 
 {
-    	  private Stage 			primaryStage;
-    	  private String 			curUser;
-    	  private IOTransactions 	ioTransactions;
-    	  private IOAccounts 		ioAccounts;
-    	  private IOCodes			ioCodes;
+    private Stage 			primaryStage;
+    private String 			curUser;
+    private UserController    userController;
+    private IOTransactions 	ioTransactions;
+    private IOAccounts 		ioAccounts;
+    private IOCodes			ioCodes;
 
-     	  private Map <String, String> prevData;
+    private Map <String, String> prevData;
 
     @FXML private AnchorPane 		sidePane;
     @FXML private AnchorPane 		adminPane;
@@ -103,8 +104,8 @@ public class MainMenuController
     @FXML private TabPane 			mainTabPane;
     @FXML private Tab               adminPaneTab;
     @FXML private Tab				feesPaneTab;
-	@FXML private TableView 		transactionText;
-	@FXML private TableColumn <Map, String> accountCol, customerCol, dateCol, typeCol, amountCol;
+    @FXML private TableView 		transactionText;
+    @FXML private TableColumn <Map, String> accountCol, customerCol, dateCol, typeCol, amountCol;
     @FXML private TextArea 			descriptionField;
     @FXML private SplitPane 		splitMain;
     @FXML private URL 				location;
@@ -128,7 +129,7 @@ public class MainMenuController
         Node temp = splitMain.getItems().get(menuIndex);
 
         splitMain.getItems().remove(temp);
-//        mainTabPane.setPrefWidth(primaryStage.getWidth());
+        //        mainTabPane.setPrefWidth(primaryStage.getWidth());
         hideUserListButton.setLayoutX(-8);
         hideUserListButton.setText("»");
     }
@@ -167,7 +168,8 @@ public class MainMenuController
         this.ioAccounts     = ioAccounts;
         this.ioTransactions = ioTransactions;
         this.curUser = userController.getCurUser();
-        
+        this.userController = userController;
+
         primaryStage = stage;
         primaryStage.setTitle("Isengard");
         primaryStage.getIcons().add(new Image("application/view/images/program-icon.png"));
@@ -181,7 +183,7 @@ public class MainMenuController
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(loader.load());
-            
+
             //Loads the (tabs) panes into the program
             this.setAdminPane();
             this.setTransactionPane();
@@ -191,7 +193,7 @@ public class MainMenuController
             hideUserListButton.setText("«");
             mainTabPane.prefWidthProperty().bind(primaryStage.widthProperty());
             menuPane.prefWidthProperty().bind(primaryStage.widthProperty());
-            
+
             //Keeps logout button in correct position if frame is resized
             scene.widthProperty().addListener(new ChangeListener<Number>() 
             {
@@ -200,7 +202,7 @@ public class MainMenuController
                     logoutMainButton.setLayoutX(newSceneWidth.doubleValue() - 30);
                 }
             });
-            
+
             scene.widthProperty().addListener(new ChangeListener<Number>() {
                 @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
                     logoutMainButton.setLayoutX(newSceneWidth.doubleValue() - 30);
@@ -230,8 +232,43 @@ public class MainMenuController
                 }
             });
 
+            userList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()            
+            {
+                //NOTICE: Few modifications occurred here, only removed the while statement that checks for null Accounts. @Scott McKay
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) 
+                {
+                    if (newValue != null) 
+                    {
+                        ObservableList<Map> allData = FXCollections.observableArrayList();
+                        String recipAct = newValue;
+                        // TODO: Implement a GetAccount in the Accounts class
+                        if (ioTransactions.getTransactions().size() != 0) 
+                        {
+                            for (int i=0; i < ioTransactions.getTransactions().size(); i++)
+                            {
+                                if (ioTransactions.getTransactions().get(i) != null) 
+                                {
+                                    Map<String, String> dataRow = new HashMap<>();
+                                    Transaction temp = ioTransactions.getTransactions().get(i);
+
+                                    if (temp.getRecipientAcct().equals(recipAct)) {
+                                        dataRow.put("account", temp.getRecipientAcct());
+                                        dataRow.put("customer", temp.getCustomer());
+                                        dataRow.put("date", temp.getDate());
+                                        dataRow.put("type", temp.getType());
+                                        dataRow.put("amount", "$" + new DecimalFormat("0.00").format((temp.getAmount())));
+                                        allData.add(dataRow);
+                                    }
+                                }
+                            }
+                            transactionText.setItems(allData);
+                        }
+                    }
+                }
+            });
+
             //Checks if the user is csadmin, otherwise hide Administrator pane and user-list side panel TODO: Remove hard-coded methods
-            if (!this.curUser.equals("csadmin")) 
+            if (!this.userController.isAdmin()) 
             {
                 this.hideUserList();
                 this.hideUserListButton.setVisible(false);
@@ -287,7 +324,7 @@ public class MainMenuController
         //If user clicks cancel, return -1.
         return -1;
     }
-    
+
     //Choose an Account to Delete Dialog
     public String delAccountDialog () 
     {
@@ -320,15 +357,16 @@ public class MainMenuController
         // The Java 8 way to get the response value (with lambda expression).
         // result.ifPresent(letter -> System.out.println("Your choice: " + letter));
     }
-    
+
     @FXML
     void handleViewTransaction(MouseEvent event) {
-    	int arraynum = delTransactionDialog();
-    	transactionPane.getChildren().clear();
-    	transactionPane.getChildren().addAll(new ViewTransactionController(arraynum).getPane());
-    	
+        int arraynum = delTransactionDialog();
+        if (arraynum >= 0) {
+            transactionPane.getChildren().clear();
+            transactionPane.getChildren().addAll(new ViewTransactionController(arraynum).getPane());
+        }
     }
-    
+
     //---------------------------------------------------------------------------------//
     //                                GUI Listener Handlers                        	   //
     //---------------------------------------------------------------------------------//
@@ -359,23 +397,23 @@ public class MainMenuController
 
         main.start(stage);
     }
-    
+
     @FXML
     public void logoutClicked()
     {
-    	//TODO: Change color of lock to Blue when mouse entered
+        //TODO: Change color of lock to Blue when mouse entered
     }
-    
+
     @FXML
     public void logoutReleased()
     {
-    	//TODO: Change color of lock back to Red when mouse exited
+        //TODO: Change color of lock back to Red when mouse exited
     }
-    
+
     //---------------------------------------------------------------------------------//
     //                                Account Overview Pane                        	   //
     //---------------------------------------------------------------------------------//
-    
+
     private void setAccountOverviewPane()
     {
         accountOverviewPane.getChildren().clear();
@@ -385,7 +423,7 @@ public class MainMenuController
     //---------------------------------------------------------------------------------//
     //                                Administrator Pane                               //
     //---------------------------------------------------------------------------------//
-    
+
     public void setAdminPane() 
     {
         // Load root layout from FXML file.
@@ -403,26 +441,26 @@ public class MainMenuController
             event.printStackTrace();
         }
     }
-    
+
     @FXML
     public void handleCreateAccount(MouseEvent event) 
     {
         adminPane.getChildren().clear();
         adminPane.getChildren().addAll(new CreateAccountController().getPane());
     }
-    
+
     @FXML
     public void createAccountClicked()
     {
-    	//Set button color to navy blue when clicked on
-    	createAccountButton.setStyle("-fx-background-color: #273e51;");
+        //Set button color to navy blue when clicked on
+        createAccountButton.setStyle("-fx-background-color: #273e51;");
     }
-    
+
     @FXML
     public void createAccountReleased()
     {
-    	//Set button back to original color (Red) when click is released
-    	createAccountButton.setStyle("-fx-background-color: #e53030;");
+        //Set button back to original color (Red) when click is released
+        createAccountButton.setStyle("-fx-background-color: #e53030;");
     }
 
     @FXML
@@ -439,19 +477,19 @@ public class MainMenuController
         }
         this.refreshUserList();
     }
-    
+
     @FXML
     public void deleteAccountClicked()
     {
-    	//Set button color to navy blue when clicked on
-    	deleteAccountButton.setStyle("-fx-background-color: #273e51;");
+        //Set button color to navy blue when clicked on
+        deleteAccountButton.setStyle("-fx-background-color: #273e51;");
     }
-    
+
     @FXML
     public void deleteAccountReleased()
     {
-    	//Set button back to original color (Red) when click is released
-    	deleteAccountButton.setStyle("-fx-background-color: #e53030;");
+        //Set button back to original color (Red) when click is released
+        deleteAccountButton.setStyle("-fx-background-color: #e53030;");
     }
 
     @FXML
@@ -464,11 +502,12 @@ public class MainMenuController
         {
             return;
         }*/
-
-        transactionPane.getChildren().clear();
-        transactionPane.getChildren().addAll(new EditTransactionController(arrayNum).getPane());
+        if (arrayNum >= 0) {
+            transactionPane.getChildren().clear();
+            transactionPane.getChildren().addAll(new EditTransactionController(arrayNum).getPane());
+        }
     }
-    
+
     public AnchorPane getAdminPane()
     {
         return adminPane;
@@ -482,12 +521,12 @@ public class MainMenuController
     {
         return primaryStage;
     }
-    
+
     //---------------------------------------------------------------------------------//
     //                                Transaction Pane                                 //
     //---------------------------------------------------------------------------------//
 
-	public void setTransactionPane() 
+    public void setTransactionPane() 
     {
         // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
@@ -516,7 +555,7 @@ public class MainMenuController
 
 
         ObservableList<Map> allData = FXCollections.observableArrayList();
-        
+
         String recipAct = "";
 
         for (Account tmp : ioAccounts.getAccounts()) 
@@ -527,7 +566,7 @@ public class MainMenuController
             }
         }
 
-        
+
         if (ioTransactions.getTransactions().size() != 0) 
         {
             for (int i=0; i < ioTransactions.getTransactions().size(); i++)
@@ -536,8 +575,8 @@ public class MainMenuController
                 {
                     Map<String, String> dataRow = new HashMap<>();
                     Transaction temp = ioTransactions.getTransactions().get(i);
-                    
-                    if (temp.getRecipientAcct().equals(recipAct) || this.curUser.equals("csadmin")) {
+
+                    if (temp.getRecipientAcct().equals(recipAct) || this.userController.isAdmin()) {
                         dataRow.put("account", temp.getRecipientAcct());
                         dataRow.put("customer", temp.getCustomer());
                         dataRow.put("date", temp.getDate());
@@ -550,73 +589,73 @@ public class MainMenuController
             transactionText.setItems(allData);
         }
     }
-    
+
     @FXML
     public void printButtonClicked()
     {
-    	//Set button color to navy blue when clicked on
-    	printButton.setStyle("-fx-background-color: #273e51;");
+        //Set button color to navy blue when clicked on
+        printButton.setStyle("-fx-background-color: #273e51;");
     }
-    
+
     @FXML
     public void printButtonReleased()
     {
-    	//Set button back to original color (Red) when click is released
-    	printButton.setStyle("-fx-background-color: #e53030;");
+        //Set button back to original color (Red) when click is released
+        printButton.setStyle("-fx-background-color: #e53030;");
     }
-    
+
     @FXML
     void handleAddTransaction(MouseEvent event) 
     {
         transactionPane.getChildren().clear();
         transactionPane.getChildren().addAll(new CreateTransactionController().getPane());
     }
-    
+
     @FXML
     public void addTransactionClicked()
     {
-    	//Set button color to navy blue when clicked on
-    	addTransactionButton.setStyle("-fx-background-color: #273e51;");
+        //Set button color to navy blue when clicked on
+        addTransactionButton.setStyle("-fx-background-color: #273e51;");
     }
-    
+
     @FXML
     public void addTransactionReleased()
     {
-    	//Set button back to original color (Red) when click is released
-    	addTransactionButton.setStyle("-fx-background-color: #e53030;");
+        //Set button back to original color (Red) when click is released
+        addTransactionButton.setStyle("-fx-background-color: #e53030;");
     }
-    
+
     @FXML
     public void editTransactionClicked()
     {
-    	//Set button color to navy blue when clicked on
-    	editTransactionButton.setStyle("-fx-background-color: #273e51;");
+        //Set button color to navy blue when clicked on
+        editTransactionButton.setStyle("-fx-background-color: #273e51;");
     }
-    
+
     @FXML
     public void editTransactionReleased()
     {
-    	//Set button back to original color (Red) when click is released
-    	editTransactionButton.setStyle("-fx-background-color: #e53030;");
+        //Set button back to original color (Red) when click is released
+        editTransactionButton.setStyle("-fx-background-color: #e53030;");
     }
-    
+
     @FXML
     public void viewTransactionClicked()
     {
-    	//Set button color to navy blue when clicked on
-    	viewTransactionButton.setStyle("-fx-background-color: #273e51;");
+        //Set button color to navy blue when clicked on
+        viewTransactionButton.setStyle("-fx-background-color: #273e51;");
     }
-    
+
     @FXML
     public void viewTransactionReleased()
     {
-    	//Set button back to original color (Red) when click is released
-    	viewTransactionButton.setStyle("-fx-background-color: #e53030;");
+        //Set button back to original color (Red) when click is released
+        viewTransactionButton.setStyle("-fx-background-color: #e53030;");
     }
-    
+
     public void loadUserData(String user) {
         ObservableList<Map> allData = FXCollections.observableArrayList();
-        
+
         if (this.getTransactionDB().getTransactions().size() != 0) 
         {
             for (int i=0; i < this.getTransactionDB().getTransactions().size(); i++)
@@ -625,7 +664,7 @@ public class MainMenuController
                 {
                     Map<String, String> dataRow = new HashMap<>();
                     Transaction temp = this.getTransactionDB().getTransactions().get(i);
-                    
+
                     if (temp.getRecipientAcct().equals(user)) {
                         dataRow.put("account", temp.getRecipientAcct());
                         dataRow.put("customer", temp.getCustomer());
@@ -653,12 +692,12 @@ public class MainMenuController
     {
         return ioAccounts;
     }
-    
+
     public IOCodes getCodesDB()
     {
-    	return ioCodes;
+        return ioCodes;
     }
-    
+
     public Map<String, String> getPrevData() {
         return prevData;
     }

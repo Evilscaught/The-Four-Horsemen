@@ -36,20 +36,23 @@ import application.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class CreateAccountController 
 {
-    	  private Pane 			currentPane;
+    	  private AnchorPane currentPane;
     
     @FXML private TextField 	firstNameField, lastNameField, emailField, userNameField;
     @FXML private PasswordField passField, passVerifyField;
     @FXML private TextArea 		descriptionField;
     @FXML private Button		cancelButton, createButton;
+    @FXML private CheckBox      isAdminBox;
     
     public CreateAccountController() 
     {
@@ -64,6 +67,7 @@ public class CreateAccountController
         } 
         catch (IOException event) 
         {
+            System.out.println("Error loading CreateAccount.fxml!");
             event.printStackTrace();
         }
     }
@@ -140,7 +144,7 @@ public class CreateAccountController
         //Create account if no text fields are empty
     	else
     	{
-            Account account = new Account(firstNameField.getText(), lastNameField.getText(), emailField.getText(), userNameField.getText(), passField.getText());
+            Account account = new Account(firstNameField.getText(), lastNameField.getText(), emailField.getText(), userNameField.getText(), passField.getText(), isAdminBox.isSelected());
             account.setDescription(descriptionField.getText());
             
             currentPane.getChildren().clear();
@@ -244,12 +248,12 @@ public class CreateAccountController
     	return pass;
     }
     
-    public Pane getPane() 
+    public AnchorPane getPane() 
     {
         return currentPane;
     }
 
-    public void setPane(Pane currentPane) 
+    public void setPane(AnchorPane currentPane) 
     {
         this.currentPane = currentPane;
     }

@@ -69,17 +69,17 @@ public class IOAccounts
             //Read in string and create account objects.
             while(token.hasNext())
             {
-            	//            First Name    Last Name     Email         User-name     Password      Description   Sec-Q1        Sec-Q2        Sec-Q3
-                createAccount(token.next(), token.next(), token.next(), token.next(), token.next(), token.next(), token.next(), token.next(), token.next());
+            	//            First Name    Last Name     Email         User-name     Password      Description   Sec-Q1        Sec-Q2        Sec-Q3          is Admin?
+                createAccount(token.next(), token.next(), token.next(), token.next(), token.next(), token.next(), token.next(), token.next(), token.next(), Boolean.parseBoolean(token.next()));
             }
-            token.close();
+            token.close(); 
         }
         file.close();
     }
     
-    public void createAccount(String firstName, String lastName, String username, String email, String password, String description, String secQuestion1, String secQuestion2, String secQuestion3)
+    public void createAccount(String firstName, String lastName, String username, String email, String password, String description, String secQuestion1, String secQuestion2, String secQuestion3, Boolean isAdmin)
     {
-        Account account = new Account(firstName, lastName, username, email, password); 
+        Account account = new Account(firstName, lastName, username, email, password, isAdmin); 
         account.setDescription(description);
         account.setSecurityQuestion1(secQuestion1);
         account.setSecurityQuestion2(secQuestion2);
@@ -101,6 +101,14 @@ public class IOAccounts
     public ArrayList<Account> getAccounts()
     {
     	return accountArr;
+    }
+    
+    public Account getAccount(String userName) {
+        for (Account act : this.getAccounts()) {
+            if (act.getUsername().equals(userName))
+                return act;
+        }
+        return null;
     }
     
     public ArrayList<String> getUsernames()
@@ -140,7 +148,7 @@ public class IOAccounts
 		IOAccounts IOAcct = new IOAccounts("src/Accounts.txt");
 		
 		IOAcct.readAccounts();
-		IOAcct.createAccount("Testing FN", "Testing LN", "Testing UN", "Testing Email", "Testing Password", "Testing Description", "Test SecQ1", "Test SecQ2", "Test SecQ3");
+		IOAcct.createAccount("Testing FN", "Testing LN", "Testing UN", "Testing Email", "Testing Password", "Testing Description", "Test SecQ1", "Test SecQ2", "Test SecQ3", false);
 		IOAcct.saveAccounts();
 		
 		for (Account account : IOAcct.getAccounts())
