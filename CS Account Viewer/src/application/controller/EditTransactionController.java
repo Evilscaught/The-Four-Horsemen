@@ -30,7 +30,6 @@
 package application.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import application.Main;
@@ -277,11 +276,9 @@ public class EditTransactionController
     	//transactionCodes.getItems().add("None");
     	//transactionCodes.getSelectionModel().selectFirst();
     	
-    	ArrayList<String> codes = LoginScreenController.getMainController().getCodesDB().getCodes();
-    	
-    	for (String code : codes)
+    	for (String code : LoginScreenController.getMainController().getCodesDB().getSTCodes().keys())
     	{
-    		transactionCodes.getItems().add(code);
+          transactionCodes.getItems().add(code + ": " + LoginScreenController.getMainController().getCodesDB().getSTCodes().get(code));
     	}
     	
     }

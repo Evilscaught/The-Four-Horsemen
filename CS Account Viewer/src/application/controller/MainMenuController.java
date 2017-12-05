@@ -58,7 +58,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -129,8 +128,7 @@ public class MainMenuController
 
         splitMain.getItems().remove(temp);
         hideUserListButton.setLayoutX(-8);
-        mainTabPane.setPrefWidth(primaryStage.getWidth());
-        hideUserListButton.setText("»");
+        hideUserListButton.setText("ï¿½");
     }
 
     public void addUserList() 
@@ -138,7 +136,7 @@ public class MainMenuController
         splitMain.getItems().add(0, sidePane);
         splitMain.setDividerPosition(0, 0.17);
         hideUserListButton.setLayoutX(-10); 
-        hideUserListButton.setText("«");
+        hideUserListButton.setText("ï¿½");
     }
 
     public void refreshUserList() 
@@ -189,7 +187,7 @@ public class MainMenuController
             this.setAccountOverviewPane();
 
             hideUserListButton.setPadding(Insets.EMPTY);
-            hideUserListButton.setText("«");
+            hideUserListButton.setText("ï¿½");
             mainTabPane.prefWidthProperty().bind(primaryStage.widthProperty());
 //            menuPane.prefWidthProperty().bind(primaryStage.widthProperty());
 
