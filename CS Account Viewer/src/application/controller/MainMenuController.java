@@ -191,7 +191,7 @@ public class MainMenuController
             hideUserListButton.setPadding(Insets.EMPTY);
             hideUserListButton.setText("«");
             mainTabPane.prefWidthProperty().bind(primaryStage.widthProperty());
-            menuPane.prefWidthProperty().bind(primaryStage.widthProperty());
+//            menuPane.prefWidthProperty().bind(primaryStage.widthProperty());
 
             //Keeps logout button in correct position if frame is resized
             scene.widthProperty().addListener(new ChangeListener<Number>() 
