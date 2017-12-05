@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-11-23" view-index="0" gantt-divider-location="401" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-11-20" view-index="0" gantt-divider-location="401" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
     <view zooming-state="default:0" id="gantt-chart">
         <field id="tpd3" name="Name" width="254" order="0"/>
@@ -119,7 +119,7 @@ Jack also helped with the gui, made the windows resizable and small changes.]]><
                 <notes><![CDATA[Scott implemented the calendar in order to pick the date ]]></notes>
             </task>
         </task>
-        <task id="63" name="Sprint 5" color="#ff0033" meeting="false" start="2017-11-30" duration="3" complete="80" priority="2" expand="true">
+        <task id="63" name="Sprint 5" color="#ff0033" meeting="false" start="2017-11-22" duration="10" complete="91" priority="2" expand="true">
             <notes><![CDATA[Sprint #5
 ]]></notes>
             <task id="70" name="+Account Overview Saves Changes" color="#8cb6ce" meeting="false" start="2017-11-30" duration="1" complete="100" expand="true">
@@ -134,8 +134,29 @@ Jack also helped with the gui, made the windows resizable and small changes.]]><
             <task id="81" name="+Edit passwords in Account Overview" color="#8cb6ce" meeting="false" start="2017-12-04" duration="1" complete="100" expand="true">
                 <notes><![CDATA[Implemented by: Scott McKay (Github: @Evilscaught)]]></notes>
             </task>
-            <task id="84" name="+Edit / Delete Existing Transaction Codes" color="#8cb6ce" meeting="false" start="2017-12-04" duration="1" complete="0" expand="true">
+            <task id="84" name="+Edit / Delete Existing Transaction Codes" color="#8cb6ce" meeting="false" start="2017-12-04" duration="1" complete="100" expand="true">
                 <notes><![CDATA[Implemented by: Scott McKay (Github: @Evilscaught)]]></notes>
+            </task>
+            <task id="85" name="+Program Resizes" color="#8cb6ce" meeting="false" start="2017-12-01" duration="3" complete="100" expand="true">
+                <notes><![CDATA[Code Implemented by Jack Cummings]]></notes>
+            </task>
+            <task id="89" name="Updated &amp; Improved Edit Transact." color="#8cb6ce" meeting="false" start="2017-12-04" duration="2" complete="100" expand="true">
+                <notes><![CDATA[Code Updated by Jake Wolfe]]></notes>
+            </task>
+            <task id="91" name="Filter Transactions by Account" color="#8cb6ce" meeting="false" start="2017-12-04" duration="1" complete="100" expand="true">
+                <notes><![CDATA[Code Implemented by:  Jack Cummings]]></notes>
+            </task>
+            <task id="93" name="Save Info. when creating Transact." color="#8cb6ce" meeting="false" start="2017-12-04" duration="1" complete="100" expand="true">
+                <notes><![CDATA[Code Implemented by: Jack Cummings]]></notes>
+            </task>
+            <task id="96" name="Add date, and type fields to Transaction List" color="#8cb6ce" meeting="false" start="2017-12-04" duration="1" complete="100" expand="true">
+                <notes><![CDATA[Code Implemented by Jake Wolfe]]></notes>
+            </task>
+            <task id="99" name="Various Bug Fixes" color="#8cb6ce" meeting="false" start="2017-11-22" duration="10" complete="80" priority="0" expand="true">
+                <notes><![CDATA[Jack Cummings
+Dan Bailey
+Scott McKay
+Jake Wolfe]]></notes>
             </task>
         </task>
     </tasks>
