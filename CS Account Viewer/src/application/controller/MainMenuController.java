@@ -99,7 +99,6 @@ public class MainMenuController
     @FXML private Button 			hideUserListButton;
     @FXML private ImageView 		logoutMainButton;
     @FXML private ListView<String> 	userList;
-    @FXML private MenuBar 			menuPane;
     @FXML private ResourceBundle 	resources;
     @FXML private TabPane 			mainTabPane;
     @FXML private Tab               adminPaneTab;
@@ -129,8 +128,8 @@ public class MainMenuController
         Node temp = splitMain.getItems().get(menuIndex);
 
         splitMain.getItems().remove(temp);
-        //        mainTabPane.setPrefWidth(primaryStage.getWidth());
         hideUserListButton.setLayoutX(-8);
+        mainTabPane.setPrefWidth(primaryStage.getWidth());
         hideUserListButton.setText("»");
     }
 
@@ -138,7 +137,7 @@ public class MainMenuController
     {        
         splitMain.getItems().add(0, sidePane);
         splitMain.setDividerPosition(0, 0.17);
-        hideUserListButton.setLayoutX(80); 
+        hideUserListButton.setLayoutX(-10); 
         hideUserListButton.setText("«");
     }
 

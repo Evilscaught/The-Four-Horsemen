@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
@@ -8,37 +10,42 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<?scenebuilder-stylesheet ../../../../../../workspace/_javafx_test1/bootstrap3.css?>
-
+<?import javafx.scene.text.*?>
 <!-- Added controller class...  fx:controller="application.controller.MainMenuController"  -->
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0000999999975" prefWidth="605.0000999999975" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.999977929685" prefWidth="741.999977929685" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
-    <SplitPane fx:id="splitMain" dividerPositions="0.16583745176825082" focusTraversable="true" prefHeight="373.999977929685" prefWidth="600.0000999999975" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
+    <SplitPane fx:id="splitMain" dividerPositions="0.255405413022808" focusTraversable="true" prefHeight="428.0000999999975" prefWidth="697.0000999999975" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
       <items>
         <AnchorPane fx:id="sidePane" minHeight="0.0" minWidth="0.0" prefHeight="373.0" prefWidth="148.0">
           <children>
-            <ListView fx:id="userList" disable="false" opacity="1.0" prefHeight="373.0" prefWidth="96.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Button fx:id="hideUserListButton" layoutX="116.0" layoutY="1.0" minWidth="16.0" mnemonicParsing="false" onMouseClicked="#hideUserList" prefHeight="18.0" prefWidth="25.0" text="&lt;&gt;">
+              <font>
+                <Font size="8.0" />
+              </font>
+            </Button>
+            <ListView fx:id="userList" disable="false" opacity="1.0" prefHeight="428.0" prefWidth="143.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-27.0" />
           </children>
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
           <children>
-            <TabPane fx:id="mainTabPane" prefHeight="373.0" prefWidth="501.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="mainTabPane" layoutX="0.0" layoutY="0.0" prefHeight="386.0" prefWidth="548.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                              <Tab text="Transactions">
+                <Tab text="Transactions">
                   <content>
-                    <AnchorPane id="Content" fx:id="transactionPane" minHeight="0.0" minWidth="0.0" prefHeight="344.0" prefWidth="476.0000999999975" />
+                    <AnchorPane id="Content" fx:id="transactionPane" minHeight="0.0" minWidth="0.0" prefHeight="386.0" prefWidth="521.0" />
                   </content>
                 </Tab>
-                <Tab fx:id="feesPaneTab" style="-fx-background-color: #EE6666;" text="Fees">
+                <Tab fx:id="feesPaneTab" style="" text="Fees">
                   <content>
                     <AnchorPane id="Content" fx:id="feesPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>
                 </Tab>
-              
                 <Tab text="Account Overview">
                   <content>
                     <AnchorPane id="Content" fx:id="accountOverviewPane" minHeight="0.0" minWidth="0.0" prefHeight="342.0000999999975" prefWidth="497.0" />
@@ -46,39 +53,20 @@
                 </Tab>
                 <Tab fx:id="adminPaneTab" style="-fx-background-color: #EE6666;&#10;&#10;" text="Administrator">
                   <content>
-                    <AnchorPane id="Content" fx:id="adminPane" minHeight="0.0" minWidth="0.0" prefHeight="344.0" prefWidth="476.0000999999975" />
+                    <AnchorPane id="Content" fx:id="adminPane" minHeight="0.0" minWidth="0.0" prefHeight="343.0" prefWidth="512.0" />
                   </content>
                 </Tab>
               </tabs>
             </TabPane>
+            <Label layoutX="461.0" layoutY="13.0" text="Logout:" textFill="#3354ff" />
           </children>
         </AnchorPane>
       </items>
     </SplitPane>
-    <MenuBar fx:id="menuPane" layoutX="0.0" layoutY="2.0" prefHeight="25.0" prefWidth="605.0" visible="true">
-      <menus>
-        <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Close" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Delete" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-          <items>
-            <MenuItem mnemonicParsing="false" text="About" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
-      <ImageView fx:id="logoutMainButton" fitHeight="25.0" fitWidth="26.0" layoutX="577.0" layoutY="29.0" onMouseClicked="#handleLogout" onMouseEntered="#logoutClicked" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/menu-screen-lock.png" />
-         </image>
-      </ImageView>
-    <Button fx:id="hideUserListButton" cancelButton="false" layoutX="74.0" layoutY="32.0" minHeight="19.0" minWidth="18.0" mnemonicParsing="false" onMouseClicked="#hideUserList" prefHeight="19.0" prefWidth="18.0" text="-" textOverrun="CLIP" />
+    <ImageView fx:id="logoutMainButton" fitHeight="25.0" fitWidth="26.0" layoutX="712.0" layoutY="10.0" onMouseClicked="#handleLogout" onMouseEntered="#logoutClicked" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@images/menu-screen-lock.png" />
+      </image>
+    </ImageView>
   </children>
 </AnchorPane>
