@@ -241,15 +241,12 @@ public class EditTransactionController
         int counter = 0;
         int index = 0;
         
-        System.out.println("For:" + current.getRecipientAcct());
         
         for (String item : array) 
         {
-        	System.out.println("Trying: " + item);
         	
-        	if (current.getRecipientAcct() == item) 
+        	if (current.getRecipientAcct().equals(item)) 
         	{
-        		System.out.println(item);
         		index = counter;
         	}
         	counter++;
