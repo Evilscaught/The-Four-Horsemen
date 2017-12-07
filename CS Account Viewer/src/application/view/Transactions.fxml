@@ -26,7 +26,7 @@
       </columns>
     </TableView>
     <Button fx:id="addTransactionButton" layoutX="154.0" layoutY="306.0" mnemonicParsing="false" onMouseClicked="#handleAddTransaction" onMouseEntered="#addTransactionClicked" onMouseExited="#addTransactionReleased" prefHeight="27.0" prefWidth="117.0" style="-fx-background-color: e53030;" text="Add Transaction" textFill="$x1" />
-    <Button fx:id="printButton" layoutX="432.0" layoutY="306.0" mnemonicParsing="false" onMouseEntered="#printButtonClicked" onMouseExited="#printButtonReleased" prefHeight="27.0" prefWidth="107.0" style="-fx-background-color: e53030;" text="Print" textFill="$x1" />
+    <Button fx:id="printButton" layoutX="432.0" layoutY="306.0" mnemonicParsing="false" onMouseEntered="#printButtonClicked" onMouseExited="#printButtonReleased" onMouseClicked="#handleprintButton" prefHeight="27.0" prefWidth="107.0" style="-fx-background-color: e53030;" text="Print" textFill="$x1" />
     <Button fx:id="viewTransactionButton" layoutX="13.0" layoutY="306.0" mnemonicParsing="false" onMouseClicked="#handleViewTransaction" onMouseEntered="#viewTransactionClicked" onMouseExited="#viewTransactionReleased" prefHeight="27.0" prefWidth="117.0" style="-fx-background-color: e53030;" text="View Transaction" textFill="$x1" />
   </children>
 </AnchorPane>
