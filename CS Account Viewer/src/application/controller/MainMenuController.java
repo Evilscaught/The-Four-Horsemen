@@ -80,6 +80,7 @@ import java.awt.*;
 import java.io.FileInputStream;
 
 import java.io.ByteArrayInputStream;
+import java.awt.Desktop;
 
 import javax.print.Doc;
 import javax.print.DocFlavor;
@@ -791,35 +792,30 @@ public class MainMenuController
 
     public void printTextFile() throws PrintException, IOException
     {
-        try{
-            FileInputStream file = new FileInputStream(new File("application/src/Print.txt"));
-            String defaultPrinter = PrintServiceLookup.lookupDefaultPrintService().getName();
-            System.out.println("Default printer: " + defaultPrinter);
 
+            PrinterJob pj = PrinterJob.getPrinterJob();
 
-
-            PrintService dservice = PrintServiceLookup.lookupDefaultPrintService();
-            DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
-            PrintRequestAttributeSet  pras = new HashPrintRequestAttributeSet();
-            PrintService[] services = PrintServiceLookup.lookupPrintServices(flavor, pras);
-
-            //pras.add(new Copies(1));
-            Doc doc = new SimpleDoc(file, flavor, null);
-
-            PrintService service = ServiceUI.printDialog(null, 500, 500, services, dservice, flavor, pras);
-
-            if (service != null)
+            if (pj.printDialog())
             {
-                DocPrintJob job = service.createPrintJob();
-                System.out.println("printing");
-                job.print(doc, pras);
+                print();
             }
 
-        }
-        catch(PrintException pe){
-            System.out.println(pe);
-        }
+    }
 
+    public void print()
+    {
+    try {
+      Desktop desktop = null;
+      if (Desktop.isDesktopSupported()) {
+        desktop = Desktop.getDesktop();
+      }
+
+       desktop.print(new File("application/src/Print.txt"));
+    }
+    catch (IOException ioe)
+    {
+      ioe.printStackTrace();
+    }
     }
 
 }// end of class
