@@ -30,7 +30,6 @@
 package application.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,7 +67,7 @@ public class CreateTransactionController
     }
     
     @FXML
-    void saveButtonClicked(MouseEvent event) 
+    void saveButtonClicked(MouseEvent event)
     {
     	//Check that all parameters have been correctly filled by user
     	if (!checkParam())
@@ -97,7 +96,6 @@ public class CreateTransactionController
         	amount = amount * -1;
         	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Expense", code);
         }
-
         LoginScreenController.getMainController().setTransactionPane();
     }
     
@@ -229,11 +227,9 @@ public class CreateTransactionController
     	transactionCodes.getItems().add("None");
     	transactionCodes.getSelectionModel().selectFirst();
     	
-    	ArrayList<String> codes = LoginScreenController.getMainController().getCodesDB().getCodes();
-    	
-    	for (String code : codes)
+    	for (String code : LoginScreenController.getMainController().getCodesDB().getSTCodes().keys())
     	{
-    		transactionCodes.getItems().add(code);
+          transactionCodes.getItems().add(code + ": " + LoginScreenController.getMainController().getCodesDB().getSTCodes().get(code));
     	}
     	
     }

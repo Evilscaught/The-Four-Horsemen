@@ -34,7 +34,6 @@ import java.io.FileWriter;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import edu.princeton.cs.algs4.ST;
@@ -43,20 +42,10 @@ public class IOCodes
 {
 	private String 				codesPath;
 	private ST<String, Integer> codes;
-    private ArrayList<String>   keys  = new ArrayList<String>(20);
-    private ArrayList<Integer>  values = new ArrayList<Integer>(20);
 	
     public IOCodes(String path)
     {
     	codesPath = path;
-    	
-    	//TODO: Remove this once CreateNewTransaction.java has been converted over to new code
-    	values.add(663662);
-    	keys.add("Code A");
-    	values.add(488493);
-    	keys.add("Code B");
-    	values.add(477223);
-    	keys.add("Code Red");
     }
     
     public void readCodes()
@@ -123,38 +112,6 @@ public class IOCodes
     {
     	return codes.size();
     }
-    
-    //Deprecated methods: To be removed in next reunion:
-    
-	@Deprecated
-    public ArrayList<Integer> getValues() 
-    {
-    	return values;
-    }
-
-    @Deprecated
-    public ArrayList<String> getCodes() 
-    {
-    	ArrayList<String> codes = new ArrayList<String>(20);
-	
-    	int counter = 0;
-	
-    	while(counter < values.size()) 
-		{
-			codes.add(keys.get(counter) + " - " + values.get(counter));
-			counter++;
-		}
-	
-		return codes;
-	}
-	
-    @Deprecated
-    public void addCode(String desc, int code) 
-    {
-    	keys.add(desc);
-    	values.add(code);
-    }
-    
     
     //Unit Testing
     public static void main(String[] args) throws Exception
