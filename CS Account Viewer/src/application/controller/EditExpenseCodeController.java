@@ -123,10 +123,7 @@ public class EditExpenseCodeController
   			return;
   		}
   		else
-  		{
-  			LoginScreenController.getMainController().getCodesDB().addCode( descriptionField.getText(), Integer.parseInt( codeField.getText() ) );
-  			
-  			//TODO: Remove statement above and replace with statement below:
+  		{	
   			descriptionField.setText(descriptionField.getText().replaceAll(":", ""));
   			LoginScreenController.getMainController().getCodesDB().put(descriptionField.getText(), Integer.parseInt(codeField.getText()));
   			refreshCodesList();
