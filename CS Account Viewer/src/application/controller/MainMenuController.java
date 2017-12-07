@@ -9,7 +9,7 @@
  *  @copyright      None
  *  @date_created   Sometime between October and November 2017
  *
- * 
+ *
  *
  *     *
  *
@@ -21,7 +21,7 @@
  *
  *  FEATURE:
  *
- *  NOTE: 
+ *  NOTE:
  *
  *  % java MainMenuController
  *
@@ -72,9 +72,42 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.awt.print.*;
+import java.awt.*;
+import java.io.FileInputStream;
+
+import java.io.ByteArrayInputStream;
+
+import javax.print.Doc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintException;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
+import javax.print.attribute.PrintServiceAttribute;
+import javax.print.attribute.standard.PrinterName;
+
+import java.io.InputStream;
+
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.Copies;
+
+import javax.print.event.PrintJobAdapter;
+import javax.print.event.PrintJobEvent;
+import javax.print.attribute.*;
+import javax.swing.UIManager;
+import java.awt.print.*;
+import javax.print.ServiceUI;
+
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
-public class MainMenuController 
+public class MainMenuController
 {
     private Stage 			primaryStage;
     private String 			curUser;
@@ -110,8 +143,8 @@ public class MainMenuController
     @FXML private URL 				location;
 
 
-    public String[] getUserListFirstLast() 
-    {	
+    public String[] getUserListFirstLast()
+    {
         String [] userListStr = new String [ioAccounts.getAccounts().size()];
 
         //For every account in ioAccounts, get the first and last names, and add it to userListStr[index]
@@ -122,7 +155,7 @@ public class MainMenuController
         return userListStr;
     }
 
-    public void hideUserList() 
+    public void hideUserList()
     {
         int menuIndex = splitMain.getItems().indexOf(sidePane);
         Node temp = splitMain.getItems().get(menuIndex);
@@ -130,36 +163,36 @@ public class MainMenuController
         splitMain.getItems().remove(temp);
         hideUserListButton.setLayoutX(-8);
         mainTabPane.setPrefWidth(primaryStage.getWidth());
-        hideUserListButton.setText("»");
+        hideUserListButton.setText("ï¿½");
     }
 
-    public void addUserList() 
-    {        
+    public void addUserList()
+    {
         splitMain.getItems().add(0, sidePane);
         splitMain.setDividerPosition(0, 0.17);
-        hideUserListButton.setLayoutX(-10); 
-        hideUserListButton.setText("«");
+        hideUserListButton.setLayoutX(-10);
+        hideUserListButton.setText("ï¿½");
     }
 
-    public void refreshUserList() 
+    public void refreshUserList()
     {
         userList.getItems().clear();
 
         for (int index = 0; index < ioAccounts.getAccounts().size(); index++)
         {
             userList.getItems().add(ioAccounts.getAccounts().get(index).getFirstName() + " " + ioAccounts.getAccounts().get(index).getLastName());
-        }     
+        }
     }
 
 
     @FXML
-    public void initialize() 
+    public void initialize()
     {
-        this.refreshUserList();    
+        this.refreshUserList();
     }
 
 
-    public Scene loadScene(Stage stage, IOAccounts ioAccounts, IOTransactions ioTransactions, IOCodes ioCodes, UserController userController) 
+    public Scene loadScene(Stage stage, IOAccounts ioAccounts, IOTransactions ioTransactions, IOCodes ioCodes, UserController userController)
     {
         BorderPane rootLayout = new BorderPane();
 
@@ -173,7 +206,7 @@ public class MainMenuController
         primaryStage.setTitle("Isengard");
         primaryStage.getIcons().add(new Image("application/view/images/program-icon.png"));
 
-        try  
+        try
         {
             // Load root layout from FXML file.
             FXMLLoader loader = new FXMLLoader();
@@ -189,14 +222,14 @@ public class MainMenuController
             this.setAccountOverviewPane();
 
             hideUserListButton.setPadding(Insets.EMPTY);
-            hideUserListButton.setText("«");
+            hideUserListButton.setText("ï¿½");
             mainTabPane.prefWidthProperty().bind(primaryStage.widthProperty());
 //            menuPane.prefWidthProperty().bind(primaryStage.widthProperty());
 
             //Keeps logout button in correct position if frame is resized
-            scene.widthProperty().addListener(new ChangeListener<Number>() 
+            scene.widthProperty().addListener(new ChangeListener<Number>()
             {
-                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) 
+                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth)
                 {
                     logoutMainButton.setLayoutX(newSceneWidth.doubleValue() - 30);
                 }
@@ -231,21 +264,21 @@ public class MainMenuController
                 }
             });
 
-            userList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()            
+            userList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
             {
                 //NOTICE: Few modifications occurred here, only removed the while statement that checks for null Accounts. @Scott McKay
-                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) 
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
                 {
-                    if (newValue != null) 
+                    if (newValue != null)
                     {
                         ObservableList<Map> allData = FXCollections.observableArrayList();
                         String recipAct = newValue;
                         // TODO: Implement a GetAccount in the Accounts class
-                        if (ioTransactions.getTransactions().size() != 0) 
+                        if (ioTransactions.getTransactions().size() != 0)
                         {
                             for (int i=0; i < ioTransactions.getTransactions().size(); i++)
                             {
-                                if (ioTransactions.getTransactions().get(i) != null) 
+                                if (ioTransactions.getTransactions().get(i) != null)
                                 {
                                     Map<String, String> dataRow = new HashMap<>();
                                     Transaction temp = ioTransactions.getTransactions().get(i);
@@ -267,7 +300,7 @@ public class MainMenuController
             });
 
             //Checks if the user is csadmin, otherwise hide Administrator pane and user-list side panel TODO: Remove hard-coded methods
-            if (!this.userController.isAdmin()) 
+            if (!this.userController.isAdmin())
             {
                 this.hideUserList();
                 this.hideUserListButton.setVisible(false);
@@ -275,8 +308,8 @@ public class MainMenuController
                 this.feesPaneTab.setDisable(true);
             }
             return scene;
-        } 
-        catch (IOException event) 
+        }
+        catch (IOException event)
         {
             event.printStackTrace();
         }
@@ -286,14 +319,14 @@ public class MainMenuController
 
     //Choose a Transaction to Edit Dialog
     @SuppressWarnings({ "resource", "static-access" })
-    public int delTransactionDialog() 
+    public int delTransactionDialog()
     {
         List<String> choices = new ArrayList<>();
 
         int counter = 0;
 
         //Show list of transactions to edit.
-        for(Transaction transaction : ioTransactions.getTransactions()) 
+        for(Transaction transaction : ioTransactions.getTransactions())
         {
             choices.add(counter + " "  + transaction.viewInfo());
             counter++;
@@ -325,11 +358,11 @@ public class MainMenuController
     }
 
     //Choose an Account to Delete Dialog
-    public String delAccountDialog () 
+    public String delAccountDialog ()
     {
         List<String> choices = new ArrayList<>();
 
-        for(String acctFirstLast : getUserListFirstLast()) 
+        for(String acctFirstLast : getUserListFirstLast())
         {
             if (acctFirstLast != null)
             {
@@ -371,14 +404,14 @@ public class MainMenuController
     //---------------------------------------------------------------------------------//
 
     @FXML
-    public void hideUserList(MouseEvent event) 
+    public void hideUserList(MouseEvent event)
     {
         int menuIndex = splitMain.getItems().indexOf(sidePane);
-        if(menuIndex != -1) 
+        if(menuIndex != -1)
         {
             this.hideUserList();
         }
-        else 
+        else
         {
             this.addUserList();
         }
@@ -386,7 +419,7 @@ public class MainMenuController
 
     @FXML
     public
-    void handleLogout(MouseEvent event) throws Exception 
+    void handleLogout(MouseEvent event) throws Exception
     {
         //Close the current window.
         ( (Node)event.getSource() ).getScene().getWindow().hide();
@@ -423,26 +456,26 @@ public class MainMenuController
     //                                Administrator Pane                               //
     //---------------------------------------------------------------------------------//
 
-    public void setAdminPane() 
+    public void setAdminPane()
     {
         // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/Admin.fxml"));
         loader.setController(this);
 
-        try 
+        try
         {
             adminPane.getChildren().clear();
             adminPane.getChildren().add(loader.load());
-        } 
-        catch (IOException event) 
+        }
+        catch (IOException event)
         {
             event.printStackTrace();
         }
     }
 
     @FXML
-    public void handleCreateAccount(MouseEvent event) 
+    public void handleCreateAccount(MouseEvent event)
     {
         adminPane.getChildren().clear();
         adminPane.getChildren().addAll(new CreateAccountController().getPane());
@@ -463,11 +496,11 @@ public class MainMenuController
     }
 
     @FXML
-    public void handleDeleteAccount(MouseEvent event) 
+    public void handleDeleteAccount(MouseEvent event)
     {
         String selection = delAccountDialog();
 
-        for (int index = 0; index < ioAccounts.getAccounts().size(); index++) 
+        for (int index = 0; index < ioAccounts.getAccounts().size(); index++)
         {
             if ((ioAccounts.getAccounts().get(index).getFirstName() + " " + ioAccounts.getAccounts().get(index).getLastName()).equals(selection))
             {
@@ -492,7 +525,7 @@ public class MainMenuController
     }
 
     @FXML
-    public void handleEditTransaction(MouseEvent event) 
+    public void handleEditTransaction(MouseEvent event)
     {
         int arrayNum = delTransactionDialog();
 
@@ -507,6 +540,7 @@ public class MainMenuController
         }
     }
 
+
     public AnchorPane getAdminPane()
     {
         return adminPane;
@@ -516,7 +550,7 @@ public class MainMenuController
     //                                 Getters & Setters	                           //
     //---------------------------------------------------------------------------------//
 
-    public Stage getPrimaryStage() 
+    public Stage getPrimaryStage()
     {
         return primaryStage;
     }
@@ -525,8 +559,10 @@ public class MainMenuController
     //                                Transaction Pane                                 //
     //---------------------------------------------------------------------------------//
 
-    public void setTransactionPane() 
+
+    public void setTransactionPane()
     {
+
         // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/Transactions.fxml"));
@@ -534,11 +570,11 @@ public class MainMenuController
 
         transactionPane.getChildren().clear();
 
-        try 
+        try
         {
             transactionPane.getChildren().add(loader.load());
-        } 
-        catch (IOException event) 
+        }
+        catch (IOException event)
         {
             event.printStackTrace();
         }
@@ -557,43 +593,60 @@ public class MainMenuController
 
         String recipAct = "";
 
-        for (Account tmp : ioAccounts.getAccounts()) 
+        for (Account tmp : ioAccounts.getAccounts())
         {
-            if (tmp.getUsername().equals(this.curUser)) 
+            if (tmp.getUsername().equals(this.curUser))
             {
                 recipAct = tmp.getName();
             }
         }
 
+        setPrintFile(recipAct); //creates print file
 
-        if (ioTransactions.getTransactions().size() != 0) 
+        if (ioTransactions.getTransactions().size() != 0)
         {
             for (int i=0; i < ioTransactions.getTransactions().size(); i++)
             {
-                if (ioTransactions.getTransactions().get(i) != null) 
+                if (ioTransactions.getTransactions().get(i) != null)
                 {
                     Map<String, String> dataRow = new HashMap<>();
                     Transaction temp = ioTransactions.getTransactions().get(i);
 
                     if (temp.getRecipientAcct().equals(recipAct) || this.userController.isAdmin()) {
+
                         dataRow.put("account", temp.getRecipientAcct());
                         dataRow.put("customer", temp.getCustomer());
                         dataRow.put("date", temp.getDate());
                         dataRow.put("type", temp.getType());
                         dataRow.put("amount", "$" + new DecimalFormat("0.00").format((temp.getAmount())));
+
                     }
                     allData.add(dataRow);
                 }
             }
+
             transactionText.setItems(allData);
         }
+
     }
+
+
+
+    @FXML
+    public void handleprintButton(MouseEvent event) throws PrintException, IOException
+    {
+
+        printTextFile();
+
+    }// end of handleprintButton
 
     @FXML
     public void printButtonClicked()
     {
         //Set button color to navy blue when clicked on
         printButton.setStyle("-fx-background-color: #273e51;");
+
+
     }
 
     @FXML
@@ -604,7 +657,7 @@ public class MainMenuController
     }
 
     @FXML
-    void handleAddTransaction(MouseEvent event) 
+    void handleAddTransaction(MouseEvent event)
     {
         transactionPane.getChildren().clear();
         transactionPane.getChildren().addAll(new CreateTransactionController().getPane());
@@ -655,11 +708,11 @@ public class MainMenuController
     public void loadUserData(String user) {
         ObservableList<Map> allData = FXCollections.observableArrayList();
 
-        if (this.getTransactionDB().getTransactions().size() != 0) 
+        if (this.getTransactionDB().getTransactions().size() != 0)
         {
             for (int i=0; i < this.getTransactionDB().getTransactions().size(); i++)
             {
-                if (this.getTransactionDB().getTransactions().get(i) != null) 
+                if (this.getTransactionDB().getTransactions().get(i) != null)
                 {
                     Map<String, String> dataRow = new HashMap<>();
                     Transaction temp = this.getTransactionDB().getTransactions().get(i);
@@ -675,7 +728,7 @@ public class MainMenuController
                 }
             }
             transactionText.setItems(allData);
-        }        
+        }
     }
 
     //---------------------------------------------------------------------------------//
@@ -705,4 +758,67 @@ public class MainMenuController
         this.prevData = prevData;
     }
 
-}
+
+
+    public void setPrintFile(String user){
+        File file = new File("application/src/Print.txt");
+        try
+        {
+            FileWriter out = new FileWriter(file);
+
+            for (int i=0; i < ioTransactions.getTransactions().size(); i++)
+            {
+                if (ioTransactions.getTransactions().get(i) != null)
+                {
+                    Transaction temp = ioTransactions.getTransactions().get(i);
+                    if (temp.getRecipientAcct().equals(user) || this.userController.isAdmin()) {
+
+                        String formatStr = "%-20s %-15s %-15s %-15s %-15s%n";
+                        out.write(String.format(formatStr,temp.getRecipientAcct(), temp.getCustomer(),temp.getDate(),temp.getType(),"$" + new DecimalFormat("0.00").format((temp.getAmount()))));
+                        //out.write('\n');
+                    }// end if
+                }// end of if
+            }//end of for
+            out.close();
+        } // end of try
+        catch (IOException event)
+        {
+        event.printStackTrace();
+        }
+    }// end of setPrintFile
+
+
+    public void printTextFile() throws PrintException, IOException
+    {
+        try{
+            FileInputStream file = new FileInputStream(new File("application/src/Print.txt"));
+            String defaultPrinter = PrintServiceLookup.lookupDefaultPrintService().getName();
+            System.out.println("Default printer: " + defaultPrinter);
+
+
+
+            PrintService dservice = PrintServiceLookup.lookupDefaultPrintService();
+            DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
+            PrintRequestAttributeSet  pras = new HashPrintRequestAttributeSet();
+            PrintService[] services = PrintServiceLookup.lookupPrintServices(flavor, pras);
+
+            //pras.add(new Copies(1));
+            Doc doc = new SimpleDoc(file, flavor, null);
+
+            PrintService service = ServiceUI.printDialog(null, 500, 500, services, dservice, flavor, pras);
+
+            if (service != null)
+            {
+                DocPrintJob job = service.createPrintJob();
+                System.out.println("printing");
+                job.print(doc, pras);
+            }
+
+        }
+        catch(PrintException pe){
+            System.out.println(pe);
+        }
+
+    }
+
+}// end of class
