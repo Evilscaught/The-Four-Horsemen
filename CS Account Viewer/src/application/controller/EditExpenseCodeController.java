@@ -154,6 +154,7 @@ public class EditExpenseCodeController
     @FXML
     private void handleBack(MouseEvent event) 
     {
+    	;
     	LoginScreenController.getMainController().handleAddTransaction(event);
     }
     

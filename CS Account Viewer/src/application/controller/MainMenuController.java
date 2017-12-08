@@ -774,6 +774,10 @@ public class MainMenuController
     public void setPrevData(Map <String, String> prevData) {
         this.prevData = prevData;
     }
+    
+    public void setFields() {
+    	
+    }
 
 
 

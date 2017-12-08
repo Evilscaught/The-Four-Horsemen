@@ -288,6 +288,7 @@ public class EditTransactionController
         descriptionField.setText(current.getDescription());
         //dateField.setText();
         
+        
         double amountvalue;
         
         if (current.getAmount() < 0) 
@@ -307,17 +308,16 @@ public class EditTransactionController
         int cents = (int)(Math.ceil(centsamount*100));
         
         centsField.setText("" + cents);
-        System.out.println(cents);
         
-        if (current.getType() == "Credit Card") 
+        if (current.getType().toLowerCase().equals("credit card")) 
         {
         	transactionType.getSelectionModel().select(0);
         }
-        else if (current.getType() == "Check") 
+        else if (current.getType().toLowerCase().equals("check")) 
         {
         	transactionType.getSelectionModel().select(1);
         }
-        else if (current.getType() ==  "Expense") 
+        else if (current.getType().toLowerCase().equals("expense")) 
         {
         	transactionType.getSelectionModel().select(2);
         }
@@ -343,6 +343,28 @@ public class EditTransactionController
         }
         
         accountBox.getSelectionModel().select(index);
+        
+        array = transactionCodes.getItems();
+        
+        counter = 0;
+        index = 0;
+        
+        
+        //I seriously can't understand why the code below doesn't work.
+        //I know for sure that current.getCodes() returns nothing, even if there is a code for sure
+        //Maybe someone else can look at it?
+        
+        for (String item : array) 
+        {
+        	
+        	if (current.getCode().equals(item)) 
+        	{
+        		index = counter;
+        	}
+        	counter++;
+        }
+        
+        transactionCodes.getSelectionModel().select(index);
         
     }
     
