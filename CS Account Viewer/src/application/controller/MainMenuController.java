@@ -104,6 +104,8 @@ import javax.print.attribute.*;
 import javax.swing.UIManager;
 import java.awt.print.*;
 import javax.print.ServiceUI;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -141,6 +143,7 @@ public class MainMenuController
     @FXML private TextArea 			descriptionField;
     @FXML private SplitPane 		splitMain;
     @FXML private URL 				location;
+    @FXML private Label				totalLabel;
 
 
     public String[] getUserListFirstLast()
@@ -629,6 +632,18 @@ public class MainMenuController
 
             transactionText.setItems(allData);
         }
+        
+        ArrayList transactionArray = ioTransactions.getTransactions();
+        
+        double total = 0;
+        
+        for (int i = 0; i < transactionArray.size(); i++) {
+        	
+        	Transaction current = ioTransactions.getTransactions().get(i);
+        	total = total + current.getAmount();
+        }
+        
+        totalLabel.setText("$" + new DecimalFormat("0.00").format(total));
 
     }
 

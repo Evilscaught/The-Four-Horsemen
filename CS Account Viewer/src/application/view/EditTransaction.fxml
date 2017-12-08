@@ -32,7 +32,7 @@
         </FXCollections>
       </items>
     </ChoiceBox>
-    <Button id="saveButtonClick" fx:id="backButton" layoutX="267.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#handleCancel" prefHeight="25.0" prefWidth="93.0" text="Cancel" />
+    <Button id="saveButtonClick" fx:id="backButton" layoutX="360.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#handleCancel" prefHeight="25.0" prefWidth="93.0" text="Cancel" />
     <ChoiceBox fx:id="accountBox" layoutX="258.0" layoutY="28.0" prefHeight="25.0" prefWidth="204.0">
       <items>
         <FXCollections fx:factory="observableArrayList">
@@ -51,11 +51,17 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Button fx:id="saveButtonClick" layoutX="369.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#saveButtonClicked" prefHeight="25.0" prefWidth="93.0" text="Save" />
+      <Button fx:id="saveButtonClick" layoutX="73.0" layoutY="304.0" mnemonicParsing="false" onMouseClicked="#saveButtonClicked" prefHeight="25.0" prefWidth="93.0" text="Save" />
       <ImageView fx:id="editCodesButton" fitHeight="25.0" fitWidth="30.0" layoutX="437.0" layoutY="152.0" onMouseClicked="#editCodesClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/create-transaction-controller-edit-codes.png" />
          </image>
       </ImageView>
+      <Label layoutX="428.0" layoutY="138.0" prefHeight="11.0" prefWidth="46.0" text="Add new code">
+         <font>
+            <Font size="7.0" />
+         </font>
+      </Label>
+      <Button fx:id="deleteButton" layoutX="189.0" layoutY="304.0" mnemonicParsing="false" onMouseClicked="#deleteButtonClicked" prefHeight="26.0" prefWidth="148.0" text="Delete Transaction" />
   </children>
 </AnchorPane>

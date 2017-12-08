@@ -57,5 +57,10 @@
             <Image url="@images/create-transaction-controller-edit-codes.png" />
          </image>
       </ImageView>
+      <Label layoutX="428.0" layoutY="138.0" prefHeight="12.0" prefWidth="46.0" text="Add new code">
+         <font>
+            <Font size="7.0" />
+         </font>
+      </Label>
   </children>
 </AnchorPane>

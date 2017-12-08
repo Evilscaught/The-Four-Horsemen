@@ -284,6 +284,13 @@ public class EditTransactionController
     }
     
     @FXML
+    void deleteButtonClicked(MouseEvent event) {
+    	
+    	LoginScreenController.getMainController().getTransactionDB().deleteTransaction(arraynum);
+    	LoginScreenController.getMainController().setTransactionPane();    	
+    }
+    
+    @FXML
     void saveButton2Clicked(MouseEvent event) {
     	
     }
