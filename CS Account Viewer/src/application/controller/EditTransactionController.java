@@ -30,6 +30,7 @@
 package application.controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 import application.Main;
@@ -78,7 +79,18 @@ public class EditTransactionController
     	
     	LoginScreenController.getMainController().getTransactionDB().deleteTransaction(arraynum);
     	
-    	String str = dollarsField.getText() + "." + centsField.getText().substring(0, 2);
+    	String cents;
+    	
+    	if (centsField.getText() == null || centsField.getText().equals("")) {
+    		cents = "00";
+    	}
+    	
+    	else {
+    		cents = centsField.getText().substring(0, 2); 
+    	}
+    	
+    	String str = dollarsField.getText() + "." + cents;
+
     	double amount = Double.parseDouble(str);
         String code = transactionCodes.getValue();
     	
@@ -118,7 +130,7 @@ public class EditTransactionController
     		pass = false;
     	}
     	
-    	try
+    	/*try
     	{
     		Double.parseDouble(centsField.getText());
     		centsField.setStyle("-fx-background-color: white");
@@ -127,7 +139,7 @@ public class EditTransactionController
     	{
     		centsField.setStyle("-fx-background-color: #f26d6d");
     		pass = false;
-    	}
+    	}*/
 
     	//Ensure that user has chosen a transaction type:
     	if (transactionType.getValue() == "Select Transaction Type")
@@ -201,59 +213,7 @@ public class EditTransactionController
         createAcctBox();
         createCodeBox();
         
-        Transaction current = LoginScreenController.getMainController().getTransactionDB().getTransactions().get(this.arraynum);
-        customerNameField.setText(current.getCustomer());
-        descriptionField.setText(current.getDescription());
-        //dateField.setText();
-        
-        double amountvalue;
-        
-        if (current.getAmount() < 0) 
-        {
-        	amountvalue = current.getAmount() * -1;
-        }
-        else 
-        {
-        	amountvalue = current.getAmount();
-        }
-        dollarsField.setText("" + amountvalue);
-        
-        if (current.getType() == "Credit Card") 
-        {
-        	transactionType.getSelectionModel().select(0);
-        }
-        else if (current.getType() == "Check") 
-        {
-        	transactionType.getSelectionModel().select(1);
-        }
-        else if (current.getType() ==  "Expense") 
-        {
-        	transactionType.getSelectionModel().select(2);
-        }
-        else 
-        {
-        	transactionType.getSelectionModel().selectFirst();
-        }
-        
-        ObservableList<String> array = accountBox.getItems();
-        
-        int counter = 0;
-        int index = 0;
-        
-        
-        for (String item : array) 
-        {
-        	
-        	if (current.getRecipientAcct().equals(item)) 
-        	{
-        		index = counter;
-        	}
-        	counter++;
-        }
-        
-        accountBox.getSelectionModel().select(index);
-        
-        
+        fillFields();
         
     }
     
@@ -318,6 +278,71 @@ public class EditTransactionController
         		accountBox.getItems().add(item);
         	}
         }
+        
+    }
+    
+    public void fillFields() {
+    	
+    	Transaction current = LoginScreenController.getMainController().getTransactionDB().getTransactions().get(this.arraynum);
+        customerNameField.setText(current.getCustomer());
+        descriptionField.setText(current.getDescription());
+        //dateField.setText();
+        
+        double amountvalue;
+        
+        if (current.getAmount() < 0) 
+        {
+        	amountvalue = current.getAmount() * -1;
+        }
+        else 
+        {
+        	amountvalue = current.getAmount();
+        }
+        
+        int dollaramount = (int)(Math.floor(amountvalue));
+        		
+        dollarsField.setText("" + dollaramount);
+        
+        double centsamount = (amountvalue - dollaramount);
+        int cents = (int)(Math.ceil(centsamount*100));
+        
+        centsField.setText("" + cents);
+        System.out.println(cents);
+        
+        if (current.getType() == "Credit Card") 
+        {
+        	transactionType.getSelectionModel().select(0);
+        }
+        else if (current.getType() == "Check") 
+        {
+        	transactionType.getSelectionModel().select(1);
+        }
+        else if (current.getType() ==  "Expense") 
+        {
+        	transactionType.getSelectionModel().select(2);
+        }
+        else 
+        {
+        	transactionType.getSelectionModel().selectFirst();
+        }
+        
+        ObservableList<String> array = accountBox.getItems();
+        
+        int counter = 0;
+        int index = 0;
+        
+        
+        for (String item : array) 
+        {
+        	
+        	if (current.getRecipientAcct().equals(item)) 
+        	{
+        		index = counter;
+        	}
+        	counter++;
+        }
+        
+        accountBox.getSelectionModel().select(index);
         
     }
     

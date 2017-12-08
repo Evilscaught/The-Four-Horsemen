@@ -75,7 +75,17 @@ public class CreateTransactionController
     		return;
     	}
     	
-    	String str = dollarsField.getText() + "." + centsField.getText().substring(0, 2);
+    	String cents;
+    	
+    	if (centsField.getText() == null || centsField.getText().equals("")) {
+    		cents = "00";
+    	}
+    	
+    	else {
+    		cents = centsField.getText().substring(0, 2); 
+    	}
+    	
+    	String str = dollarsField.getText() + "." + cents;
     	double amount = Double.parseDouble(str);
         String code = transactionCodes.getValue();
     	
@@ -114,7 +124,7 @@ public class CreateTransactionController
     		pass = false;
     	}
     	
-    	try
+    	/*try
     	{
     		Double.parseDouble(centsField.getText());
     		centsField.setStyle("-fx-background-color: white");
@@ -123,7 +133,7 @@ public class CreateTransactionController
     	{
     		centsField.setStyle("-fx-background-color: #f26d6d");
     		pass = false;
-    	}
+    	}*/
 
     	//Ensure that user has chosen a transaction type:
     	if (transactionType.getValue() == "Select Transaction Type")
