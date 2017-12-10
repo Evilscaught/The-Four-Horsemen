@@ -58,15 +58,16 @@
                 </Tab>
               </tabs>
             </TabPane>
-            <Label layoutX="461.0" layoutY="13.0" text="Logout:" textFill="#3354ff" />
+
           </children>
         </AnchorPane>
       </items>
     </SplitPane>
-    <ImageView fx:id="logoutMainButton" fitHeight="25.0" fitWidth="26.0" layoutX="712.0" layoutY="10.0" onMouseClicked="#handleLogout" onMouseEntered="#logoutClicked" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="logoutMainButton" fitHeight="25.0" fitWidth="26.0" layoutX="712.0" layoutY="6.0" onMouseClicked="#handleLogout" onMouseEntered="#logoutClicked" pickOnBounds="true" preserveRatio="true">
       <image>
         <Image url="@images/menu-screen-lock.png" />
       </image>
     </ImageView>
+    <Label fx:id="logoutText" layoutX="460.0" layoutY="12.0" text="Logout:" textFill="#3354ff" />
   </children>
 </AnchorPane>

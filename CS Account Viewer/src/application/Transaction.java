@@ -9,7 +9,7 @@
  *  @copyright   	None
  *  @date_created   Sometime between October and November
  *
- *  
+ *
  *
  *     *
  *
@@ -32,7 +32,7 @@ package application;
 
 import java.text.DecimalFormat;
 
-public class Transaction 
+public class Transaction
 {
 
 	protected String recipientAcct;
@@ -57,7 +57,7 @@ public class Transaction
 		this.code = code;
 		adjustedamount = amount;
 	}
-	
+
 	//Create transaction with a description
 	public Transaction(String recipientAcct, String customer, String date, double amount, String description)
 	{
@@ -70,7 +70,7 @@ public class Transaction
 		this.code = "";
 		adjustedamount = amount;
 	}
-	
+
 	//Create transaction without a description
 	public Transaction(String recipientAcct, String customer, String date, double amount)
 	{
@@ -88,67 +88,67 @@ public class Transaction
 	{
 		String output;
 		String type2 = "";
-		
-		if (type == "Credit Card") 
+
+		if (type == "Credit Card")
 		{
 			type2 = "CC";
 		}
-		else if (type == "Check") 
+		else if (type == "Check")
 		{
 			type2 = "Check";
 		}
-		else if (type == "Expense") 
+		else if (type == "Expense")
 		{
 			type2 = "Exp.";
 		}
 		else {
 			type2 = "None";
 		}
-		
+
 		if (customer.length() > 7 && recipientAcct.length() <= 10) {
-			output = recipientAcct + "\t\t| " + customer + "\t|  " + type2 + "\t|  "  + "$ " + df1.format(adjustedamount);
+			output = recipientAcct + "\t\t| " + customer + "\t|  " + type2 + "\t|  "  + "$ " + df1.format(adjustedamount)+"\t|"+ code;
 		}
 		else if (customer.length() <= 7 && recipientAcct.length() <= 10) {
-			output = recipientAcct + "\t\t| " + customer + "\t\t|  " + type2 + "\t|  "  + "$ " + df1.format(adjustedamount);
+			output = recipientAcct + "\t\t| " + customer + "\t\t|  " + type2 + "\t|  "  + "$ " + df1.format(adjustedamount)+"\t|"+ code;
 		}
 		else if (customer.length() > 7 && recipientAcct.length() > 10) {
-			output = recipientAcct + "\t| " + customer + "\t|  " + type2 + "\t|  " + "$ " + df1.format(adjustedamount);
+			output = recipientAcct + "\t| " + customer + "\t|  " + type2 + "\t|  " + "$ " + df1.format(adjustedamount)+"\t|"+ code;
 		}
-		else 
+		else
 		{
-			output = recipientAcct + "\t| " + customer + "\t\t|  " + type2 + "\t|  " +  "$ " + df1.format(adjustedamount);
+			output = recipientAcct + "\t| " + customer + "\t\t|  " + type2 + "\t|  " +  "$ " + df1.format(adjustedamount)+"\t|"+ code;
 		}
-		
+
 		return output;
 	}
 
-	public String toString() 
+	public String toString()
 	{
-		String output = "" + recipientAcct + "," + customer + "," + date + "," + amount + "," + description + "," + type;
+		String output = "" + recipientAcct + "," + customer + "," + date + "," + amount + "," + description + "," + type + "," + code;
 		return output;
 	}
-	
+
 	public String getCustomer()
 	{
 		return customer;
 	}
 
-	public void editCustomer(String customer) 
+	public void editCustomer(String customer)
 	{
 		this.customer = customer;
 	}
-	
+
 	public String getDate()
 	{
 		return date;
 	}
 
-	public void editDate(String date) 
+	public void editDate(String date)
 	{
 		this.date = date;
 	}
 
-	public void editAmount(int amount) 
+	public void editAmount(int amount)
 	{
 		this.amount = amount;
 	}
@@ -157,18 +157,18 @@ public class Transaction
 	{
 		return description;
 	}
-	
-	public void editDescription(String description) 
+
+	public void editDescription(String description)
 	{
 		this.description = description;
 	}
 
-	public double getAmount() 
+	public double getAmount()
 	{
 		return adjustedamount;
 	}
-	
-	public String getType() 
+
+	public String getType()
 	{
 		return type;
 	}
@@ -177,7 +177,10 @@ public class Transaction
 	{
 		return recipientAcct;
 	}
-	
+
+	public void setCode(String code){
+		this.code = code;
+	}
 	public String getCode() {
 		return code;
 	}

@@ -9,7 +9,7 @@
  *  @copyright      None
  *  @date_created   Sometime between October and November
  *
- * 
+ *
  *
  *     *
  *
@@ -21,7 +21,7 @@
  *
  *  FEATURE:
  *
- *  NOTE: 
+ *  NOTE:
  *
  *  % java CreateTransactionController
  *
@@ -39,7 +39,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
-public class ViewTransactionController 
+public class ViewTransactionController
 {
     private Pane currentPane;
     @FXML private Label customerText;
@@ -47,40 +47,40 @@ public class ViewTransactionController
     @FXML private Label dateText;
     @FXML private Label typeText;
     @FXML private Label amountText;
-    @FXML private Label expenseText;
+    @FXML private Label expensecodeText;
     @FXML private Label descriptionText;
-    
+
     private int arraynum;
 
     @FXML
-    private void initialize() 
+    private void initialize()
     {
     	return;
     }
-    
+
 
 
     @FXML
-    void handleCancel(MouseEvent event) 
+    void handleCancel(MouseEvent event)
     {
     	LoginScreenController.getMainController().setTransactionPane();
     }
 
-    public ViewTransactionController(int arraynum) 
+    public ViewTransactionController(int arraynum)
     {
-    	
+
     	this.arraynum = arraynum;
-    	
+
         // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/ViewTransaction.fxml"));
         loader.setController(this);
 
-        try 
+        try
         {
             currentPane = loader.load();
-        } 
-        catch (IOException event) 
+        }
+        catch (IOException event)
         {
             event.printStackTrace();
         }
@@ -91,21 +91,21 @@ public class ViewTransactionController
         accountText.setText(current.getRecipientAcct());
         dateText.setText(current.getDate());
         typeText.setText(current.getType());
-        expenseText.setText(current.getCode());
+        expensecodeText.setText(current.getCode());
         amountText.setText("" + current.getAmount());
         descriptionText.setText(current.getDescription());
-        
-        
-    }
-    
 
-    
-    public Pane getPane() 
+
+    }
+
+
+
+    public Pane getPane()
     {
         return currentPane;
     }
 
-    public void setPane(Pane currentPane) 
+    public void setPane(Pane currentPane)
     {
         this.currentPane = currentPane;
     }

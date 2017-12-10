@@ -148,6 +148,7 @@ public class MainMenuController
     @FXML private URL 				location;
     @FXML private Label				totalLabel;
     @FXML private Label				amountLabel;
+    @FXML private Label				logoutText;
 
 
 
@@ -247,12 +248,15 @@ public class MainMenuController
                 @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth)
                 {
                     logoutMainButton.setLayoutX(newSceneWidth.doubleValue() - 30);
+                    logoutText.setLayoutX(newSceneWidth.doubleValue()- 70);
+
                 }
             });
 
             scene.widthProperty().addListener(new ChangeListener<Number>() {
                 @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
                     logoutMainButton.setLayoutX(newSceneWidth.doubleValue() - 30);
+
                 }
             });
 

@@ -21,7 +21,7 @@
       <Label fx:id="typeText" layoutX="258.0" layoutY="94.0" prefHeight="18.0" prefWidth="194.0" />
       <Label fx:id="amountText" layoutX="28.0" layoutY="156.0" prefHeight="18.0" prefWidth="119.0" />
       <Label layoutX="258.0" layoutY="135.0" text="Expense Code:" />
-      <Label fx:id="expenseText" layoutX="258.0" layoutY="156.0" prefHeight="18.0" prefWidth="173.0" />
+      <Label fx:id="expensecodeText" layoutX="258.0" layoutY="156.0" prefHeight="18.0" prefWidth="173.0" />
       <Label fx:id="descriptionText" layoutX="19.0" layoutY="203.0" prefHeight="96.0" prefWidth="439.0" />
   </children>
 </AnchorPane>
