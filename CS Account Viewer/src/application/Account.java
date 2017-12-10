@@ -41,6 +41,7 @@ public class Account implements Comparable<Account>
     private String secQuestion1;
     private String secQuestion2;
     private String secQuestion3;
+    private double accTotal;
 
     private Boolean admin = false;
 
@@ -55,6 +56,7 @@ public class Account implements Comparable<Account>
         password = "csadmin";
         email    = "N/A";
         username = "N/A";
+
     }
 
 
@@ -67,6 +69,7 @@ public class Account implements Comparable<Account>
 
         password = "csadmin";
         email    = "N/A";
+
     }
 
     //Initialize with default password
@@ -78,6 +81,7 @@ public class Account implements Comparable<Account>
         this.username  = username;
 
         password = "csadmin";
+
     }
 
     //Initialize.
@@ -88,10 +92,11 @@ public class Account implements Comparable<Account>
         this.email     = email;
         this.username  = username;
         this.password  = password;
+
     }
 
     //Initialize with admin.
-    public Account(String firstName, String lastName, String email, String username, String password, Boolean admin)
+    public Account(String firstName, String lastName, String email, String username, String password, Boolean admin,double accTotal)
     {
         this.firstName = firstName;
         this.lastName  = lastName;
@@ -99,6 +104,10 @@ public class Account implements Comparable<Account>
         this.username  = username;
         this.password  = password;
         this.admin = admin;
+        this.accTotal = accTotal;
+
+
+
     }
     //--------------------------------------------//
     //                Comparators                 //
@@ -242,14 +251,22 @@ public class Account implements Comparable<Account>
     public void setAdmin(Boolean admin) {
         this.admin = admin;
     }
-    
+
+    public void setaccTotal(double total){
+        this.accTotal = total;
+    }
+
+    public double getaccTotal(){
+        return accTotal;
+    }
+
     //--------------------------------------------//
     //             		Other		              //
     //--------------------------------------------//
 
     public String toString()
     {
-        return firstName + "," + lastName + "," + email + "," + username + "," + password + "," + description + "," + secQuestion1 + "," + secQuestion2 + "," + secQuestion3 + "," + admin;
+        return firstName + "," + lastName + "," + email + "," + username + "," + password + "," + description + "," + secQuestion1 + "," + secQuestion2 + "," + secQuestion3 + "," + admin + ","+ accTotal;
     }
 
     //Unit Testing

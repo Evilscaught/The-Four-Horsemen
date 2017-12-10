@@ -106,6 +106,7 @@ import java.awt.print.*;
 import javax.print.ServiceUI;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import java.util.Formatter;
 
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -117,6 +118,8 @@ public class MainMenuController
     private IOTransactions 	ioTransactions;
     private IOAccounts 		ioAccounts;
     private IOCodes			ioCodes;
+    private Account account;
+
 
     private Map <String, String> prevData;
 
@@ -144,6 +147,8 @@ public class MainMenuController
     @FXML private SplitPane 		splitMain;
     @FXML private URL 				location;
     @FXML private Label				totalLabel;
+    @FXML private Label				amountLabel;
+
 
 
     public String[] getUserListFirstLast()
@@ -177,15 +182,20 @@ public class MainMenuController
         hideUserListButton.setLayoutX(-10);
         hideUserListButton.setLayoutX(-10);
         hideUserListButton.setText("�");
+
     }
 
     public void refreshUserList()
     {
+        setAcctAmts();
         userList.getItems().clear();
+        Formatter fmt = new Formatter();
+
+
 
         for (int index = 0; index < ioAccounts.getAccounts().size(); index++)
         {
-            userList.getItems().add(ioAccounts.getAccounts().get(index).getFirstName() + " " + ioAccounts.getAccounts().get(index).getLastName());
+            userList.getItems().add(ioAccounts.getAccounts().get(index).getFirstName() + " " +ioAccounts.getAccounts().get(index).getLastName());
         }
     }
 
@@ -266,6 +276,8 @@ public class MainMenuController
                     viewTransactionButton.setLayoutY(newSceneHeight.doubleValue() - 135);
                     printButton.setLayoutY(newSceneHeight.doubleValue() - 135);
                     transactionPane.setPrefHeight(newSceneHeight.doubleValue());
+                    totalLabel.setLayoutY(newSceneHeight.doubleValue()-155); // total label
+                    amountLabel.setLayoutY(newSceneHeight.doubleValue()-155); // total amount label
                 }
             });
 
@@ -283,6 +295,7 @@ public class MainMenuController
                         {
                             for (int i=0; i < ioTransactions.getTransactions().size(); i++)
                             {
+
                                 if (ioTransactions.getTransactions().get(i) != null)
                                 {
                                     Map<String, String> dataRow = new HashMap<>();
@@ -301,6 +314,7 @@ public class MainMenuController
                             transactionText.setItems(allData);
                         }
                     }
+
                 }
             });
 
@@ -423,8 +437,7 @@ public class MainMenuController
     }
 
     @FXML
-    public
-    void handleLogout(MouseEvent event) throws Exception
+    public void handleLogout(MouseEvent event) throws Exception
     {
         //Close the current window.
         ( (Node)event.getSource() ).getScene().getWindow().hide();
@@ -509,7 +522,9 @@ public class MainMenuController
         {
             if ((ioAccounts.getAccounts().get(index).getFirstName() + " " + ioAccounts.getAccounts().get(index).getLastName()).equals(selection))
             {
+
                 ioAccounts.deleteAccount(index);
+
             }
         }
         this.refreshUserList();
@@ -632,18 +647,69 @@ public class MainMenuController
 
             transactionText.setItems(allData);
         }
-        
+
         ArrayList transactionArray = ioTransactions.getTransactions();
-        
-        double total = 0;
-        
+        ArrayList accountArray = ioAccounts.getAccounts();
+        double total =0.0;
+        double accountTotal=0.0;
+
         for (int i = 0; i < transactionArray.size(); i++) {
-        	
-        	Transaction current = ioTransactions.getTransactions().get(i);
-        	total = total + current.getAmount();
+
+
+            Transaction current = ioTransactions.getTransactions().get(i);
+            total = total + current.getAmount();
         }
-        
-        totalLabel.setText("$" + new DecimalFormat("0.00").format(total));
+
+        amountLabel.setText("$" + new DecimalFormat("0.00").format(total));
+        setAcctAmts();
+
+
+
+    }
+
+    public void clearAccTotal(){
+        ArrayList transactionArray = ioTransactions.getTransactions();
+        ArrayList accountArray = ioAccounts.getAccounts();
+        double total =0.0;
+        double accountTotal=0.0;
+        for(int i =0; i< accountArray.size(); i++){
+        ioAccounts.getAccounts().get(i).setaccTotal(0.0);
+
+        }
+    }
+
+    public void setAcctAmts(){
+        clearAccTotal();
+        ArrayList transactionArray = ioTransactions.getTransactions();
+        ArrayList accountArray = ioAccounts.getAccounts();
+        double total =0.0;
+        double accountTotal=0.0;
+
+
+        for (int i = 0; i < transactionArray.size(); i++) {
+
+
+            Transaction current = ioTransactions.getTransactions().get(i);
+            total = total + current.getAmount();
+
+            for(int j =0; j< accountArray.size(); j++){
+                String name = ioAccounts.getAccounts().get(j).getName();
+                accountTotal = current.getAmount();
+
+
+                if(current.getRecipientAcct().equals(name)){
+                double oldTotal = ioAccounts.getAccounts().get(j).getaccTotal();
+                ioAccounts.getAccounts().get(j).setaccTotal(oldTotal + accountTotal);
+                }
+            }
+
+
+        }
+
+        //for(int j =0; j< accountArray.size(); j++){
+        //    System.out.println(ioAccounts.getAccounts().get(j).getName()+" "+ ioAccounts.getAccounts().get(j).getaccTotal());
+        //}
+
 
     }
 
@@ -774,9 +840,9 @@ public class MainMenuController
     public void setPrevData(Map <String, String> prevData) {
         this.prevData = prevData;
     }
-    
+
     public void setFields() {
-    	
+
     }
 
 
@@ -809,8 +875,7 @@ public class MainMenuController
     }// end of setPrintFile
 
 
-    public void printTextFile() throws PrintException, IOException
-    {
+    public void printTextFile() throws PrintException, IOException{
 
             PrinterJob pj = PrinterJob.getPrinterJob();
 
@@ -821,20 +886,19 @@ public class MainMenuController
 
     }
 
-    public void print()
-    {
-    try {
-      Desktop desktop = null;
-      if (Desktop.isDesktopSupported()) {
-        desktop = Desktop.getDesktop();
-      }
+    public void print(){
+        try {
+            Desktop desktop = null;
+            if (Desktop.isDesktopSupported()) {
+                desktop = Desktop.getDesktop();
+            }
 
-       desktop.print(new File("application/src/Print.txt"));
-    }
-    catch (IOException ioe)
-    {
-      ioe.printStackTrace();
-    }
+            desktop.print(new File("application/src/Print.txt"));
+        }
+        catch (IOException ioe)
+        {
+            ioe.printStackTrace();
+        }
     }
 
 }// end of class

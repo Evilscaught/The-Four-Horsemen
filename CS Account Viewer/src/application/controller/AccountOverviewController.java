@@ -9,7 +9,7 @@
  *  @copyright      None
  *  @date_created   Thursday, November 30th, 2017 @6:30 p.m. MST
  *
- * 
+ *
  *
  *     *
  *
@@ -46,21 +46,24 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.scene.control.Label;
+import java.util.Formatter;
 
-public class AccountOverviewController 
+public class AccountOverviewController
 {
 	//Button opacity, cannot be less than 0.0 or greater than 1.0
     final private double 			MIN_OPACITY = 0.3;
     final private double			MAX_OPACITY = 1.0;
-	
+
 		  private Pane 				currentPane;
 		  private ListView<String>  userList;
 		  private Account			selectedAccount;
-	
+
 	@FXML private Button 			saveButton;
 	@FXML private Button			changePasswordButton;
 	@FXML private Text				lastLogin;
 	@FXML private Text				accountBalance;
+    @FXML private Label             acctotLabel;
 	@FXML private Text				permissions;
 	@FXML private TextArea  		descriptionField;
 	@FXML private TextField 		firstNameField;
@@ -72,67 +75,69 @@ public class AccountOverviewController
 	@FXML private Text			    msgNoEmptyField;
 	@FXML private Text				msgAlreadyTaken;
 	@FXML private Text				msgChooseAccount;
-	
+
+
+
     @FXML
-    private void initialize() 
+    private void initialize()
     {
     	saveButton.setOpacity(MIN_OPACITY);
     	return;
     }
-    
-    public AccountOverviewController(ListView<String> userList) 
+
+    public AccountOverviewController(ListView<String> userList)
     {
         // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/AccountOverview.fxml"));
         loader.setController(this);
 
-        try 
+        try
         {
             currentPane = loader.load();
-        } 
-        catch (IOException event) 
+        }
+        catch (IOException event)
         {
             event.printStackTrace();
         }
-        
+
         this.userList = userList;
-        
+
         //Populates all the TextFields with selected account
         populateParam();
     }
-    
+
     //This constructor is used if returning from the edit password pane.
-    public AccountOverviewController(ListView<String> userList, Account account) 
+    public AccountOverviewController(ListView<String> userList, Account account)
     {
         // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/AccountOverview.fxml"));
         loader.setController(this);
 
-        try 
+        try
         {
             currentPane = loader.load();
-        } 
-        catch (IOException event) 
+        }
+        catch (IOException event)
         {
             event.printStackTrace();
         }
-        
+
         this.userList = userList;
-        
+
     	//Set selected account
     	selectedAccount = account;
-    	
+
     	//Populates account overview with account user just changed password
         firstNameField.setText(account.getFirstName());
         lastNameField.setText(account.getLastName());
         emailField.setText(account.getEmail());
         usernameField.setText(account.getUsername());
-        descriptionField.setText(account.getDescription()); 
+        descriptionField.setText(account.getDescription());
         populateParam();
     }
-    
+
     //Show save button if any changes to the fields are made.
     @FXML
     private void keyPressed(KeyEvent event)
@@ -142,10 +147,10 @@ public class AccountOverviewController
     	{
     		return;
     	}
-    	
+
     	saveButton.setOpacity(MAX_OPACITY);
     }
-    
+
     @FXML
     private void handleSave(MouseEvent event)
     {
@@ -161,23 +166,23 @@ public class AccountOverviewController
     			selectedAccount.setDescription(descriptionField.getText());
     			selectedAccount.setEmail(emailField.getText());
     			selectedAccount.setUsername(usernameField.getText());
-    			
+
     			//Save changes to file
-    			try 
+    			try
     			{
 					LoginScreenController.getMainController().getAccountDB().saveAccounts();
-				} 
-    			catch (IOException exception) 
+				}
+    			catch (IOException exception)
     			{
 					exception.printStackTrace();
 				}
-    			
+
     			//Update user-list (left pane)
     			LoginScreenController.getMainController().refreshUserList();
     		}
     	}
     }
-    
+
     @FXML
     private void saveButtonClicked()
     {
@@ -187,14 +192,14 @@ public class AccountOverviewController
     		saveButton.setStyle("-fx-background-color: #273e51;");
     	}
     }
-    
+
     @FXML
     private void saveButtonReleased()
     {
     	//Set button back to original color (Red) when click is released
     	saveButton.setStyle("-fx-background-color: #e53030;");
     }
-    
+
     //Prompt password change
     @FXML
     private void handleChangePassword()
@@ -206,25 +211,25 @@ public class AccountOverviewController
     		messagesPane.setVisible(true);
     		return;
     	}
-    	
+
         currentPane.getChildren().clear();
         currentPane.getChildren().addAll(new EditPasswordController(userList, selectedAccount).getPane());
     }
-    
+
     @FXML
     private void changePasswordClicked()
     {
     	//Set button color to navy blue when clicked on
     	changePasswordButton.setStyle("-fx-background-color: #273e51;");
     }
-    
+
     @FXML
     private void changePasswordReleased()
     {
     	//Set button back to original color (Red) when click is released
     	changePasswordButton.setStyle("-fx-background-color: #e53030;");
     }
-    
+
     private boolean checkParam()
     {
     	boolean pass = true;
@@ -268,20 +273,20 @@ public class AccountOverviewController
     	{
     		emailField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
     	}
-    	
+
     	if (pass == false)
     	{
     		hideAllMessages();
     		msgNoEmptyField.setVisible(true);
     		messagesPane.setVisible(true);
     	}
-    	
+
     	for (String username : LoginScreenController.getMainController().getAccountDB().getUsernames())
     	{
     		if (usernameField.getText().toLowerCase().equals(username.toLowerCase()) && !selectedAccount.getUsername().equals(usernameField.getText()))
 			{
     			usernameField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
-    			
+
     			//Show error message
     			hideAllMessages();
     			msgAlreadyTaken.setVisible(true);
@@ -289,11 +294,11 @@ public class AccountOverviewController
 				pass = false;
 			}
     	}
-    	
-    	
+
+
     	return pass;
     }
-    
+
     private void hideAllMessages()
     {
     	msgAlreadyTaken.setVisible(false);
@@ -307,22 +312,22 @@ public class AccountOverviewController
     	hideAllMessages();
     	messagesPane.setVisible(false);
     }
-    
+
     private void populateParam()
     {
     	//TODO: Make sure that when non-administrator is logged in, TextFields are instead populated by the logged in user rather than the user-list.
-        userList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() 			
+        userList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
         {
             //NOTICE: Few modifications occurred here, only removed the while statement that checks for null Accounts. @Scott McKay
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) 
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
             {
-                if (newValue != null) 
+                if (newValue != null)
                 {
                     // TODO: Implement a GetAccount in the Accounts class
-                    for (Account acct : LoginScreenController.getMainController().getAccountDB().getAccounts()) 
+                    for (Account acct : LoginScreenController.getMainController().getAccountDB().getAccounts())
                     {
                         // TODO: add an equals method in the Accounts
-                        if (acct.getName().equals(newValue)) 
+                        if (acct.getName().equals(newValue))
                         {
                         	//Set selected account
                         	selectedAccount = acct;
@@ -332,7 +337,8 @@ public class AccountOverviewController
                             emailField.setText(acct.getEmail());
                             usernameField.setText(acct.getUsername()); // TODO Fix Getter String Argument
                             descriptionField.setText(acct.getDescription());
-                            
+                            acctotLabel.setText("$ " + acct.getaccTotal());
+
                             //Reset any previously red fields
                     		firstNameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
                     		lastNameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
@@ -346,13 +352,13 @@ public class AccountOverviewController
             }
         });
     }
-    
-    public Pane getPane() 
+
+    public Pane getPane()
     {
         return currentPane;
     }
-    
-    public void setPane(Pane currentPane) 
+
+    public void setPane(Pane currentPane)
     {
         this.currentPane = currentPane;
     }

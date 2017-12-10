@@ -26,6 +26,7 @@
     <TextField fx:id="usernameField" layoutX="190.0" layoutY="84.0" onKeyPressed="#keyPressed" prefHeight="25.0" prefWidth="149.0" style="-fx-border-color: #000000;" />
     <Text fill="WHITE" layoutX="363.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Login:" visible="true" />
     <Text fill="WHITE" layoutX="363.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Balance:" />
+    <Label fx:id="acctotLabel" layoutX="375.0" layoutY="60.0" prefHeight="96.0" prefWidth="439.0" textFill="WHITE" text=""/>
     <Text fill="WHITE" layoutX="22.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" />
     <TextArea fx:id="descriptionField" layoutX="22.0" layoutY="159.0" onKeyPressed="#keyPressed" prefHeight="131.0" prefWidth="319.0" style="-fx-border-color: #000000;" />
     <Text fx:id="accountBalance" fill="WHITE" layoutX="363.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TODO: Implement " visible="false" />

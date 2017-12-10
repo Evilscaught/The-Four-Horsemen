@@ -21,7 +21,7 @@
  *
  *  FEATURE:
  *
- *  NOTE: Handles input and output for transactions. 
+ *  NOTE: Handles input and output for transactions.
  *
  *  % java Account
  *
@@ -44,41 +44,50 @@ public class IOTransactions
 {
     private String transactionsPath;
     private ArrayList<Transaction> transactionArr;
-	
+    private IOAccounts ioAccounts;
+    private Account acc;
+    private double accTotal;
+
     public IOTransactions(String path)
     {
     	transactionsPath = path;
     }
-    
+
     public void readTransactions() throws FileNotFoundException
     {
         //Create file scanner
     	InputStream transactionsFile = this.getClass().getResourceAsStream(transactionsPath);
         Scanner file = new Scanner(transactionsFile);
         transactionArr = new ArrayList<Transaction>(10);
-        
+
         while(file.hasNext())
         {
             //Copy each line of the file into token, then scan token
             String token = file.nextLine();
             Scanner input = new Scanner(token);
             input.useDelimiter(",");
-            
+
             //Read in String and Create Transaction Objects
             while (input.hasNext())
-            {	
+            {
                 createTransaction(input.next(), input.next(), input.next(), input.nextDouble(), input.next(), input.next(), input.next());
             }
             input.close();
         }
         file.close();
     }
-	
+
     public void createTransaction(String recipientAcct, String customer, String date, double amount, String description, String type, String code)
     {
-    	if      (type.equals("Credit Card"))
+
+         double transAmount =0.0;
+
+
+    	if(type.equals("Credit Card"))
     	{
+
     		transactionArr.add(new CCTransaction(recipientAcct, customer, date, amount, description, code));
+
     	}
     	else if (type.equals("Check"))
     	{
@@ -93,18 +102,21 @@ public class IOTransactions
             transactionArr.add(new Transaction(recipientAcct, customer, date, amount, description, code));
     	}
     }
-    
+
+
+
+
     public void deleteTransaction(int index)
     {
     	transactionArr.remove(index);
     }
-    
+
     public void saveTransactions() throws IOException
     {
         URL url = this.getClass().getResource(transactionsPath);
         File file;
-        
-        try 
+
+        try
         {
             file = new File(url.toURI().getPath());
 
@@ -115,13 +127,13 @@ public class IOTransactions
                 out.write('\n');
             }
             out.close();
-        } 
-        catch (URISyntaxException event) 
+        }
+        catch (URISyntaxException event)
         {
             event.printStackTrace();
         }
     }
-    
+
     public ArrayList<Transaction> getTransactions()
     {
         return transactionArr;
@@ -132,12 +144,12 @@ public class IOTransactions
     	System.out.println("Debugging IOTransaction");
     	IOTransactions IOTrans = new IOTransactions("src/Transactions.txt");
     	IOTrans.readTransactions();
-    	
+
     	for (Transaction transaction : IOTrans.getTransactions())
     	{
     		System.out.println(transaction.toString());
     		System.out.println(transaction.getClass());
     		System.out.println("\n");
-    	}	
+    	}
     }
 }
