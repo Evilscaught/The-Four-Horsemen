@@ -37,6 +37,7 @@ import java.util.Map;
 import application.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
@@ -55,7 +56,11 @@ public class CreateTransactionController
     @FXML private DatePicker 		dateField;
     @FXML private TextField 		dollarsField;
     @FXML private TextField 		centsField;
-    @FXML private ImageView			editCodesButton;
+    @FXML private ImageView			editCodesButtonWhite;
+    @FXML private ImageView 		editCodesButtonRed;
+    @FXML private Button			cancelButton;
+    @FXML private Button			saveButton;
+    
     @FXML private ChoiceBox<String> transactionType;
     @FXML private ChoiceBox<String> accountBox;
     @FXML private ChoiceBox<String> transactionCodes;
@@ -67,8 +72,10 @@ public class CreateTransactionController
     }
 
     @FXML
-    void saveButtonClicked(MouseEvent event)
+    void handleSave(MouseEvent event)
     {
+    	centsFieldReleased();
+    	
     	//Check that all parameters have been correctly filled by user
     	if (!checkParam())
     	{
@@ -77,12 +84,13 @@ public class CreateTransactionController
 
     	String cents;
 
-    	if (centsField.getText() == null || centsField.getText().equals("")) {
+    	if (centsField.getText().isEmpty()) 
+    	{
     		cents = "00";
     	}
-
-    	else {
-    		cents = centsField.getText().substring(0, 2);
+    	else 
+    	{
+    		cents = centsField.getText();
     	}
 
     	String str = dollarsField.getText() + "." + cents;
@@ -119,6 +127,35 @@ public class CreateTransactionController
         
         LoginScreenController.getMainController().setTransactionPane();
     }
+    
+    @FXML
+    private void saveButtonClicked()
+    {
+    	//Set button color to navy blue when clicked on
+    	saveButton.setStyle("-fx-background-color: #273e51;");
+    }
+    
+    @FXML
+    private void saveButtonReleased()
+    {
+    	//Set button back to original color (Red) when click is released
+    	saveButton.setStyle("-fx-background-color: #e53030;");
+    }
+    
+    @FXML
+    private void centsFieldClicked()
+    {
+    	centsField.setText("");
+    }
+    
+    @FXML
+    private void centsFieldReleased()
+    {
+    	if (centsField.getText().isEmpty())
+    	{
+    		centsField.setText("00");
+    	}
+    }
 
     public boolean checkParam()
     {
@@ -127,11 +164,11 @@ public class CreateTransactionController
     	try
     	{
     		Double.parseDouble(dollarsField.getText());
-    		dollarsField.setStyle("-fx-background-color: white");
+    		dollarsField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
     	}
     	catch(NumberFormatException nfe)
     	{
-    		dollarsField.setStyle("-fx-background-color: #f26d6d");
+    		dollarsField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
     		pass = false;
     	}
 
@@ -147,36 +184,48 @@ public class CreateTransactionController
     	}*/
 
     	//Ensure that user has chosen a transaction type:
-    	if (transactionType.getValue() == "Select Transaction Type")
+    	if (transactionType.getValue() == "*Select Transaction Type")
     	{
     		//Set border to Red
-    		transactionType.setStyle("-fx-border-color: #f26d6d");
-    		pass = false;
-    	}
-
-    	//Ensure that user has chosen an account:
-    	if (accountBox.getValue() == "Choose Account")
-    	{
-    		//Set border to Red
-    		accountBox.setStyle("-fx-border-color: #f26d6d");
-    		pass = false;
-    	}
-
-    	if (transactionCodes.getValue().equals("Select Transaction Code"))
-    	{
-    		transactionCodes.setStyle("-fx-border-color: #f26d6d");
-    		pass = false;
-    	}
-
-    	//Ensure that user enters a name, and that the name does not begin with a space.
-    	if ( (customerNameField.getText().isEmpty()))
-    	{
-    		customerNameField.setStyle("-fx-background-color: #f26d6d");
+    		transactionType.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
     		pass = false;
     	}
     	else
     	{
-    		customerNameField.setStyle("-fx-background-color: white");
+    		transactionType.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
+    	}
+
+    	//Ensure that user has chosen an account:
+    	if (accountBox.getValue() == "*Choose Account")
+    	{
+    		//Set border to Red
+    		accountBox.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		pass = false;
+    	}
+    	else
+    	{
+    		accountBox.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
+    	}
+
+    	if (transactionCodes.getValue().equals("*Select Transaction Code"))
+    	{
+    		transactionCodes.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		pass = false;
+    	}
+    	else
+    	{
+    		transactionCodes.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
+    	}
+    	
+    	//Ensure that user enters a name, and that the name does not begin with a space.
+    	if ( (customerNameField.getText().isEmpty()))
+    	{
+    		customerNameField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		pass = false;
+    	}
+    	else
+    	{
+    		customerNameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
     	}
     	return pass;
     }
@@ -195,6 +244,20 @@ public class CreateTransactionController
     	LoginScreenController.getMainController().setTransactionPane();
     }
 
+    @FXML
+    private void cancelButtonClicked()
+    {
+    	//Set button color to navy blue when clicked on
+    	cancelButton.setStyle("-fx-background-color: #273e51;");
+    }
+    
+    @FXML
+    private void cancelButtonReleased()
+    {
+    	//Set button back to original color (Red) when click is released
+    	cancelButton.setStyle("-fx-background-color: #e53030;");
+    }
+    
     public CreateTransactionController()
     {
         // Load root layout from FXML file.
@@ -233,7 +296,7 @@ public class CreateTransactionController
     public void createTypeBox()
     {
         transactionType.getItems().clear();
-        transactionType.getItems().add("Select Transaction Type");
+        transactionType.getItems().add("*Select Transaction Type");
         transactionType.getItems().add("Credit Card Deposit");
         transactionType.getItems().add("Check Deposit");
         transactionType.getItems().add("Expense");
@@ -244,7 +307,7 @@ public class CreateTransactionController
     public void createCodeBox()
     {
     	transactionCodes.getItems().clear();
-    	transactionCodes.getItems().add("Select Transaction Code");
+    	transactionCodes.getItems().add("*Select Transaction Code");
     	transactionCodes.getItems().add("None");
     	transactionCodes.getSelectionModel().selectFirst();
 
@@ -256,11 +319,25 @@ public class CreateTransactionController
     }
 
     @FXML
-    void editCodesClicked(MouseEvent event)
+    void handleEditCodes(MouseEvent event)
     {
         LoginScreenController.getMainController().setPrevData(this.getData());
         currentPane.getChildren().clear();
         currentPane.getChildren().addAll(new EditExpenseCodeController().getPane());
+    }
+    
+    @FXML
+    private void editCodesClicked()
+    {
+    	editCodesButtonWhite.setVisible(false);
+    	editCodesButtonRed.setVisible(true);
+    }
+    
+    @FXML
+    private void editCodesReleased()
+    {
+    	editCodesButtonWhite.setVisible(true);
+    	editCodesButtonRed.setVisible(false);
     }
 
     //Add accounts in drop down choice box.
@@ -270,7 +347,7 @@ public class CreateTransactionController
         Arrays.sort(accounts);
 
         accountBox.getItems().clear();
-        accountBox.getItems().add("Choose Account");
+        accountBox.getItems().add("*Choose Account");
 
         for (String item : accounts)
         {

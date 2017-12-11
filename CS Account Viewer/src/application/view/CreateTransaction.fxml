@@ -14,16 +14,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="cents" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="476.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="355.0" prefWidth="550.0" style="-fx-background-color: #595959;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <TextField fx:id="customerNameField" layoutX="15.0" layoutY="28.0" prefHeight="25.0" prefWidth="218.0" promptText="Bob Schmidt" />
-    <Label layoutX="19.0" layoutY="13.0" text="Customer:" />
-    <Label layoutX="19.0" layoutY="76.0" text="Date:" />
-    <TextField fx:id="dollarsField" layoutX="24.0" layoutY="152.0" prefHeight="25.0" prefWidth="171.0" promptText="100" />
-    <Label layoutX="19.0" layoutY="135.0" text="Amount:" />
-    <TextArea fx:id="descriptionField" layoutX="15.0" layoutY="202.0" prefHeight="88.0" prefWidth="447.0" wrapText="true" />
-    <Label layoutX="19.0" layoutY="185.0" text="Description:" />
-    <ChoiceBox fx:id="transactionType" layoutX="258.0" layoutY="90.0" prefHeight="25.0" prefWidth="204.0">
+    <TextField fx:id="customerNameField" layoutX="15.0" layoutY="28.0" prefHeight="17.0" prefWidth="225.0" promptText="Bob Schmidt" style="-fx-border-color: #000000;" />
+    <Label layoutX="19.0" layoutY="13.0" text="*Customer:" textFill="WHITE" />
+    <Label layoutX="16.0" layoutY="135.0" text="Date:" textFill="WHITE" />
+    <TextField fx:id="dollarsField" layoutX="23.0" layoutY="90.0" prefHeight="25.0" prefWidth="171.0" promptText="100" style="-fx-border-color: #000000;" />
+    <Label layoutX="19.0" layoutY="73.0" text="*Amount:" textFill="WHITE" />
+    <TextArea fx:id="descriptionField" layoutX="15.0" layoutY="202.0" prefHeight="88.0" prefWidth="504.0" style="-fx-border-color: #000000;" wrapText="true" />
+    <Label layoutX="19.0" layoutY="185.0" text="Description:" textFill="WHITE" />
+    <ChoiceBox fx:id="transactionType" layoutX="314.0" layoutY="90.0" prefHeight="25.0" prefWidth="204.0" style="-fx-border-color: #000000;">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Item 1" />
@@ -32,8 +32,8 @@
         </FXCollections>
       </items>
     </ChoiceBox>
-    <Button id="saveButtonClick" fx:id="backButton" layoutX="267.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#handleCancel" prefHeight="25.0" prefWidth="93.0" text="Cancel" />
-    <ChoiceBox fx:id="accountBox" layoutX="258.0" layoutY="28.0" prefHeight="25.0" prefWidth="204.0">
+    <Button id="saveButtonClick" fx:id="cancelButton" layoutX="314.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#handleCancel" onMouseEntered="#cancelButtonClicked" onMouseExited="#cancelButtonReleased" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: e53030;" text="Cancel" textFill="WHITE" />
+    <ChoiceBox fx:id="accountBox" layoutX="314.0" layoutY="28.0" prefHeight="25.0" prefWidth="204.0" style="-fx-border-color: #000000;">
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Item 1" />
@@ -42,25 +42,25 @@
         </FXCollections>
       </items>
     </ChoiceBox>
-      <DatePicker fx:id="dateField" layoutX="15.0" layoutY="90.0" prefHeight="25.0" prefWidth="218.0" promptText="MM/DD/YYYY" />
-      <ChoiceBox fx:id="transactionCodes" layoutX="258.0" layoutY="152.0" prefHeight="25.0" prefWidth="171.0" />
-      <TextField fx:id="centsField" layoutX="203.0" layoutY="152.0" onKeyTyped="#centTyped" prefHeight="26.0" prefWidth="36.0" promptText="00" />
-      <Text layoutX="16.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" />
-      <Text layoutX="197.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="." wrappingWidth="6.861325263977051">
+      <DatePicker fx:id="dateField" layoutX="15.0" layoutY="152.0" prefHeight="27.0" prefWidth="225.0" promptText="MM/DD/YYYY" style="-fx-border-color: #000000;" />
+      <ChoiceBox fx:id="transactionCodes" layoutX="314.0" layoutY="151.0" prefHeight="25.0" prefWidth="171.0" style="-fx-border-color: #000000;" />
+      <TextField fx:id="centsField" layoutX="204.0" layoutY="90.0" onKeyTyped="#centTyped" onMouseClicked="#centsFieldClicked" prefHeight="26.0" prefWidth="36.0" promptText="00" style="-fx-border-color: #000000;" text="00" />
+      <Text fill="WHITE" layoutX="16.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\$" />
+      <Text fill="WHITE" layoutX="197.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="." wrappingWidth="6.861325263977051">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Button fx:id="saveButtonClick" layoutX="369.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#saveButtonClicked" prefHeight="25.0" prefWidth="93.0" text="Save" />
-      <ImageView fx:id="editCodesButton" fitHeight="25.0" fitWidth="30.0" layoutX="437.0" layoutY="152.0" onMouseClicked="#editCodesClicked" pickOnBounds="true" preserveRatio="true">
+      <Button fx:id="saveButton" layoutX="426.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#handleSave" onMouseEntered="#saveButtonClicked" onMouseExited="#saveButtonReleased" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: e53030;" text="Save" textFill="WHITE" />
+      <ImageView fx:id="editCodesButtonWhite" fitHeight="25.0" fitWidth="30.0" layoutX="495.0" layoutY="154.0" onMouseClicked="#handleEditCodes" onMouseEntered="#editCodesClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/create-transaction-controller-edit-codes.png" />
          </image>
       </ImageView>
-      <Label layoutX="428.0" layoutY="138.0" prefHeight="12.0" prefWidth="46.0" text="Add new code">
-         <font>
-            <Font size="7.0" />
-         </font>
-      </Label>
+      <ImageView fx:id="editCodesButtonRed" fitHeight="32.0" fitWidth="32.0" layoutX="491.0" layoutY="150.0" onMouseClicked="#handleEditCodes" onMouseExited="#editCodesReleased" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@images/create-transaction-controller-edit-codes-selected.png" />
+         </image>
+      </ImageView>
   </children>
 </AnchorPane>

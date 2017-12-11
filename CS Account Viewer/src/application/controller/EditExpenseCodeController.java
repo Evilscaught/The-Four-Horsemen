@@ -178,6 +178,9 @@ public class EditExpenseCodeController
     	if (editButton.getOpacity() == MAX_OPACITY)
     	{
     		oldTransactionCode.setText(codesList.getSelectionModel().getSelectedItem());
+    		codesList.setVisible(false);
+    		deleteButton.setVisible(false);
+    		editButton.setVisible(false);
     		editCodePane.setVisible(true);
     		
     		//Get the current key of the code that user wants to edit
@@ -269,6 +272,11 @@ public class EditExpenseCodeController
     	//Set button as unavailable until another code is selected
 		deleteButton.setOpacity(MIN_OPACITY);
 		editButton.setOpacity(MIN_OPACITY);
+		
+		//Show codes list again
+		codesList.setVisible(true);
+		deleteButton.setVisible(true);
+		editButton.setVisible(true);
     	
     	
     	if (checkEditedParam())
@@ -307,6 +315,9 @@ public class EditExpenseCodeController
     {
     	newDescriptionField.setText("");
     	newCodeField.setText("");
+		codesList.setVisible(true);
+		deleteButton.setVisible(true);
+		editButton.setVisible(true);
     	editCodePane.setVisible(false);
     }
     
