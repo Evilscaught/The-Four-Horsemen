@@ -4,4 +4,3 @@ Travis,Wheeler,travis.wheeler@umontana.edu,Trav,12345,My classes are super easy!
 Michael,Cassens,michael.cassens@umontana.edu,Michy,12345,,none,none,none,false,0.0
 Adam,McManigal,adam.mcmanigal@umontana.edu,Adam,12345,My secret identity is Batman!,none,none,none,false,0.0
 Doug,Raiford,doug.raiford@umontana.edu,Douglas,12345,I'm no longer at the CS Department,none,none,none,false,0.0
-Dan,Bailey,dafd,dan,12345,n/a,rock,dodge,missoula,false,0.0

@@ -33,30 +33,37 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.*;
 
 public class IOAccounts
 {
-    private String accountsPath;
+    private String path;
     private ArrayList<Account> accountArr;
     private ArrayList<String>  usernames;
 
     public IOAccounts(String path)
     {
-        accountsPath = path;
+        this.path = path;
+        
+        //Create an accounts file 'Accounts.txt' if one does not already exist.
+        File accountsFile = new File("Accounts.txt");
+        try 
+        {
+			accountsFile.createNewFile();
+		}
+        catch (IOException ioException) 
+        {
+			ioException.printStackTrace();
+		}
     }
 
     //Get accounts from database and read into Account array.
     public void readAccounts() throws FileNotFoundException
     {
         //Create file scanner
-    	InputStream accountsFile = this.getClass().getResourceAsStream(accountsPath);
-        Scanner file = new Scanner(accountsFile);
+        Scanner file = new Scanner(new File(path));
         accountArr = new ArrayList<Account>(20);
         usernames  = new ArrayList<String>(20);
 
@@ -132,30 +139,18 @@ public class IOAccounts
 
     public void saveAccounts() throws IOException
     {
-        URL url = this.getClass().getResource(accountsPath);
-        File file;
-
-        try
+        FileWriter out = new FileWriter(new File(path));
+        for(Account account : getAccounts())
         {
-            file = new File(url.toURI().getPath());
-
-            FileWriter out = new FileWriter(file);
-            for(Account account : getAccounts())
-            {
-                out.write(account.toString());
-                out.write('\n');
-            }
-            out.close();
+            out.write(account.toString());
+            out.write('\n');
         }
-        catch (URISyntaxException event)
-        {
-            event.printStackTrace();
-        }
+        out.close();
     }
 
 	public static void main(String[] args) throws IOException
     {
-		IOAccounts IOAcct = new IOAccounts("src/Accounts.txt");
+		IOAccounts IOAcct = new IOAccounts("Accounts.txt");
 
 		IOAcct.readAccounts();
 		IOAcct.createAccount("Testing FN", "Testing LN", "Testing UN", "Testing Email", "Testing Password", "Testing Description", "Test SecQ1", "Test SecQ2", "Test SecQ3", false,0.0);

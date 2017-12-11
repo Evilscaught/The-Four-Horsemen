@@ -73,40 +73,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import java.io.FileWriter;
 import java.io.File;
-import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.awt.print.*;
-import java.awt.*;
-import java.io.FileInputStream;
 
-import java.io.ByteArrayInputStream;
 import java.awt.Desktop;
 
-import javax.print.Doc;
-import javax.print.DocFlavor;
-import javax.print.DocPrintJob;
 import javax.print.PrintException;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.SimpleDoc;
-import javax.print.attribute.PrintServiceAttribute;
-import javax.print.attribute.standard.PrinterName;
-
-import java.io.InputStream;
-
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.Copies;
-
-import javax.print.event.PrintJobAdapter;
-import javax.print.event.PrintJobEvent;
-import javax.print.attribute.*;
-import javax.swing.UIManager;
-import java.awt.print.*;
-import javax.print.ServiceUI;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
-import java.util.Formatter;
 
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -118,7 +90,6 @@ public class MainMenuController
     private IOTransactions 	ioTransactions;
     private IOAccounts 		ioAccounts;
     private IOCodes			ioCodes;
-    private Account account;
 
 
     private Map <String, String> prevData;
@@ -190,9 +161,6 @@ public class MainMenuController
     {
         setAcctAmts();
         userList.getItems().clear();
-        Formatter fmt = new Formatter();
-
-
 
         for (int index = 0; index < ioAccounts.getAccounts().size(); index++)
         {
@@ -341,7 +309,7 @@ public class MainMenuController
     }
 
     //Choose a Transaction to Edit Dialog
-    @SuppressWarnings({ "resource", "static-access" })
+    @SuppressWarnings({"resource"})
     public int delTransactionDialog()
     {
         List<String> choices = new ArrayList<>();
@@ -403,7 +371,6 @@ public class MainMenuController
         if (result.isPresent())
         {
             String choice = result.get();
-            System.out.println("Your choice: " + choice);
 
             return choice;
         }
@@ -532,6 +499,16 @@ public class MainMenuController
             }
         }
         this.refreshUserList();
+       
+        //Update Accounts.txt
+        try 
+        {
+			ioAccounts.saveAccounts();
+		} 
+        catch (IOException ioException) 
+        {
+        	ioException.printStackTrace();
+		}
     }
 
     @FXML
@@ -625,6 +602,7 @@ public class MainMenuController
             }
         }
 
+        //TODO: Enable
         setPrintFile(recipAct); //creates print file
 
         if (ioTransactions.getTransactions().size() != 0)
@@ -653,9 +631,7 @@ public class MainMenuController
         }
 
         ArrayList transactionArray = ioTransactions.getTransactions();
-        ArrayList accountArray = ioAccounts.getAccounts();
-        double total =0.0;
-        double accountTotal=0.0;
+        double total = 0.0;
 
         for (int i = 0; i < transactionArray.size(); i++) {
 
@@ -671,14 +647,13 @@ public class MainMenuController
 
     }
 
-    public void clearAccTotal(){
-        ArrayList transactionArray = ioTransactions.getTransactions();
+    public void clearAccTotal()
+    {
         ArrayList accountArray = ioAccounts.getAccounts();
-        double total =0.0;
-        double accountTotal=0.0;
-        for(int i =0; i< accountArray.size(); i++){
-        ioAccounts.getAccounts().get(i).setaccTotal(0.0);
-
+        
+        for(int i =0; i< accountArray.size(); i++)
+        {
+        	ioAccounts.getAccounts().get(i).setaccTotal(0.0);
         }
     }
 
@@ -722,7 +697,7 @@ public class MainMenuController
     @FXML
     public void handleprintButton(MouseEvent event) throws PrintException, IOException
     {
-
+    	//TODO: Enable
         printTextFile();
 
     }// end of handleprintButton

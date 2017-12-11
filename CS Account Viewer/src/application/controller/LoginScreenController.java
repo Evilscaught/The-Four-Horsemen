@@ -140,32 +140,23 @@ public class LoginScreenController implements Initializable
     	viewablePassword.setVisible(false);
     	visibilityFalse.setVisible(false);
     	
-    	ioTransactions = new IOTransactions("src/Transactions.txt");
-    	ioAccounts 	   = new IOAccounts("src/Accounts.txt");
-    	ioCodes        = new IOCodes("src/Codes.txt");
+    	ioTransactions = new IOTransactions("Transactions.txt");
+		ioAccounts = new IOAccounts("Accounts.txt");
+    	ioCodes = new IOCodes("Codes.txt");
     	
     	//Load file contents (transactions.txt) into ADT ioTransactions.
     	try 
     	{
 			ioTransactions.readTransactions();
-		} 
-    	catch (FileNotFoundException exception) 
-    	{
-    		exception.printStackTrace();
-		}
-    	
-    	//Load file contents (accounts.txt) into ADT ioAccounts.
-    	try 
-    	{
 			ioAccounts.readAccounts();
-			userController = new UserController(ioAccounts);
+			ioCodes.readCodes();
 		} 
-    	catch (FileNotFoundException exception) 
+    	catch (FileNotFoundException nfe) 
     	{
-    		exception.printStackTrace();
+    		nfe.printStackTrace();
 		}
-    	ioCodes.readCodes();
     	
+    	userController = new UserController(ioAccounts);
     	noUsers();
     }   
     

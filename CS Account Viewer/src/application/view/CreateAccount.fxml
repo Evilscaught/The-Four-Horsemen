@@ -20,7 +20,7 @@
     <Label layoutX="18.0" layoutY="69.0" text="E-Mail:" textFill="WHITE" />
     <TextField id="userName" fx:id="userNameField" layoutX="14.0" layoutY="131.0" prefWidth="200.0" promptText="Enter a unique username" style="-fx-border-color: #000000;" />
     <Label layoutX="17.0" layoutY="116.0" text="Username:" textFill="WHITE" />
-    <Button id="changePassword" fx:id="createButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" layoutX="359.0" layoutY="288.0" minHeight="19.000091552734375" mnemonicParsing="false" onMouseClicked="#handleCreateAccount" onMouseEntered="#createButtonIsClicked" onMouseExited="#createButtonIsReleased" prefHeight="27.0" prefWidth="103.0" style="-fx-background-color: e53030;" text="Create Account" textFill="#fceeee" />
+    <Button id="changePassword" fx:id="createButton" alignment="CENTER" contentDisplay="CENTER" defaultButton="true" layoutX="359.0" layoutY="288.0" minHeight="19.000091552734375" mnemonicParsing="false" onMouseClicked="#handleCreateAccount" onMouseEntered="#createButtonIsClicked" onMouseExited="#createButtonIsReleased" prefHeight="27.0" prefWidth="103.0" style="-fx-background-color: e53030;" text="Next" textFill="#fceeee" />
     <Label layoutX="248.0" layoutY="69.0" text="Password:" textFill="WHITE" />
     <Label layoutX="249.0" layoutY="116.0" text="Re-type Password:" textFill="WHITE" />
     <PasswordField fx:id="passField" layoutX="242.0" layoutY="84.0" prefWidth="218.0" promptText="Must be at least five characters" style="-fx-border-color: #000000;" />

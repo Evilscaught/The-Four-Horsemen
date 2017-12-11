@@ -30,30 +30,39 @@
 package application;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.io.IOException;
 import java.util.Scanner;
 
 import edu.princeton.cs.algs4.ST;
 
 public class IOCodes 
 {
-	private String 				codesPath;
+	private String 				path;
 	private ST<String, Integer> codes;
 	
     public IOCodes(String path)
     {
-    	codesPath = path;
+    	this.path = path;
+    	
+        //Create a codes file 'Codes.txt' if one does not already exist.
+        File accountsFile = new File("Codes.txt");
+        try 
+        {
+			accountsFile.createNewFile();
+		}
+        catch (IOException ioException) 
+        {
+			ioException.printStackTrace();
+		}
     }
     
-    public void readCodes()
+    public void readCodes() throws FileNotFoundException
     {
     	//Create file scanner
     	codes = new ST<String, Integer>();
-    	InputStream codesFile = this.getClass().getResourceAsStream(codesPath);
-    	Scanner file = new Scanner(codesFile);
+    	Scanner file = new Scanner(new File(path));
     	
     	while (file.hasNext())
     	{
@@ -72,25 +81,13 @@ public class IOCodes
     
     public void saveCodes() throws Exception
     {
-    	URL url = this.getClass().getResource(codesPath);
-    	File file;
-    	
-    	try
+    	FileWriter out = new FileWriter(new File(path));
+    	for (String code : codes.keys())
     	{
-    		file = new File(url.toURI().getPath());
-    		FileWriter out = new FileWriter(file);
-
-    		for (String code : codes.keys())
-    		{
-    			out.write(code + "," + codes.get(code));
-    			out.write('\n');
-    		}
-    		out.close();
+    		out.write(code + "," + codes.get(code));
+    		out.write('\n');
     	}
-    	catch (URISyntaxException exception)
-    	{
-    		exception.printStackTrace();
-    	}
+    	out.close();
     }
     
     public ST<String, Integer> getSTCodes()
@@ -117,7 +114,7 @@ public class IOCodes
     public static void main(String[] args) throws Exception
     {
     	ST<String, Integer> codes;
-    	IOCodes ioCodes = new IOCodes("src/Codes.txt");
+    	IOCodes ioCodes = new IOCodes("Codes.txt");
     	ioCodes.readCodes();
     	
     	codes = ioCodes.getSTCodes();

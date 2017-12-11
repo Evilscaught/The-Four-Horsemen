@@ -30,7 +30,6 @@
 package application.controller;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.Arrays;
 
 import application.Main;

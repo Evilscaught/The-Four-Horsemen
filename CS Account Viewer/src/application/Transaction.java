@@ -67,7 +67,7 @@ public class Transaction
 		this.amount = amount;
 		this.description = description;
 		this.type = "None";
-		this.code = "";
+		this.code = "None";
 		adjustedamount = amount;
 	}
 
@@ -80,7 +80,7 @@ public class Transaction
 		this.amount = amount;
 		this.description = "None";
 		this.type = "None";
-		this.code = "";
+		this.code = "None";
 		adjustedamount = amount;
 	}
 
@@ -124,8 +124,7 @@ public class Transaction
 
 	public String toString()
 	{
-		String output = "" + recipientAcct + "," + customer + "," + date + "," + amount + "," + description + "," + type + "," + code;
-		return output;
+		return "" + recipientAcct + "," + customer + "," + date + "," + amount + "," + description + "," + type + "," + code;
 	}
 
 	public String getCustomer()

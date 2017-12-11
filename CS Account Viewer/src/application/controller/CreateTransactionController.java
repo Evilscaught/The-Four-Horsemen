@@ -106,6 +106,17 @@ public class CreateTransactionController
         	amount = amount * -1;
         	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Expense", code);
         }
+        
+        try 
+        {
+			LoginScreenController.getMainController().getTransactionDB().saveTransactions();
+		} 
+        catch (IOException ioException) 
+        {
+			// TODO Auto-generated catch block
+        	ioException.printStackTrace();
+		}
+        
         LoginScreenController.getMainController().setTransactionPane();
     }
 

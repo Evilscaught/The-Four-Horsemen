@@ -34,30 +34,34 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class IOTransactions
 {
-    private String transactionsPath;
+    private String path;
     private ArrayList<Transaction> transactionArr;
-    private IOAccounts ioAccounts;
-    private Account acc;
-    private double accTotal;
 
     public IOTransactions(String path)
     {
-    	transactionsPath = path;
+    	this.path = path;
+    	
+        //Create an transactions file 'transactions.txt' if one does not already exist.
+        File transactionsFile = new File("Transactions.txt");
+        try 
+        {
+        	transactionsFile.createNewFile();
+		}
+        catch (IOException ioException) 
+        {
+        	ioException.printStackTrace();
+		}
     }
 
     public void readTransactions() throws FileNotFoundException
     {
         //Create file scanner
-    	InputStream transactionsFile = this.getClass().getResourceAsStream(transactionsPath);
-        Scanner file = new Scanner(transactionsFile);
+        Scanner file = new Scanner(new File(path));
         transactionArr = new ArrayList<Transaction>(10);
 
         while(file.hasNext())
@@ -79,10 +83,6 @@ public class IOTransactions
 
     public void createTransaction(String recipientAcct, String customer, String date, double amount, String description, String type, String code)
     {
-
-         double transAmount =0.0;
-
-
     	if(type.equals("Credit Card"))
     	{
 
@@ -103,9 +103,6 @@ public class IOTransactions
     	}
     }
 
-
-
-
     public void deleteTransaction(int index)
     {
     	transactionArr.remove(index);
@@ -113,25 +110,14 @@ public class IOTransactions
 
     public void saveTransactions() throws IOException
     {
-        URL url = this.getClass().getResource(transactionsPath);
-        File file;
-
-        try
-        {
-            file = new File(url.toURI().getPath());
-
-            FileWriter out = new FileWriter(file);
-            for(Transaction transaction : getTransactions())
-            {
-                out.write(transaction.toString());
-                out.write('\n');
-            }
-            out.close();
-        }
-        catch (URISyntaxException event)
-        {
-            event.printStackTrace();
-        }
+        FileWriter out = new FileWriter(new File(path));
+        
+		for(Transaction transaction : getTransactions())
+		{
+		    out.write(transaction.toString());
+		    out.write('\n');
+		}
+		out.close();
     }
 
     public ArrayList<Transaction> getTransactions()
@@ -142,7 +128,7 @@ public class IOTransactions
     public static void main(String[] args) throws FileNotFoundException
     {
     	System.out.println("Debugging IOTransaction");
-    	IOTransactions IOTrans = new IOTransactions("src/Transactions.txt");
+    	IOTransactions IOTrans = new IOTransactions("Transactions.txt");
     	IOTrans.readTransactions();
 
     	for (Transaction transaction : IOTrans.getTransactions())

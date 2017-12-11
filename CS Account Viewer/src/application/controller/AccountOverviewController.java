@@ -47,7 +47,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.control.Label;
-import java.util.Formatter;
 
 public class AccountOverviewController
 {
