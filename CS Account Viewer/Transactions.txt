@@ -1,1 +1,2 @@
 Adam McManigal,James McField,,10834.67,,Credit Card,None
+Michael Cassens,Hunter Schmitz,11/28/2017,-444.44,,Expense,Code A: 1501

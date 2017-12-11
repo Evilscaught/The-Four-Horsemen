@@ -32,7 +32,7 @@
         </FXCollections>
       </items>
     </ChoiceBox>
-    <Button id="saveButtonClick" fx:id="cancelButton" layoutX="314.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#handleCancel" onMouseEntered="#cancelButtonClicked" onMouseExited="#cancelButtonReleased" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: e53030;" text="Cancel" textFill="WHITE" />
+    <Button id="saveButtonClick" fx:id="cancelButton" layoutX="16.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#handleCancel" onMouseEntered="#cancelButtonClicked" onMouseExited="#cancelButtonReleased" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: e53030;" text="Cancel" textFill="WHITE" />
     <ChoiceBox fx:id="accountBox" layoutX="314.0" layoutY="28.0" prefHeight="25.0" prefWidth="204.0" style="-fx-border-color: #000000;">
       <items>
         <FXCollections fx:factory="observableArrayList">
@@ -62,5 +62,10 @@
             <Image url="@images/create-transaction-controller-edit-codes-selected.png" />
          </image>
       </ImageView>
+      <Text fill="WHITE" layoutX="486.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Code" wrappingWidth="68.00000071525574">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Text>
   </children>
 </AnchorPane>

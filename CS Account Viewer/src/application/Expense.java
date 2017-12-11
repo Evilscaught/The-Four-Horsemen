@@ -33,7 +33,7 @@ public class Expense extends Transaction
 {
 	public Expense(String account, String customer, String date, double amount, String description, String code) 
 	{
-		super(account, customer, date, amount, description);
+		super(account, customer, date, amount, description, code);
 		adjustedamount = amount;
 		this.type = "Expense";
 	}
