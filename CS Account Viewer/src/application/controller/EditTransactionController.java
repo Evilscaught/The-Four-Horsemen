@@ -37,6 +37,7 @@ import application.Transaction;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
@@ -55,7 +56,12 @@ public class EditTransactionController
     @FXML private DatePicker 		dateField;
     @FXML private TextField 		dollarsField;
     @FXML private TextField 		centsField;
-    @FXML private ImageView			editCodesButton;
+    @FXML private ImageView			editCodesButtonWhite;
+    @FXML private ImageView			editCodesButtonRed;
+    @FXML private Button		    deleteButton;
+    @FXML private Button 			cancelButton;
+    @FXML private Button			saveButton;
+    
     @FXML private ChoiceBox<String> transactionType;
     @FXML private ChoiceBox<String> accountBox;
     @FXML private ChoiceBox<String> transactionCodes;
@@ -68,7 +74,7 @@ public class EditTransactionController
     }
     
     @FXML
-    void saveButtonClicked(MouseEvent event) 
+    private void handleSave(MouseEvent event) 
     {
     	//Check that all parameters have been correctly filled by user
     	if (!checkParam())
@@ -111,7 +117,31 @@ public class EditTransactionController
         	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Expense", code);
         }
 
+        //Update Transactions.txt
+        try 
+        {
+			LoginScreenController.getMainController().getTransactionDB().saveTransactions();
+		} 
+        catch (IOException ioException) 
+        {
+        	ioException.printStackTrace();
+		}
+        
         LoginScreenController.getMainController().setTransactionPane();
+    }
+    
+    @FXML
+    private void saveButtonClicked()
+    {
+    	//Set button color to navy blue when clicked on
+    	saveButton.setStyle("-fx-background-color: #273e51;");
+    }
+    
+    @FXML
+    private void saveButtonReleased()
+    {
+    	//Set button back to original color (Red) when click is released
+    	saveButton.setStyle("-fx-background-color: #e53030;");
     }
     
     public boolean checkParam()
@@ -184,9 +214,23 @@ public class EditTransactionController
     }
 
     @FXML
-    void handleCancel(MouseEvent event) 
+    private void handleCancel(MouseEvent event) 
     {
     	LoginScreenController.getMainController().setTransactionPane();
+    }
+    
+    @FXML
+    private void cancelButtonClicked()
+    {
+    	//Set button color to navy blue when clicked on
+    	cancelButton.setStyle("-fx-background-color: #273e51;");
+    }
+    
+    @FXML
+    private void cancelButtonReleased()
+    {
+    	//Set button back to original color (Red) when click is released
+    	cancelButton.setStyle("-fx-background-color: #e53030;");
     }
 
     public EditTransactionController(int arraynum) 
@@ -243,10 +287,34 @@ public class EditTransactionController
     }
     
     @FXML
-    void deleteButtonClicked(MouseEvent event) {
-    	
+    private void handleDelete(MouseEvent event) 
+    {
     	LoginScreenController.getMainController().getTransactionDB().deleteTransaction(arraynum);
+        //Update Transactions.txt
+        try 
+        {
+			LoginScreenController.getMainController().getTransactionDB().saveTransactions();
+		} 
+        catch (IOException ioException) 
+        {
+        	ioException.printStackTrace();
+		}
+    	
     	LoginScreenController.getMainController().setTransactionPane();    	
+    }
+    
+    @FXML
+    private void deleteButtonClicked()
+    {
+    	//Set button color to navy blue when clicked on
+    	deleteButton.setStyle("-fx-background-color: #273e51;");
+    }
+    
+    @FXML
+    private void deleteButtonReleased()
+    {
+    	//Set button back to original color (Red) when click is released
+    	deleteButton.setStyle("-fx-background-color: #e53030;");
     }
     
     @FXML
@@ -255,11 +323,26 @@ public class EditTransactionController
     }
     
     @FXML
-    void editCodesClicked(MouseEvent event) 
+    void handleEditCodes(MouseEvent event) 
     {
         currentPane.getChildren().clear();
         currentPane.getChildren().addAll(new EditExpenseCodeController().getPane());
     }
+    
+    @FXML
+    private void editCodesClicked()
+    {
+    	editCodesButtonWhite.setVisible(false);
+    	editCodesButtonRed.setVisible(true);
+    }
+    
+    @FXML
+    private void editCodesReleased()
+    {
+    	editCodesButtonWhite.setVisible(true);
+    	editCodesButtonRed.setVisible(false);
+    }
+
     
     //Add accounts in drop down choice box.
     public void createAcctBox()
