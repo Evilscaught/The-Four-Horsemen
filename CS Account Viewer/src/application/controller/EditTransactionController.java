@@ -171,7 +171,7 @@ public class EditTransactionController
     	}*/
 
     	//Ensure that user has chosen a transaction type:
-    	if (transactionType.getValue() == "Select Transaction Type")
+    	if (transactionType.getValue() == "*Select Transaction Type")
     	{
     		//Set border to Red
     		transactionType.setStyle("-fx-border-color: #f26d6d");
@@ -179,14 +179,14 @@ public class EditTransactionController
     	}
     	
     	//Ensure that user has chosen an account:
-    	if (accountBox.getValue() == "Choose Account")
+    	if (accountBox.getValue() == "*Choose Account")
     	{
     		//Set border to Red
     		accountBox.setStyle("-fx-border-color: #f26d6d");
     		pass = false;
     	}
     	
-    	if (transactionCodes.getValue().equals("Select Transaction Code"))
+    	if (transactionCodes.getValue().equals("*Select Transaction Code"))
     	{
     		transactionCodes.setStyle("-fx-border-color: #f26d6d");
     		pass = false;
@@ -264,7 +264,7 @@ public class EditTransactionController
     public void createTypeBox()
     {
         transactionType.getItems().clear();
-        //transactionType.getItems().add("Select Transaction Type");
+        //transactionType.getItems().add("*Select Transaction Type");
         transactionType.getItems().add("Credit Card Deposit");
         transactionType.getItems().add("Check Deposit");
         transactionType.getItems().add("Expense");
@@ -275,7 +275,7 @@ public class EditTransactionController
     public void createCodeBox()
     {
     	transactionCodes.getItems().clear();
-    	//transactionCodes.getItems().add("Select Transaction Code");
+    	//transactionCodes.getItems().add("*Select Transaction Code");
     	//transactionCodes.getItems().add("None");
     	//transactionCodes.getSelectionModel().selectFirst();
     	
@@ -351,7 +351,7 @@ public class EditTransactionController
         Arrays.sort(accounts);
         
         accountBox.getItems().clear();
-        //accountBox.getItems().add("Choose Account");
+        //accountBox.getItems().add("*Choose Account");
         
         for (String item : accounts) 
         {
