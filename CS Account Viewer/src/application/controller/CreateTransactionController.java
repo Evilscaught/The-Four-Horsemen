@@ -323,7 +323,7 @@ public class CreateTransactionController
     {
         LoginScreenController.getMainController().setPrevData(this.getData());
         currentPane.getChildren().clear();
-        currentPane.getChildren().addAll(new EditExpenseCodeController().getPane());
+        currentPane.getChildren().addAll(new EditExpenseCodeController("create", 0).getPane());
     }
     
     @FXML

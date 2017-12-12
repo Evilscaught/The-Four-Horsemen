@@ -541,6 +541,11 @@ public class MainMenuController
             transactionPane.getChildren().addAll(new EditTransactionController(arrayNum).getPane());
         }
     }
+    
+    public void backtoEditTransaction(MouseEvent event, int arraynum) {
+    	transactionPane.getChildren().clear();
+        transactionPane.getChildren().addAll(new EditTransactionController(arraynum).getPane());
+    }
 
 
     public AnchorPane getAdminPane()

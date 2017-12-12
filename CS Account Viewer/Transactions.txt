@@ -1,3 +1,4 @@
 Adam McManigal,James McField,,10834.67,,Credit Card,None
 Michael Cassens,Hunter Schmitz,11/28/2017,-444.44,,Expense,Code A: 1501
 Robyn Berg,Godzilla,12/15/2017,555.99,Wow thanks Godzilla!,Credit Card,Code B: 1502
+

@@ -81,10 +81,16 @@ public class EditExpenseCodeController
 	@FXML private TextField codeField2;
 	@FXML private TextField descriptionField2;
 	@FXML private Button saveButton2;
+	private String source;
+	private int arraynum;
 
-	public EditExpenseCodeController() 
+	public EditExpenseCodeController(String source, int arraynum) 
 	{
         // Load root layout from FXML file.
+		
+		this.source = source;
+		this.arraynum = arraynum;
+		
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/EditTransactionCodes.fxml"));
         loader.setController(this);
@@ -133,7 +139,12 @@ public class EditExpenseCodeController
   			codeField.setText("");
   		}
   		
-        LoginScreenController.getMainController().handleAddTransaction(event);;
+    	if (source.equals("create")) {
+    		LoginScreenController.getMainController().handleAddTransaction(event);
+    	}
+    	else {
+    		LoginScreenController.getMainController().backtoEditTransaction(event, arraynum);
+    	}
     }
     
     
@@ -154,9 +165,13 @@ public class EditExpenseCodeController
     @FXML
     private void handleBack(MouseEvent event) 
     {
-    	;
-    	LoginScreenController.getMainController().handleAddTransaction(event);
-    }
+    	if (source.equals("create")) {
+    		LoginScreenController.getMainController().handleAddTransaction(event);
+    	}
+    	else {
+    		LoginScreenController.getMainController().backtoEditTransaction(event, arraynum);
+    	}
+    }	
     
     @FXML
     private void backButtonClicked()

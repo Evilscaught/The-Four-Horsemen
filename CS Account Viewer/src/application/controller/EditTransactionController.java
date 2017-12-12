@@ -326,7 +326,7 @@ public class EditTransactionController
     void handleEditCodes(MouseEvent event) 
     {
         currentPane.getChildren().clear();
-        currentPane.getChildren().addAll(new EditExpenseCodeController().getPane());
+        currentPane.getChildren().addAll(new EditExpenseCodeController("edit", arraynum).getPane());
     }
     
     @FXML
