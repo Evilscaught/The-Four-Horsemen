@@ -160,7 +160,7 @@ public class AccountOverviewController
     			//Update all parameters in the account
     			selectedAccount.setFirstName(firstNameField.getText());
     			selectedAccount.setLastName(lastNameField.getText());
-    			selectedAccount.setDescription(descriptionField.getText());
+    			selectedAccount.setDescription(descriptionField.getText().replace(",", "`"));
     			selectedAccount.setEmail(emailField.getText());
     			selectedAccount.setUsername(usernameField.getText());
 
@@ -333,7 +333,7 @@ public class AccountOverviewController
                             lastNameField.setText(acct.getLastName());
                             emailField.setText(acct.getEmail());
                             usernameField.setText(acct.getUsername()); // TODO Fix Getter String Argument
-                            descriptionField.setText(acct.getDescription());
+                            descriptionField.setText(acct.getDescription().replace("`", ","));
                             accountBalance.setText("$ " + acct.getaccTotal());
                             
                             if (acct.isAdmin())

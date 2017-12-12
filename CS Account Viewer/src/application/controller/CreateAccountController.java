@@ -93,7 +93,7 @@ public class CreateAccountController
         userNameField.setText(account.getUsername());
         passField.setText(account.getPassword());
         passVerifyField.setText(account.getPassword());
-        descriptionField.setText(account.getDescription());
+        descriptionField.setText(account.getDescription().replace("`", ","));
     }
 
     @FXML
@@ -144,7 +144,7 @@ public class CreateAccountController
     	else
     	{
             Account account = new Account(firstNameField.getText(), lastNameField.getText(), emailField.getText(), userNameField.getText(), passField.getText(), isAdminBox.isSelected(),0.0);
-            account.setDescription(descriptionField.getText());
+            account.setDescription(descriptionField.getText().replace(",", "`"));
 
             currentPane.getChildren().clear();
             currentPane.getChildren().addAll(new SecurityQuestionsController(account).getPane());
