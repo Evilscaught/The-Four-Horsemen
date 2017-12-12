@@ -46,7 +46,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.scene.control.Label;
 
 public class AccountOverviewController
 {
@@ -62,7 +61,6 @@ public class AccountOverviewController
 	@FXML private Button			changePasswordButton;
 	@FXML private Text				lastLogin;
 	@FXML private Text				accountBalance;
-    @FXML private Label             acctotLabel;
 	@FXML private Text				permissions;
 	@FXML private TextArea  		descriptionField;
 	@FXML private TextField 		firstNameField;
@@ -336,13 +334,23 @@ public class AccountOverviewController
                             emailField.setText(acct.getEmail());
                             usernameField.setText(acct.getUsername()); // TODO Fix Getter String Argument
                             descriptionField.setText(acct.getDescription());
-                            acctotLabel.setText("$ " + acct.getaccTotal());
+                            accountBalance.setText("$ " + acct.getaccTotal());
+                            
+                            if (acct.isAdmin())
+                            {
+                            	permissions.setText("Adminstrator");
+                            }
+                            else
+                            {
+                            	permissions.setText("Regular User");
+                            }
 
                             //Reset any previously red fields
                     		firstNameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
                     		lastNameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
                     		emailField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
                     		usernameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
+                    		
 
                             break;
                         }

@@ -259,6 +259,11 @@ public class Account implements Comparable<Account>
     public double getaccTotal(){
         return accTotal;
     }
+    
+    public boolean isAdmin()
+    {
+    	return admin;
+    }
 
     //--------------------------------------------//
     //             		Other		              //
