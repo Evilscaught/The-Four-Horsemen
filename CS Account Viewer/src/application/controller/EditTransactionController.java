@@ -276,7 +276,7 @@ public class EditTransactionController
     {
     	transactionCodes.getItems().clear();
     	//transactionCodes.getItems().add("*Select Transaction Code");
-    	//transactionCodes.getItems().add("None");
+    	transactionCodes.getItems().add("None");
     	//transactionCodes.getSelectionModel().selectFirst();
     	
     	for (String code : LoginScreenController.getMainController().getCodesDB().getSTCodes().keys())
