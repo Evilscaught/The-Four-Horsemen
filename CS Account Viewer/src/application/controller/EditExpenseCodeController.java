@@ -268,19 +268,18 @@ public class EditExpenseCodeController
     
     @FXML
     private void handleSaveChanges() throws Exception
-    {
-    	//Set button as unavailable until another code is selected
-		deleteButton.setOpacity(MIN_OPACITY);
-		editButton.setOpacity(MIN_OPACITY);
-		
-		//Show codes list again
-		codesList.setVisible(true);
-		deleteButton.setVisible(true);
-		editButton.setVisible(true);
-    	
-    	
+    {	
     	if (checkEditedParam())
-    	{	
+    	{		
+        	//Set button as unavailable until another code is selected
+    		deleteButton.setOpacity(MIN_OPACITY);
+    		editButton.setOpacity(MIN_OPACITY);
+    		
+    		//Show codes list again
+    		codesList.setVisible(true);
+    		deleteButton.setVisible(true);
+    		editButton.setVisible(true);
+    		
     		descriptionField.setText(descriptionField.getText().replaceAll(":", ""));
     		
     		LoginScreenController.getMainController().getCodesDB().delete(oldKey);
@@ -289,6 +288,8 @@ public class EditExpenseCodeController
     		
     		refreshCodesList();
     		editCodePane.setVisible(false);
+    		newDescriptionField.setText("");
+    		newCodeField.setText("");
     	}
     	else
     	{
@@ -315,6 +316,8 @@ public class EditExpenseCodeController
     {
     	newDescriptionField.setText("");
     	newCodeField.setText("");
+		newDescriptionField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
+		newCodeField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
 		codesList.setVisible(true);
 		deleteButton.setVisible(true);
 		editButton.setVisible(true);
