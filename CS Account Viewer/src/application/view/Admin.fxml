@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="531.0" style="-fx-background-color: #595959;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="355.0" prefWidth="550.0" style="-fx-background-color: #595959;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <Button fx:id="createAccountButton" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" defaultButton="true" graphicTextGap="4.0" layoutX="63.0" layoutY="45.0" minHeight="19.000091552734375" mnemonicParsing="false" onMouseClicked="#handleCreateAccount" onMouseEntered="#createAccountClicked" onMouseExited="#createAccountReleased" onMousePressed="#createAccountClicked" onMouseReleased="#createAccountReleased" prefHeight="82.0" prefWidth="142.0" style="-fx-background-color: e53030;" text="Create Account" textFill="WHITE">
       <font>
@@ -15,16 +15,16 @@
         <URL value="@../application.css" />
       </stylesheets>
     </Button>
-    <Button id="deleteAccountButton" fx:id="deleteAccountButton" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" defaultButton="true" font="$x1" graphicTextGap="4.0" layoutX="324.0" layoutY="45.0" minHeight="19.000091552734375" mnemonicParsing="false" onMouseClicked="#handleDeleteAccount" onMouseEntered="#deleteAccountClicked" onMouseExited="#deleteAccountReleased" onMousePressed="#deleteAccountClicked" onMouseReleased="#deleteAccountReleased" prefHeight="82.0" prefWidth="142.0" style="-fx-background-color: e53030;" text="Delete Account" textFill="WHITE">
+    <Button id="deleteAccountButton" fx:id="deleteAccountButton" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" defaultButton="true" font="$x1" graphicTextGap="4.0" layoutX="331.0" layoutY="45.0" minHeight="19.000091552734375" mnemonicParsing="false" onMouseClicked="#handleDeleteAccount" onMouseEntered="#deleteAccountClicked" onMouseExited="#deleteAccountReleased" onMousePressed="#deleteAccountClicked" onMouseReleased="#deleteAccountReleased" prefHeight="82.0" prefWidth="142.0" style="-fx-background-color: e53030;" text="Delete Account" textFill="WHITE">
       <stylesheets>
         <URL value="@../application.css" />
       </stylesheets>
     </Button>
-      <Button fx:id="disableAcctButton" alignment="BOTTOM_RIGHT" layoutX="324.0" layoutY="206.0" mnemonicParsing="false" opacity="0.2" prefHeight="82.0" prefWidth="142.0" style="-fx-background-color: e53030;" stylesheets="@../application.css" text="Disable Account" textFill="WHITE">
+      <Button fx:id="disableAcctButton" alignment="BOTTOM_RIGHT" layoutX="324.0" layoutY="206.0" mnemonicParsing="false" opacity="0.2" prefHeight="82.0" prefWidth="142.0" style="-fx-background-color: e53030;" stylesheets="@../application.css" text="Disable Account" textFill="WHITE" visible="false">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Button>
-      <Button fx:id="permissionsButton" alignment="BOTTOM_CENTER" layoutX="63.0" layoutY="206.0" mnemonicParsing="false" opacity="0.2" prefHeight="82.0" prefWidth="142.0" style="-fx-background-color: e53030;" stylesheets="@../application.css" text="Permissions" textFill="WHITE">
+      <Button fx:id="permissionsButton" alignment="BOTTOM_CENTER" layoutX="63.0" layoutY="206.0" mnemonicParsing="false" opacity="0.2" prefHeight="82.0" prefWidth="142.0" style="-fx-background-color: e53030;" stylesheets="@../application.css" text="Permissions" textFill="WHITE" visible="false">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Button>
