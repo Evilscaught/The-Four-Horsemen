@@ -43,6 +43,7 @@ public class Transaction
 	protected String description;
 	protected String type;
 	protected String code;
+	protected double fee;
 	protected DecimalFormat df1 = new DecimalFormat(".##");
 
 	//Create transaction with a description and code
@@ -135,6 +136,10 @@ public class Transaction
 	public void editCustomer(String customer)
 	{
 		this.customer = customer;
+	}
+	
+	public double getFee() {
+		return fee;
 	}
 
 	public String getDate()

@@ -1,4 +1,12 @@
 Adam McManigal,James McField,,10834.67,,Credit Card,None
 Michael Cassens,Hunter Schmitz,11/28/2017,-444.44,,Expense,Code A: 1501
 Robyn Berg,Godzilla,12/15/2017,555.99,Wow thanks Godzilla!,Credit Card,Code B: 1502
-
+Admin,FEES PAID,,0.0,Fees were cleared.,Expense,None
+Travis Wheeler,Jimmy John's,12/13/2017,35.0,Yummm,Credit Card,Code C: 1503
+Michael Cassens,Some guy,12/20/2017,45.45,,Check,Code B: 1502
+Admin,FEES PAID,,0.0,Fees were cleared.,Expense,None
+Doug Raiford,Jake Wolfe,12/6/2017,399.99,,Credit Card,Code C: 1503
+Travis Wheeler,David Bowie,12/15/2017,32.0,,Check,Code A: 1501
+Admin,FEES PAID,,0.0,Fees were cleared.,Expense,None
+Adam McManigal,Micheal Jackson,12/13/2017,25.0,,Credit Card,Code A: 1501
+Admin,FEES PAID,,0.0,Fees were cleared.,Expense,None

@@ -104,10 +104,12 @@ public class CreateTransactionController
         if (transactionType.getValue() == "Credit Card Deposit")
         {
         	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Credit Card", code);
+        	LoginScreenController.getMainController().getFeesDB().addUnpaidFees(amount*.12);
         }
         else if (transactionType.getValue() == "Check Deposit")
         {
         	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Check", code);
+        	LoginScreenController.getMainController().getFeesDB().addUnpaidFees(amount*.04);
         }
         else if (transactionType.getValue() == "Expense")
         {
@@ -115,9 +117,11 @@ public class CreateTransactionController
         	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Expense", code);
         }
         
+        
         try 
         {
 			LoginScreenController.getMainController().getTransactionDB().saveTransactions();
+
 		} 
         catch (IOException ioException) 
         {
@@ -125,6 +129,14 @@ public class CreateTransactionController
         	ioException.printStackTrace();
 		}
         
+        try {
+			LoginScreenController.getMainController().getFeesDB().saveFees();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        LoginScreenController.getMainController().setFeesPane();
         LoginScreenController.getMainController().setTransactionPane();
     }
     
