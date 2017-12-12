@@ -262,6 +262,7 @@ public class MainMenuController
                     {
                         ObservableList<Map> allData = FXCollections.observableArrayList();
                         String recipAct = newValue;
+                        
                         // TODO: Implement a GetAccount in the Accounts class
                         if (ioTransactions.getTransactions().size() != 0)
                         {
@@ -273,7 +274,7 @@ public class MainMenuController
                                     Map<String, String> dataRow = new HashMap<>();
                                     Transaction temp = ioTransactions.getTransactions().get(i);
 
-                                    if (temp.getRecipientAcct().equals(recipAct)) {
+                                    if (temp.getRecipientAcct().equals(recipAct) || recipAct.contains("Admin")) {
                                         dataRow.put("account", temp.getRecipientAcct());
                                         dataRow.put("customer", temp.getCustomer());
                                         dataRow.put("date", temp.getDate());
