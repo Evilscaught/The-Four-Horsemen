@@ -35,6 +35,7 @@ public class Expense extends Transaction
 	{
 		super(account, customer, date, amount, description, code);
 		adjustedamount = amount;
+		this.fee = 0;
 		this.type = "Expense";
 	}
 }

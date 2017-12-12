@@ -32,7 +32,7 @@
     <Button fx:id="addTransactionButton" font="$x2" layoutX="154.0" layoutY="306.0" mnemonicParsing="false" onMouseClicked="#handleAddTransaction" onMouseEntered="#addTransactionClicked" onMouseExited="#addTransactionReleased" prefHeight="27.0" prefWidth="117.0" style="-fx-background-color: e53030;" text="Add Transaction" textFill="$x1" />
     <Button fx:id="printButton" font="$x2" layoutX="432.0" layoutY="306.0" mnemonicParsing="false" onMouseClicked="#handleprintButton" onMouseEntered="#printButtonClicked" onMouseExited="#printButtonReleased" prefHeight="27.0" prefWidth="107.0" style="-fx-background-color: e53030;" text="Print" textFill="$x1" />
     <Button fx:id="viewTransactionButton" font="$x2" layoutX="13.0" layoutY="306.0" mnemonicParsing="false" onMouseClicked="#handleViewTransaction" onMouseEntered="#viewTransactionClicked" onMouseExited="#viewTransactionReleased" prefHeight="27.0" prefWidth="117.0" style="-fx-background-color: e53030;" text="View Transaction" textFill="$x1" />
-    <Label fx:id ="totalLabel" layoutX="400.0" layoutY="278.0" prefWidth="40.0" text="Total:" />
-    <Label fx:id="amountLabel" layoutX="460.0" layoutY="278.0" prefWidth="67.0" text="" />
+    <Label fx:id="totalLabel" layoutX="343.0" layoutY="278.0" prefWidth="40.0" text="Total:" />
+    <Label fx:id="amountLabel" layoutX="411.0" layoutY="278.0" prefWidth="107.0" text="" />
   </children>
 </AnchorPane>

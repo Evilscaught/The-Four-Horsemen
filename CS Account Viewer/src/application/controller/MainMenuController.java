@@ -43,6 +43,7 @@ import java.util.Scanner;
 import application.Account;
 import application.IOAccounts;
 import application.IOCodes;
+import application.IOFees;
 import application.IOTransactions;
 import application.Main;
 import application.Transaction;
@@ -90,6 +91,7 @@ public class MainMenuController
     private IOTransactions 	ioTransactions;
     private IOAccounts 		ioAccounts;
     private IOCodes			ioCodes;
+    private IOFees  		ioFees;
 
 
     private Map <String, String> prevData;
@@ -99,6 +101,11 @@ public class MainMenuController
     @FXML private AnchorPane 		transactionPane;
     @FXML private AnchorPane		accountOverviewPane;
     @FXML private AnchorPane		feesPane;
+    @FXML private Label 			totalFeesLabel;
+    @FXML private Label				unpaidFeesLabel;
+    @FXML private Label 			clearResponseLabel1;
+    @FXML private Label				clearResponseLabel2;
+    @FXML private Button			payUnpaidFeesButton;
     @FXML private Button			printButton;
     @FXML private Button            viewTransactionButton;
     @FXML private Button			addTransactionButton;
@@ -176,10 +183,11 @@ public class MainMenuController
     }
 
 
-    public Scene loadScene(Stage stage, IOAccounts ioAccounts, IOTransactions ioTransactions, IOCodes ioCodes, UserController userController)
+    public Scene loadScene(Stage stage, IOAccounts ioAccounts, IOTransactions ioTransactions, IOCodes ioCodes, IOFees ioFees, UserController userController)
     {
         BorderPane rootLayout = new BorderPane();
 
+        this.ioFees 		= ioFees;
         this.ioCodes   	    = ioCodes;
         this.ioAccounts     = ioAccounts;
         this.ioTransactions = ioTransactions;
@@ -204,6 +212,7 @@ public class MainMenuController
             this.setAdminPane();
             this.setTransactionPane();
             this.setAccountOverviewPane();
+            this.setFeesPane();
 
             hideUserListButton.setPadding(Insets.EMPTY);
             hideUserListButton.setText("�");
@@ -443,6 +452,46 @@ public class MainMenuController
     }
 
     //---------------------------------------------------------------------------------//
+    //                                Fees Pane                        	   			   //
+    //---------------------------------------------------------------------------------//
+    
+    public void setFeesPane() {
+    	
+        // Load root layout from FXML file.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("view/Fees.fxml"));
+        loader.setController(this);
+    	
+        try
+        {
+            feesPane.getChildren().clear();
+            feesPane.getChildren().add(loader.load());
+        }
+        catch (IOException event)
+        {
+            event.printStackTrace();
+        }
+    	
+        totalFeesLabel.setText("" + new DecimalFormat("0.00").format(ioFees.getTotalFees()));
+        unpaidFeesLabel.setText("" + new DecimalFormat("0.00").format(ioFees.getUnpaidFees()));
+    	
+    }
+    
+    @FXML
+    public void payUnpaidFeesButtonClicked(MouseEvent event) {
+    	
+    	ioFees.clearFees();
+    	unpaidFeesLabel.setText("" + ioFees.getUnpaidFees());
+    	clearResponseLabel1.setVisible(true);
+    	clearResponseLabel2.setVisible(true);
+    	
+    	ioTransactions.createTransaction("Admin", "FEES PAID", "", 0.0, "Fees were cleared.", "Expense", "None");
+    	setTransactionPane();
+    }
+    
+    
+    
+    //---------------------------------------------------------------------------------//
     //                                Administrator Pane                               //
     //---------------------------------------------------------------------------------//
 
@@ -599,6 +648,8 @@ public class MainMenuController
         ObservableList<Map> allData = FXCollections.observableArrayList();
 
         String recipAct = "";
+        
+        double totalFee = 0;
 
         for (Account tmp : ioAccounts.getAccounts())
         {
@@ -619,6 +670,8 @@ public class MainMenuController
                 {
                     Map<String, String> dataRow = new HashMap<>();
                     Transaction temp = ioTransactions.getTransactions().get(i);
+                    
+                    totalFee = totalFee + temp.getFee();
 
                     if (temp.getRecipientAcct().equals(recipAct) || this.userController.isAdmin()) {
 
@@ -634,6 +687,8 @@ public class MainMenuController
             }
 
             transactionText.setItems(allData);
+            ioFees.setTotalFees(totalFee);
+            
         }
 
         ArrayList transactionArray = ioTransactions.getTransactions();
@@ -648,6 +703,20 @@ public class MainMenuController
 
         amountLabel.setText("$" + new DecimalFormat("0.00").format(total));
         setAcctAmts();
+        
+        try {
+			ioTransactions.saveTransactions();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        try {
+			ioFees.saveFees();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 
 
@@ -811,6 +880,10 @@ public class MainMenuController
     public IOAccounts getAccountDB()
     {
         return ioAccounts;
+    }
+    
+    public IOFees getFeesDB() {
+    	return ioFees;
     }
 
     public IOCodes getCodesDB()

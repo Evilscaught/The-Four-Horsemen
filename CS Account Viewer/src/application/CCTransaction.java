@@ -35,6 +35,7 @@ public class CCTransaction extends Transaction
 	{
 		super(account, customer, date, amount, description, code);
 		this.adjustedamount = this.amount - (this.amount* 0.12);
+		this.fee = (this.amount*.12);
 		this.type = "Credit Card";
 	}
 }

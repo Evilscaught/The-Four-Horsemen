@@ -36,6 +36,7 @@ import java.util.ResourceBundle;
 import application.Account;
 import application.IOAccounts;
 import application.IOCodes;
+import application.IOFees;
 import application.IOTransactions;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -61,6 +62,7 @@ public class LoginScreenController implements Initializable
           private IOTransactions	 ioTransactions;
 		  private IOAccounts 		 ioAccounts;
 		  private IOCodes			 ioCodes;
+		  private IOFees 			 ioFees;
 	      private Account 			 requestedAccount;
     
     @FXML private AnchorPane		 loginPane;  //All clustered attributes below are part of this pane:
@@ -143,6 +145,7 @@ public class LoginScreenController implements Initializable
     	ioTransactions = new IOTransactions("Transactions.txt");
 		ioAccounts = new IOAccounts("Accounts.txt");
     	ioCodes = new IOCodes("Codes.txt");
+    	ioFees = new IOFees("Fees.txt");
     	
     	//Load file contents (transactions.txt) into ADT ioTransactions.
     	try 
@@ -150,6 +153,7 @@ public class LoginScreenController implements Initializable
 			ioTransactions.readTransactions();
 			ioAccounts.readAccounts();
 			ioCodes.readCodes();
+			ioFees.readFees();
 		} 
     	catch (FileNotFoundException nfe) 
     	{
@@ -173,7 +177,7 @@ public class LoginScreenController implements Initializable
     		Stage stage;
 	    
     		stage = new Stage();
-    		stage.setScene(mainMenuController.loadScene(stage, ioAccounts, ioTransactions, ioCodes, userController));
+    		stage.setScene(mainMenuController.loadScene(stage, ioAccounts, ioTransactions, ioCodes, ioFees, userController));
     		stage.show();
 		
     		//This will hide the login screen.
@@ -196,7 +200,7 @@ public class LoginScreenController implements Initializable
         Stage stage;
 	    
         stage = new Stage();
-        stage.setScene(mainMenuController.loadScene(stage, ioAccounts, ioTransactions, ioCodes, userController));
+        stage.setScene(mainMenuController.loadScene(stage, ioAccounts, ioTransactions, ioCodes, ioFees, userController));
     	stage.show();
 	
     	//This will hide the login screen.

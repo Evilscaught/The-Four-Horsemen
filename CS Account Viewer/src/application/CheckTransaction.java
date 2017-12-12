@@ -35,6 +35,7 @@ public class CheckTransaction extends Transaction
 	{
 		super(account, customer, date, amount, description, code);
 		this.adjustedamount = this.amount - (this.amount * 0.04);
+		this.fee = (this.amount * .04);
 		this.type = "Check";
 	}
 }
