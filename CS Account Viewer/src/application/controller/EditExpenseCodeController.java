@@ -118,7 +118,7 @@ public class EditExpenseCodeController
 	//-----------------------------------------------------------------//
 	
     @FXML
-    private void handleCreateCode(MouseEvent event) 
+    private void handleCreateCode(MouseEvent event) throws Exception 
     {
     	//Set button as unavailable until another code is selected
 		deleteButton.setOpacity(MIN_OPACITY);
@@ -132,6 +132,7 @@ public class EditExpenseCodeController
   		{	
   			descriptionField.setText(descriptionField.getText().replaceAll(":", ""));
   			LoginScreenController.getMainController().getCodesDB().put(descriptionField.getText(), Integer.parseInt(codeField.getText()));
+  			LoginScreenController.getMainController().getCodesDB().saveCodes();
   			refreshCodesList();
   			
   			//Reset fields
