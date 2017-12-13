@@ -912,8 +912,20 @@ public class MainMenuController
 
 
 
-    public void setPrintFile(String user){
-        File file = new File("application/src/Print.txt");
+    public void setPrintFile(String user)
+    {
+        //Create a codes file 'Codes.txt' if one does not already exist.
+        File accountsFile = new File("Print.txt");
+        try 
+        {
+			accountsFile.createNewFile();
+		}
+        catch (IOException ioException) 
+        {
+			ioException.printStackTrace();
+		}
+    	
+    	File file = new File("Print.txt");
         try
         {
             FileWriter out = new FileWriter(file);
@@ -923,7 +935,8 @@ public class MainMenuController
                 if (ioTransactions.getTransactions().get(i) != null)
                 {
                     Transaction temp = ioTransactions.getTransactions().get(i);
-                    if (temp.getRecipientAcct().equals(user) || this.userController.isAdmin()) {
+                    if (temp.getRecipientAcct().equals(user) || this.userController.isAdmin()) 
+                    {
 
                         String formatStr = "%-20s %-15s %-15s %-15s %-15s%n";
                         out.write(String.format(formatStr,temp.getRecipientAcct(), temp.getCustomer(),temp.getDate(),temp.getType(),"$" + new DecimalFormat("0.00").format((temp.getAmount()))));
@@ -951,19 +964,21 @@ public class MainMenuController
 
     }
 
-    public void print(){
-        try {
+    public void print()
+    {
+        try 
+        {
             Desktop desktop = null;
-            if (Desktop.isDesktopSupported()) {
+            if (Desktop.isDesktopSupported()) 
+            {
                 desktop = Desktop.getDesktop();
             }
 
-            desktop.print(new File("application/src/Print.txt"));
+            desktop.print(new File("Print.txt"));
         }
         catch (IOException ioe)
         {
             ioe.printStackTrace();
         }
     }
-
-}// end of class
+}
