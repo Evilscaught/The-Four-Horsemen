@@ -73,6 +73,7 @@ public class LoginScreenController implements Initializable
     @FXML private ImageView			 visibilityTrue;  //Image view icon of eye (toggle password visibility)
     @FXML private ImageView			 visibilityFalse;
     @FXML private Hyperlink			 forgotPassword;
+    @FXML private Text				 msgLoginFail;
     
     //Password Recovery P1:		
     @FXML private AnchorPane		 recoveryPane;  //All clustered attributes below are part of this pane:
@@ -186,6 +187,7 @@ public class LoginScreenController implements Initializable
     	//Else, incorrect user-name or password.
     	else
     	{
+    		msgLoginFail.setVisible(true);
     		return;
     	}
     }
@@ -288,6 +290,7 @@ public class LoginScreenController implements Initializable
     @FXML
     private void handleForgotPassword()
     {
+		msgLoginFail.setVisible(false);
     	loginPane.setVisible(false);
     	recoveryPane.setVisible(true);
     	
