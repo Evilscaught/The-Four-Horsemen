@@ -127,6 +127,14 @@ public class EditTransactionController
         	ioException.printStackTrace();
 		}
         
+        try {
+			LoginScreenController.getMainController().getFeesDB().saveFees();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        LoginScreenController.getMainController().setFeesPane();
         LoginScreenController.getMainController().setTransactionPane();
     }
     
@@ -299,7 +307,15 @@ public class EditTransactionController
         {
         	ioException.printStackTrace();
 		}
+        
+        try {
+			LoginScreenController.getMainController().getFeesDB().saveFees();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
+        LoginScreenController.getMainController().setFeesPane();
     	LoginScreenController.getMainController().setTransactionPane();    	
     }
     
