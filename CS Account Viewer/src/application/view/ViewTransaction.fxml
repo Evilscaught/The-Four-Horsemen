@@ -25,5 +25,6 @@
       <TextField fx:id="amountText" editable="false" focusTraversable="false" layoutX="31.0" layoutY="152.0" prefHeight="27.0" prefWidth="193.0" style="-fx-border-color: #000000;" />
       <TextField fx:id="expensecodeText" editable="false" layoutX="318.0" layoutY="152.0" prefHeight="25.0" prefWidth="204.0" style="-fx-border-color: #000000;" />
       <TextArea fx:id="descriptionText" editable="false" layoutX="20.0" layoutY="202.0" prefHeight="97.0" prefWidth="502.0" style="-fx-border-color: #000000;" />
+      <Button id="saveButtonClick" fx:id="copyButton" layoutX="318.0" layoutY="308.0" mnemonicParsing="false" onMouseClicked="#handleCopy" onMouseEntered="#copyButtonClicked" onMouseExited="#copyButtonReleased" prefHeight="25.0" prefWidth="204.0" style="-fx-background-color: e53030;" text="Copy to Clipboard" textFill="WHITE" />
   </children>
 </AnchorPane>

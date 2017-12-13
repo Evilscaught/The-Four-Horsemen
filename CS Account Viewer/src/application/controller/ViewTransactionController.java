@@ -29,6 +29,8 @@
 
 package application.controller;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 
 import application.Main;
@@ -43,9 +45,11 @@ import javafx.scene.layout.Pane;
 
 public class ViewTransactionController
 {
+    private boolean copied = false;
     private Pane currentPane;
     
     @FXML private Button	backButton;
+    @FXML private Button	copyButton;
     @FXML private TextField customerText;
     @FXML private TextField accountText;
     @FXML private TextField dateText;
@@ -61,8 +65,6 @@ public class ViewTransactionController
     {
     	return;
     }
-
-
 
     @FXML
     private void handleBack(MouseEvent event)
@@ -119,7 +121,39 @@ public class ViewTransactionController
         }
     }
 
-
+    //This method gathers the transaction details and copies them to your clip-board
+    @FXML
+    private void handleCopy()
+    {
+    	String toString = "Customer: \"" + customerText.getText() + "\", Account: \""+ accountText.getText() + "\", Date: \"" + dateText.getText() + "\", Transaction Type: \"" + typeText.getText() + "\", Expense Code: \"" + expensecodeText.getText() + "\", Amount: \"" + amountText.getText() + "\", Description: \"" + descriptionText.getText() + "\"";
+    	StringSelection stringSelection = new StringSelection(toString);
+    	java.awt.datatransfer.Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+    	clipboard.setContents(stringSelection, null);
+    	copyButton.setText("Copied to Clipboard!");
+    	copyButton.setStyle("-fx-background-color: #009905;");
+    	copied = true;
+    }
+    
+    @FXML
+    private void copyButtonClicked()
+    {
+    	//Set button color to navy blue when clicked on
+    	copyButton.setStyle("-fx-background-color: #273e51;");
+    }
+    
+    @FXML
+    private void copyButtonReleased()
+    {
+    	if (!copied)
+    	{
+    		//Set button back to original color (Red) when click is released
+    		copyButton.setStyle("-fx-background-color: #e53030;");
+    	}
+    	else
+    	{
+        	copyButton.setStyle("-fx-background-color: #009905;");
+    	}
+    }
 
     public Pane getPane()
     {
