@@ -368,8 +368,7 @@ public class EditTransactionController
     	Transaction current = LoginScreenController.getMainController().getTransactionDB().getTransactions().get(this.arraynum);
         customerNameField.setText(current.getCustomer());
         descriptionField.setText(current.getDescription());
-        //dateField.setText();
-        
+        ((TextField)dateField.getEditor()).setText(current.getDate());
         
         double amountvalue;
         
