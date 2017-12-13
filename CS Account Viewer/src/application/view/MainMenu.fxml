@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <!-- Added controller class...  fx:controller="application.controller.MainMenuController"  -->
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.999977929685" prefWidth="741.999977929685" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" fx:id="fatherPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.999977929685" prefWidth="741.999977929685" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
     <SplitPane fx:id="splitMain" dividerPositions="0.255405413022808" focusTraversable="true" prefHeight="428.0000999999975" prefWidth="697.0000999999975" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
       <items>

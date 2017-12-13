@@ -96,7 +96,8 @@ public class MainMenuController
 
     private Map <String, String> prevData;
 
-    @FXML private AnchorPane 		sidePane;
+    @FXML private AnchorPane        sidePane;
+    @FXML private AnchorPane 		fatherPane;
     @FXML private AnchorPane 		adminPane;
     @FXML private AnchorPane 		transactionPane;
     @FXML private AnchorPane		accountOverviewPane;
@@ -150,10 +151,10 @@ public class MainMenuController
 
         splitMain.getItems().remove(temp);
         hideUserListButton.setLayoutX(-8);
-  //      mainTabPane.setPrefWidth(primaryStage.getWidth());
+        //      mainTabPane.setPrefWidth(primaryStage.getWidth());
 
         hideUserListButton.setText("�");
-        this.primaryStage.setWidth(this.primaryStage.getWidth() - 400);
+        //       this.primaryStage.setWidth();
     }
 
     public void addUserList()
@@ -219,25 +220,14 @@ public class MainMenuController
             hideUserListButton.setPadding(Insets.EMPTY);
             hideUserListButton.setText("�");
             mainTabPane.prefWidthProperty().bind(primaryStage.widthProperty());
-//            menuPane.prefWidthProperty().bind(primaryStage.widthProperty());
+            //            menuPane.prefWidthProperty().bind(primaryStage.widthProperty());
 
             //Keeps logout button in correct position if frame is resized
-            scene.widthProperty().addListener(new ChangeListener<Number>()
-            {
-                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth)
-                {
-                	logoutButtonWhite.setLayoutX(newSceneWidth.doubleValue() - 30);
-                	logoutButtonRed.setLayoutX(newSceneWidth.doubleValue() - 30);
-                    logoutText.setLayoutX(newSceneWidth.doubleValue()- 70);
-
-                }
-            });
-
             scene.widthProperty().addListener(new ChangeListener<Number>() {
                 @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-                	logoutButtonWhite.setLayoutX(newSceneWidth.doubleValue() - 30);
-                	logoutButtonRed.setLayoutX(newSceneWidth.doubleValue() - 30);
-
+                    logoutButtonWhite.setLayoutX(newSceneWidth.doubleValue() - 30);
+                    logoutButtonRed.setLayoutX(newSceneWidth.doubleValue() - 30);
+                    logoutText.setLayoutX(newSceneWidth.doubleValue()- 70);
                 }
             });
 
@@ -249,7 +239,12 @@ public class MainMenuController
 
             this.getPrimaryStage().widthProperty().addListener(new ChangeListener<Number>() {
                 @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-                    transactionText.setPrefWidth(primaryStage.getWidth() - transactionText.getLayoutX() - 130);
+                    if (userController.isAdmin()) {
+                        transactionText.setPrefWidth(primaryStage.getWidth() - transactionText.getLayoutX() - 130);
+                    }
+                    else {
+                        transactionText.setPrefWidth(primaryStage.getWidth() - transactionText.getLayoutX() - 30);
+                    }                     
                 }
             });
 
@@ -262,7 +257,7 @@ public class MainMenuController
                     printButton.setLayoutY(newSceneHeight.doubleValue() - 135);
                     transactionPane.setPrefHeight(newSceneHeight.doubleValue());
                     totalLabel.setLayoutY(newSceneHeight.doubleValue()-155); // total label
-                    amountLabel.setLayoutY(newSceneHeight.doubleValue()-155); // total amount label
+                    amountLabel.setLayoutY(newSceneHeight.doubleValue()-155); // total amount label    
                 }
             });
 
@@ -275,7 +270,7 @@ public class MainMenuController
                     {
                         ObservableList<Map> allData = FXCollections.observableArrayList();
                         String recipAct = newValue;
-                        
+
                         // TODO: Implement a GetAccount in the Accounts class
                         if (ioTransactions.getTransactions().size() != 0)
                         {
@@ -311,6 +306,7 @@ public class MainMenuController
                 this.hideUserListButton.setVisible(false);
                 this.adminPaneTab.setDisable(true);
                 this.feesPaneTab.setDisable(true);
+                this.primaryStage.setWidth(this.fatherPane.getPrefWidth() - 100);
             }
             return scene;
         }
@@ -330,10 +326,14 @@ public class MainMenuController
 
         int counter = 0;
 
+        String user = this.getAccountDB().getAccount(this.userController.getCurUser()).getFirstName() + " " +
+                this.getAccountDB().getAccount(this.userController.getCurUser()).getLastName();
+
         //Show list of transactions to edit.
         for(Transaction transaction : ioTransactions.getTransactions())
         {
-            choices.add(counter + " "  + transaction.viewInfo());
+            if (transaction.getRecipientAcct().equals(user) || this.userController.isAdmin())
+                choices.add(counter + " "  + transaction.viewInfo());
             counter++;
         }
 
@@ -437,16 +437,16 @@ public class MainMenuController
     public void logoutClicked()
     {
         //Change color of lock to Red when mouse entered
-    	logoutButtonWhite.setVisible(false);
-    	logoutButtonRed.setVisible(true);
+        logoutButtonWhite.setVisible(false);
+        logoutButtonRed.setVisible(true);
     }
 
     @FXML
     public void logoutReleased()
     {
-    	//Change color of lock back to white when mouse leaves
-    	logoutButtonWhite.setVisible(true);
-    	logoutButtonRed.setVisible(false);
+        //Change color of lock back to white when mouse leaves
+        logoutButtonWhite.setVisible(true);
+        logoutButtonRed.setVisible(false);
     }
 
     //---------------------------------------------------------------------------------//
@@ -462,14 +462,14 @@ public class MainMenuController
     //---------------------------------------------------------------------------------//
     //                                Fees Pane                        	   			   //
     //---------------------------------------------------------------------------------//
-    
+
     public void setFeesPane() {
-    	
+
         // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/Fees.fxml"));
         loader.setController(this);
-    	
+
         try
         {
             feesPane.getChildren().clear();
@@ -479,26 +479,26 @@ public class MainMenuController
         {
             event.printStackTrace();
         }
-    	
+
         totalFeesLabel.setText("" + new DecimalFormat("0.00").format(ioFees.getTotalFees()));
         unpaidFeesLabel.setText("" + new DecimalFormat("0.00").format(ioFees.getUnpaidFees()));
-    	
+
     }
-    
+
     @FXML
     public void payUnpaidFeesButtonClicked(MouseEvent event) {
-    	
-    	ioFees.clearFees();
-    	unpaidFeesLabel.setText("" + ioFees.getUnpaidFees());
-    	clearResponseLabel1.setVisible(true);
-    	clearResponseLabel2.setVisible(true);
-    	
-    	ioTransactions.createTransaction("Admin", "FEES PAID", "", 0.0, "Fees were cleared.", "Expense", "None");
-    	setTransactionPane();
+
+        ioFees.clearFees();
+        unpaidFeesLabel.setText("" + ioFees.getUnpaidFees());
+        clearResponseLabel1.setVisible(true);
+        clearResponseLabel2.setVisible(true);
+
+        ioTransactions.createTransaction("Admin", "FEES PAID", "", 0.0, "Fees were cleared.", "Expense", "None");
+        setTransactionPane();
     }
-    
-    
-    
+
+
+
     //---------------------------------------------------------------------------------//
     //                                Administrator Pane                               //
     //---------------------------------------------------------------------------------//
@@ -557,16 +557,16 @@ public class MainMenuController
             }
         }
         this.refreshUserList();
-       
+
         //Update Accounts.txt
         try 
         {
-			ioAccounts.saveAccounts();
-		} 
+            ioAccounts.saveAccounts();
+        } 
         catch (IOException ioException) 
         {
-        	ioException.printStackTrace();
-		}
+            ioException.printStackTrace();
+        }
     }
 
     @FXML
@@ -598,9 +598,9 @@ public class MainMenuController
             transactionPane.getChildren().addAll(new EditTransactionController(arrayNum).getPane());
         }
     }
-    
+
     public void backtoEditTransaction(MouseEvent event, int arraynum) {
-    	transactionPane.getChildren().clear();
+        transactionPane.getChildren().clear();
         transactionPane.getChildren().addAll(new EditTransactionController(arraynum).getPane());
     }
 
@@ -656,7 +656,7 @@ public class MainMenuController
         ObservableList<Map> allData = FXCollections.observableArrayList();
 
         String recipAct = "";
-        
+
         double totalFee = 0;
 
         for (Account tmp : ioAccounts.getAccounts())
@@ -678,7 +678,7 @@ public class MainMenuController
                 {
                     Map<String, String> dataRow = new HashMap<>();
                     Transaction temp = ioTransactions.getTransactions().get(i);
-                    
+
                     totalFee = totalFee + temp.getFee();
 
                     if (temp.getRecipientAcct().equals(recipAct) || this.userController.isAdmin()) {
@@ -689,14 +689,14 @@ public class MainMenuController
                         dataRow.put("type", temp.getType());
                         dataRow.put("amount", "$" + new DecimalFormat("0.00").format((temp.getAmount())));
 
+                        allData.add(dataRow);
                     }
-                    allData.add(dataRow);
                 }
             }
 
             transactionText.setItems(allData);
             ioFees.setTotalFees(totalFee);
-            
+
         }
 
         ArrayList transactionArray = ioTransactions.getTransactions();
@@ -711,20 +711,20 @@ public class MainMenuController
 
         amountLabel.setText("$" + new DecimalFormat("0.00").format(total));
         setAcctAmts();
-        
+
         try {
-			ioTransactions.saveTransactions();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
+            ioTransactions.saveTransactions();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         try {
-			ioFees.saveFees();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            ioFees.saveFees();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
 
 
@@ -733,10 +733,10 @@ public class MainMenuController
     public void clearAccTotal()
     {
         ArrayList accountArray = ioAccounts.getAccounts();
-        
+
         for(int i =0; i< accountArray.size(); i++)
         {
-        	ioAccounts.getAccounts().get(i).setaccTotal(0.0);
+            ioAccounts.getAccounts().get(i).setaccTotal(0.0);
         }
     }
 
@@ -760,8 +760,8 @@ public class MainMenuController
 
 
                 if(current.getRecipientAcct().equals(name)){
-                double oldTotal = ioAccounts.getAccounts().get(j).getaccTotal();
-                ioAccounts.getAccounts().get(j).setaccTotal(oldTotal + accountTotal);
+                    double oldTotal = ioAccounts.getAccounts().get(j).getaccTotal();
+                    ioAccounts.getAccounts().get(j).setaccTotal(oldTotal + accountTotal);
                 }
             }
 
@@ -780,7 +780,7 @@ public class MainMenuController
     @FXML
     public void handleprintButton(MouseEvent event) throws PrintException, IOException
     {
-    	//TODO: Enable
+        //TODO: Enable
         printTextFile();
 
     }// end of handleprintButton
@@ -889,9 +889,9 @@ public class MainMenuController
     {
         return ioAccounts;
     }
-    
+
     public IOFees getFeesDB() {
-    	return ioFees;
+        return ioFees;
     }
 
     public IOCodes getCodesDB()
@@ -919,14 +919,14 @@ public class MainMenuController
         File accountsFile = new File("Print.txt");
         try 
         {
-			accountsFile.createNewFile();
-		}
+            accountsFile.createNewFile();
+        }
         catch (IOException ioException) 
         {
-			ioException.printStackTrace();
-		}
-    	
-    	File file = new File("Print.txt");
+            ioException.printStackTrace();
+        }
+
+        File file = new File("Print.txt");
         try
         {
             FileWriter out = new FileWriter(file);
@@ -949,19 +949,19 @@ public class MainMenuController
         } // end of try
         catch (IOException event)
         {
-        event.printStackTrace();
+            event.printStackTrace();
         }
     }// end of setPrintFile
 
 
     public void printTextFile() throws PrintException, IOException{
 
-            PrinterJob pj = PrinterJob.getPrinterJob();
+        PrinterJob pj = PrinterJob.getPrinterJob();
 
-            if (pj.printDialog())
-            {
-                print();
-            }
+        if (pj.printDialog())
+        {
+            print();
+        }
 
     }
 
