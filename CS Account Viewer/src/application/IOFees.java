@@ -35,13 +35,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import edu.princeton.cs.algs4.ST;
-
 public class IOFees 
 {
-	private String 				path;
-	private static double		totalFees;
-	private static double 		unpaidFees;
+	private String path;
+	private double totalFees;
+	private double unpaidFees;
 	
     public IOFees(String path)
     {
@@ -64,14 +62,13 @@ public class IOFees
     public void readFees() throws FileNotFoundException
     {
     	//Create file scanner
-    	
     	Scanner file = new Scanner(new File(path));
-    	String currentLine = file.nextLine();
-    	Scanner token = new Scanner(currentLine).useDelimiter(",");
     	
-    	unpaidFees = token.nextDouble();
-    	
-    	
+    	file.useDelimiter(",");
+    	while (file.hasNext())
+    	{
+    		unpaidFees = file.nextDouble();
+    	}
     	file.close();
     }
     
@@ -84,28 +81,34 @@ public class IOFees
     	out.close();
     }
     
-    public double getTotalFees() {
+    public double getTotalFees() 
+    {
     	return totalFees;
     }
     
-    public void setTotalFees(double total) {
+    public void setTotalFees(double total) 
+    {
     	totalFees = total;
     }
     
-    public double getUnpaidFees() {
+    public double getUnpaidFees() 
+    {
     	return unpaidFees;
     }
     
     
-    public void addTotalFees(double fee) {
+    public void addTotalFees(double fee) 
+    {
     	totalFees = totalFees + fee;
     }
     
-    public void addUnpaidFees(double fee) {
+    public void addUnpaidFees(double fee) 
+    {
     	unpaidFees = unpaidFees + fee;
     }
     
-    public void clearFees() {
+    public void clearFees() 
+    {
     	this.unpaidFees = 0;
     }
 
@@ -113,12 +116,7 @@ public class IOFees
     //Unit Testing
     public static void main(String[] args) throws Exception
     {
-
     	IOFees ioFees = new IOFees("Fees.txt");
     	ioFees.readFees();
-    	System.out.println("" + totalFees + "," + unpaidFees);
-    	
-    	
-
     }
 }
