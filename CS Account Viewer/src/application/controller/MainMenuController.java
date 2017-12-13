@@ -65,6 +65,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -101,8 +102,8 @@ public class MainMenuController
     @FXML private AnchorPane 		transactionPane;
     @FXML private AnchorPane		accountOverviewPane;
     @FXML private AnchorPane		feesPane;
-    @FXML private Label 			totalFeesLabel;
-    @FXML private Label				unpaidFeesLabel;
+    @FXML private TextField 		totalFeesField;
+    @FXML private TextField			unpaidFeesField;
     @FXML private Label 			clearResponseLabel1;
     @FXML private Label				clearResponseLabel2;
     @FXML private Button			payUnpaidFeesButton;
@@ -494,21 +495,35 @@ public class MainMenuController
             event.printStackTrace();
         }
 
-        totalFeesLabel.setText("" + new DecimalFormat("0.00").format(ioFees.getTotalFees()));
-        unpaidFeesLabel.setText("" + new DecimalFormat("0.00").format(ioFees.getUnpaidFees()));
+        totalFeesField.setText("" + new DecimalFormat("0.00").format(ioFees.getTotalFees()));
+        unpaidFeesField.setText("" + new DecimalFormat("0.00").format(ioFees.getUnpaidFees()));
 
     }
 
     @FXML
-    public void payUnpaidFeesButtonClicked(MouseEvent event) {
-
+    private void handlePayFees(MouseEvent event) 
+    {
     	ioFees.clearFees();
-    	unpaidFeesLabel.setText("" + ioFees.getUnpaidFees());
+    	unpaidFeesField.setText("" + ioFees.getUnpaidFees());
     	clearResponseLabel1.setVisible(true);
     	clearResponseLabel2.setVisible(true);
 
     	ioTransactions.createTransaction("Admin", "FEES PAID", "", 0.0, "Fees were cleared.", "Expense", "None");
     	setTransactionPane();
+    }
+    
+    @FXML
+    private void payFeesClicked()
+    {
+        //Set button color to navy blue when clicked on
+    	payUnpaidFeesButton.setStyle("-fx-background-color: #273e51;");
+    }
+    
+    @FXML
+    private void payFeesReleased()
+    {
+        //Set button back to original color (Red) when click is released
+    	payUnpaidFeesButton.setStyle("-fx-background-color: #e53030;");
     }
 
 
