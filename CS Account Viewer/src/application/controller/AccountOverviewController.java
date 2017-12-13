@@ -277,7 +277,47 @@ public class AccountOverviewController
     		msgNoEmptyField.setVisible(true);
     		messagesPane.setVisible(true);
     	}
+    	
+    	if (emailField.getText().contains(","))
+    	{
+    		emailField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		pass = false;
+    	}
+    	else
+    	{
+    		emailField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
+    	}
+    	
+    	if (firstNameField.getText().contains(","))
+    	{
+    		firstNameField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		pass = false;
+    	}
+    	else
+    	{
+    		firstNameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
+    	}
+    	
+    	if (lastNameField.getText().contains(","))
+    	{
+    		lastNameField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		pass = false;
+    	}
+    	else
+    	{
+    		lastNameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
+    	}
 
+    	if (usernameField.getText().contains(","))
+    	{
+    		usernameField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		pass = false;
+    	}
+    	else
+    	{
+    		usernameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
+    	}
+    	
     	for (String username : LoginScreenController.getMainController().getAccountDB().getUsernames())
     	{
     		if (usernameField.getText().toLowerCase().equals(username.toLowerCase()) && !selectedAccount.getUsername().equals(usernameField.getText()))

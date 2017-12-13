@@ -218,6 +218,14 @@ public class CreateAccountController
             passField.setStyle("-fx-background-color: white; -fx-border-color: #000000");
             passVerifyField.setStyle("-fx-background-color: white; -fx-border-color: #000000");
         }
+        
+    	if (passField.getText().contains(","))
+    	{
+        	passVerifyField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		passField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		pass = false;
+    	}
+        
         //If passwords do not match
         if (passField.getText().equals(passVerifyField.getText()) == false)
         {
@@ -233,7 +241,48 @@ public class CreateAccountController
         	passField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
         	pass = false;
         }
+        
+    	if (emailField.getText().contains(","))
+    	{
+    		emailField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		pass = false;
+    	}
+    	else
+    	{
+    		emailField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
+    	}
+    	
+    	if (firstNameField.getText().contains(","))
+    	{
+    		firstNameField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		pass = false;
+    	}
+    	else
+    	{
+    		firstNameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
+    	}
+    	
+    	if (lastNameField.getText().contains(","))
+    	{
+    		lastNameField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		pass = false;
+    	}
+    	else
+    	{
+    		lastNameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
+    	}
 
+    	if (userNameField.getText().contains(","))
+    	{
+    		userNameField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		pass = false;
+    	}
+    	else
+    	{
+    		userNameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
+    	}
+        
+        
         //If user-name is already taken:
     	for (String username : LoginScreenController.getMainController().getAccountDB().getUsernames())
     	{

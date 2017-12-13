@@ -166,17 +166,6 @@ public class EditTransactionController
     		dollarsField.setStyle("-fx-background-color: #f26d6d");
     		pass = false;
     	}
-    	
-    	/*try
-    	{
-    		Double.parseDouble(centsField.getText());
-    		centsField.setStyle("-fx-background-color: white");
-    	}
-    	catch(NumberFormatException nfe)
-    	{
-    		centsField.setStyle("-fx-background-color: #f26d6d");
-    		pass = false;
-    	}*/
 
     	//Ensure that user has chosen a transaction type:
     	if (transactionType.getValue() == "*Select Transaction Type")
@@ -210,6 +199,17 @@ public class EditTransactionController
     	{
     		customerNameField.setStyle("-fx-background-color: white");
     	}
+    	
+    	if (customerNameField.getText().contains(","))
+    	{
+    		customerNameField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		pass = false;
+    	}
+    	else
+    	{
+    		customerNameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
+    	}
+    	
     	return pass;
     }
     

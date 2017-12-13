@@ -1,0 +1,6 @@
+Admin, ,n/a,csadmin,csci323,n/a,n/a,n/a,n/a,true,0.0
+Robyn,Berg,robyn.berg@umontana.edu,Robyn,csci323,Testing description,none,none,none,true,489.2712
+Travis,Wheeler,travis.wheeler@umontana.edu,Trav,12345,My classes are super easy!,none,none,none,false,61.519999999999996
+Michael,Cassens,michael.cassens@umontana.edu,Michy,12345,,none,none,none,false,-444.44
+Adam,McManigal,adam.mcmanigal@umontana.edu,Adam,12345,My secret identity is Batman!,none,none,none,false,9556.5096
+Doug,Raiford,doug.raiford@umontana.edu,Douglas,12345,I'm no longer at the CS Department,none,none,none,false,316.8

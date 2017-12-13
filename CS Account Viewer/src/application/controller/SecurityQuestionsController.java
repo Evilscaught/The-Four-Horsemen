@@ -196,6 +196,22 @@ public class SecurityQuestionsController
     		secField3.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
     	}
     	
+    	if (secField1.getText().contains(","))
+    	{
+    		secField1.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		pass = false;
+    	}
+    	if (secField2.getText().contains(","))
+    	{
+    		secField2.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		pass = false;
+    	}
+    	if (secField3.getText().contains(","))
+    	{
+    		secField3.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
+    		pass = false;
+    	}
+    	
     	return pass;
     }
     
