@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Font?>
+
 <!-- Added controller class...  fx:controller="application.controller.MainMenuController"  -->
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.999977929685" prefWidth="741.999977929685" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.999977929685" prefWidth="741.999977929685" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <SplitPane fx:id="splitMain" dividerPositions="0.255405413022808" focusTraversable="true" prefHeight="428.0000999999975" prefWidth="697.0000999999975" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
       <items>
@@ -63,11 +58,16 @@
         </AnchorPane>
       </items>
     </SplitPane>
-    <ImageView fx:id="logoutMainButton" fitHeight="25.0" fitWidth="26.0" layoutX="712.0" layoutY="6.0" onMouseClicked="#handleLogout" onMouseEntered="#logoutClicked" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="logoutButtonWhite" fitHeight="25.0" fitWidth="26.0" layoutX="712.0" layoutY="6.0" onMouseClicked="#handleLogout" onMouseEntered="#logoutClicked" pickOnBounds="true" preserveRatio="true">
       <image>
         <Image url="@images/menu-screen-lock.png" />
       </image>
     </ImageView>
     <Label fx:id="logoutText" layoutX="460.0" layoutY="12.0" text="Logout:" textFill="#3354ff" />
+      <ImageView fx:id="logoutButtonRed" fitHeight="32.0" fitWidth="25.0" layoutX="712.0" layoutY="6.0" onMouseClicked="#handleLogout" onMouseExited="#logoutReleased" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@images/menu-screen-lock-selected.png" />
+         </image>
+      </ImageView>
   </children>
 </AnchorPane>

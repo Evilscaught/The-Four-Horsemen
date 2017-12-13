@@ -113,7 +113,8 @@ public class MainMenuController
     @FXML private Button 			createAccountButton;
     @FXML private Button			deleteAccountButton;
     @FXML private Button 			hideUserListButton;
-    @FXML private ImageView 		logoutMainButton;
+    @FXML private ImageView 		logoutButtonWhite;
+    @FXML private ImageView			logoutButtonRed;
     @FXML private ListView<String> 	userList;
     @FXML private ResourceBundle 	resources;
     @FXML private TabPane 			mainTabPane;
@@ -224,7 +225,8 @@ public class MainMenuController
             {
                 @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth)
                 {
-                    logoutMainButton.setLayoutX(newSceneWidth.doubleValue() - 30);
+                	logoutButtonWhite.setLayoutX(newSceneWidth.doubleValue() - 30);
+                	logoutButtonRed.setLayoutX(newSceneWidth.doubleValue() - 30);
                     logoutText.setLayoutX(newSceneWidth.doubleValue()- 70);
 
                 }
@@ -232,7 +234,8 @@ public class MainMenuController
 
             scene.widthProperty().addListener(new ChangeListener<Number>() {
                 @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-                    logoutMainButton.setLayoutX(newSceneWidth.doubleValue() - 30);
+                	logoutButtonWhite.setLayoutX(newSceneWidth.doubleValue() - 30);
+                	logoutButtonRed.setLayoutX(newSceneWidth.doubleValue() - 30);
 
                 }
             });
@@ -432,13 +435,17 @@ public class MainMenuController
     @FXML
     public void logoutClicked()
     {
-        //TODO: Change color of lock to Blue when mouse entered
+        //Change color of lock to Red when mouse entered
+    	logoutButtonWhite.setVisible(false);
+    	logoutButtonRed.setVisible(true);
     }
 
     @FXML
     public void logoutReleased()
     {
-        //TODO: Change color of lock back to Red when mouse exited
+    	//Change color of lock back to white when mouse leaves
+    	logoutButtonWhite.setVisible(true);
+    	logoutButtonRed.setVisible(false);
     }
 
     //---------------------------------------------------------------------------------//
