@@ -46,6 +46,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import java.text.DecimalFormat;
 
 public class AccountOverviewController
 {
@@ -277,7 +278,7 @@ public class AccountOverviewController
     		msgNoEmptyField.setVisible(true);
     		messagesPane.setVisible(true);
     	}
-    	
+
     	if (emailField.getText().contains(","))
     	{
     		emailField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
@@ -287,7 +288,7 @@ public class AccountOverviewController
     	{
     		emailField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
     	}
-    	
+
     	if (firstNameField.getText().contains(","))
     	{
     		firstNameField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
@@ -297,7 +298,7 @@ public class AccountOverviewController
     	{
     		firstNameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
     	}
-    	
+
     	if (lastNameField.getText().contains(","))
     	{
     		lastNameField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
@@ -317,7 +318,7 @@ public class AccountOverviewController
     	{
     		usernameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
     	}
-    	
+
     	for (String username : LoginScreenController.getMainController().getAccountDB().getUsernames())
     	{
     		if (usernameField.getText().toLowerCase().equals(username.toLowerCase()) && !selectedAccount.getUsername().equals(usernameField.getText()))
@@ -374,8 +375,9 @@ public class AccountOverviewController
                             emailField.setText(acct.getEmail());
                             usernameField.setText(acct.getUsername()); // TODO Fix Getter String Argument
                             descriptionField.setText(acct.getDescription().replace("`", ","));
-                            accountBalance.setText("$ " + acct.getaccTotal());
-                            
+                            accountBalance.setText("$ " + new DecimalFormat("0.00").format(acct.getaccTotal()));
+
+
                             if (acct.isAdmin())
                             {
                             	permissions.setText("Adminstrator");
@@ -390,7 +392,7 @@ public class AccountOverviewController
                     		lastNameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
                     		emailField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
                     		usernameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
-                    		
+
 
                             break;
                         }

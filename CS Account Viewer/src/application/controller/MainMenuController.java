@@ -275,7 +275,9 @@ public class MainMenuController
                     {
                         ObservableList<Map> allData = FXCollections.observableArrayList();
                         String recipAct = newValue;
-                        
+
+
+
                         // TODO: Implement a GetAccount in the Accounts class
                         if (ioTransactions.getTransactions().size() != 0)
                         {
@@ -286,18 +288,30 @@ public class MainMenuController
                                 {
                                     Map<String, String> dataRow = new HashMap<>();
                                     Transaction temp = ioTransactions.getTransactions().get(i);
+                                    Account tempAcc = ioAccounts.getAccount(recipAct);
 
                                     if (temp.getRecipientAcct().equals(recipAct) || recipAct.contains("Admin")) {
                                         dataRow.put("account", temp.getRecipientAcct());
                                         dataRow.put("customer", temp.getCustomer());
                                         dataRow.put("date", temp.getDate());
                                         dataRow.put("type", temp.getType());
-                                        dataRow.put("amount", "$" + new DecimalFormat("0.00").format((temp.getAmount())));
+                                        dataRow.put("amount", "$ " + new DecimalFormat("0.00").format((temp.getAmount())));
                                         allData.add(dataRow);
+                                        if(tempAcc.getFirstName().equals("Admin"))
+                                        {
+                                            setTotalLabel();
+                                        }
+                                        else
+                                        {
+                                        amountLabel.setText("$" + new DecimalFormat("0.00").format(tempAcc.getaccTotal()));
+                                        }
                                     }
                                 }
                             }
                             transactionText.setItems(allData);
+
+
+
                         }
                     }
 
@@ -462,14 +476,14 @@ public class MainMenuController
     //---------------------------------------------------------------------------------//
     //                                Fees Pane                        	   			   //
     //---------------------------------------------------------------------------------//
-    
+
     public void setFeesPane() {
-    	
+
         // Load root layout from FXML file.
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/Fees.fxml"));
         loader.setController(this);
-    	
+
         try
         {
             feesPane.getChildren().clear();
@@ -479,26 +493,26 @@ public class MainMenuController
         {
             event.printStackTrace();
         }
-    	
+
         totalFeesLabel.setText("" + new DecimalFormat("0.00").format(ioFees.getTotalFees()));
         unpaidFeesLabel.setText("" + new DecimalFormat("0.00").format(ioFees.getUnpaidFees()));
-    	
+
     }
-    
+
     @FXML
     public void payUnpaidFeesButtonClicked(MouseEvent event) {
-    	
+
     	ioFees.clearFees();
     	unpaidFeesLabel.setText("" + ioFees.getUnpaidFees());
     	clearResponseLabel1.setVisible(true);
     	clearResponseLabel2.setVisible(true);
-    	
+
     	ioTransactions.createTransaction("Admin", "FEES PAID", "", 0.0, "Fees were cleared.", "Expense", "None");
     	setTransactionPane();
     }
-    
-    
-    
+
+
+
     //---------------------------------------------------------------------------------//
     //                                Administrator Pane                               //
     //---------------------------------------------------------------------------------//
@@ -557,13 +571,13 @@ public class MainMenuController
             }
         }
         this.refreshUserList();
-       
+
         //Update Accounts.txt
-        try 
+        try
         {
 			ioAccounts.saveAccounts();
-		} 
-        catch (IOException ioException) 
+		}
+        catch (IOException ioException)
         {
         	ioException.printStackTrace();
 		}
@@ -598,7 +612,7 @@ public class MainMenuController
             transactionPane.getChildren().addAll(new EditTransactionController(arrayNum).getPane());
         }
     }
-    
+
     public void backtoEditTransaction(MouseEvent event, int arraynum) {
     	transactionPane.getChildren().clear();
         transactionPane.getChildren().addAll(new EditTransactionController(arraynum).getPane());
@@ -656,7 +670,7 @@ public class MainMenuController
         ObservableList<Map> allData = FXCollections.observableArrayList();
 
         String recipAct = "";
-        
+
         double totalFee = 0;
 
         for (Account tmp : ioAccounts.getAccounts())
@@ -678,7 +692,7 @@ public class MainMenuController
                 {
                     Map<String, String> dataRow = new HashMap<>();
                     Transaction temp = ioTransactions.getTransactions().get(i);
-                    
+
                     totalFee = totalFee + temp.getFee();
 
                     if (temp.getRecipientAcct().equals(recipAct) || this.userController.isAdmin()) {
@@ -696,29 +710,18 @@ public class MainMenuController
 
             transactionText.setItems(allData);
             ioFees.setTotalFees(totalFee);
-            
+
         }
-
-        ArrayList transactionArray = ioTransactions.getTransactions();
-        double total = 0.0;
-
-        for (int i = 0; i < transactionArray.size(); i++) {
-
-
-            Transaction current = ioTransactions.getTransactions().get(i);
-            total = total + current.getAmount();
-        }
-
-        amountLabel.setText("$" + new DecimalFormat("0.00").format(total));
+        setTotalLabel();
         setAcctAmts();
-        
+
         try {
 			ioTransactions.saveTransactions();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
+
         try {
 			ioFees.saveFees();
 		} catch (Exception e) {
@@ -730,17 +733,30 @@ public class MainMenuController
 
     }
 
+    public void setTotalLabel()
+    {
+        ArrayList transactionArray = ioTransactions.getTransactions();
+        double total = 0.0;
+
+        for (int i = 0; i < transactionArray.size(); i++)
+        {
+        Transaction current = ioTransactions.getTransactions().get(i);
+        total = total + current.getAmount();
+        }
+        amountLabel.setText("$" + new DecimalFormat("0.00").format(total));
+    }
+
     public void clearAccTotal()
     {
         ArrayList accountArray = ioAccounts.getAccounts();
-        
+
         for(int i =0; i< accountArray.size(); i++)
         {
         	ioAccounts.getAccounts().get(i).setaccTotal(0.0);
         }
     }
 
-    public void setAcctAmts(){
+    public double setAcctAmts(){
         clearAccTotal();
         ArrayList transactionArray = ioTransactions.getTransactions();
         ArrayList accountArray = ioAccounts.getAccounts();
@@ -767,12 +783,7 @@ public class MainMenuController
 
 
         }
-
-        //for(int j =0; j< accountArray.size(); j++){
-        //    System.out.println(ioAccounts.getAccounts().get(j).getName()+" "+ ioAccounts.getAccounts().get(j).getaccTotal());
-        //}
-
-
+        return total;
     }
 
 
@@ -889,7 +900,7 @@ public class MainMenuController
     {
         return ioAccounts;
     }
-    
+
     public IOFees getFeesDB() {
     	return ioFees;
     }
@@ -917,15 +928,15 @@ public class MainMenuController
     {
         //Create a codes file 'Codes.txt' if one does not already exist.
         File accountsFile = new File("Print.txt");
-        try 
+        try
         {
 			accountsFile.createNewFile();
 		}
-        catch (IOException ioException) 
+        catch (IOException ioException)
         {
 			ioException.printStackTrace();
 		}
-    	
+
     	File file = new File("Print.txt");
         try
         {
@@ -936,7 +947,7 @@ public class MainMenuController
                 if (ioTransactions.getTransactions().get(i) != null)
                 {
                     Transaction temp = ioTransactions.getTransactions().get(i);
-                    if (temp.getRecipientAcct().equals(user) || this.userController.isAdmin()) 
+                    if (temp.getRecipientAcct().equals(user) || this.userController.isAdmin())
                     {
 
                         String formatStr = "%-20s %-15s %-15s %-15s %-15s%n";
@@ -967,10 +978,10 @@ public class MainMenuController
 
     public void print()
     {
-        try 
+        try
         {
             Desktop desktop = null;
-            if (Desktop.isDesktopSupported()) 
+            if (Desktop.isDesktopSupported())
             {
                 desktop = Desktop.getDesktop();
             }
