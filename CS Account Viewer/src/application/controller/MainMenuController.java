@@ -65,6 +65,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -102,8 +103,8 @@ public class MainMenuController
     @FXML private AnchorPane 		transactionPane;
     @FXML private AnchorPane		accountOverviewPane;
     @FXML private AnchorPane		feesPane;
-    @FXML private Label 			totalFeesLabel;
-    @FXML private Label				unpaidFeesLabel;
+    @FXML private TextField 		totalFeesField;
+    @FXML private TextField			unpaidFeesField;
     @FXML private Label 			clearResponseLabel1;
     @FXML private Label				clearResponseLabel2;
     @FXML private Button			payUnpaidFeesButton;
@@ -271,7 +272,6 @@ public class MainMenuController
                         ObservableList<Map> allData = FXCollections.observableArrayList();
                         String recipAct = newValue;
 
-                        // TODO: Implement a GetAccount in the Accounts class
                         if (ioTransactions.getTransactions().size() != 0)
                         {
                             for (int i=0; i < ioTransactions.getTransactions().size(); i++)
@@ -281,18 +281,30 @@ public class MainMenuController
                                 {
                                     Map<String, String> dataRow = new HashMap<>();
                                     Transaction temp = ioTransactions.getTransactions().get(i);
+                                    Account tempAcc = ioAccounts.getAccount(recipAct);
 
                                     if (temp.getRecipientAcct().equals(recipAct) || recipAct.contains("Admin")) {
                                         dataRow.put("account", temp.getRecipientAcct());
                                         dataRow.put("customer", temp.getCustomer());
                                         dataRow.put("date", temp.getDate());
                                         dataRow.put("type", temp.getType());
-                                        dataRow.put("amount", "$" + new DecimalFormat("0.00").format((temp.getAmount())));
+                                        dataRow.put("amount", "$ " + new DecimalFormat("0.00").format((temp.getAmount())));
                                         allData.add(dataRow);
+                                        if(tempAcc.getFirstName().equals("Admin"))
+                                        {
+                                            setTotalLabel();
+                                        }
+                                        else
+                                        {
+                                        amountLabel.setText("$" + new DecimalFormat("0.00").format(tempAcc.getaccTotal()));
+                                        }
                                     }
                                 }
                             }
                             transactionText.setItems(allData);
+
+
+
                         }
                     }
 
@@ -480,21 +492,35 @@ public class MainMenuController
             event.printStackTrace();
         }
 
-        totalFeesLabel.setText("" + new DecimalFormat("0.00").format(ioFees.getTotalFees()));
-        unpaidFeesLabel.setText("" + new DecimalFormat("0.00").format(ioFees.getUnpaidFees()));
+        totalFeesField.setText("" + new DecimalFormat("0.00").format(ioFees.getTotalFees()));
+        unpaidFeesField.setText("" + new DecimalFormat("0.00").format(ioFees.getUnpaidFees()));
 
     }
 
     @FXML
-    public void payUnpaidFeesButtonClicked(MouseEvent event) {
+    private void handlePayFees(MouseEvent event) 
+    {
+    	ioFees.clearFees();
+    	unpaidFeesField.setText("" + ioFees.getUnpaidFees());
+    	clearResponseLabel1.setVisible(true);
+    	clearResponseLabel2.setVisible(true);
 
-        ioFees.clearFees();
-        unpaidFeesLabel.setText("" + ioFees.getUnpaidFees());
-        clearResponseLabel1.setVisible(true);
-        clearResponseLabel2.setVisible(true);
-
-        ioTransactions.createTransaction("Admin", "FEES PAID", "", 0.0, "Fees were cleared.", "Expense", "None");
-        setTransactionPane();
+    	ioTransactions.createTransaction("Admin", "FEES PAID", "", 0.0, "Fees were cleared.", "Expense", "None");
+    	setTransactionPane();
+    }
+    
+    @FXML
+    private void payFeesClicked()
+    {
+        //Set button color to navy blue when clicked on
+    	payUnpaidFeesButton.setStyle("-fx-background-color: #273e51;");
+    }
+    
+    @FXML
+    private void payFeesReleased()
+    {
+        //Set button back to original color (Red) when click is released
+    	payUnpaidFeesButton.setStyle("-fx-background-color: #e53030;");
     }
 
 
@@ -559,11 +585,11 @@ public class MainMenuController
         this.refreshUserList();
 
         //Update Accounts.txt
-        try 
+        try
         {
-            ioAccounts.saveAccounts();
-        } 
-        catch (IOException ioException) 
+			ioAccounts.saveAccounts();
+		}
+        catch (IOException ioException)
         {
             ioException.printStackTrace();
         }
@@ -698,26 +724,16 @@ public class MainMenuController
             ioFees.setTotalFees(totalFee);
 
         }
-
-        ArrayList transactionArray = ioTransactions.getTransactions();
-        double total = 0.0;
-
-        for (int i = 0; i < transactionArray.size(); i++) {
-
-
-            Transaction current = ioTransactions.getTransactions().get(i);
-            total = total + current.getAmount();
-        }
-
-        amountLabel.setText("$" + new DecimalFormat("0.00").format(total));
+        setTotalLabel();
         setAcctAmts();
 
         try {
-            ioTransactions.saveTransactions();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+
+			ioTransactions.saveTransactions();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         try {
             ioFees.saveFees();
@@ -730,6 +746,19 @@ public class MainMenuController
 
     }
 
+    public void setTotalLabel()
+    {
+        ArrayList transactionArray = ioTransactions.getTransactions();
+        double total = 0.0;
+
+        for (int i = 0; i < transactionArray.size(); i++)
+        {
+        Transaction current = ioTransactions.getTransactions().get(i);
+        total = total + current.getAmount();
+        }
+        amountLabel.setText("$" + new DecimalFormat("0.00").format(total));
+    }
+
     public void clearAccTotal()
     {
         ArrayList accountArray = ioAccounts.getAccounts();
@@ -740,7 +769,7 @@ public class MainMenuController
         }
     }
 
-    public void setAcctAmts(){
+    public double setAcctAmts(){
         clearAccTotal();
         ArrayList transactionArray = ioTransactions.getTransactions();
         ArrayList accountArray = ioAccounts.getAccounts();
@@ -767,12 +796,7 @@ public class MainMenuController
 
 
         }
-
-        //for(int j =0; j< accountArray.size(); j++){
-        //    System.out.println(ioAccounts.getAccounts().get(j).getName()+" "+ ioAccounts.getAccounts().get(j).getaccTotal());
-        //}
-
-
+        return total;
     }
 
 
@@ -917,16 +941,16 @@ public class MainMenuController
     {
         //Create a codes file 'Codes.txt' if one does not already exist.
         File accountsFile = new File("Print.txt");
-        try 
+        try
         {
-            accountsFile.createNewFile();
-        }
-        catch (IOException ioException) 
+			accountsFile.createNewFile();
+		}
+        catch (IOException ioException)
         {
-            ioException.printStackTrace();
-        }
+			ioException.printStackTrace();
+		}
 
-        File file = new File("Print.txt");
+    	File file = new File("Print.txt");
         try
         {
             FileWriter out = new FileWriter(file);
@@ -936,7 +960,7 @@ public class MainMenuController
                 if (ioTransactions.getTransactions().get(i) != null)
                 {
                     Transaction temp = ioTransactions.getTransactions().get(i);
-                    if (temp.getRecipientAcct().equals(user) || this.userController.isAdmin()) 
+                    if (temp.getRecipientAcct().equals(user) || this.userController.isAdmin())
                     {
 
                         String formatStr = "%-20s %-15s %-15s %-15s %-15s%n";
@@ -967,10 +991,10 @@ public class MainMenuController
 
     public void print()
     {
-        try 
+        try
         {
             Desktop desktop = null;
-            if (Desktop.isDesktopSupported()) 
+            if (Desktop.isDesktopSupported())
             {
                 desktop = Desktop.getDesktop();
             }
