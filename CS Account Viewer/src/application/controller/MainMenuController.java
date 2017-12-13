@@ -150,9 +150,10 @@ public class MainMenuController
 
         splitMain.getItems().remove(temp);
         hideUserListButton.setLayoutX(-8);
-        mainTabPane.setPrefWidth(primaryStage.getWidth());
+  //      mainTabPane.setPrefWidth(primaryStage.getWidth());
 
         hideUserListButton.setText("�");
+        this.primaryStage.setWidth(this.primaryStage.getWidth() - 400);
     }
 
     public void addUserList()
@@ -455,7 +456,7 @@ public class MainMenuController
     private void setAccountOverviewPane()
     {
         accountOverviewPane.getChildren().clear();
-        accountOverviewPane.getChildren().addAll(new AccountOverviewController(userList).getPane());
+        accountOverviewPane.getChildren().addAll(new AccountOverviewController(userList, this.getAccountDB().getAccount(this.curUser)).getPane());
     }
 
     //---------------------------------------------------------------------------------//
