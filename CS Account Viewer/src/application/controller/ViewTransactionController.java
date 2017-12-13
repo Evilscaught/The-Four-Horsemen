@@ -35,20 +35,24 @@ import application.Main;
 import application.Transaction;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 public class ViewTransactionController
 {
     private Pane currentPane;
-    @FXML private Label customerText;
-    @FXML private Label accountText;
-    @FXML private Label dateText;
-    @FXML private Label typeText;
-    @FXML private Label amountText;
-    @FXML private Label expensecodeText;
-    @FXML private Label descriptionText;
+    
+    @FXML private Button	backButton;
+    @FXML private TextField customerText;
+    @FXML private TextField accountText;
+    @FXML private TextField dateText;
+    @FXML private TextField typeText;
+    @FXML private TextField amountText;
+    @FXML private TextField expensecodeText;
+    @FXML private TextArea descriptionText;
 
     private int arraynum;
 
@@ -61,9 +65,23 @@ public class ViewTransactionController
 
 
     @FXML
-    void handleCancel(MouseEvent event)
+    private void handleBack(MouseEvent event)
     {
     	LoginScreenController.getMainController().setTransactionPane();
+    }
+    
+    @FXML
+    private void backButtonClicked()
+    {
+    	//Set button color to navy blue when clicked on
+    	backButton.setStyle("-fx-background-color: #273e51;");
+    }
+    
+    @FXML
+    private void backButtonReleased()
+    {
+    	//Set button back to original color (Red) when click is released
+    	backButton.setStyle("-fx-background-color: #e53030;");
     }
 
     public ViewTransactionController(int arraynum)
@@ -95,7 +113,10 @@ public class ViewTransactionController
         amountText.setText("" + current.getAmount());
         descriptionText.setText(current.getDescription());
 
-
+        if (dateText.getText().isEmpty())
+        {
+        	dateText.setText("Not Set");
+        }
     }
 
 
