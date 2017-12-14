@@ -748,13 +748,19 @@ public class MainMenuController
 
     public void setTotalLabel()
     {
+    	String curUserFirstLast = userController.getCurUserFirstLast();
+    	
         ArrayList transactionArray = ioTransactions.getTransactions();
         double total = 0.0;
 
         for (int i = 0; i < transactionArray.size(); i++)
         {
-        Transaction current = ioTransactions.getTransactions().get(i);
-        total = total + current.getAmount();
+        	Transaction current = ioTransactions.getTransactions().get(i);
+
+        	if(current.getRecipientAcct().contains(userController.getCurUserFirstLast()) || userController.isAdmin()) {
+        		total = total + current.getAmount();
+        	}
+        
         }
         amountLabel.setText("$" + new DecimalFormat("0.00").format(total));
     }
