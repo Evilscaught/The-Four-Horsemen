@@ -106,7 +106,7 @@ public class ViewTransactionController
         }
 
         Transaction current = LoginScreenController.getMainController().getTransactionDB().getTransactions().get(this.arraynum);
-
+        currentPane.setPrefWidth(2000);
         customerText.setText(current.getCustomer());
         accountText.setText(current.getRecipientAcct());
         dateText.setText(current.getDate());

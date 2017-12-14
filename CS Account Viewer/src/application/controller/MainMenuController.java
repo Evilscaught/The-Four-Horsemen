@@ -318,7 +318,7 @@ public class MainMenuController
                 this.hideUserListButton.setVisible(false);
                 this.adminPaneTab.setDisable(true);
                 this.feesPaneTab.setDisable(true);
-                this.primaryStage.setWidth(this.fatherPane.getPrefWidth() - 100);
+                this.primaryStage.setWidth(this.fatherPane.getPrefWidth() - 175);
             }
             return scene;
         }
@@ -742,7 +742,7 @@ public class MainMenuController
             e.printStackTrace();
         }
 
-
+        transactionText.setPrefWidth(fatherPane.getWidth() - 10);
 
     }
 

@@ -302,6 +302,8 @@ public class CreateTransactionController
         createTypeBox();
         createAcctBox();
         createCodeBox();
+        
+        currentPane.setPrefWidth(2000);
     }
 
     //Add transaction types in drop down choice box
