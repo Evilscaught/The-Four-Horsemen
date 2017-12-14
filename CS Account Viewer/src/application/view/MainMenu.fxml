@@ -72,6 +72,5 @@
         <Image url="@images/menu-screen-lock-selected.png" />
       </image>
     </ImageView>
-      <Label layoutX="330.0" layoutY="365.0" text="Created by The Four Horsemen" />
   </children>
 </AnchorPane>
