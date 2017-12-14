@@ -259,14 +259,33 @@ public class LoginScreenController implements Initializable
     }
 	
 	//Returns true if there are no accounts.
-	private boolean noUsers()
+	private void noUsers()
 	{
+		//Create an admin account if no accounts exist.
 		if (ioAccounts.getAccounts().isEmpty())
 		{
-			return true;
+			ioAccounts.createAccount("Admin", " ","n/a","csadmin", "csci323", "n/a", "n/a", "n/a", "n/a", true, 0.0);
+			username.setText("csadmin");
+			username.setEditable(false);
+			password.setText("csci323");
+			password.setEditable(false);
+			viewablePassword.setText("csci323");
+			viewablePassword.setEditable(false);
+			loginButton.setText("Create New Account");
+			password.setVisible(false);
+			viewablePassword.setVisible(true);
+			visibilityTrue.setVisible(true);
+			visibilityFalse.setVisible(false);
+			forgotPassword.setVisible(false);
+			try 
+			{
+				ioAccounts.saveAccounts();
+			} 
+			catch (IOException ioException) 
+			{
+				ioException.printStackTrace();
+			}
 		}
-		
-		return false;
 	}
 	
 	//------------------------------------------------------------------------------------//

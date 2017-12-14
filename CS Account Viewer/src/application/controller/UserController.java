@@ -36,6 +36,7 @@ public class UserController
 {
     private IOAccounts ioAcct;
     private String curUser = "";
+    private String curUserFirstLast = "";
     private Boolean curAdmin = false;
     
     public UserController(IOAccounts acts) 
@@ -48,8 +49,11 @@ public class UserController
         for (Account act : ioAcct.getAccounts()) 
         {
             if (act.getUsername().equals(username) &&
-                act.getPassword().equals(password))
+                act.getPassword().equals(password)) {
+            	curUserFirstLast = act.getName();
                 return true;
+            }
+            	
         }
         return false;
     }
@@ -64,6 +68,11 @@ public class UserController
         this.curUser = curUser;
         this.curAdmin = this.curUser.equals("csadmin") || this.ioAcct.getAccount(curUser).getAdmin();
     }
+    
+    public String getCurUserFirstLast() {
+    	return curUserFirstLast;
+    }
+    
     
     public Boolean isAdmin() {
         return (this.curAdmin || this.curUser.equals("csadmin"));

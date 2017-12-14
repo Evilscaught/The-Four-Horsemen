@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-11-20" view-index="0" gantt-divider-location="401" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-10-29" view-index="0" gantt-divider-location="401" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
-    <view zooming-state="default:0" id="gantt-chart">
-        <field id="tpd3" name="Name" width="254" order="0"/>
-        <field id="tpd4" name="Begin date" width="91" order="1"/>
-        <field id="tpd5" name="End date" width="52" order="2"/>
+    <view zooming-state="default:3" id="gantt-chart">
+        <field id="tpd3" name="Name" width="244" order="0"/>
+        <field id="tpd4" name="Begin date" width="88" order="1"/>
+        <field id="tpd5" name="End date" width="50" order="2"/>
         <timeline><![CDATA[13,53]]></timeline>
         <option id="color.recent"><![CDATA[#ff0033 #00cccc #ff0000 #009999 #0000cc]]></option>
     </view>
@@ -160,6 +160,17 @@ Jack also helped with the gui, made the windows resizable and small changes.]]><
 Dan Bailey
 Scott McKay
 Jake Wolfe]]></notes>
+            </task>
+        </task>
+        <task id="102" name="Sprint 6" meeting="false" start="2017-12-08" duration="2" complete="0" expand="true">
+            <task id="104" name="Added total on screen and fixed user problem" color="#8cb6ce" meeting="false" start="2017-12-08" duration="1" complete="0" expand="true">
+                <notes><![CDATA[Jake]]></notes>
+            </task>
+            <task id="106" name="Created Fee Pane and ioFees" color="#8cb6ce" meeting="false" start="2017-12-11" duration="1" complete="0" expand="true">
+                <notes><![CDATA[Jake]]></notes>
+            </task>
+            <task id="109" name="Bug Fixes" color="#8cb6ce" meeting="false" start="2017-12-11" duration="1" complete="0" expand="true">
+                <notes><![CDATA[Jake]]></notes>
             </task>
         </task>
     </tasks>
