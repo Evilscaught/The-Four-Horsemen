@@ -918,7 +918,8 @@ public class MainMenuController
         return ioAccounts;
     }
 
-    public IOFees getFeesDB() {
+    public IOFees getFeesDB() 
+    {
         return ioFees;
     }
 
@@ -927,15 +928,18 @@ public class MainMenuController
         return ioCodes;
     }
 
-    public Map<String, String> getPrevData() {
+    public Map<String, String> getPrevData() 
+    {
         return prevData;
     }
 
-    public void setPrevData(Map <String, String> prevData) {
+    public void setPrevData(Map <String, String> prevData) 
+    {
         this.prevData = prevData;
     }
 
-    public void setFields() {
+    public void setFields() 
+    {
 
     }
 
@@ -982,15 +986,14 @@ public class MainMenuController
     }// end of setPrintFile
 
 
-    public void printTextFile() throws PrintException, IOException{
-
+    public void printTextFile() throws PrintException, IOException
+    {
         PrinterJob pj = PrinterJob.getPrinterJob();
 
         if (pj.printDialog())
         {
             print();
         }
-
     }
 
     public void print()
