@@ -59,6 +59,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ListView;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -218,6 +219,7 @@ public class MainMenuController
             this.setAccountOverviewPane();
             this.setFeesPane();
 
+            createAccountButton.setEllipsisString("");
             hideUserListButton.setPadding(Insets.EMPTY);
             hideUserListButton.setText("�");
             mainTabPane.prefWidthProperty().bind(primaryStage.widthProperty());
