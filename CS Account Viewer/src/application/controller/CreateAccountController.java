@@ -247,19 +247,11 @@ public class CreateAccountController
     		emailField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
     		pass = false;
     	}
-    	else
-    	{
-    		emailField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
-    	}
     	
     	if (firstNameField.getText().contains(","))
     	{
     		firstNameField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
     		pass = false;
-    	}
-    	else
-    	{
-    		firstNameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
     	}
     	
     	if (lastNameField.getText().contains(","))
@@ -267,19 +259,11 @@ public class CreateAccountController
     		lastNameField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
     		pass = false;
     	}
-    	else
-    	{
-    		lastNameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
-    	}
 
     	if (userNameField.getText().contains(","))
     	{
     		userNameField.setStyle("-fx-background-color: #f26d6d; -fx-border-color: #000000;");
     		pass = false;
-    	}
-    	else
-    	{
-    		userNameField.setStyle("-fx-background-color: white; -fx-border-color: #000000;");
     	}
         
         
