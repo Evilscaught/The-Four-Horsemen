@@ -748,8 +748,6 @@ public class MainMenuController
 
     public void setTotalLabel()
     {
-    	String curUserFirstLast = userController.getCurUserFirstLast();
-    	
         ArrayList transactionArray = ioTransactions.getTransactions();
         double total = 0.0;
 
