@@ -15,7 +15,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="fatherPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.999977929685" prefWidth="741.999977929685" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <SplitPane fx:id="splitMain" dividerPositions="0.255405413022808" focusTraversable="true" prefHeight="428.0000999999975" prefWidth="697.0000999999975" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
+    <SplitPane fx:id="splitMain" dividerPositions="0.255405413022808" focusTraversable="true" prefHeight="428.0000999999975" prefWidth="697.0000999999975" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <items>
         <AnchorPane fx:id="sidePane" minHeight="0.0" minWidth="0.0" prefHeight="373.0" prefWidth="148.0">
           <children>
@@ -29,11 +29,11 @@
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
           <children>
-            <TabPane fx:id="mainTabPane" layoutX="0.0" layoutY="0.0" prefHeight="386.0" prefWidth="548.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="mainTabPane" layoutX="0.0" layoutY="0.0" prefHeight="386.0" prefWidth="548.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <tabs>
                 <Tab text="Transactions">
                   <content>
-                    <AnchorPane id="Content" fx:id="transactionPane" minHeight="0.0" minWidth="0.0" prefHeight="386.0" prefWidth="521.0" />
+                    <AnchorPane id="Content" fx:id="transactionPane" minHeight="0.0" minWidth="0.0" prefHeight="386.0" prefWidth="654.0" />
                   </content>
                 </Tab>
                 <Tab fx:id="feesPaneTab" style="" text="Fees">
@@ -57,17 +57,17 @@
         </AnchorPane>
       </items>
     </SplitPane>
-    <ImageView fx:id="logoutButtonWhite" fitHeight="25.0" fitWidth="26.0" layoutX="712.0" layoutY="6.0" onMouseClicked="#handleLogout" onMouseEntered="#logoutClicked" pickOnBounds="true" preserveRatio="true">
+    <ImageView fx:id="logoutButtonWhite" fitHeight="25.0" fitWidth="26.0" layoutX="714.0" layoutY="3.0" onMouseClicked="#handleLogout" onMouseEntered="#logoutClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
       <image>
         <Image url="@images/menu-screen-lock.png" />
       </image>
     </ImageView>
-    <Label fx:id="logoutText" alignment="CENTER" layoutX="639.0" layoutY="14.0" text="Logout:" textFill="#3354ff">
+    <Label fx:id="logoutText" alignment="CENTER" layoutX="670.0" layoutY="8.0" text="Logout:" textFill="#3354ff" AnchorPane.rightAnchor="27.999977929684974" AnchorPane.topAnchor="8.0">
       <font>
         <Font size="13.0" />
       </font>
     </Label>
-    <ImageView fx:id="logoutButtonRed" fitHeight="32.0" fitWidth="25.0" layoutX="712.0" layoutY="6.0" onMouseClicked="#handleLogout" onMouseExited="#logoutReleased" pickOnBounds="true" preserveRatio="true" visible="false">
+    <ImageView fx:id="logoutButtonRed" fitHeight="32.0" fitWidth="25.0" layoutX="714.0" layoutY="3.0" onMouseClicked="#handleLogout" onMouseExited="#logoutReleased" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="3.0">
       <image>
         <Image url="@images/menu-screen-lock-selected.png" />
       </image>

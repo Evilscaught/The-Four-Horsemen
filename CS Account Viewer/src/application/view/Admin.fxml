@@ -15,7 +15,7 @@
         <URL value="@../application.css" />
       </stylesheets>
     </Button>
-    <Button id="deleteAccountButton" fx:id="deleteAccountButton" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" defaultButton="true" font="$x1" graphicTextGap="4.0" layoutX="331.0" layoutY="45.0" minHeight="19.000091552734375" mnemonicParsing="false" onMouseClicked="#handleDeleteAccount" onMouseEntered="#deleteAccountClicked" onMouseExited="#deleteAccountReleased" onMousePressed="#deleteAccountClicked" onMouseReleased="#deleteAccountReleased" prefHeight="82.0" prefWidth="142.0" style="-fx-background-color: e53030;" text="Delete Account" textFill="WHITE">
+    <Button id="deleteAccountButton" fx:id="deleteAccountButton" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" defaultButton="true" font="$x1" graphicTextGap="4.0" layoutX="331.0" layoutY="45.0" minHeight="19.000091552734375" mnemonicParsing="false" onMouseClicked="#handleDeleteAccount" onMouseEntered="#deleteAccountClicked" onMouseExited="#deleteAccountReleased" onMousePressed="#deleteAccountClicked" onMouseReleased="#deleteAccountReleased" style="-fx-background-color: e53030;" text="Delete Account" textFill="WHITE">
       <stylesheets>
         <URL value="@../application.css" />
       </stylesheets>

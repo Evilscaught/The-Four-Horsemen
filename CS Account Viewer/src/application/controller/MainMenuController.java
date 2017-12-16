@@ -59,7 +59,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ListView;
-import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -161,7 +160,7 @@ public class MainMenuController
 
     public void addUserList()
     {
-        splitMain.getItems().add(0, sidePane);
+    	splitMain.getItems().add(0, sidePane);
         splitMain.setDividerPosition(0, 0.17);
         hideUserListButton.setLayoutX(-10);
         hideUserListButton.setLayoutX(-10);
@@ -184,6 +183,7 @@ public class MainMenuController
     @FXML
     public void initialize()
     {
+        SplitPane.setResizableWithParent(sidePane, Boolean.FALSE);
         this.refreshUserList();
     }
 
@@ -219,28 +219,15 @@ public class MainMenuController
             this.setAccountOverviewPane();
             this.setFeesPane();
 
+            deleteAccountButton.setEllipsisString("");
+            deleteAccountButton.setMinSize(142, 82);
             createAccountButton.setEllipsisString("");
             createAccountButton.setMinSize(142, 82);
             hideUserListButton.setPadding(Insets.EMPTY);
             hideUserListButton.setText("�");
             mainTabPane.prefWidthProperty().bind(primaryStage.widthProperty());
-            //            menuPane.prefWidthProperty().bind(primaryStage.widthProperty());
 
-            //Keeps logout button in correct position if frame is resized
-            scene.widthProperty().addListener(new ChangeListener<Number>() {
-                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-                    logoutButtonWhite.setLayoutX(newSceneWidth.doubleValue() - 30);
-                    logoutButtonRed.setLayoutX(newSceneWidth.doubleValue() - 30);
-                    logoutText.setLayoutX(newSceneWidth.doubleValue()- 70);
-                }
-            });
-
-            scene.heightProperty().addListener(new ChangeListener<Number>() {
-                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
-                    mainTabPane.setPrefHeight(newSceneHeight.doubleValue());
-                }
-            });
-
+            //Resize the transactions table based on whether or not user is an admin:
             this.getPrimaryStage().widthProperty().addListener(new ChangeListener<Number>() {
                 @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
                     if (userController.isAdmin()) {
@@ -267,7 +254,6 @@ public class MainMenuController
 
             userList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
             {
-                //NOTICE: Few modifications occurred here, only removed the while statement that checks for null Accounts. @Scott McKay
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
                 {
                     if (newValue != null)
@@ -305,9 +291,6 @@ public class MainMenuController
                                 }
                             }
                             transactionText.setItems(allData);
-
-
-
                         }
                     }
 
@@ -359,11 +342,6 @@ public class MainMenuController
 
         Optional<String> result = dialog.showAndWait();
 
-        //If user presses 'ok' without choosing a transaction:  THIS DOESN'T WORK
-        /*if (result.empty() != null)
-        {
-            return -1;
-        }*/
         //If user selects a transaction to edit:
         if (result.isPresent())
         {
@@ -696,7 +674,6 @@ public class MainMenuController
             }
         }
 
-        //TODO: Enable
         setPrintFile(recipAct); //creates print file
 
         if (ioTransactions.getTransactions().size() != 0)
@@ -730,20 +707,19 @@ public class MainMenuController
         setTotalLabel();
         setAcctAmts();
 
-        try {
-
+        try 
+        {
 			ioTransactions.saveTransactions();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-        try {
             ioFees.saveFees();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+		} 
+        catch (IOException ioException) 
+        {
+			ioException.printStackTrace();
+		} 
+        catch (Exception exception)
+        {
+			exception.printStackTrace();
+		}
 
         transactionText.setPrefWidth(fatherPane.getWidth() - 10);
 
@@ -809,7 +785,7 @@ public class MainMenuController
 
 
     @FXML
-    public void handleprintButton(MouseEvent event) throws PrintException, IOException
+    private void handleprintButton(MouseEvent event) throws PrintException, IOException
     {
         //TODO: Enable
         printTextFile();
@@ -817,7 +793,7 @@ public class MainMenuController
     }// end of handleprintButton
 
     @FXML
-    public void printButtonClicked()
+    private void printButtonClicked()
     {
         //Set button color to navy blue when clicked on
         printButton.setStyle("-fx-background-color: #273e51;");
@@ -826,62 +802,63 @@ public class MainMenuController
     }
 
     @FXML
-    public void printButtonReleased()
+    private void printButtonReleased()
     {
         //Set button back to original color (Red) when click is released
         printButton.setStyle("-fx-background-color: #e53030;");
     }
 
     @FXML
-    void handleAddTransaction(MouseEvent event)
+    public void handleAddTransaction(MouseEvent event)
     {
         transactionPane.getChildren().clear();
         transactionPane.getChildren().addAll(new CreateTransactionController().getPane());
     }
 
     @FXML
-    public void addTransactionClicked()
+    private void addTransactionClicked()
     {
         //Set button color to navy blue when clicked on
         addTransactionButton.setStyle("-fx-background-color: #273e51;");
     }
 
     @FXML
-    public void addTransactionReleased()
+    private void addTransactionReleased()
     {
         //Set button back to original color (Red) when click is released
         addTransactionButton.setStyle("-fx-background-color: #e53030;");
     }
 
     @FXML
-    public void editTransactionClicked()
+    private void editTransactionClicked()
     {
         //Set button color to navy blue when clicked on
         editTransactionButton.setStyle("-fx-background-color: #273e51;");
     }
 
     @FXML
-    public void editTransactionReleased()
+    private void editTransactionReleased()
     {
         //Set button back to original color (Red) when click is released
         editTransactionButton.setStyle("-fx-background-color: #e53030;");
     }
 
     @FXML
-    public void viewTransactionClicked()
+    private void viewTransactionClicked()
     {
         //Set button color to navy blue when clicked on
         viewTransactionButton.setStyle("-fx-background-color: #273e51;");
     }
 
     @FXML
-    public void viewTransactionReleased()
+    private void viewTransactionReleased()
     {
         //Set button back to original color (Red) when click is released
         viewTransactionButton.setStyle("-fx-background-color: #e53030;");
     }
 
-    public void loadUserData(String user) {
+    public void loadUserData(String user) 
+    {
         ObservableList<Map> allData = FXCollections.observableArrayList();
 
         if (this.getTransactionDB().getTransactions().size() != 0)
