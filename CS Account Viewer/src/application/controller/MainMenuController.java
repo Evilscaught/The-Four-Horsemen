@@ -220,6 +220,7 @@ public class MainMenuController
             this.setFeesPane();
 
             createAccountButton.setEllipsisString("");
+            createAccountButton.setMinSize(142, 82);
             hideUserListButton.setPadding(Insets.EMPTY);
             hideUserListButton.setText("�");
             mainTabPane.prefWidthProperty().bind(primaryStage.widthProperty());
