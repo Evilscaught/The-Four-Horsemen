@@ -88,7 +88,7 @@ public class MainMenuController
 {
     private Stage 			primaryStage;
     private String 			curUser;
-    private UserController    userController;
+    private UserController  userController;
     private IOTransactions 	ioTransactions;
     private IOAccounts 		ioAccounts;
     private IOCodes			ioCodes;
@@ -132,16 +132,163 @@ public class MainMenuController
     @FXML private Label				logoutText;
 
 
+    @FXML
+    public void initialize()
+    {
+    	//This keeps the user-list the same size when resizing the program.
+        SplitPane.setResizableWithParent(sidePane, Boolean.FALSE);
+        
+        this.refreshUserList();
+    }
+
+    public Scene loadScene(Stage stage, IOAccounts ioAccounts, IOTransactions ioTransactions, IOCodes ioCodes, IOFees ioFees, UserController userController)
+    {
+        BorderPane rootLayout = new BorderPane();
+
+        this.ioFees 		= ioFees;
+        this.ioCodes   	    = ioCodes;
+        this.ioAccounts     = ioAccounts;
+        this.ioTransactions = ioTransactions;
+        this.curUser        = userController.getCurUser();
+        this.userController = userController;
+
+        primaryStage = stage;
+        primaryStage.setTitle("Isengard");
+        primaryStage.getIcons().add(new Image("application/view/images/program-icon.png"));
+
+        // Load root layout from FXML file.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Main.class.getResource("view/MainMenu.fxml"));
+        loader.setController(this);
+        
+        try
+        {
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(loader.load());
+
+            //Loads the (tabs) panes into the program
+            this.setAdminPane();
+            this.setTransactionPane();
+            this.setAccountOverviewPane();
+            this.setFeesPane();
+
+            hideUserListButton.setPadding(Insets.EMPTY);
+            hideUserListButton.setText("�");
+            mainTabPane.prefWidthProperty().bind(primaryStage.widthProperty());
+
+            //Resize the transactions table based on whether or not user is an admin:
+            this.getPrimaryStage().widthProperty().addListener(new ChangeListener<Number>() 
+            {
+                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) 
+                {
+                    if (userController.isAdmin()) 
+                    {
+                        transactionText.setPrefWidth(primaryStage.getWidth() - transactionText.getLayoutX() - 130);
+                    }
+                    else 
+                    {
+                        transactionText.setPrefWidth(primaryStage.getWidth() - transactionText.getLayoutX() - 30);
+                    }                     
+                }
+            });    
+            
+            this.getPrimaryStage().heightProperty().addListener(new ChangeListener<Number>() 
+            {
+                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) 
+                {
+                    transactionText.setPrefHeight(newSceneHeight.doubleValue() - transactionText.getLayoutY() - 155);
+                    editTransactionButton.setLayoutY(newSceneHeight.doubleValue() - 135);
+                    addTransactionButton.setLayoutY(newSceneHeight.doubleValue() - 135);
+                    viewTransactionButton.setLayoutY(newSceneHeight.doubleValue() - 135);
+                    printButton.setLayoutY(newSceneHeight.doubleValue() - 135);
+                    transactionPane.setPrefHeight(newSceneHeight.doubleValue());
+                    totalLabel.setLayoutY(newSceneHeight.doubleValue()-155); // total label
+                    amountLabel.setLayoutY(newSceneHeight.doubleValue()-155); // total amount label    
+                }
+            });
+
+            //This filters the transactions list when user is clicked on.
+            userList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
+            {
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
+                {
+                    if (newValue != null)
+                    {
+                        ObservableList<Map> allData = FXCollections.observableArrayList();
+                        String recipAct = newValue;
+
+                        if (!ioTransactions.isEmpty())
+                        {
+                            for (int i=0; i < ioTransactions.getTransactions().size(); i++)
+                            {
+
+                                if (ioTransactions.getTransactions().get(i) != null)
+                                {
+                                    Map<String, String> dataRow = new HashMap<>();
+                                    Transaction temp = ioTransactions.getTransactions().get(i);
+                                    Account tempAcc = ioAccounts.getAccount(recipAct);
+
+                                    if (temp.getRecipientAcct().equals(recipAct) || recipAct.contains("Admin")) {
+                                        dataRow.put("account", temp.getRecipientAcct());
+                                        dataRow.put("customer", temp.getCustomer());
+                                        dataRow.put("date", temp.getDate());
+                                        dataRow.put("type", temp.getType());
+                                        dataRow.put("amount", "$ " + new DecimalFormat("0.00").format((temp.getAmount())));
+                                        allData.add(dataRow);
+                                        if(tempAcc.getFirstName().equals("Admin"))
+                                        {
+                                            setTotalLabel();
+                                        }
+                                        else
+                                        {
+                                        	amountLabel.setText("$" + new DecimalFormat("0.00").format(tempAcc.getaccTotal()));
+                                        }
+                                    }
+                                }
+                            }
+                            transactionText.setItems(allData);
+                        }
+                    }
+
+                }
+            });
+
+            //Checks if the user is csadmin, otherwise hide Administrator pane and user-list side panel 
+            if (!this.userController.isAdmin())
+            {
+                this.hideUserList();
+                this.hideUserListButton.setVisible(false);
+                this.adminPaneTab.setDisable(true);
+                this.feesPaneTab.setDisable(true);
+                this.primaryStage.setWidth(this.fatherPane.getPrefWidth() - 175);
+            }
+            return scene;
+        }
+        catch (IOException event)
+        {
+            event.printStackTrace();
+        }
+
+        deleteAccountButton.setEllipsisString("");
+        deleteAccountButton.setMinSize(142, 82);
+        createAccountButton.setEllipsisString("");
+        createAccountButton.setMinSize(142, 82);
+        
+        return new Scene(rootLayout);
+    }
 
     public String[] getUserListFirstLast()
     {
         String [] userListStr = new String [ioAccounts.getAccounts().size()];
-
+        
         //For every account in ioAccounts, get the first and last names, and add it to userListStr[index]
-        for (int index = 0; index < ioAccounts.getAccounts().size(); index++)
+        int index = 0;
+        for (Account account : ioAccounts.getAccounts())
         {
-            userListStr[index] = ioAccounts.getAccounts().get(index).getFirstName() + " " + ioAccounts.getAccounts().get(index).getLastName();
+        	userListStr[index] = account.getFirstName() + " " + account.getLastName();
+        	index++;
         }
+        
         return userListStr;
     }
 
@@ -172,149 +319,15 @@ public class MainMenuController
     {
         setAcctAmts();
         userList.getItems().clear();
-
-        for (int index = 0; index < ioAccounts.getAccounts().size(); index++)
+        
+        for (Account account : ioAccounts.getAccounts())
         {
-            userList.getItems().add(ioAccounts.getAccounts().get(index).getFirstName() + " " +ioAccounts.getAccounts().get(index).getLastName());
+        	userList.getItems().add(account.getFirstName() + " " + account.getLastName());
         }
     }
 
 
-    @FXML
-    public void initialize()
-    {
-        SplitPane.setResizableWithParent(sidePane, Boolean.FALSE);
-        this.refreshUserList();
-    }
-
-
-    public Scene loadScene(Stage stage, IOAccounts ioAccounts, IOTransactions ioTransactions, IOCodes ioCodes, IOFees ioFees, UserController userController)
-    {
-        BorderPane rootLayout = new BorderPane();
-
-        this.ioFees 		= ioFees;
-        this.ioCodes   	    = ioCodes;
-        this.ioAccounts     = ioAccounts;
-        this.ioTransactions = ioTransactions;
-        this.curUser = userController.getCurUser();
-        this.userController = userController;
-
-        primaryStage = stage;
-        primaryStage.setTitle("Isengard");
-        primaryStage.getIcons().add(new Image("application/view/images/program-icon.png"));
-
-        try
-        {
-            // Load root layout from FXML file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/MainMenu.fxml"));
-            loader.setController(this);
-
-            // Show the scene containing the root layout.
-            Scene scene = new Scene(loader.load());
-
-            //Loads the (tabs) panes into the program
-            this.setAdminPane();
-            this.setTransactionPane();
-            this.setAccountOverviewPane();
-            this.setFeesPane();
-
-            deleteAccountButton.setEllipsisString("");
-            deleteAccountButton.setMinSize(142, 82);
-            createAccountButton.setEllipsisString("");
-            createAccountButton.setMinSize(142, 82);
-            hideUserListButton.setPadding(Insets.EMPTY);
-            hideUserListButton.setText("�");
-            mainTabPane.prefWidthProperty().bind(primaryStage.widthProperty());
-
-            //Resize the transactions table based on whether or not user is an admin:
-            this.getPrimaryStage().widthProperty().addListener(new ChangeListener<Number>() {
-                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-                    if (userController.isAdmin()) {
-                        transactionText.setPrefWidth(primaryStage.getWidth() - transactionText.getLayoutX() - 130);
-                    }
-                    else {
-                        transactionText.setPrefWidth(primaryStage.getWidth() - transactionText.getLayoutX() - 30);
-                    }                     
-                }
-            });
-
-            this.getPrimaryStage().heightProperty().addListener(new ChangeListener<Number>() {
-                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
-                    transactionText.setPrefHeight(newSceneHeight.doubleValue() - transactionText.getLayoutY() - 155);
-                    editTransactionButton.setLayoutY(newSceneHeight.doubleValue() - 135);
-                    addTransactionButton.setLayoutY(newSceneHeight.doubleValue() - 135);
-                    viewTransactionButton.setLayoutY(newSceneHeight.doubleValue() - 135);
-                    printButton.setLayoutY(newSceneHeight.doubleValue() - 135);
-                    transactionPane.setPrefHeight(newSceneHeight.doubleValue());
-                    totalLabel.setLayoutY(newSceneHeight.doubleValue()-155); // total label
-                    amountLabel.setLayoutY(newSceneHeight.doubleValue()-155); // total amount label    
-                }
-            });
-
-            userList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
-            {
-                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
-                {
-                    if (newValue != null)
-                    {
-                        ObservableList<Map> allData = FXCollections.observableArrayList();
-                        String recipAct = newValue;
-
-                        if (ioTransactions.getTransactions().size() != 0)
-                        {
-                            for (int i=0; i < ioTransactions.getTransactions().size(); i++)
-                            {
-
-                                if (ioTransactions.getTransactions().get(i) != null)
-                                {
-                                    Map<String, String> dataRow = new HashMap<>();
-                                    Transaction temp = ioTransactions.getTransactions().get(i);
-                                    Account tempAcc = ioAccounts.getAccount(recipAct);
-
-                                    if (temp.getRecipientAcct().equals(recipAct) || recipAct.contains("Admin")) {
-                                        dataRow.put("account", temp.getRecipientAcct());
-                                        dataRow.put("customer", temp.getCustomer());
-                                        dataRow.put("date", temp.getDate());
-                                        dataRow.put("type", temp.getType());
-                                        dataRow.put("amount", "$ " + new DecimalFormat("0.00").format((temp.getAmount())));
-                                        allData.add(dataRow);
-                                        if(tempAcc.getFirstName().equals("Admin"))
-                                        {
-                                            setTotalLabel();
-                                        }
-                                        else
-                                        {
-                                        amountLabel.setText("$" + new DecimalFormat("0.00").format(tempAcc.getaccTotal()));
-                                        }
-                                    }
-                                }
-                            }
-                            transactionText.setItems(allData);
-                        }
-                    }
-
-                }
-            });
-
-            //Checks if the user is csadmin, otherwise hide Administrator pane and user-list side panel TODO: Remove hard-coded methods
-            if (!this.userController.isAdmin())
-            {
-                this.hideUserList();
-                this.hideUserListButton.setVisible(false);
-                this.adminPaneTab.setDisable(true);
-                this.feesPaneTab.setDisable(true);
-                this.primaryStage.setWidth(this.fatherPane.getPrefWidth() - 175);
-            }
-            return scene;
-        }
-        catch (IOException event)
-        {
-            event.printStackTrace();
-        }
-
-        return new Scene(rootLayout);
-    }
+   
 
     //Choose a Transaction to Edit Dialog
     @SuppressWarnings({"resource"})
@@ -649,13 +662,11 @@ public class MainMenuController
         {
             event.printStackTrace();
         }
-
+        
         //Get transactions and display them on main menu screen in transactions section.
         accountCol.setCellValueFactory(new MapValueFactory("account"));
-        //accountCol.setMinWidth(130);
         customerCol.setCellValueFactory(new MapValueFactory("customer"));
         dateCol.setCellValueFactory(new MapValueFactory("date"));
-        //customerCol.setMinWidth(130);
         typeCol.setCellValueFactory(new MapValueFactory("type"));
         amountCol.setCellValueFactory(new MapValueFactory("amount"));
 
@@ -678,7 +689,7 @@ public class MainMenuController
 
         if (ioTransactions.getTransactions().size() != 0)
         {
-            for (int i=0; i < ioTransactions.getTransactions().size(); i++)
+            for (int i = 0; i < ioTransactions.getTransactions().size(); i++)
             {
                 if (ioTransactions.getTransactions().get(i) != null)
                 {
@@ -743,12 +754,10 @@ public class MainMenuController
     }
 
     public void clearAccTotal()
-    {
-        ArrayList accountArray = ioAccounts.getAccounts();
-
-        for(int i =0; i< accountArray.size(); i++)
+    {   
+        for(Account account : ioAccounts.getAccounts())
         {
-            ioAccounts.getAccounts().get(i).setaccTotal(0.0);
+        	account.setaccTotal(0.0);
         }
     }
 
@@ -787,18 +796,14 @@ public class MainMenuController
     @FXML
     private void handleprintButton(MouseEvent event) throws PrintException, IOException
     {
-        //TODO: Enable
         printTextFile();
-
-    }// end of handleprintButton
+    }
 
     @FXML
     private void printButtonClicked()
     {
         //Set button color to navy blue when clicked on
         printButton.setStyle("-fx-background-color: #273e51;");
-
-
     }
 
     @FXML
@@ -857,32 +862,32 @@ public class MainMenuController
         viewTransactionButton.setStyle("-fx-background-color: #e53030;");
     }
 
-    public void loadUserData(String user) 
-    {
-        ObservableList<Map> allData = FXCollections.observableArrayList();
-
-        if (this.getTransactionDB().getTransactions().size() != 0)
-        {
-            for (int i=0; i < this.getTransactionDB().getTransactions().size(); i++)
-            {
-                if (this.getTransactionDB().getTransactions().get(i) != null)
-                {
-                    Map<String, String> dataRow = new HashMap<>();
-                    Transaction temp = this.getTransactionDB().getTransactions().get(i);
-
-                    if (temp.getRecipientAcct().equals(user)) {
-                        dataRow.put("account", temp.getRecipientAcct());
-                        dataRow.put("customer", temp.getCustomer());
-                        dataRow.put("type", temp.getType());
-                        dataRow.put("amount", "$" + new DecimalFormat("0.00").format((temp.getAmount())));
-                        dataRow.put("date", temp.getDate());
-                        allData.add(dataRow);
-                    }
-                }
-            }
-            transactionText.setItems(allData);
-        }
-    }
+//    public void loadUserData(String user) 
+//    {
+//        ObservableList<Map> allData = FXCollections.observableArrayList();
+//
+//        if (this.getTransactionDB().getTransactions().size() != 0)
+//        {
+//            for (int i=0; i < this.getTransactionDB().getTransactions().size(); i++)
+//            {
+//                if (this.getTransactionDB().getTransactions().get(i) != null)
+//                {
+//                    Map<String, String> dataRow = new HashMap<>();
+//                    Transaction temp = this.getTransactionDB().getTransactions().get(i);
+//
+//                    if (temp.getRecipientAcct().equals(user)) {
+//                        dataRow.put("account", temp.getRecipientAcct());
+//                        dataRow.put("customer", temp.getCustomer());
+//                        dataRow.put("type", temp.getType());
+//                        dataRow.put("amount", "$" + new DecimalFormat("0.00").format((temp.getAmount())));
+//                        dataRow.put("date", temp.getDate());
+//                        allData.add(dataRow);
+//                    }
+//                }
+//            }
+//            transactionText.setItems(allData);
+//        }
+//    }
 
     //---------------------------------------------------------------------------------//
     //                                    Data Bases                                   //
@@ -918,13 +923,6 @@ public class MainMenuController
         this.prevData = prevData;
     }
 
-    public void setFields() 
-    {
-
-    }
-
-
-
     public void setPrintFile(String user)
     {
         //Create a codes file 'Codes.txt' if one does not already exist.
@@ -953,7 +951,6 @@ public class MainMenuController
 
                         String formatStr = "%-20s %-15s %-15s %-15s %-15s%n";
                         out.write(String.format(formatStr,temp.getRecipientAcct(), temp.getCustomer(),temp.getDate(),temp.getType(),"$" + new DecimalFormat("0.00").format((temp.getAmount()))));
-                        //out.write('\n');
                     }// end if
                 }// end of if
             }//end of for
@@ -988,9 +985,9 @@ public class MainMenuController
 
             desktop.print(new File("Print.txt"));
         }
-        catch (IOException ioe)
+        catch (IOException ioException)
         {
-            ioe.printStackTrace();
+            ioException.printStackTrace();
         }
     }
 }

@@ -124,6 +124,11 @@ public class IOTransactions
     {
         return transactionArr;
     }
+    
+    public boolean isEmpty()
+    {
+    	return transactionArr.isEmpty();
+    }
 
     public static void main(String[] args) throws FileNotFoundException
     {
