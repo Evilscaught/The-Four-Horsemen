@@ -101,7 +101,8 @@ public class MainMenuController
     @FXML private AnchorPane 		fatherPane;
     @FXML private AnchorPane 		adminPane;
     @FXML private AnchorPane		loadedAdminPane;
-    @FXML private AnchorPane 		transactionPane;
+    @FXML private AnchorPane 		transactionsPane;
+    @FXML private AnchorPane		loadedTransactionsPane;
     @FXML private AnchorPane		accountOverviewPane;
     @FXML private AnchorPane		feesPane;
     @FXML private TextField 		totalFeesField;
@@ -176,37 +177,6 @@ public class MainMenuController
             hideUserListButton.setPadding(Insets.EMPTY);
             hideUserListButton.setText("�");
             mainTabPane.prefWidthProperty().bind(primaryStage.widthProperty());
-
-            //Resize the transactions table based on whether or not user is an admin:
-            this.getPrimaryStage().widthProperty().addListener(new ChangeListener<Number>() 
-            {
-                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) 
-                {
-                    if (userController.isAdmin()) 
-                    {
-                        transactionText.setPrefWidth(primaryStage.getWidth() - transactionText.getLayoutX() - 130);
-                    }
-                    else 
-                    {
-                        transactionText.setPrefWidth(primaryStage.getWidth() - transactionText.getLayoutX() - 30);
-                    }                     
-                }
-            });    
-            
-            this.getPrimaryStage().heightProperty().addListener(new ChangeListener<Number>() 
-            {
-                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) 
-                {
-                    transactionText.setPrefHeight(newSceneHeight.doubleValue() - transactionText.getLayoutY() - 155);
-                    editTransactionButton.setLayoutY(newSceneHeight.doubleValue() - 135);
-                    addTransactionButton.setLayoutY(newSceneHeight.doubleValue() - 135);
-                    viewTransactionButton.setLayoutY(newSceneHeight.doubleValue() - 135);
-                    printButton.setLayoutY(newSceneHeight.doubleValue() - 135);
-                    transactionPane.setPrefHeight(newSceneHeight.doubleValue());
-                    totalLabel.setLayoutY(newSceneHeight.doubleValue()-155); // total label
-                    amountLabel.setLayoutY(newSceneHeight.doubleValue()-155); // total amount label    
-                }
-            });
 
             //This filters the transactions list when user is clicked on.
             userList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>()
@@ -400,8 +370,8 @@ public class MainMenuController
     void handleViewTransaction(MouseEvent event) {
         int arraynum = delTransactionDialog();
         if (arraynum >= 0) {
-            transactionPane.getChildren().clear();
-            transactionPane.getChildren().addAll(new ViewTransactionController(arraynum).getPane());
+            transactionsPane.getChildren().clear();
+            transactionsPane.getChildren().addAll(new ViewTransactionController(arraynum).getPane());
         }
     }
 
@@ -536,6 +506,7 @@ public class MainMenuController
             event.printStackTrace();
         }
         
+        //Anchors the loaded administrator pane so that it adjusts correctly if the program is resized.
         AnchorPane.setBottomAnchor(loadedAdminPane, 0.0);
         AnchorPane.setTopAnchor(loadedAdminPane, 0.0);
         AnchorPane.setRightAnchor(loadedAdminPane, 0.0);
@@ -620,14 +591,14 @@ public class MainMenuController
             return;
         }*/
         if (arrayNum >= 0) {
-            transactionPane.getChildren().clear();
-            transactionPane.getChildren().addAll(new EditTransactionController(arrayNum).getPane());
+            transactionsPane.getChildren().clear();
+            transactionsPane.getChildren().addAll(new EditTransactionController(arrayNum).getPane());
         }
     }
 
     public void backtoEditTransaction(MouseEvent event, int arraynum) {
-        transactionPane.getChildren().clear();
-        transactionPane.getChildren().addAll(new EditTransactionController(arraynum).getPane());
+        transactionsPane.getChildren().clear();
+        transactionsPane.getChildren().addAll(new EditTransactionController(arraynum).getPane());
     }
 
 
@@ -658,16 +629,22 @@ public class MainMenuController
         loader.setLocation(Main.class.getResource("view/Transactions.fxml"));
         loader.setController(this);
 
-        transactionPane.getChildren().clear();
+        transactionsPane.getChildren().clear();
 
         try
         {
-            transactionPane.getChildren().add(loader.load());
+            transactionsPane.getChildren().add(loader.load());
         }
         catch (IOException event)
         {
             event.printStackTrace();
         }
+        
+        //Anchors the loaded transaction pane so that it adjusts if the program is resized.
+        AnchorPane.setTopAnchor(loadedTransactionsPane, 0.0);
+        AnchorPane.setBottomAnchor(loadedTransactionsPane, 0.0);
+        AnchorPane.setRightAnchor(loadedTransactionsPane, 0.0);
+        AnchorPane.setLeftAnchor(loadedTransactionsPane, 0.0);
         
         //Get transactions and display them on main menu screen in transactions section.
         accountCol.setCellValueFactory(new MapValueFactory("account"));
@@ -822,8 +799,8 @@ public class MainMenuController
     @FXML
     public void handleAddTransaction(MouseEvent event)
     {
-        transactionPane.getChildren().clear();
-        transactionPane.getChildren().addAll(new CreateTransactionController().getPane());
+        transactionsPane.getChildren().clear();
+        transactionsPane.getChildren().addAll(new CreateTransactionController().getPane());
     }
 
     @FXML
