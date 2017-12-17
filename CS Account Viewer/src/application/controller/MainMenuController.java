@@ -100,6 +100,7 @@ public class MainMenuController
     @FXML private AnchorPane        sidePane;
     @FXML private AnchorPane 		fatherPane;
     @FXML private AnchorPane 		adminPane;
+    @FXML private AnchorPane		loadedAdminPane;
     @FXML private AnchorPane 		transactionPane;
     @FXML private AnchorPane		accountOverviewPane;
     @FXML private AnchorPane		feesPane;
@@ -268,11 +269,6 @@ public class MainMenuController
         {
             event.printStackTrace();
         }
-
-        deleteAccountButton.setEllipsisString("");
-        deleteAccountButton.setMinSize(142, 82);
-        createAccountButton.setEllipsisString("");
-        createAccountButton.setMinSize(142, 82);
         
         return new Scene(rootLayout);
     }
@@ -529,7 +525,7 @@ public class MainMenuController
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/Admin.fxml"));
         loader.setController(this);
-
+        
         try
         {
             adminPane.getChildren().clear();
@@ -539,6 +535,16 @@ public class MainMenuController
         {
             event.printStackTrace();
         }
+        
+        AnchorPane.setBottomAnchor(loadedAdminPane, 0.0);
+        AnchorPane.setTopAnchor(loadedAdminPane, 0.0);
+        AnchorPane.setRightAnchor(loadedAdminPane, 0.0);
+        AnchorPane.setLeftAnchor(loadedAdminPane, 0.0);
+        
+        deleteAccountButton.setEllipsisString("");
+        deleteAccountButton.setMinSize(142, 82);
+        createAccountButton.setEllipsisString("");
+        createAccountButton.setMinSize(142, 82);
     }
 
     @FXML
