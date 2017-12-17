@@ -183,44 +183,36 @@ public class MainMenuController
             {
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
                 {
-                    if (newValue != null)
+                    if (!ioTransactions.isEmpty() && newValue != null)
                     {
                         ObservableList<Map> allData = FXCollections.observableArrayList();
                         String recipAct = newValue;
-
-                        if (!ioTransactions.isEmpty())
+                    	
+                        for (Transaction transaction : ioTransactions.getTransactions())
                         {
-                            for (int i=0; i < ioTransactions.getTransactions().size(); i++)
-                            {
-
-                                if (ioTransactions.getTransactions().get(i) != null)
+                        	Map<String, String> dataRow = new HashMap<>();
+                        	Account tempAcct = ioAccounts.getAccount(recipAct);
+                        	
+                        	if (transaction.getRecipientAcct().equals(recipAct) || recipAct.contains("Admin"))
+                        	{
+                                dataRow.put("account", transaction.getRecipientAcct());
+                                dataRow.put("customer", transaction.getCustomer());
+                                dataRow.put("date", transaction.getDate());
+                                dataRow.put("type", transaction.getType());
+                                dataRow.put("amount", "$ " + new DecimalFormat("0.00").format((transaction.getAmount())));
+                                allData.add(dataRow);
+                                if(tempAcct.getFirstName().equals("Admin"))
                                 {
-                                    Map<String, String> dataRow = new HashMap<>();
-                                    Transaction temp = ioTransactions.getTransactions().get(i);
-                                    Account tempAcc = ioAccounts.getAccount(recipAct);
-
-                                    if (temp.getRecipientAcct().equals(recipAct) || recipAct.contains("Admin")) {
-                                        dataRow.put("account", temp.getRecipientAcct());
-                                        dataRow.put("customer", temp.getCustomer());
-                                        dataRow.put("date", temp.getDate());
-                                        dataRow.put("type", temp.getType());
-                                        dataRow.put("amount", "$ " + new DecimalFormat("0.00").format((temp.getAmount())));
-                                        allData.add(dataRow);
-                                        if(tempAcc.getFirstName().equals("Admin"))
-                                        {
-                                            setTotalLabel();
-                                        }
-                                        else
-                                        {
-                                        	amountLabel.setText("$" + new DecimalFormat("0.00").format(tempAcc.getaccTotal()));
-                                        }
-                                    }
+                                    setTotalLabel();
                                 }
-                            }
-                            transactionText.setItems(allData);
+                                else
+                                {
+                                	amountLabel.setText("$" + new DecimalFormat("0.00").format(tempAcct.getaccTotal()));
+                                }
+                        	}
                         }
+                        transactionText.setItems(allData);
                     }
-
                 }
             });
 
@@ -292,8 +284,6 @@ public class MainMenuController
         }
     }
 
-
-   
 
     //Choose a Transaction to Edit Dialog
     @SuppressWarnings({"resource"})
