@@ -51,9 +51,8 @@ public class Main extends Application
     public void start(Stage stage) throws Exception 
     {
         FXMLLoader loader = new FXMLLoader (getClass().getResource("view/LoginScreen.fxml"));
-        loader.setController(new LoginScreenController());
+        loader.setController(new LoginScreenController(stage));
         Parent root = loader.load();
-        stage.initStyle(StageStyle.UNDECORATED);
 
         //Get the x and y coordinates of the login-screen if clicked on.
         root.setOnMousePressed(new EventHandler<MouseEvent>() 
@@ -82,6 +81,7 @@ public class Main extends Application
         stage.setScene(scene);
         stage.setTitle("Isengard");
         stage.getIcons().add(new Image(this.getClass().getResourceAsStream("view/images/program-icon.png")));
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.show();       
     }
     
