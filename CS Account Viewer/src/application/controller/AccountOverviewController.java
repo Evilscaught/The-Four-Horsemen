@@ -132,7 +132,7 @@ public class AccountOverviewController
         lastNameField.setText(account.getLastName());
         emailField.setText(account.getEmail());
         usernameField.setText(account.getUsername());
-        descriptionField.setText(account.getDescription());
+        descriptionField.setText(account.getDescription().replace("`", ","));
         populateParam();
     }
 

@@ -1,3 +1,0 @@
-Code A,1501
-Code B,1502
-Code C,1503

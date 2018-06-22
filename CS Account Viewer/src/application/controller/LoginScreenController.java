@@ -38,7 +38,9 @@ import application.IOAccounts;
 import application.IOCodes;
 import application.IOFees;
 import application.IOTransactions;
+import javafx.application.Platform;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -57,13 +59,19 @@ import javafx.stage.Stage;
 
 public class LoginScreenController implements Initializable 
 {
+	      private double             xOffset = 0.0;
+	      private double             yOffset = 0.0;
+	
    static private MainMenuController mainMenuController;
+   static private LoginSetupController loginSetupController;
 	      private UserController     userController;
           private IOTransactions	 ioTransactions;
 		  private IOAccounts 		 ioAccounts;
 		  private IOCodes			 ioCodes;
 		  private IOFees 			 ioFees;
 	      private Account 			 requestedAccount;
+	      private Stage				 stage;
+	      
     
     @FXML private AnchorPane		 loginPane;  //All clustered attributes below are part of this pane:
 	@FXML private Button 			 loginButton;
@@ -103,7 +111,12 @@ public class LoginScreenController implements Initializable
     @FXML private Text			     msgPasswordNoMatch;
     @FXML private Text				 msgPasswordTooShort;
     @FXML private Text				 msgPasswordEmpty;
-        
+    
+    public LoginScreenController(Stage stage)
+    {
+    	this.stage = stage;
+    }
+    
     @FXML
     private void handleClose(MouseEvent event) 
     {
@@ -139,7 +152,7 @@ public class LoginScreenController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle rb) 
-    {		
+    {	
     	viewablePassword.setVisible(false);
     	visibilityFalse.setVisible(false);
     	
@@ -162,7 +175,15 @@ public class LoginScreenController implements Initializable
 		}
     	
     	userController = new UserController(ioAccounts);
-    	noUsers();
+    	
+    	//Checks to see if there are any existing accounts upon start-up, if not, prompts user to create an account.
+    	try 
+    	{
+			noUsers();
+		} catch (IOException ioException) 
+    	{
+			ioException.printStackTrace();
+		}
     }   
     
     //This function is called when login button is clicked on (or enter key pressed)
@@ -204,7 +225,7 @@ public class LoginScreenController implements Initializable
         stage = new Stage();
         stage.setScene(mainMenuController.loadScene(stage, ioAccounts, ioTransactions, ioCodes, ioFees, userController));
     	stage.show();
-	
+
     	//This will hide the login screen.
     	( (Node)event.getSource() ).getScene().getWindow().hide();
     }
@@ -259,32 +280,43 @@ public class LoginScreenController implements Initializable
     }
 	
 	//Returns true if there are no accounts.
-	private void noUsers()
-	{
-		//Create an admin account if no accounts exist.
+	private void noUsers() throws IOException
+	{	
 		if (ioAccounts.getAccounts().isEmpty())
 		{
-			ioAccounts.createAccount("Admin", " ","n/a","csadmin", "csci323", "n/a", "n/a", "n/a", "n/a", true, 0.0);
-			username.setText("csadmin");
-			username.setEditable(false);
-			password.setText("csci323");
-			password.setEditable(false);
-			viewablePassword.setText("csci323");
-			viewablePassword.setEditable(false);
-			loginButton.setText("Create New Account");
-			password.setVisible(false);
-			viewablePassword.setVisible(true);
-			visibilityTrue.setVisible(true);
-			visibilityFalse.setVisible(false);
-			forgotPassword.setVisible(false);
-			try 
+			Platform.runLater(() -> 
 			{
-				ioAccounts.saveAccounts();
-			} 
-			catch (IOException ioException) 
-			{
-				ioException.printStackTrace();
-			}
+				stage.hide();
+			});
+			
+		    mainMenuController = new MainMenuController();
+			loginSetupController = new LoginSetupController();
+			
+			Stage stage = new Stage();
+			stage.setScene(loginSetupController.loadScene(stage, ioAccounts, ioTransactions, ioCodes, ioFees));
+			stage.show();
+			
+			//Get the x and y coordinates of the login-screen if clicked on.
+			stage.getScene().setOnMousePressed(new EventHandler<MouseEvent>()
+	        {
+	            @Override
+	            public void handle(MouseEvent event) 
+	            {
+	                xOffset = event.getSceneX();
+	                yOffset = event.getSceneY();
+	            }
+	        });
+			
+	        //Update the x and y coordinates if dragged.
+	        stage.getScene().setOnMouseDragged(new EventHandler<MouseEvent>() 
+	        {
+	            @Override
+	            public void handle(MouseEvent event) 
+	            {
+	                stage.setX(event.getScreenX() - xOffset);
+	                stage.setY(event.getScreenY() - yOffset);
+	            }
+	        });
 		}
 	}
 	
@@ -537,7 +569,8 @@ public class LoginScreenController implements Initializable
         return mainMenuController;
     }
 
-public UserController getUserController() {
+    public UserController getUserController() 
+    {
         return userController;
     }
 

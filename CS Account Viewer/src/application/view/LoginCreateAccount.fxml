@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="700.0" snapToPixel="false" style="-fx-background-color: #20120F;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="700.0" opacity="0.32" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/login-screen-background.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="34.0" layoutY="41.0" prefHeight="318.0" prefWidth="608.0" style="-fx-background-color: #9C2827;">
+         <children>
+            <Button fx:id="next" layoutX="328.0" layoutY="265.0" mnemonicParsing="false" onMouseClicked="#handleNext" onMouseEntered="#nextButtonClicked" onMouseExited="#nextButtonReleased" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: e53030;" text="Next" textFill="#fceeee" />
+            <Label layoutX="31.0" layoutY="32.0" text="Thank you for downloading Isengard!" textFill="#ffaeae">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="username" layoutX="355.0" layoutY="87.0" prefHeight="25.0" prefWidth="217.0" promptText="Username" style="-fx-background-color: e53030;" />
+            <PasswordField fx:id="password" layoutX="355.0" layoutY="139.0" prefHeight="25.0" prefWidth="217.0" promptText="Password" style="-fx-background-color: e53030;" />
+            <ImageView fitHeight="25.0" fitWidth="38.0" layoutX="328.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/login-screen-lock.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="329.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/login-screen-user.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="msgLoginFail" fill="#ffaeae" layoutX="334.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Incorrect username or password" visible="false" />
+            <Label layoutX="31.0" layoutY="59.0" text="Before you can begin using this software you will need to create an offline account." textFill="#ffaeae" />
+            <TextField fx:id="firstName" layoutX="31.0" layoutY="87.0" prefHeight="25.0" prefWidth="217.0" promptText="First Name" style="-fx-background-color: e53030;" />
+            <TextField fx:id="lastName" layoutX="31.0" layoutY="139.0" prefHeight="25.0" prefWidth="217.0" promptText="Last Name" style="-fx-background-color: e53030;" />
+            <TextField fx:id="email" layoutX="31.0" layoutY="189.0" prefHeight="25.0" prefWidth="217.0" promptText="Email (Optional)" style="-fx-background-color: e53030;" />
+            <PasswordField fx:id="passwordConfirm" layoutX="355.0" layoutY="189.0" prefHeight="25.0" prefWidth="217.0" promptText="Confirm Password" style="-fx-background-color: e53030;" />
+            <TextField fx:id="vPassword" layoutX="355.0" layoutY="139.0" prefHeight="25.0" prefWidth="217.0" promptText="Password" style="-fx-background-color: e53030;" visible="false" />
+            <ImageView fx:id="visibilityTrue" fitHeight="25.0" fitWidth="25.0" layoutX="546.0" layoutY="139.0" onMouseClicked="#showPassword" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/login-screen-visibility-true.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="visibilityFalse" fitHeight="25.0" fitWidth="25.0" layoutX="546.0" layoutY="139.0" onMouseClicked="#hidePassword" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@images/login-screen-visibility-false.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="vPasswordConfirm" layoutX="355.0" layoutY="189.0" prefHeight="25.0" prefWidth="217.0" promptText="Confirm Password" style="-fx-background-color: e53030;" visible="false" />
+            <Text fx:id="firstNameEmpty" fill="#ffaeae" layoutX="31.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cannot be empty!" visible="false" />
+            <Text fx:id="lastNameEmpty" fill="#ffaeae" layoutX="31.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cannot be empty!" visible="false" />
+            <Text fx:id="usernameEmpty" fill="#ffaeae" layoutX="355.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cannot be empty!" visible="false" />
+            <Text fx:id="passwordRequired" fill="#ffaeae" layoutX="355.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password is Required" visible="false" />
+            <Text fx:id="passwordShort" fill="#ffaeae" layoutX="355.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password is too short (minimum: 5 char.)" visible="false" />
+            <Text fx:id="passwordNoMatch" fill="#ffaeae" layoutX="354.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passwords do not match" visible="false" />
+            <Text fx:id="passwordNoComma" fill="#ffaeae" layoutX="355.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password cannot contain comma" visible="false" />
+            <Text fx:id="firstNameNoComma" fill="#ffaeae" layoutX="32.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cannot contain commas" visible="false" />
+            <Text fx:id="lastNameNoComma" fill="#ffaeae" layoutX="32.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cannot contain commas" visible="false" />
+            <Text fx:id="emailNoComma" fill="#ffaeae" layoutX="32.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cannot contain commas" visible="false" />
+            <Text fx:id="usernameNoComma" fill="#ffaeae" layoutX="357.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cannot contain commas" visible="false" />
+            <AnchorPane fx:id="securityQuestionsPane" prefHeight="318.0" prefWidth="608.0" style="-fx-background-color: #9C2827;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button fx:id="login" layoutX="328.0" layoutY="265.0" mnemonicParsing="false" onMouseClicked="#handleLogin" onMouseEntered="#loginButtonClicked" onMouseExited="#loginButtonReleased" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: e53030;" text="Create Account &amp; Login" textFill="#fceeee" />
+                  <Button fx:id="back" layoutX="28.0" layoutY="265.0" mnemonicParsing="false" onMouseClicked="#handleBack" onMouseEntered="#backButtonClicked" onMouseExited="#backButtonReleased" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: e53030;" text="Back" textFill="#fceeee" />
+                  <TextField fx:id="secField1" layoutX="28.0" layoutY="87.0" prefHeight="25.0" prefWidth="243.0" promptText="Answer is Case-Sensitive" style="-fx-background-color: e53030;" />
+                  <Text fill="#ffaeae" layoutX="31.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What's your favorite genre of music?" wrappingWidth="303.89453125" />
+                  <TextField fx:id="secField2" layoutX="28.0" layoutY="139.0" prefHeight="25.0" prefWidth="243.0" promptText="Answer is Case-Sensitive" style="-fx-background-color: e53030;" />
+                  <TextField fx:id="secField3" layoutX="28.0" layoutY="189.0" prefHeight="25.0" prefWidth="243.0" promptText="Answer is Case-Sensitive" style="-fx-background-color: e53030;" />
+                  <Text fill="#ffaeae" layoutX="31.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What's your favorite car brand?" />
+                  <Text fill="#ffaeae" layoutX="31.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of the city you were born in?" />
+                  <Label layoutX="31.0" layoutY="32.0" text="Now you will need to answer these security questions." textFill="#ffaeae">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Text fill="#ffaeae" layoutX="328.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notice:" wrappingWidth="303.89453125" />
+                  <Text fill="#ffaeae" layoutX="328.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You will need to know your username" wrappingWidth="303.89453125" />
+                  <Text fill="#ffaeae" layoutX="328.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="and the answers to these security questions" wrappingWidth="303.89453125" />
+                  <Text fill="#ffaeae" layoutX="328.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="in the event that you need to recover your" wrappingWidth="303.89453125" />
+                  <Text fill="#ffaeae" layoutX="328.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="password." wrappingWidth="303.89453125" />
+                  <Text fx:id="noComma" fill="#ffaeae" layoutX="305.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Answers to security questions cannot contain commas!" visible="false" />
+                  <Text fx:id="noEmpty" fill="#ffaeae" layoutX="299.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Answers to security questions cannot be left unanswered" visible="false" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <Text fill="WHITE" layoutX="675.0" layoutY="26.0" onMouseClicked="#handleClose" strokeType="OUTSIDE" strokeWidth="0.0" text="×" wrappingWidth="22.86865234375">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Text>
+      <Text fill="#ffaeae" layoutX="10.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" text="© The Four Horsemen" />
+   </children>
+</AnchorPane>
