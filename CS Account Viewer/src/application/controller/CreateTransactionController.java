@@ -103,18 +103,18 @@ public class CreateTransactionController
 
         if (transactionType.getValue() == "Credit Card Deposit")
         {
-        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Credit Card", code);
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText().replace(",", "`"), "Credit Card", code);
         	LoginScreenController.getMainController().getFeesDB().addUnpaidFees(amount*.12);
         }
         else if (transactionType.getValue() == "Check Deposit")
         {
-        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Check", code);
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText().replace(",", "`"), "Check", code);
         	LoginScreenController.getMainController().getFeesDB().addUnpaidFees(amount*.04);
         }
         else if (transactionType.getValue() == "Expense")
         {
         	amount = amount * -1;
-        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Expense", code);
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText().replace(",", "`"), "Expense", code);
         }
         
         

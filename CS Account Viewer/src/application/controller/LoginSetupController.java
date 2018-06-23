@@ -255,8 +255,8 @@ public class LoginSetupController
     {
         if (checkAnswers() == true)
         {
-            System.out.println("First Name: " + firstName.getText() + "\nLast Name: " + lastName.getText() + "\nEmail: " + finalEmail + "\nUsername: " + username.getText() + "\nPassword: " + finalPassword);
-            Account newAccount = new Account(firstName.getText(), lastName.getText(), finalEmail, username.getText(), finalPassword);
+            Account newAccount = new Account(firstName.getText(), lastName.getText(), username.getText(), finalPassword);
+            newAccount.setEmail(finalEmail);
             newAccount.setSecurityQuestion1(secField1.getText());
             newAccount.setSecurityQuestion2(secField2.getText());
             newAccount.setSecurityQuestion3(secField3.getText());

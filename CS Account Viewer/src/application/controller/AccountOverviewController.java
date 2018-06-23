@@ -375,7 +375,7 @@ public class AccountOverviewController
                             emailField.setText(acct.getEmail());
                             usernameField.setText(acct.getUsername()); // TODO Fix Getter String Argument
                             descriptionField.setText(acct.getDescription().replace("`", ","));
-                            accountBalance.setText("$ " + new DecimalFormat("0.00").format(acct.getaccTotal()));
+                            accountBalance.setText("$ " + new DecimalFormat("0.00").format(acct.getBalance()));
 
 
                             if (acct.isAdmin())

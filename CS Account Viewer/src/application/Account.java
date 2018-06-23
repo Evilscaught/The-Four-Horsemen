@@ -28,12 +28,12 @@
  ******************************************************************************/
 package application;
 
-import java.util.Arrays;
 import java.util.Comparator;
 
 public class Account implements Comparable<Account>
 {
-    private String firstName, lastName;
+    private String firstName; 
+    private String lastName;
     private String email;
     private String username;
     private String password;
@@ -41,74 +41,22 @@ public class Account implements Comparable<Account>
     private String secQuestion1;
     private String secQuestion2;
     private String secQuestion3;
-    private double accTotal;
+    private double balance;
 
     private Boolean admin = false;
 
-    //Constructors:
-
-    //Initialize without email, user-name, and default password
-    public Account(String firstName, String lastName)
+    //Constructor:
+    public Account(String firstName, String lastName, String username, String password)
     {
         this.firstName = firstName;
         this.lastName  = lastName;
-
-        password = "csadmin";
-        email    = "N/A";
-        username = "N/A";
-
-    }
-
-
-    //Initialize without email and default password
-    public Account(String firstName, String lastName, String username)
-    {
-        this.firstName = firstName;
-        this.lastName  = lastName;
-        this.username  = username;
-
-        password = "csadmin";
-        email    = "N/A";
-
-    }
-
-    //Initialize with default password
-    public Account(String firstName, String lastName, String username, String email)
-    {
-        this.firstName = firstName;
-        this.lastName  = lastName;
-        this.email     = email;
-        this.username  = username;
-
-        password = "csadmin";
-
-    }
-
-    //Initialize.
-    public Account(String firstName, String lastName, String email, String username, String password)
-    {
-        this.firstName = firstName;
-        this.lastName  = lastName;
-        this.email     = email;
         this.username  = username;
         this.password  = password;
-
+        
+        email = "N/A";
+        balance = 0.0;
     }
 
-    //Initialize with admin.
-    public Account(String firstName, String lastName, String email, String username, String password, Boolean admin,double accTotal)
-    {
-        this.firstName = firstName;
-        this.lastName  = lastName;
-        this.email     = email;
-        this.username  = username;
-        this.password  = password;
-        this.admin = admin;
-        this.accTotal = accTotal;
-
-
-
-    }
     //--------------------------------------------//
     //                Comparators                 //
     //--------------------------------------------//
@@ -252,12 +200,12 @@ public class Account implements Comparable<Account>
         this.admin = admin;
     }
 
-    public void setaccTotal(double total){
-        this.accTotal = total;
+    public void setBalance(double total){
+        this.balance = total;
     }
 
-    public double getaccTotal(){
-        return accTotal;
+    public double getBalance(){
+        return balance;
     }
     
     public boolean isAdmin()
@@ -271,48 +219,13 @@ public class Account implements Comparable<Account>
 
     public String toString()
     {
-        return firstName + "," + lastName + "," + email + "," + username + "," + password + "," + description + "," + secQuestion1 + "," + secQuestion2 + "," + secQuestion3 + "," + admin + ","+ accTotal;
+        return firstName + "," + lastName + "," + username + "," + password + "," + email + "," + description + "," + secQuestion1 + "," + secQuestion2 + "," + secQuestion3 + "," + admin + ","+ balance;
     }
 
     //Unit Testing
     public static void main(String[] args)
     {
-        System.out.println("Starting Program\n");
 
-        Account[] acctArr = new Account[5];
-
-        acctArr[0] = new Account("Robyn", "Berg");
-        acctArr[1] = new Account("Trish", "Duce");
-        acctArr[2] = new Account("Michael", "Cassens");
-        acctArr[3] = new Account("Travis", "Wheeler");
-        acctArr[4] = new Account("Adam", "McManigal");
-
-        //Print accounts in natural order
-        System.out.println("Array of Accounts Created with the Following Elements:");
-        System.out.println("[First-Name],[Last-Name],[Email],[Username],[Password]\n\n");
-        for (Account acct : acctArr)
-        {
-            System.out.println(acct.toString() + "\n");
-        }
-
-        //Sort accounts by first-name and print.
-        System.out.println("\n\n______________________");
-        System.out.println("Sorting by First-Name:\n");
-        Arrays.sort(acctArr, Account.byFirstName());
-        for (Account acct : acctArr)
-        {
-            System.out.println(acct.toString() + "\n");
-        }
-
-        //Sort accounts by last-name and print.
-        System.out.println("\n\n_____________________");
-        System.out.println("Sorting by Last-Name:\n");
-        Arrays.sort(acctArr, Account.byLastName());
-        for (Account acct : acctArr)
-        {
-            System.out.println(acct.toString() + "\n");
-        }
-
-        System.out.println("\n\nEnding Program\n\n");
+        
     }
 }

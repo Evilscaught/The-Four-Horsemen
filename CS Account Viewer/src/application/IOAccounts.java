@@ -78,7 +78,7 @@ public class IOAccounts
             //Read in string and create account objects.
             while(token.hasNext())
             {
-            	//            First Name    Last Name     Email         User-name     Password      Description   Sec-Q1        Sec-Q2        Sec-Q3          is Admin?
+            	//            First Name    Last Name     User-name     Password      Email         Description   Sec-Q1        Sec-Q2        Sec-Q3        is Admin?                          Balance
                 createAccount(token.next(), token.next(), token.next(), token.next(), token.next(), token.next(), token.next(), token.next(), token.next(), Boolean.parseBoolean(token.next()),token.nextDouble());
             }
             token.close();
@@ -86,14 +86,17 @@ public class IOAccounts
         file.close();
     }
 
-    public void createAccount(String firstName, String lastName, String username, String email, String password, String description, String secQuestion1, String secQuestion2, String secQuestion3, Boolean isAdmin,double accTotal)
+    private void createAccount(String firstName, String lastName, String username, String password, String email, String description, String secQuestion1, String secQuestion2, String secQuestion3, Boolean isAdmin, double accTotal)
     {
-        Account account = new Account(firstName, lastName, username, email, password, isAdmin,accTotal);
+        Account account = new Account(firstName, lastName, username, password);
+        account.setEmail(email);
+        account.setAdmin(isAdmin);
+        account.setBalance(accTotal);
         account.setDescription(description);
         account.setSecurityQuestion1(secQuestion1);
         account.setSecurityQuestion2(secQuestion2);
         account.setSecurityQuestion3(secQuestion3);
-        account.setaccTotal(accTotal);
+        account.setBalance(accTotal);
 
         accountArr.add(account);
     }
@@ -115,11 +118,11 @@ public class IOAccounts
     	return accountArr;
     }
 
-    public Account getAccount(String userName)
+    public Account getAccount(String username)
     {
         for (Account act : this.getAccounts())
         {
-            if (act.getUsername().equals(userName)||act.getName().equals(userName))
+            if (act.getUsername().equals(username)||act.getName().equals(username))
             {
                 return act;
             }

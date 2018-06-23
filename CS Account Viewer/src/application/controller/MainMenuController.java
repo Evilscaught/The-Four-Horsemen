@@ -207,7 +207,7 @@ public class MainMenuController
                                 }
                                 else
                                 {
-                                	amountLabel.setText("$" + new DecimalFormat("0.00").format(tempAcct.getaccTotal()));
+                                	amountLabel.setText("$" + new DecimalFormat("0.00").format(tempAcct.getBalance()));
                                 }
                         	}
                         }
@@ -730,7 +730,7 @@ public class MainMenuController
     {   
         for(Account account : ioAccounts.getAccounts())
         {
-        	account.setaccTotal(0.0);
+        	account.setBalance(0.0);
         }
     }
 
@@ -754,8 +754,8 @@ public class MainMenuController
 
 
                 if(current.getRecipientAcct().equals(name)){
-                    double oldTotal = ioAccounts.getAccounts().get(j).getaccTotal();
-                    ioAccounts.getAccounts().get(j).setaccTotal(oldTotal + accountTotal);
+                    double oldTotal = ioAccounts.getAccounts().get(j).getBalance();
+                    ioAccounts.getAccounts().get(j).setBalance(oldTotal + accountTotal);
                 }
             }
 

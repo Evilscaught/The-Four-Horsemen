@@ -143,7 +143,10 @@ public class CreateAccountController
         //Create account if no text fields are empty
     	else
     	{
-            Account account = new Account(firstNameField.getText(), lastNameField.getText(), emailField.getText(), userNameField.getText(), passField.getText(), isAdminBox.isSelected(),0.0);
+            Account account = new Account(firstNameField.getText(), lastNameField.getText(), userNameField.getText(), passField.getText());
+            account.setEmail(emailField.getText());
+            account.setAdmin(isAdminBox.isSelected());
+            account.setBalance(0.0);
             account.setDescription(descriptionField.getText().replace(",", "`"));
 
             currentPane.getChildren().clear();

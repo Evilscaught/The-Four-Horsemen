@@ -105,16 +105,19 @@ public class EditTransactionController
 
         if (transactionType.getValue() == "Credit Card Deposit") 
         {
-        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Credit Card", code);
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction
+        	(account, customerNameField.getText(), date, amount, descriptionField.getText().replace(",", "`"), "Credit Card", code);
         }
         else if (transactionType.getValue() == "Check Deposit") 
         {
-        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Check", code);
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction
+        	(account, customerNameField.getText(), date, amount, descriptionField.getText().replace(",", "`"), "Check", code);
         }
         else if (transactionType.getValue() == "Expense") 
         {
         	amount = amount * -1;
-        	LoginScreenController.getMainController().getTransactionDB().createTransaction(account, customerNameField.getText(), date, amount, descriptionField.getText(), "Expense", code);
+        	LoginScreenController.getMainController().getTransactionDB().createTransaction
+        	(account, customerNameField.getText(), date, amount, descriptionField.getText().replace(",", "`"), "Expense", code);
         }
 
         //Update Transactions.txt
@@ -127,11 +130,14 @@ public class EditTransactionController
         	ioException.printStackTrace();
 		}
         
-        try {
+        //Update Fees.txt
+        try 
+        {
 			LoginScreenController.getMainController().getFeesDB().saveFees();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} 
+        catch (Exception exception) 
+        {
+			exception.printStackTrace();
 		}
         
         LoginScreenController.getMainController().setFeesPane();
@@ -383,7 +389,7 @@ public class EditTransactionController
     	
     	Transaction current = LoginScreenController.getMainController().getTransactionDB().getTransactions().get(this.arraynum);
         customerNameField.setText(current.getCustomer());
-        descriptionField.setText(current.getDescription());
+        descriptionField.setText(current.getDescription().replace("`", ","));
         ((TextField)dateField.getEditor()).setText(current.getDate());
         
         double amountvalue;
