@@ -64,7 +64,7 @@ public class LoginScreenController implements Initializable
 	
    static private MainMenuController mainMenuController;
    static private LoginSetupController loginSetupController;
-	      private UserController     userController;
+	      private UserAuthenticator     userController;
           private IOTransactions	 ioTransactions;
 		  private IOAccounts 		 ioAccounts;
 		  private IOCodes			 ioCodes;
@@ -174,7 +174,7 @@ public class LoginScreenController implements Initializable
     		nfe.printStackTrace();
 		}
     	
-    	userController = new UserController(ioAccounts);
+    	userController = new UserAuthenticator(ioAccounts);
     	
     	//Checks to see if there are any existing accounts upon start-up, if not, prompts user to create an account.
     	try 
@@ -270,12 +270,12 @@ public class LoginScreenController implements Initializable
 		//If viewable password is currently being used, get password text from that TextField and check credentials:
 		if (viewablePassword.isVisible())
 		{
-			return (userController.verifyUser(username.getText(), viewablePassword.getText())) || (username.getText().toLowerCase().equals("csadmin") && viewablePassword.getText().toLowerCase().equals("csci323"));
+			return (userController.verifyUser(username.getText(), viewablePassword.getText()));
 		}
 		//Otherwise... get password text from regular PasswordField, password.
 		else
 		{
-			return (userController.verifyUser(username.getText(), password.getText())) || (username.getText().toLowerCase().equals("csadmin") && password.getText().toLowerCase().equals("csci323"));
+			return (userController.verifyUser(username.getText(), password.getText()));
 		}  
     }
 	
@@ -569,7 +569,7 @@ public class LoginScreenController implements Initializable
         return mainMenuController;
     }
 
-    public UserController getUserController() 
+    public UserAuthenticator getUserController() 
     {
         return userController;
     }

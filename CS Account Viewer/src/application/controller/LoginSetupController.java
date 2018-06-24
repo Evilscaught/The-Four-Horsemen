@@ -266,7 +266,7 @@ public class LoginSetupController
             ioAccounts.createAccount(newAccount);
             ioAccounts.saveAccounts();
             
-            UserController userController = new UserController(ioAccounts);
+            UserAuthenticator userController = new UserAuthenticator(ioAccounts);
             userController.setCurUser(username.getText());
             
             Stage stage;

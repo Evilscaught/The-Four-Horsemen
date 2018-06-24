@@ -32,14 +32,14 @@ package application.controller;
 import application.Account;
 import application.IOAccounts;
 
-public class UserController 
+public class UserAuthenticator 
 {
     private IOAccounts ioAcct;
     private String curUser = "";
     private String curUserFirstLast = "";
-    private Boolean curAdmin = false;
+    private Boolean isAdmin = false;
     
-    public UserController(IOAccounts acts) 
+    public UserAuthenticator(IOAccounts acts) 
     {
         this.ioAcct = acts;
     }
@@ -52,8 +52,7 @@ public class UserController
                 act.getPassword().equals(password)) {
             	curUserFirstLast = act.getName();
                 return true;
-            }
-            	
+            }   	
         }
         return false;
     }
@@ -66,15 +65,16 @@ public class UserController
     public void setCurUser(String curUser) 
     {
         this.curUser = curUser;
-        this.curAdmin = this.curUser.equals("csadmin") || this.ioAcct.getAccount(curUser).getAdmin();
+        this.isAdmin = this.ioAcct.getAccount(curUser).getAdmin();
     }
     
-    public String getCurUserFirstLast() {
+    public String getCurUserFirstLast() 
+    {
     	return curUserFirstLast;
     }
     
-    
-    public Boolean isAdmin() {
-        return (this.curAdmin || this.curUser.equals("csadmin"));
+    public Boolean isAdmin() 
+    {
+        return isAdmin;
     }
 }

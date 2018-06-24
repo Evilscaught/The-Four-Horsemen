@@ -88,7 +88,7 @@ public class MainMenuController
 {
     private Stage 			primaryStage;
     private String 			curUser;
-    private UserController  userController;
+    private UserAuthenticator  userController;
     private IOTransactions 	ioTransactions;
     private IOAccounts 		ioAccounts;
     private IOCodes			ioCodes;
@@ -143,7 +143,7 @@ public class MainMenuController
         this.refreshUserList();
     }
 
-    public Scene loadScene(Stage stage, IOAccounts ioAccounts, IOTransactions ioTransactions, IOCodes ioCodes, IOFees ioFees, UserController userController)
+    public Scene loadScene(Stage stage, IOAccounts ioAccounts, IOTransactions ioTransactions, IOCodes ioCodes, IOFees ioFees, UserAuthenticator userController)
     {
         BorderPane rootLayout = new BorderPane();
 
@@ -216,7 +216,7 @@ public class MainMenuController
                 }
             });
 
-            //Checks if the user is csadmin, otherwise hide Administrator pane and user-list side panel 
+            //Checks if the user is an administrator, otherwise hides administrator pane and user-list side panel 
             if (!this.userController.isAdmin())
             {
                 this.hideUserList();
