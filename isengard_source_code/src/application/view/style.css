@@ -3,35 +3,61 @@
 #createAccountButton 
 {
 	-fx-label-padding: 6px; 
-	-fx-background-image: url('view/images/admin-create-user.png');
+	-fx-background-image: url('images/admin-create-user.png');
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: 50% 10%;	
 	-fx-background-size: 50px;
+	-fx-background-color: #e53030;
+}
+
+#createAccountButton:hover
+{
+    -fx-background-color: #273e51;
 }
 
 #deleteAccountButton 
 {
 	-fx-label-padding: 6px; 
-	-fx-background-image: url('view/images/admin-delete-user.png');
+	-fx-background-image: url('images/admin-delete-user.png');
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: 50% 10%;	
 	-fx-background-size: 50px;
+	-fx-background-color: #e53030;
+}
+
+#deleteAccountButton:hover
+{
+    -fx-background-color: #273e51;
 }
 
 #permissionsButton
 {
 	-fx-label-padding: 6px; 
-	-fx-background-image: url('view/images/admin-permissions.png');
+	-fx-background-image: url('images/admin-permissions.png');
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: 50% 10%;	
 	-fx-background-size: 50px;
+	-fx-background-color: #e53030;
 }
 
 #disableAcctButton
 {
 	-fx-label-padding: 6px; 
-	-fx-background-image: url('view/images/admin-disable-account.png');
+	-fx-background-image: url('images/admin-disable-account.png');
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: 50% 10%;	
 	-fx-background-size: 50px;
+    -fx-background-color: #e53030;
+}
+
+#button
+{
+    -fx-background-color: #e53030;
+    -fx-text-fill: white; /* #fbeded */
+}
+
+#button:hover
+{
+    -fx-background-color: #273e51;
+    -fx-text-fill: white;
 }

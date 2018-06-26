@@ -276,7 +276,7 @@ public class CreateTransactionController
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("view/CreateTransaction.fxml"));
         loader.setController(this);
-
+        
         try
         {
             currentPane = loader.load();

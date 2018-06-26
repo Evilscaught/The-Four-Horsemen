@@ -501,11 +501,6 @@ public class MainMenuController
         AnchorPane.setTopAnchor(loadedAdminPane, 0.0);
         AnchorPane.setRightAnchor(loadedAdminPane, 0.0);
         AnchorPane.setLeftAnchor(loadedAdminPane, 0.0);
-        
-        deleteAccountButton.setEllipsisString("");
-        deleteAccountButton.setMinSize(142, 82);
-        createAccountButton.setEllipsisString("");
-        createAccountButton.setMinSize(142, 82);
     }
 
     @FXML
@@ -513,20 +508,6 @@ public class MainMenuController
     {
         adminPane.getChildren().clear();
         adminPane.getChildren().addAll(new CreateAccountController().getPane());
-    }
-
-    @FXML
-    public void createAccountClicked()
-    {
-        //Set button color to navy blue when clicked on
-        createAccountButton.setStyle("-fx-background-color: #273e51;");
-    }
-
-    @FXML
-    public void createAccountReleased()
-    {
-        //Set button back to original color (Red) when click is released
-        createAccountButton.setStyle("-fx-background-color: #e53030;");
     }
 
     @FXML
@@ -554,20 +535,6 @@ public class MainMenuController
         {
             ioException.printStackTrace();
         }
-    }
-
-    @FXML
-    public void deleteAccountClicked()
-    {
-        //Set button color to navy blue when clicked on
-        deleteAccountButton.setStyle("-fx-background-color: #273e51;");
-    }
-
-    @FXML
-    public void deleteAccountReleased()
-    {
-        //Set button back to original color (Red) when click is released
-        deleteAccountButton.setStyle("-fx-background-color: #e53030;");
     }
 
     @FXML
@@ -773,94 +740,11 @@ public class MainMenuController
     }
 
     @FXML
-    private void printButtonClicked()
-    {
-        //Set button color to navy blue when clicked on
-        printButton.setStyle("-fx-background-color: #273e51;");
-    }
-
-    @FXML
-    private void printButtonReleased()
-    {
-        //Set button back to original color (Red) when click is released
-        printButton.setStyle("-fx-background-color: #e53030;");
-    }
-
-    @FXML
     public void handleAddTransaction(MouseEvent event)
     {
         transactionsPane.getChildren().clear();
         transactionsPane.getChildren().addAll(new CreateTransactionController().getPane());
     }
-
-    @FXML
-    private void addTransactionClicked()
-    {
-        //Set button color to navy blue when clicked on
-        addTransactionButton.setStyle("-fx-background-color: #273e51;");
-    }
-
-    @FXML
-    private void addTransactionReleased()
-    {
-        //Set button back to original color (Red) when click is released
-        addTransactionButton.setStyle("-fx-background-color: #e53030;");
-    }
-
-    @FXML
-    private void editTransactionClicked()
-    {
-        //Set button color to navy blue when clicked on
-        editTransactionButton.setStyle("-fx-background-color: #273e51;");
-    }
-
-    @FXML
-    private void editTransactionReleased()
-    {
-        //Set button back to original color (Red) when click is released
-        editTransactionButton.setStyle("-fx-background-color: #e53030;");
-    }
-
-    @FXML
-    private void viewTransactionClicked()
-    {
-        //Set button color to navy blue when clicked on
-        viewTransactionButton.setStyle("-fx-background-color: #273e51;");
-    }
-
-    @FXML
-    private void viewTransactionReleased()
-    {
-        //Set button back to original color (Red) when click is released
-        viewTransactionButton.setStyle("-fx-background-color: #e53030;");
-    }
-
-//    public void loadUserData(String user) 
-//    {
-//        ObservableList<Map> allData = FXCollections.observableArrayList();
-//
-//        if (this.getTransactionDB().getTransactions().size() != 0)
-//        {
-//            for (int i=0; i < this.getTransactionDB().getTransactions().size(); i++)
-//            {
-//                if (this.getTransactionDB().getTransactions().get(i) != null)
-//                {
-//                    Map<String, String> dataRow = new HashMap<>();
-//                    Transaction temp = this.getTransactionDB().getTransactions().get(i);
-//
-//                    if (temp.getRecipientAcct().equals(user)) {
-//                        dataRow.put("account", temp.getRecipientAcct());
-//                        dataRow.put("customer", temp.getCustomer());
-//                        dataRow.put("type", temp.getType());
-//                        dataRow.put("amount", "$" + new DecimalFormat("0.00").format((temp.getAmount())));
-//                        dataRow.put("date", temp.getDate());
-//                        allData.add(dataRow);
-//                    }
-//                }
-//            }
-//            transactionText.setItems(allData);
-//        }
-//    }
 
     //---------------------------------------------------------------------------------//
     //                                    Data Bases                                   //

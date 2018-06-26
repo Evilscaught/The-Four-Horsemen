@@ -20,7 +20,7 @@
       </ImageView>
       <AnchorPane fx:id="loginPane" layoutX="350.0" layoutY="41.0" prefHeight="318.0" prefWidth="305.0" style="-fx-background-color: #9C2827;">
          <children>
-            <Button fx:id="loginButton" layoutX="31.0" layoutY="198.0" mnemonicParsing="false" onMouseClicked="#handleLogin" onMouseEntered="#loginButtonClicked" onMouseExited="#loginButtonReleased" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: e53030;" text="Login" textFill="#fceeee" />
+            <Button fx:id="loginButton" layoutX="31.0" layoutY="198.0" mnemonicParsing="false" onMouseClicked="#handleLogin" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: e53030;" text="Login" textFill="#fceeee" />
             <Label layoutX="124.0" layoutY="32.0" text="Sign In" textFill="#ffaeae">
                <font>
                   <Font size="18.0" />
