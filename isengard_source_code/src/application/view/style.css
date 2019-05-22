@@ -52,12 +52,12 @@
 
 #button
 {
-    -fx-background-color: #e53030;
-    -fx-text-fill: white; /* #fbeded */
+    -fx-background-color: #e53030; /* #e53030 = Light Red */
+    -fx-text-fill: #fbeded; /* #fbeded = Light Salmon Color */
 }
 
 #button:hover
 {
     -fx-background-color: #273e51;
-    -fx-text-fill: white;
+    -fx-text-fill: #fbeded;
 }

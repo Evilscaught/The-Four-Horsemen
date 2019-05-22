@@ -39,6 +39,7 @@ import application.IOCodes;
 import application.IOFees;
 import application.IOTransactions;
 import javafx.application.Platform;
+import javafx.css.PseudoClass;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -50,7 +51,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
@@ -72,7 +72,7 @@ public class LoginScreenController implements Initializable
 	      private Account 			 requestedAccount;
 	      private Stage				 stage;
 	      
-    
+    @FXML private AnchorPane         masterPane;
     @FXML private AnchorPane		 loginPane;  //All clustered attributes below are part of this pane:
 	@FXML private Button 			 loginButton;
     @FXML private TextField 		 username;
@@ -180,10 +180,35 @@ public class LoginScreenController implements Initializable
     	try 
     	{
 			noUsers();
-		} catch (IOException ioException) 
+		} 
+    	catch (IOException ioException) 
     	{
 			ioException.printStackTrace();
 		}
+    	
+        //This sets the state of the button to 'hover' so that it changes color (#button:hover in style.css)
+    	masterPane.setOnKeyPressed(event -> 
+        {
+            if (event.getCode() == KeyCode.ENTER) 
+            {
+                loginButton.pseudoClassStateChanged(PseudoClass.getPseudoClass("hover"), true);
+                try 
+                {
+                    handleLogin(event);
+                } 
+                catch (IOException ioException) 
+                {
+                    ioException.printStackTrace();
+                }
+            }
+        });	
+    	masterPane.setOnKeyReleased(event -> 
+        {
+            if (event.getCode() == KeyCode.ENTER) 
+            {
+                loginButton.pseudoClassStateChanged(PseudoClass.getPseudoClass("hover"), false);
+            }
+        });
     }   
     
     //This function is called when login button is clicked on (or enter key pressed)
@@ -228,40 +253,6 @@ public class LoginScreenController implements Initializable
 
     	//This will hide the login screen.
     	( (Node)event.getSource() ).getScene().getWindow().hide();
-    }
-    
-    //This function updates the login button if mouse is hovered over it
-    @FXML
-    private void loginButtonClicked()
-    {
-    	//Set button color to navy blue when clicked on
-    	loginButton.setStyle("-fx-background-color: #273e51;");
-    }
-    
-    //This function updates the login button if mouse is hovered over it
-    @FXML
-    private void loginButtonReleased()
-    {
-    	//Set button back to original color (Red) when click is released
-    	loginButton.setStyle("-fx-background-color: #e53030;");
-    }
-    
-    //This allows user to press the enter key to login.
-    @FXML
-    private void enterKeyPressed(KeyEvent event) throws IOException
-    {
-    	if (event.getCode().equals(KeyCode.ENTER))
-    	{
-    		loginButtonClicked();
-    		handleLogin(event);
-    	}
-    }
-    
-    //Sets login button back to default color when enter key is released.
-    @FXML
-    private void enterKeyReleased(KeyEvent event)
-    {
-    	loginButtonReleased();
     }
     
     //Checks user-name and password
@@ -349,20 +340,6 @@ public class LoginScreenController implements Initializable
     }
     
     @FXML
-    private void nextClicked()
-    {
-    	//Set button color to navy blue when clicked on
-    	nextButton.setStyle("-fx-background-color: #273e51;");
-    }
-    
-    @FXML
-    private void nextReleased()
-    {
-    	//Set button back to original color (Red) when click is released
-    	nextButton.setStyle("-fx-background-color: #e53030;");
-    }
-    
-    @FXML
     private void handleNext()
     {
     	if (checkQuestions())
@@ -374,20 +351,6 @@ public class LoginScreenController implements Initializable
     	{
     		return;
     	}
-    }
-    
-    @FXML
-    private void cancelButtonClicked()
-    {
-    	//Set button color to navy blue when clicked on
-    	cancelButton.setStyle("-fx-background-color: #273e51;");
-    }
-    
-    @FXML
-    private void cancelButtonReleased()
-    {
-    	//Set button back to original color (Red) when click is released
-    	cancelButton.setStyle("-fx-background-color: #e53030;");
     }
     
     @FXML
@@ -491,20 +454,6 @@ public class LoginScreenController implements Initializable
 	//------------------------------------------------------------------------------------//
     
     @FXML
-    private void changePasswordClicked()
-    {
-    	//Set button color to navy blue when clicked on
-    	changePasswordButton.setStyle("-fx-background-color: #273e51;");
-    }
-    
-    @FXML
-    private void changePasswordReleased()
-    {
-    	//Set button back to original color (Red) when click is released
-    	changePasswordButton.setStyle("-fx-background-color: #e53030;");
-    }
-    
-    @FXML
     private void handleChangePassword(MouseEvent event) throws IOException
     {
     	if (checkPassword() == true)
@@ -573,7 +522,4 @@ public class LoginScreenController implements Initializable
     {
         return userController;
     }
-
-
-
 }

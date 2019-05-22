@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" onKeyPressed="#enterKeyPressed" onKeyReleased="#enterKeyReleased" prefHeight="400.0" prefWidth="700.0" snapToPixel="false" style="-fx-background-color: #20120F;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" fx:id="masterPane" prefHeight="400.0" prefWidth="700.0" snapToPixel="false" style="-fx-background-color: #20120F;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
       <ImageView fitHeight="400.0" fitWidth="700.0" opacity="0.32" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -20,7 +20,7 @@
       </ImageView>
       <AnchorPane fx:id="loginPane" layoutX="350.0" layoutY="41.0" prefHeight="318.0" prefWidth="305.0" style="-fx-background-color: #9C2827;">
          <children>
-            <Button fx:id="loginButton" layoutX="31.0" layoutY="198.0" mnemonicParsing="false" onMouseClicked="#handleLogin" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: e53030;" text="Login" textFill="#fceeee" />
+            <Button id="button" fx:id="loginButton" layoutX="31.0" layoutY="198.0" mnemonicParsing="false" onMouseClicked="#handleLogin" prefHeight="25.0" prefWidth="243.0" stylesheets="@style.css" text="Login" textFill="#fceeee" />
             <Label layoutX="124.0" layoutY="32.0" text="Sign In" textFill="#ffaeae">
                <font>
                   <Font size="18.0" />
@@ -99,10 +99,10 @@
             <Text fx:id="secQ2" fill="#ffaeae" layoutX="58.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What's your favorite car brand?" />
             <TextField fx:id="secQ3Field" layoutX="58.0" layoutY="200.0" prefHeight="25.0" prefWidth="217.0" promptText="Answer is case-sensitive" style="-fx-background-color: e53030;" />
             <Text fx:id="secQ3" fill="#ffaeae" layoutX="58.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of city you were born in?" />
-            <Button fx:id="nextButton" layoutX="31.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#handleNext" onMouseEntered="#nextClicked" onMouseExited="#nextReleased" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: e53030;" text="Next" textFill="#fceeee" />
+            <Button id="button" fx:id="nextButton" layoutX="31.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#handleNext" prefHeight="25.0" prefWidth="243.0" stylesheets="@style.css" text="Next" />
             <Text fx:id="secQ1" fill="#ffaeae" layoutX="58.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What's your favorite genre of music?" />
-            <Button fx:id="cancelButton" layoutX="31.0" layoutY="270.0" mnemonicParsing="false" onMouseClicked="#handleCancel" onMouseEntered="#cancelButtonClicked" onMouseExited="#cancelButtonReleased" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: e53030;" text="Cancel" textFill="#fceeee" />
-            <Button fx:id="changePasswordButton" layoutX="31.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#handleChangePassword" onMouseEntered="#changePasswordClicked" onMouseExited="#changePasswordReleased" prefHeight="25.0" prefWidth="243.0" style="-fx-background-color: e53030;" text="Change Password &amp; Login" textFill="#fceeee" visible="false" />
+            <Button id="button" fx:id="cancelButton" layoutX="31.0" layoutY="270.0" mnemonicParsing="false" onMouseClicked="#handleCancel" prefHeight="25.0" prefWidth="243.0" stylesheets="@style.css" text="Cancel" />
+            <Button id="button" fx:id="changePasswordButton" layoutX="31.0" layoutY="235.0" mnemonicParsing="false" onMouseClicked="#handleChangePassword" prefHeight="25.0" prefWidth="243.0" stylesheets="@style.css" text="Change Password &amp; Login" visible="false" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="passwordPane" layoutX="46.0" layoutY="89.0" prefHeight="178.0" prefWidth="305.0" style="-fx-background-color: #9C2827;" visible="false">
