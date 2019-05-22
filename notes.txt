@@ -1,0 +1,22 @@
+REMINDERS:
+  Things to avoid:
+    CSS won't be able to update buttons if their color properties were set in the FXML files using Gluon Scene Builder
+	
+	Where I left off (June 20ish, 2018): 
+		=Pressing ENTER key at login-screen now relies on style.css to update.
+		=Login Button now relies on style.css to update. 
+		=All other buttons in password recovery rely on style.css to update
+		
+	Bugs found:
+		Resetting password allows you to enter commas.
+		There is no option to toggle password visiblity when resetting password.
+		
+	Ideas:
+		In the text fields (when creating accounts, transactions, etc.), instead of changing their style in Java, 
+    use that pseudoclass method instead that will change them using the style.css file. 
+    (Refer to login button when pressing enter, method initialize() in loginScreenController.java)
+		
+	Browser Tabs (where I left off):
+    https://people.clarkson.edu/~jsearlem/cs242/fa13/lectures/11.css.pdf
+    http://fxexperience.com/2011/12/styling-fx-buttons-with-css/
+    https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html#labeled
