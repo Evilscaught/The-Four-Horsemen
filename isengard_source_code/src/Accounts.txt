@@ -1,0 +1,1 @@
+John,Doe,testuser,12345,testuser@example.com,n/a,latin,bmw,missoula,true,0.0
