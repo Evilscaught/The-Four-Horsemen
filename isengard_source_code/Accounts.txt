@@ -1,1 +1,1 @@
-Scott,McKay,Evilscaught,12345,evilscaught@gmail.com,n/a,latin,bmw,missoula,true,0.0
+John,Doe,testuser,12345,testuser@example.com,n/a,latin,bmw,missoula,true,0.0
