@@ -3,3 +3,4 @@
 /isengard_source_code/bin/
 /CS Account Viewer/bin/application
 *.class
+.DS_Store
