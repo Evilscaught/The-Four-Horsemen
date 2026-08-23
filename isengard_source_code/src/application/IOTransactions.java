@@ -35,6 +35,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class IOTransactions
@@ -69,6 +70,7 @@ public class IOTransactions
             //Copy each line of the file into token, then scan token
             String token = file.nextLine();
             Scanner input = new Scanner(token);
+            input.useLocale(Locale.US);
             input.useDelimiter(",");
 
             //Read in String and Create Transaction Objects

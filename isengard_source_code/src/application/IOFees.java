@@ -33,6 +33,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class IOFees 
@@ -63,7 +64,8 @@ public class IOFees
     {
     	//Create file scanner
     	Scanner file = new Scanner(new File(path));
-    	
+
+    	file.useLocale(Locale.US);
     	file.useDelimiter(",");
     	while (file.hasNext())
     	{
